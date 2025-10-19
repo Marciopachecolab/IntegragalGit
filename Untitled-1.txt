@@ -1,0 +1,1 @@
+cd C:\Users\marci\Downloads\Integragal && .venv\Scripts\activate.bat && python -c "print('Ambiente virtual ativado com sucesso!'); import sys; print('Python:', sys.version)"

@@ -1,0 +1,1620 @@
+Amostra 422386149R:
+  codigoAmostra: 422386149R
+  codigo: 
+  requisicao: 
+  paciente: 
+  exame: VRSRT
+  metodo: RTTR
+  registroInterno: 422386149R
+  kit: 427
+  reteste: 
+  loteKit: ertwertwetrwetwet
+  dataProcessamentoFim: 29/07/2025
+  valorReferencia: 
+  observacao: 
+  painel: 1
+  resultado: 
+  influenzaa: 2
+  influenzab: 2
+  coronavirusncov: 2
+  coronavirus229e: 
+  coronavirusnl63: 
+  coronavirushku1: 
+  coronavirusoc43: 
+  adenovirus: 2
+  vsincicialresp: 2
+  metapneumovirus: 2
+  rinovirus: 2
+  bocavirus: 
+  enterovirus: 
+  parainflu_1: 
+  parainflu_2: 
+  parainflu_3: 
+  parainflu_4: 
+  coronavirus: 
+  influenzaahn: 
+  metapneumovirua: 
+  metapneumovirub: 
+  mycoplasma: 
+  parechovírus: 
+  vsincicialrespa: 
+  vsincicialrespb: 
+  influenzaah_3: 
+  influenzaah_1: 
+  influenzaah_7: 
+
+Amostra 422386266R:
+  codigoAmostra: 422386266R
+  codigo: 
+  requisicao: 
+  paciente: 
+  exame: VRSRT
+  metodo: RTTR
+  registroInterno: 422386266R
+  kit: 427
+  reteste: 
+  loteKit: ertwertwetrwetwet
+  dataProcessamentoFim: 29/07/2025
+  valorReferencia: 
+  observacao: 
+  painel: 1
+  resultado: 
+  influenzaa: 2
+  influenzab: 2
+  coronavirusncov: 2
+  coronavirus229e: 
+  coronavirusnl63: 
+  coronavirushku1: 
+  coronavirusoc43: 
+  adenovirus: 2
+  vsincicialresp: 2
+  metapneumovirus: 2
+  rinovirus: 2
+  bocavirus: 
+  enterovirus: 
+  parainflu_1: 
+  parainflu_2: 
+  parainflu_3: 
+  parainflu_4: 
+  coronavirus: 
+  influenzaahn: 
+  metapneumovirua: 
+  metapneumovirub: 
+  mycoplasma: 
+  parechovírus: 
+  vsincicialrespa: 
+  vsincicialrespb: 
+  influenzaah_3: 
+  influenzaah_1: 
+  influenzaah_7: 
+
+Amostra 422386156R:
+  codigoAmostra: 422386156R
+  codigo: 
+  requisicao: 
+  paciente: 
+  exame: VRSRT
+  metodo: RTTR
+  registroInterno: 422386156R
+  kit: 427
+  reteste: 
+  loteKit: ertwertwetrwetwet
+  dataProcessamentoFim: 29/07/2025
+  valorReferencia: 
+  observacao: 
+  painel: 1
+  resultado: 
+  influenzaa: 2
+  influenzab: 2
+  coronavirusncov: 2
+  coronavirus229e: 
+  coronavirusnl63: 
+  coronavirushku1: 
+  coronavirusoc43: 
+  adenovirus: 2
+  vsincicialresp: 2
+  metapneumovirus: 2
+  rinovirus: 1
+  bocavirus: 
+  enterovirus: 
+  parainflu_1: 
+  parainflu_2: 
+  parainflu_3: 
+  parainflu_4: 
+  coronavirus: 
+  influenzaahn: 
+  metapneumovirua: 
+  metapneumovirub: 
+  mycoplasma: 
+  parechovírus: 
+  vsincicialrespa: 
+  vsincicialrespb: 
+  influenzaah_3: 
+  influenzaah_1: 
+  influenzaah_7: 
+
+Amostra 422386625:
+  codigoAmostra: 422386625
+  codigo: 
+  requisicao: 
+  paciente: 
+  exame: VRSRT
+  metodo: RTTR
+  registroInterno: 422386625
+  kit: 427
+  reteste: 
+  loteKit: ertwertwetrwetwet
+  dataProcessamentoFim: 29/07/2025
+  valorReferencia: 
+  observacao: 
+  painel: 1
+  resultado: 
+  influenzaa: 2
+  influenzab: 2
+  coronavirusncov: 2
+  coronavirus229e: 
+  coronavirusnl63: 
+  coronavirushku1: 
+  coronavirusoc43: 
+  adenovirus: 2
+  vsincicialresp: 2
+  metapneumovirus: 2
+  rinovirus: 2
+  bocavirus: 
+  enterovirus: 
+  parainflu_1: 
+  parainflu_2: 
+  parainflu_3: 
+  parainflu_4: 
+  coronavirus: 
+  influenzaahn: 
+  metapneumovirua: 
+  metapneumovirub: 
+  mycoplasma: 
+  parechovírus: 
+  vsincicialrespa: 
+  vsincicialrespb: 
+  influenzaah_3: 
+  influenzaah_1: 
+  influenzaah_7: 
+
+Amostra 422386851:
+  codigoAmostra: 422386851
+  codigo: 
+  requisicao: 
+  paciente: 
+  exame: VRSRT
+  metodo: RTTR
+  registroInterno: 422386851
+  kit: 427
+  reteste: 
+  loteKit: ertwertwetrwetwet
+  dataProcessamentoFim: 29/07/2025
+  valorReferencia: 
+  observacao: 
+  painel: 1
+  resultado: 
+  influenzaa: 1
+  influenzab: 2
+  coronavirusncov: 2
+  coronavirus229e: 
+  coronavirusnl63: 
+  coronavirushku1: 
+  coronavirusoc43: 
+  adenovirus: 2
+  vsincicialresp: 2
+  metapneumovirus: 2
+  rinovirus: 2
+  bocavirus: 
+  enterovirus: 
+  parainflu_1: 
+  parainflu_2: 
+  parainflu_3: 
+  parainflu_4: 
+  coronavirus: 
+  influenzaahn: 
+  metapneumovirua: 
+  metapneumovirub: 
+  mycoplasma: 
+  parechovírus: 
+  vsincicialrespa: 
+  vsincicialrespb: 
+  influenzaah_3: 
+  influenzaah_1: 
+  influenzaah_7: 
+
+Amostra 422386866:
+  codigoAmostra: 422386866
+  codigo: 
+  requisicao: 
+  paciente: 
+  exame: VRSRT
+  metodo: RTTR
+  registroInterno: 422386866
+  kit: 427
+  reteste: 
+  loteKit: ertwertwetrwetwet
+  dataProcessamentoFim: 29/07/2025
+  valorReferencia: 
+  observacao: 
+  painel: 1
+  resultado: 
+  influenzaa: 2
+  influenzab: 2
+  coronavirusncov: 2
+  coronavirus229e: 
+  coronavirusnl63: 
+  coronavirushku1: 
+  coronavirusoc43: 
+  adenovirus: 2
+  vsincicialresp: 2
+  metapneumovirus: 2
+  rinovirus: 2
+  bocavirus: 
+  enterovirus: 
+  parainflu_1: 
+  parainflu_2: 
+  parainflu_3: 
+  parainflu_4: 
+  coronavirus: 
+  influenzaahn: 
+  metapneumovirua: 
+  metapneumovirub: 
+  mycoplasma: 
+  parechovírus: 
+  vsincicialrespa: 
+  vsincicialrespb: 
+  influenzaah_3: 
+  influenzaah_1: 
+  influenzaah_7: 
+
+Amostra 422386883:
+  codigoAmostra: 422386883
+  codigo: 
+  requisicao: 
+  paciente: 
+  exame: VRSRT
+  metodo: RTTR
+  registroInterno: 422386883
+  kit: 427
+  reteste: 
+  loteKit: ertwertwetrwetwet
+  dataProcessamentoFim: 29/07/2025
+  valorReferencia: 
+  observacao: 
+  painel: 1
+  resultado: 
+  influenzaa: 2
+  influenzab: 2
+  coronavirusncov: 2
+  coronavirus229e: 
+  coronavirusnl63: 
+  coronavirushku1: 
+  coronavirusoc43: 
+  adenovirus: 1
+  vsincicialresp: 2
+  metapneumovirus: 2
+  rinovirus: 2
+  bocavirus: 
+  enterovirus: 
+  parainflu_1: 
+  parainflu_2: 
+  parainflu_3: 
+  parainflu_4: 
+  coronavirus: 
+  influenzaahn: 
+  metapneumovirua: 
+  metapneumovirub: 
+  mycoplasma: 
+  parechovírus: 
+  vsincicialrespa: 
+  vsincicialrespb: 
+  influenzaah_3: 
+  influenzaah_1: 
+  influenzaah_7: 
+
+Amostra 422386268:
+  codigoAmostra: 422386268
+  codigo: 
+  requisicao: 
+  paciente: 
+  exame: VRSRT
+  metodo: RTTR
+  registroInterno: 422386268
+  kit: 427
+  reteste: 
+  loteKit: ertwertwetrwetwet
+  dataProcessamentoFim: 29/07/2025
+  valorReferencia: 
+  observacao: 
+  painel: 1
+  resultado: 
+  influenzaa: 2
+  influenzab: 2
+  coronavirusncov: 2
+  coronavirus229e: 
+  coronavirusnl63: 
+  coronavirushku1: 
+  coronavirusoc43: 
+  adenovirus: 2
+  vsincicialresp: 2
+  metapneumovirus: 2
+  rinovirus: 2
+  bocavirus: 
+  enterovirus: 
+  parainflu_1: 
+  parainflu_2: 
+  parainflu_3: 
+  parainflu_4: 
+  coronavirus: 
+  influenzaahn: 
+  metapneumovirua: 
+  metapneumovirub: 
+  mycoplasma: 
+  parechovírus: 
+  vsincicialrespa: 
+  vsincicialrespb: 
+  influenzaah_3: 
+  influenzaah_1: 
+  influenzaah_7: 
+
+Amostra 422386273:
+  codigoAmostra: 422386273
+  codigo: 
+  requisicao: 
+  paciente: 
+  exame: VRSRT
+  metodo: RTTR
+  registroInterno: 422386273
+  kit: 427
+  reteste: 
+  loteKit: ertwertwetrwetwet
+  dataProcessamentoFim: 29/07/2025
+  valorReferencia: 
+  observacao: 
+  painel: 1
+  resultado: 
+  influenzaa: 2
+  influenzab: 2
+  coronavirusncov: 2
+  coronavirus229e: 
+  coronavirusnl63: 
+  coronavirushku1: 
+  coronavirusoc43: 
+  adenovirus: 2
+  vsincicialresp: 2
+  metapneumovirus: 2
+  rinovirus: 1
+  bocavirus: 
+  enterovirus: 
+  parainflu_1: 
+  parainflu_2: 
+  parainflu_3: 
+  parainflu_4: 
+  coronavirus: 
+  influenzaahn: 
+  metapneumovirua: 
+  metapneumovirub: 
+  mycoplasma: 
+  parechovírus: 
+  vsincicialrespa: 
+  vsincicialrespb: 
+  influenzaah_3: 
+  influenzaah_1: 
+  influenzaah_7: 
+
+Amostra 422387254:
+  codigoAmostra: 422387254
+  codigo: 
+  requisicao: 
+  paciente: 
+  exame: VRSRT
+  metodo: RTTR
+  registroInterno: 422387254
+  kit: 427
+  reteste: 
+  loteKit: ertwertwetrwetwet
+  dataProcessamentoFim: 29/07/2025
+  valorReferencia: 
+  observacao: 
+  painel: 1
+  resultado: 
+  influenzaa: 2
+  influenzab: 2
+  coronavirusncov: 2
+  coronavirus229e: 
+  coronavirusnl63: 
+  coronavirushku1: 
+  coronavirusoc43: 
+  adenovirus: 2
+  vsincicialresp: 1
+  metapneumovirus: 2
+  rinovirus: 2
+  bocavirus: 
+  enterovirus: 
+  parainflu_1: 
+  parainflu_2: 
+  parainflu_3: 
+  parainflu_4: 
+  coronavirus: 
+  influenzaahn: 
+  metapneumovirua: 
+  metapneumovirub: 
+  mycoplasma: 
+  parechovírus: 
+  vsincicialrespa: 
+  vsincicialrespb: 
+  influenzaah_3: 
+  influenzaah_1: 
+  influenzaah_7: 
+
+Amostra 422386806:
+  codigoAmostra: 422386806
+  codigo: 
+  requisicao: 
+  paciente: 
+  exame: VRSRT
+  metodo: RTTR
+  registroInterno: 422386806
+  kit: 427
+  reteste: 
+  loteKit: ertwertwetrwetwet
+  dataProcessamentoFim: 29/07/2025
+  valorReferencia: 
+  observacao: 
+  painel: 1
+  resultado: 
+  influenzaa: 2
+  influenzab: 2
+  coronavirusncov: 2
+  coronavirus229e: 
+  coronavirusnl63: 
+  coronavirushku1: 
+  coronavirusoc43: 
+  adenovirus: 2
+  vsincicialresp: 2
+  metapneumovirus: 2
+  rinovirus: 1
+  bocavirus: 
+  enterovirus: 
+  parainflu_1: 
+  parainflu_2: 
+  parainflu_3: 
+  parainflu_4: 
+  coronavirus: 
+  influenzaahn: 
+  metapneumovirua: 
+  metapneumovirub: 
+  mycoplasma: 
+  parechovírus: 
+  vsincicialrespa: 
+  vsincicialrespb: 
+  influenzaah_3: 
+  influenzaah_1: 
+  influenzaah_7: 
+
+Amostra 422386980:
+  codigoAmostra: 422386980
+  codigo: 
+  requisicao: 
+  paciente: 
+  exame: VRSRT
+  metodo: RTTR
+  registroInterno: 422386980
+  kit: 427
+  reteste: 
+  loteKit: ertwertwetrwetwet
+  dataProcessamentoFim: 29/07/2025
+  valorReferencia: 
+  observacao: 
+  painel: 1
+  resultado: 
+  influenzaa: 2
+  influenzab: 2
+  coronavirusncov: 2
+  coronavirus229e: 
+  coronavirusnl63: 
+  coronavirushku1: 
+  coronavirusoc43: 
+  adenovirus: 2
+  vsincicialresp: 2
+  metapneumovirus: 1
+  rinovirus: 2
+  bocavirus: 
+  enterovirus: 
+  parainflu_1: 
+  parainflu_2: 
+  parainflu_3: 
+  parainflu_4: 
+  coronavirus: 
+  influenzaahn: 
+  metapneumovirua: 
+  metapneumovirub: 
+  mycoplasma: 
+  parechovírus: 
+  vsincicialrespa: 
+  vsincicialrespb: 
+  influenzaah_3: 
+  influenzaah_1: 
+  influenzaah_7: 
+
+Amostra 422385450:
+  codigoAmostra: 422385450
+  codigo: 
+  requisicao: 
+  paciente: 
+  exame: VRSRT
+  metodo: RTTR
+  registroInterno: 422385450
+  kit: 427
+  reteste: 
+  loteKit: ertwertwetrwetwet
+  dataProcessamentoFim: 29/07/2025
+  valorReferencia: 
+  observacao: 
+  painel: 1
+  resultado: 
+  influenzaa: 2
+  influenzab: 2
+  coronavirusncov: 2
+  coronavirus229e: 
+  coronavirusnl63: 
+  coronavirushku1: 
+  coronavirusoc43: 
+  adenovirus: 2
+  vsincicialresp: 1
+  metapneumovirus: 1
+  rinovirus: 2
+  bocavirus: 
+  enterovirus: 
+  parainflu_1: 
+  parainflu_2: 
+  parainflu_3: 
+  parainflu_4: 
+  coronavirus: 
+  influenzaahn: 
+  metapneumovirua: 
+  metapneumovirub: 
+  mycoplasma: 
+  parechovírus: 
+  vsincicialrespa: 
+  vsincicialrespb: 
+  influenzaah_3: 
+  influenzaah_1: 
+  influenzaah_7: 
+
+Amostra 422386322:
+  codigoAmostra: 422386322
+  codigo: 
+  requisicao: 
+  paciente: 
+  exame: VRSRT
+  metodo: RTTR
+  registroInterno: 422386322
+  kit: 427
+  reteste: 
+  loteKit: ertwertwetrwetwet
+  dataProcessamentoFim: 29/07/2025
+  valorReferencia: 
+  observacao: 
+  painel: 1
+  resultado: 
+  influenzaa: 2
+  influenzab: 2
+  coronavirusncov: 2
+  coronavirus229e: 
+  coronavirusnl63: 
+  coronavirushku1: 
+  coronavirusoc43: 
+  adenovirus: 2
+  vsincicialresp: 2
+  metapneumovirus: 2
+  rinovirus: 2
+  bocavirus: 
+  enterovirus: 
+  parainflu_1: 
+  parainflu_2: 
+  parainflu_3: 
+  parainflu_4: 
+  coronavirus: 
+  influenzaahn: 
+  metapneumovirua: 
+  metapneumovirub: 
+  mycoplasma: 
+  parechovírus: 
+  vsincicialrespa: 
+  vsincicialrespb: 
+  influenzaah_3: 
+  influenzaah_1: 
+  influenzaah_7: 
+
+Amostra 422386324:
+  codigoAmostra: 422386324
+  codigo: 
+  requisicao: 
+  paciente: 
+  exame: VRSRT
+  metodo: RTTR
+  registroInterno: 422386324
+  kit: 427
+  reteste: 
+  loteKit: ertwertwetrwetwet
+  dataProcessamentoFim: 29/07/2025
+  valorReferencia: 
+  observacao: 
+  painel: 1
+  resultado: 
+  influenzaa: 2
+  influenzab: 2
+  coronavirusncov: 2
+  coronavirus229e: 
+  coronavirusnl63: 
+  coronavirushku1: 
+  coronavirusoc43: 
+  adenovirus: 2
+  vsincicialresp: 2
+  metapneumovirus: 2
+  rinovirus: 2
+  bocavirus: 
+  enterovirus: 
+  parainflu_1: 
+  parainflu_2: 
+  parainflu_3: 
+  parainflu_4: 
+  coronavirus: 
+  influenzaahn: 
+  metapneumovirua: 
+  metapneumovirub: 
+  mycoplasma: 
+  parechovírus: 
+  vsincicialrespa: 
+  vsincicialrespb: 
+  influenzaah_3: 
+  influenzaah_1: 
+  influenzaah_7: 
+
+Amostra 422386282:
+  codigoAmostra: 422386282
+  codigo: 
+  requisicao: 
+  paciente: 
+  exame: VRSRT
+  metodo: RTTR
+  registroInterno: 422386282
+  kit: 427
+  reteste: 
+  loteKit: ertwertwetrwetwet
+  dataProcessamentoFim: 29/07/2025
+  valorReferencia: 
+  observacao: 
+  painel: 1
+  resultado: 
+  influenzaa: 2
+  influenzab: 2
+  coronavirusncov: 2
+  coronavirus229e: 
+  coronavirusnl63: 
+  coronavirushku1: 
+  coronavirusoc43: 
+  adenovirus: 1
+  vsincicialresp: 2
+  metapneumovirus: 2
+  rinovirus: 1
+  bocavirus: 
+  enterovirus: 
+  parainflu_1: 
+  parainflu_2: 
+  parainflu_3: 
+  parainflu_4: 
+  coronavirus: 
+  influenzaahn: 
+  metapneumovirua: 
+  metapneumovirub: 
+  mycoplasma: 
+  parechovírus: 
+  vsincicialrespa: 
+  vsincicialrespb: 
+  influenzaah_3: 
+  influenzaah_1: 
+  influenzaah_7: 
+
+Amostra 422386293:
+  codigoAmostra: 422386293
+  codigo: 
+  requisicao: 
+  paciente: 
+  exame: VRSRT
+  metodo: RTTR
+  registroInterno: 422386293
+  kit: 427
+  reteste: 
+  loteKit: ertwertwetrwetwet
+  dataProcessamentoFim: 29/07/2025
+  valorReferencia: 
+  observacao: 
+  painel: 1
+  resultado: 
+  influenzaa: 2
+  influenzab: 2
+  coronavirusncov: 2
+  coronavirus229e: 
+  coronavirusnl63: 
+  coronavirushku1: 
+  coronavirusoc43: 
+  adenovirus: 2
+  vsincicialresp: 2
+  metapneumovirus: 2
+  rinovirus: 2
+  bocavirus: 
+  enterovirus: 
+  parainflu_1: 
+  parainflu_2: 
+  parainflu_3: 
+  parainflu_4: 
+  coronavirus: 
+  influenzaahn: 
+  metapneumovirua: 
+  metapneumovirub: 
+  mycoplasma: 
+  parechovírus: 
+  vsincicialrespa: 
+  vsincicialrespb: 
+  influenzaah_3: 
+  influenzaah_1: 
+  influenzaah_7: 
+
+Amostra 422386816:
+  codigoAmostra: 422386816
+  codigo: 
+  requisicao: 
+  paciente: 
+  exame: VRSRT
+  metodo: RTTR
+  registroInterno: 422386816
+  kit: 427
+  reteste: 
+  loteKit: ertwertwetrwetwet
+  dataProcessamentoFim: 29/07/2025
+  valorReferencia: 
+  observacao: 
+  painel: 1
+  resultado: 
+  influenzaa: 2
+  influenzab: 2
+  coronavirusncov: 2
+  coronavirus229e: 
+  coronavirusnl63: 
+  coronavirushku1: 
+  coronavirusoc43: 
+  adenovirus: 1
+  vsincicialresp: 2
+  metapneumovirus: 2
+  rinovirus: 2
+  bocavirus: 
+  enterovirus: 
+  parainflu_1: 
+  parainflu_2: 
+  parainflu_3: 
+  parainflu_4: 
+  coronavirus: 
+  influenzaahn: 
+  metapneumovirua: 
+  metapneumovirub: 
+  mycoplasma: 
+  parechovírus: 
+  vsincicialrespa: 
+  vsincicialrespb: 
+  influenzaah_3: 
+  influenzaah_1: 
+  influenzaah_7: 
+
+Amostra 422386798:
+  codigoAmostra: 422386798
+  codigo: 
+  requisicao: 
+  paciente: 
+  exame: VRSRT
+  metodo: RTTR
+  registroInterno: 422386798
+  kit: 427
+  reteste: 
+  loteKit: ertwertwetrwetwet
+  dataProcessamentoFim: 29/07/2025
+  valorReferencia: 
+  observacao: 
+  painel: 1
+  resultado: 
+  influenzaa: 2
+  influenzab: 2
+  coronavirusncov: 2
+  coronavirus229e: 
+  coronavirusnl63: 
+  coronavirushku1: 
+  coronavirusoc43: 
+  adenovirus: 2
+  vsincicialresp: 1
+  metapneumovirus: 2
+  rinovirus: 1
+  bocavirus: 
+  enterovirus: 
+  parainflu_1: 
+  parainflu_2: 
+  parainflu_3: 
+  parainflu_4: 
+  coronavirus: 
+  influenzaahn: 
+  metapneumovirua: 
+  metapneumovirub: 
+  mycoplasma: 
+  parechovírus: 
+  vsincicialrespa: 
+  vsincicialrespb: 
+  influenzaah_3: 
+  influenzaah_1: 
+  influenzaah_7: 
+
+Amostra 422387130:
+  codigoAmostra: 422387130
+  codigo: 
+  requisicao: 
+  paciente: 
+  exame: VRSRT
+  metodo: RTTR
+  registroInterno: 422387130
+  kit: 427
+  reteste: 
+  loteKit: ertwertwetrwetwet
+  dataProcessamentoFim: 29/07/2025
+  valorReferencia: 
+  observacao: 
+  painel: 1
+  resultado: 
+  influenzaa: 1
+  influenzab: 2
+  coronavirusncov: 2
+  coronavirus229e: 
+  coronavirusnl63: 
+  coronavirushku1: 
+  coronavirusoc43: 
+  adenovirus: 2
+  vsincicialresp: 2
+  metapneumovirus: 2
+  rinovirus: 2
+  bocavirus: 
+  enterovirus: 
+  parainflu_1: 
+  parainflu_2: 
+  parainflu_3: 
+  parainflu_4: 
+  coronavirus: 
+  influenzaahn: 
+  metapneumovirua: 
+  metapneumovirub: 
+  mycoplasma: 
+  parechovírus: 
+  vsincicialrespa: 
+  vsincicialrespb: 
+  influenzaah_3: 
+  influenzaah_1: 
+  influenzaah_7: 
+
+Amostra 422386593:
+  codigoAmostra: 422386593
+  codigo: 
+  requisicao: 
+  paciente: 
+  exame: VRSRT
+  metodo: RTTR
+  registroInterno: 422386593
+  kit: 427
+  reteste: 
+  loteKit: ertwertwetrwetwet
+  dataProcessamentoFim: 29/07/2025
+  valorReferencia: 
+  observacao: 
+  painel: 1
+  resultado: 
+  influenzaa: 2
+  influenzab: 2
+  coronavirusncov: 2
+  coronavirus229e: 
+  coronavirusnl63: 
+  coronavirushku1: 
+  coronavirusoc43: 
+  adenovirus: 2
+  vsincicialresp: 2
+  metapneumovirus: 2
+  rinovirus: 2
+  bocavirus: 
+  enterovirus: 
+  parainflu_1: 
+  parainflu_2: 
+  parainflu_3: 
+  parainflu_4: 
+  coronavirus: 
+  influenzaahn: 
+  metapneumovirua: 
+  metapneumovirub: 
+  mycoplasma: 
+  parechovírus: 
+  vsincicialrespa: 
+  vsincicialrespb: 
+  influenzaah_3: 
+  influenzaah_1: 
+  influenzaah_7: 
+
+Amostra 422386852:
+  codigoAmostra: 422386852
+  codigo: 
+  requisicao: 
+  paciente: 
+  exame: VRSRT
+  metodo: RTTR
+  registroInterno: 422386852
+  kit: 427
+  reteste: 
+  loteKit: ertwertwetrwetwet
+  dataProcessamentoFim: 29/07/2025
+  valorReferencia: 
+  observacao: 
+  painel: 1
+  resultado: 
+  influenzaa: 2
+  influenzab: 2
+  coronavirusncov: 2
+  coronavirus229e: 
+  coronavirusnl63: 
+  coronavirushku1: 
+  coronavirusoc43: 
+  adenovirus: 2
+  vsincicialresp: 1
+  metapneumovirus: 2
+  rinovirus: 2
+  bocavirus: 
+  enterovirus: 
+  parainflu_1: 
+  parainflu_2: 
+  parainflu_3: 
+  parainflu_4: 
+  coronavirus: 
+  influenzaahn: 
+  metapneumovirua: 
+  metapneumovirub: 
+  mycoplasma: 
+  parechovírus: 
+  vsincicialrespa: 
+  vsincicialrespb: 
+  influenzaah_3: 
+  influenzaah_1: 
+  influenzaah_7: 
+
+Amostra 422386928:
+  codigoAmostra: 422386928
+  codigo: 
+  requisicao: 
+  paciente: 
+  exame: VRSRT
+  metodo: RTTR
+  registroInterno: 422386928
+  kit: 427
+  reteste: 
+  loteKit: ertwertwetrwetwet
+  dataProcessamentoFim: 29/07/2025
+  valorReferencia: 
+  observacao: 
+  painel: 1
+  resultado: 
+  influenzaa: 1
+  influenzab: 2
+  coronavirusncov: 2
+  coronavirus229e: 
+  coronavirusnl63: 
+  coronavirushku1: 
+  coronavirusoc43: 
+  adenovirus: 2
+  vsincicialresp: 2
+  metapneumovirus: 2
+  rinovirus: 2
+  bocavirus: 
+  enterovirus: 
+  parainflu_1: 
+  parainflu_2: 
+  parainflu_3: 
+  parainflu_4: 
+  coronavirus: 
+  influenzaahn: 
+  metapneumovirua: 
+  metapneumovirub: 
+  mycoplasma: 
+  parechovírus: 
+  vsincicialrespa: 
+  vsincicialrespb: 
+  influenzaah_3: 
+  influenzaah_1: 
+  influenzaah_7: 
+
+Amostra 422387004:
+  codigoAmostra: 422387004
+  codigo: 
+  requisicao: 
+  paciente: 
+  exame: VRSRT
+  metodo: RTTR
+  registroInterno: 422387004
+  kit: 427
+  reteste: 
+  loteKit: ertwertwetrwetwet
+  dataProcessamentoFim: 29/07/2025
+  valorReferencia: 
+  observacao: 
+  painel: 1
+  resultado: 
+  influenzaa: 2
+  influenzab: 2
+  coronavirusncov: 2
+  coronavirus229e: 
+  coronavirusnl63: 
+  coronavirushku1: 
+  coronavirusoc43: 
+  adenovirus: 2
+  vsincicialresp: 1
+  metapneumovirus: 2
+  rinovirus: 2
+  bocavirus: 
+  enterovirus: 
+  parainflu_1: 
+  parainflu_2: 
+  parainflu_3: 
+  parainflu_4: 
+  coronavirus: 
+  influenzaahn: 
+  metapneumovirua: 
+  metapneumovirub: 
+  mycoplasma: 
+  parechovírus: 
+  vsincicialrespa: 
+  vsincicialrespb: 
+  influenzaah_3: 
+  influenzaah_1: 
+  influenzaah_7: 
+
+Amostra 422387159:
+  codigoAmostra: 422387159
+  codigo: 
+  requisicao: 
+  paciente: 
+  exame: VRSRT
+  metodo: RTTR
+  registroInterno: 422387159
+  kit: 427
+  reteste: 
+  loteKit: ertwertwetrwetwet
+  dataProcessamentoFim: 29/07/2025
+  valorReferencia: 
+  observacao: 
+  painel: 1
+  resultado: 
+  influenzaa: 2
+  influenzab: 2
+  coronavirusncov: 2
+  coronavirus229e: 
+  coronavirusnl63: 
+  coronavirushku1: 
+  coronavirusoc43: 
+  adenovirus: 1
+  vsincicialresp: 1
+  metapneumovirus: 2
+  rinovirus: 2
+  bocavirus: 
+  enterovirus: 
+  parainflu_1: 
+  parainflu_2: 
+  parainflu_3: 
+  parainflu_4: 
+  coronavirus: 
+  influenzaahn: 
+  metapneumovirua: 
+  metapneumovirub: 
+  mycoplasma: 
+  parechovírus: 
+  vsincicialrespa: 
+  vsincicialrespb: 
+  influenzaah_3: 
+  influenzaah_1: 
+  influenzaah_7: 
+
+Amostra 422387129:
+  codigoAmostra: 422387129
+  codigo: 
+  requisicao: 
+  paciente: 
+  exame: VRSRT
+  metodo: RTTR
+  registroInterno: 422387129
+  kit: 427
+  reteste: 
+  loteKit: ertwertwetrwetwet
+  dataProcessamentoFim: 29/07/2025
+  valorReferencia: 
+  observacao: 
+  painel: 1
+  resultado: 
+  influenzaa: 2
+  influenzab: 2
+  coronavirusncov: 2
+  coronavirus229e: 
+  coronavirusnl63: 
+  coronavirushku1: 
+  coronavirusoc43: 
+  adenovirus: 2
+  vsincicialresp: 2
+  metapneumovirus: 2
+  rinovirus: 2
+  bocavirus: 
+  enterovirus: 
+  parainflu_1: 
+  parainflu_2: 
+  parainflu_3: 
+  parainflu_4: 
+  coronavirus: 
+  influenzaahn: 
+  metapneumovirua: 
+  metapneumovirub: 
+  mycoplasma: 
+  parechovírus: 
+  vsincicialrespa: 
+  vsincicialrespb: 
+  influenzaah_3: 
+  influenzaah_1: 
+  influenzaah_7: 
+
+Amostra 422387065:
+  codigoAmostra: 422387065
+  codigo: 
+  requisicao: 
+  paciente: 
+  exame: VRSRT
+  metodo: RTTR
+  registroInterno: 422387065
+  kit: 427
+  reteste: 
+  loteKit: ertwertwetrwetwet
+  dataProcessamentoFim: 29/07/2025
+  valorReferencia: 
+  observacao: 
+  painel: 1
+  resultado: 
+  influenzaa: 2
+  influenzab: 2
+  coronavirusncov: 2
+  coronavirus229e: 
+  coronavirusnl63: 
+  coronavirushku1: 
+  coronavirusoc43: 
+  adenovirus: 2
+  vsincicialresp: 2
+  metapneumovirus: 2
+  rinovirus: 2
+  bocavirus: 
+  enterovirus: 
+  parainflu_1: 
+  parainflu_2: 
+  parainflu_3: 
+  parainflu_4: 
+  coronavirus: 
+  influenzaahn: 
+  metapneumovirua: 
+  metapneumovirub: 
+  mycoplasma: 
+  parechovírus: 
+  vsincicialrespa: 
+  vsincicialrespb: 
+  influenzaah_3: 
+  influenzaah_1: 
+  influenzaah_7: 
+
+Amostra 422387062:
+  codigoAmostra: 422387062
+  codigo: 
+  requisicao: 
+  paciente: 
+  exame: VRSRT
+  metodo: RTTR
+  registroInterno: 422387062
+  kit: 427
+  reteste: 
+  loteKit: ertwertwetrwetwet
+  dataProcessamentoFim: 29/07/2025
+  valorReferencia: 
+  observacao: 
+  painel: 1
+  resultado: 
+  influenzaa: 2
+  influenzab: 2
+  coronavirusncov: 2
+  coronavirus229e: 
+  coronavirusnl63: 
+  coronavirushku1: 
+  coronavirusoc43: 
+  adenovirus: 2
+  vsincicialresp: 2
+  metapneumovirus: 2
+  rinovirus: 2
+  bocavirus: 
+  enterovirus: 
+  parainflu_1: 
+  parainflu_2: 
+  parainflu_3: 
+  parainflu_4: 
+  coronavirus: 
+  influenzaahn: 
+  metapneumovirua: 
+  metapneumovirub: 
+  mycoplasma: 
+  parechovírus: 
+  vsincicialrespa: 
+  vsincicialrespb: 
+  influenzaah_3: 
+  influenzaah_1: 
+  influenzaah_7: 
+
+Amostra 422387059:
+  codigoAmostra: 422387059
+  codigo: 
+  requisicao: 
+  paciente: 
+  exame: VRSRT
+  metodo: RTTR
+  registroInterno: 422387059
+  kit: 427
+  reteste: 
+  loteKit: ertwertwetrwetwet
+  dataProcessamentoFim: 29/07/2025
+  valorReferencia: 
+  observacao: 
+  painel: 1
+  resultado: 
+  influenzaa: 2
+  influenzab: 2
+  coronavirusncov: 2
+  coronavirus229e: 
+  coronavirusnl63: 
+  coronavirushku1: 
+  coronavirusoc43: 
+  adenovirus: 2
+  vsincicialresp: 2
+  metapneumovirus: 2
+  rinovirus: 2
+  bocavirus: 
+  enterovirus: 
+  parainflu_1: 
+  parainflu_2: 
+  parainflu_3: 
+  parainflu_4: 
+  coronavirus: 
+  influenzaahn: 
+  metapneumovirua: 
+  metapneumovirub: 
+  mycoplasma: 
+  parechovírus: 
+  vsincicialrespa: 
+  vsincicialrespb: 
+  influenzaah_3: 
+  influenzaah_1: 
+  influenzaah_7: 
+
+Amostra 422387047:
+  codigoAmostra: 422387047
+  codigo: 
+  requisicao: 
+  paciente: 
+  exame: VRSRT
+  metodo: RTTR
+  registroInterno: 422387047
+  kit: 427
+  reteste: 
+  loteKit: ertwertwetrwetwet
+  dataProcessamentoFim: 29/07/2025
+  valorReferencia: 
+  observacao: 
+  painel: 1
+  resultado: 
+  influenzaa: 2
+  influenzab: 2
+  coronavirusncov: 2
+  coronavirus229e: 
+  coronavirusnl63: 
+  coronavirushku1: 
+  coronavirusoc43: 
+  adenovirus: 2
+  vsincicialresp: 2
+  metapneumovirus: 2
+  rinovirus: 2
+  bocavirus: 
+  enterovirus: 
+  parainflu_1: 
+  parainflu_2: 
+  parainflu_3: 
+  parainflu_4: 
+  coronavirus: 
+  influenzaahn: 
+  metapneumovirua: 
+  metapneumovirub: 
+  mycoplasma: 
+  parechovírus: 
+  vsincicialrespa: 
+  vsincicialrespb: 
+  influenzaah_3: 
+  influenzaah_1: 
+  influenzaah_7: 
+
+Amostra 422387071:
+  codigoAmostra: 422387071
+  codigo: 
+  requisicao: 
+  paciente: 
+  exame: VRSRT
+  metodo: RTTR
+  registroInterno: 422387071
+  kit: 427
+  reteste: 
+  loteKit: ertwertwetrwetwet
+  dataProcessamentoFim: 29/07/2025
+  valorReferencia: 
+  observacao: 
+  painel: 1
+  resultado: 
+  influenzaa: 2
+  influenzab: 2
+  coronavirusncov: 2
+  coronavirus229e: 
+  coronavirusnl63: 
+  coronavirushku1: 
+  coronavirusoc43: 
+  adenovirus: 2
+  vsincicialresp: 2
+  metapneumovirus: 2
+  rinovirus: 2
+  bocavirus: 
+  enterovirus: 
+  parainflu_1: 
+  parainflu_2: 
+  parainflu_3: 
+  parainflu_4: 
+  coronavirus: 
+  influenzaahn: 
+  metapneumovirua: 
+  metapneumovirub: 
+  mycoplasma: 
+  parechovírus: 
+  vsincicialrespa: 
+  vsincicialrespb: 
+  influenzaah_3: 
+  influenzaah_1: 
+  influenzaah_7: 
+
+Amostra 422387075:
+  codigoAmostra: 422387075
+  codigo: 
+  requisicao: 
+  paciente: 
+  exame: VRSRT
+  metodo: RTTR
+  registroInterno: 422387075
+  kit: 427
+  reteste: 
+  loteKit: ertwertwetrwetwet
+  dataProcessamentoFim: 29/07/2025
+  valorReferencia: 
+  observacao: 
+  painel: 1
+  resultado: 
+  influenzaa: 2
+  influenzab: 2
+  coronavirusncov: 2
+  coronavirus229e: 
+  coronavirusnl63: 
+  coronavirushku1: 
+  coronavirusoc43: 
+  adenovirus: 2
+  vsincicialresp: 2
+  metapneumovirus: 2
+  rinovirus: 2
+  bocavirus: 
+  enterovirus: 
+  parainflu_1: 
+  parainflu_2: 
+  parainflu_3: 
+  parainflu_4: 
+  coronavirus: 
+  influenzaahn: 
+  metapneumovirua: 
+  metapneumovirub: 
+  mycoplasma: 
+  parechovírus: 
+  vsincicialrespa: 
+  vsincicialrespb: 
+  influenzaah_3: 
+  influenzaah_1: 
+  influenzaah_7: 
+
+Amostra 422386742:
+  codigoAmostra: 422386742
+  codigo: 
+  requisicao: 
+  paciente: 
+  exame: VRSRT
+  metodo: RTTR
+  registroInterno: 422386742
+  kit: 427
+  reteste: 
+  loteKit: ertwertwetrwetwet
+  dataProcessamentoFim: 29/07/2025
+  valorReferencia: 
+  observacao: 
+  painel: 1
+  resultado: 
+  influenzaa: 1
+  influenzab: 2
+  coronavirusncov: 2
+  coronavirus229e: 
+  coronavirusnl63: 
+  coronavirushku1: 
+  coronavirusoc43: 
+  adenovirus: 2
+  vsincicialresp: 2
+  metapneumovirus: 2
+  rinovirus: 2
+  bocavirus: 
+  enterovirus: 
+  parainflu_1: 
+  parainflu_2: 
+  parainflu_3: 
+  parainflu_4: 
+  coronavirus: 
+  influenzaahn: 
+  metapneumovirua: 
+  metapneumovirub: 
+  mycoplasma: 
+  parechovírus: 
+  vsincicialrespa: 
+  vsincicialrespb: 
+  influenzaah_3: 
+  influenzaah_1: 
+  influenzaah_7: 
+
+Amostra 422385147:
+  codigoAmostra: 422385147
+  codigo: 
+  requisicao: 
+  paciente: 
+  exame: VRSRT
+  metodo: RTTR
+  registroInterno: 422385147
+  kit: 427
+  reteste: 
+  loteKit: ertwertwetrwetwet
+  dataProcessamentoFim: 29/07/2025
+  valorReferencia: 
+  observacao: 
+  painel: 1
+  resultado: 
+  influenzaa: 2
+  influenzab: 2
+  coronavirusncov: 2
+  coronavirus229e: 
+  coronavirusnl63: 
+  coronavirushku1: 
+  coronavirusoc43: 
+  adenovirus: 2
+  vsincicialresp: 2
+  metapneumovirus: 2
+  rinovirus: 2
+  bocavirus: 
+  enterovirus: 
+  parainflu_1: 
+  parainflu_2: 
+  parainflu_3: 
+  parainflu_4: 
+  coronavirus: 
+  influenzaahn: 
+  metapneumovirua: 
+  metapneumovirub: 
+  mycoplasma: 
+  parechovírus: 
+  vsincicialrespa: 
+  vsincicialrespb: 
+  influenzaah_3: 
+  influenzaah_1: 
+  influenzaah_7: 
+
+Amostra CN COVID:
+  codigoAmostra: CN COVID
+  codigo: 
+  requisicao: 
+  paciente: 
+  exame: VRSRT
+  metodo: RTTR
+  registroInterno: CN COVID
+  kit: 427
+  reteste: 
+  loteKit: ertwertwetrwetwet
+  dataProcessamentoFim: 29/07/2025
+  valorReferencia: 
+  observacao: 
+  painel: 1
+  resultado: 
+  influenzaa: 2
+  influenzab: 2
+  coronavirusncov: 2
+  coronavirus229e: 
+  coronavirusnl63: 
+  coronavirushku1: 
+  coronavirusoc43: 
+  adenovirus: 2
+  vsincicialresp: 2
+  metapneumovirus: 2
+  rinovirus: 2
+  bocavirus: 
+  enterovirus: 
+  parainflu_1: 
+  parainflu_2: 
+  parainflu_3: 
+  parainflu_4: 
+  coronavirus: 
+  influenzaahn: 
+  metapneumovirua: 
+  metapneumovirub: 
+  mycoplasma: 
+  parechovírus: 
+  vsincicialrespa: 
+  vsincicialrespb: 
+  influenzaah_3: 
+  influenzaah_1: 
+  influenzaah_7: 
+
+Amostra CP COVID:
+  codigoAmostra: CP COVID
+  codigo: 
+  requisicao: 
+  paciente: 
+  exame: VRSRT
+  metodo: RTTR
+  registroInterno: CP COVID
+  kit: 427
+  reteste: 
+  loteKit: ertwertwetrwetwet
+  dataProcessamentoFim: 29/07/2025
+  valorReferencia: 
+  observacao: 
+  painel: 1
+  resultado: 
+  influenzaa: 1
+  influenzab: 1
+  coronavirusncov: 1
+  coronavirus229e: 
+  coronavirusnl63: 
+  coronavirushku1: 
+  coronavirusoc43: 
+  adenovirus: 1
+  vsincicialresp: 1
+  metapneumovirus: 1
+  rinovirus: 1
+  bocavirus: 
+  enterovirus: 
+  parainflu_1: 
+  parainflu_2: 
+  parainflu_3: 
+  parainflu_4: 
+  coronavirus: 
+  influenzaahn: 
+  metapneumovirua: 
+  metapneumovirub: 
+  mycoplasma: 
+  parechovírus: 
+  vsincicialrespa: 
+  vsincicialrespb: 
+  influenzaah_3: 
+  influenzaah_1: 
+  influenzaah_7: 
+

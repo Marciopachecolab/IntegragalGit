@@ -1,0 +1,370 @@
+2025-07-23 13:51:39;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-07-23 13:51:41;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso.;INFO
+2025-07-23 13:51:45;andrademp;172.22.6.137;Extração;Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/testeextracaogalteste.xlsx;INFO
+2025-07-23 13:51:45;andrademp;172.22.6.137;Busca Extração;Extração carregada com sucesso;INFO
+2025-07-23 13:51:54;andrademp;172.22.6.137;Salvar JSON Extração;Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-07-23 13:52:40;andrademp;172.22.6.137;Sistema;Janela principal fechada pelo usuário.;INFO
+2025-07-23 15:05:42;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-07-23 15:05:44;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso.;INFO
+2025-07-23 15:05:52;andrademp;172.22.6.137;Extração;Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/testeextracaogalteste.xlsx;INFO
+2025-07-23 15:05:52;andrademp;172.22.6.137;Busca Extração;Extração carregada com sucesso;INFO
+2025-07-23 15:06:06;andrademp;172.22.6.137;Extração;Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/testeextracaogalteste.xlsx;INFO
+2025-07-23 15:06:06;andrademp;172.22.6.137;Busca Extração;Extração carregada com sucesso;INFO
+2025-07-23 15:06:14;andrademp;172.22.6.137;Salvar JSON Extração;Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-07-23 15:06:20;andrademp;172.22.6.137;Análise Integrada;Iniciando análise com dados de extração;INFO
+2025-07-23 15:06:20;andrademp;172.22.6.137;Análise PCR;Iniciando análise de placa;INFO
+2025-07-23 15:06:24;andrademp;172.22.6.137;Erro Análise;Não foi possível identificar a linha de cabeçalho no arquivo: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/20250718 VR1-VR2 BIOM PLACA 5.xls.;ERROR
+2025-07-23 15:20:54;andrademp;172.22.6.137;Erro Interface;Falha na interface: A análise não retornou resultados;ERROR
+2025-07-23 15:21:01;andrademp;172.22.6.137;Sistema;Janela principal fechada pelo usuário.;INFO
+2025-07-23 15:28:50;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-07-23 15:28:51;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso.;INFO
+2025-07-23 15:28:55;andrademp;172.22.6.137;Extração;Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/testeextracaogalteste.xlsx;INFO
+2025-07-23 15:28:55;andrademp;172.22.6.137;Busca Extração;Extração carregada com sucesso;INFO
+2025-07-23 15:29:00;andrademp;172.22.6.137;Salvar JSON Extração;Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-07-23 15:29:06;andrademp;172.22.6.137;Análise Integrada;Iniciando análise com dados de extração;INFO
+2025-07-23 15:29:06;andrademp;172.22.6.137;Análise PCR;Iniciando análise de placa;INFO
+2025-07-23 15:29:55;andrademp;172.22.6.137;Exportação CSV;Arquivo salvo em: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/testegalteste.csv;INFO
+2025-07-23 15:30:08;andrademp;172.22.6.137;Sistema;Sistema encerrado pelo usuário via Menu Principal.;INFO
+2025-07-23 15:30:54;andrademp;172.22.6.137;Erro Análise;'utf-8' codec can't decode byte 0xe7 in position 78: invalid continuation byte;ERROR
+2025-07-23 15:36:19;andrademp;172.22.6.137;Erro Interface;Falha na interface: A análise não retornou resultados;ERROR
+2025-07-25 16:08:15;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-07-25 16:08:17;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso.;INFO
+2025-07-25 16:08:28;andrademp;172.22.6.137;Extração;Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-07-25 16:08:28;andrademp;172.22.6.137;Busca Extração;Extração carregada com sucesso;INFO
+2025-07-25 16:08:48;andrademp;172.22.6.137;Salvar JSON Extração;Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-07-25 16:08:56;andrademp;172.22.6.137;Análise Integrada;Iniciando análise com dados de extração;INFO
+2025-07-25 16:08:56;andrademp;172.22.6.137;Análise PCR;Iniciando análise de placa;INFO
+2025-07-25 16:09:44;andrademp;172.22.6.137;Exportação CSV;Arquivo salvo em: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/kjhgfkjhg.csv;INFO
+2025-07-25 16:39:47;andrademp;172.22.6.137;Sistema;Janela principal fechada pelo usuário.;INFO
+2025-07-25 16:40:08;andrademp;172.22.6.137;Erro Análise;'utf-8' codec can't decode byte 0xe7 in position 78: invalid continuation byte;ERROR
+2025-07-25 16:40:10;andrademp;172.22.6.137;Erro Interface;Falha na interface: A análise não retornou resultados;ERROR
+2025-07-25 16:40:24;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-07-25 16:40:26;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso.;INFO
+2025-07-25 16:40:32;andrademp;172.22.6.137;Extração;Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-07-25 16:40:32;andrademp;172.22.6.137;Busca Extração;Extração carregada com sucesso;INFO
+2025-07-25 16:40:57;andrademp;172.22.6.137;Salvar JSON Extração;Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-07-25 16:41:10;andrademp;172.22.6.137;Análise Integrada;Iniciando análise com dados de extração;INFO
+2025-07-25 16:41:10;andrademp;172.22.6.137;Análise PCR;Iniciando análise de placa;INFO
+2025-07-25 16:42:14;andrademp;172.22.6.137;Exportação CSV;Arquivo salvo em: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/testejoseedarcita.csv;INFO
+2025-07-25 16:42:29;andrademp;172.22.6.137;Sistema;Sistema encerrado pelo usuário via Menu Principal.;INFO
+2025-07-25 16:43:10;andrademp;172.22.6.137;Erro Análise;'utf-8' codec can't decode byte 0xe7 in position 78: invalid continuation byte;ERROR
+2025-07-25 16:43:12;andrademp;172.22.6.137;Erro Interface;Falha na interface: A análise não retornou resultados;ERROR
+2025-07-28 18:08:18;andrademp;172.22.6.137;Login Falha;Tentativa 1 - Usuário: admin;INFO
+2025-07-28 18:08:24;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-07-28 18:08:25;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso.;INFO
+2025-07-28 18:08:32;andrademp;172.22.6.137;Sistema;Janela principal fechada pelo usuário.;INFO
+2025-07-28 19:00:31;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-07-28 19:00:32;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso.;INFO
+2025-07-28 19:00:38;andrademp;172.22.6.137;Extração;Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-07-28 19:00:38;andrademp;172.22.6.137;Busca Extração;Extração carregada com sucesso;INFO
+2025-07-28 19:00:45;andrademp;172.22.6.137;Salvar JSON Extração;Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-07-28 19:00:53;andrademp;172.22.6.137;Análise Integrada;Iniciando análise com dados de extração;INFO
+2025-07-28 19:00:53;andrademp;172.22.6.137;Análise PCR;Iniciando análise de placa;INFO
+2025-07-28 19:01:14;andrademp;172.22.6.137;Erro Análise;'utf-8' codec can't decode byte 0xe7 in position 78: invalid continuation byte;ERROR
+2025-07-28 19:01:28;andrademp;172.22.6.137;Erro Interface;Falha na interface: A análise não retornou resultados;ERROR
+2025-07-28 19:01:39;andrademp;172.22.6.137;Sistema;Sistema encerrado pelo usuário via Menu Principal.;INFO
+2025-07-28 19:22:42;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-07-28 19:22:43;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso.;INFO
+2025-07-28 19:22:53;andrademp;172.22.6.137;Extração;Processo de extração cancelado pelo usuário;INFO
+2025-07-28 19:22:55;andrademp;172.22.6.137;Sistema;Janela principal fechada pelo usuário.;INFO
+2025-07-28 19:28:06;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-07-28 19:28:07;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso.;INFO
+2025-07-28 19:28:20;andrademp;172.22.6.137;Extração;Processo de extração cancelado pelo usuário;INFO
+2025-07-28 19:28:20;andrademp;172.22.6.137;Busca Extração;Nenhum dado de extração carregado;INFO
+2025-07-28 19:28:25;andrademp;172.22.6.137;Sistema;Janela principal fechada pelo usuário.;INFO
+2025-07-28 19:40:42;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-07-28 19:40:43;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso.;INFO
+2025-07-28 19:41:03;andrademp;172.22.6.137;Extração;Processo de extração cancelado pelo usuário;INFO
+2025-07-28 19:41:03;andrademp;172.22.6.137;Busca Extração;Nenhum dado de extração carregado;INFO
+2025-07-28 19:43:15;andrademp;172.22.6.137;Sistema;Sistema encerrado pelo usuário via Menu Principal.;INFO
+2025-07-28 19:43:26;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-07-28 19:43:27;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso.;INFO
+2025-07-28 19:43:37;andrademp;172.22.6.137;Extração;Processo de extração cancelado pelo usuário;INFO
+2025-07-28 19:43:37;andrademp;172.22.6.137;Busca Extração;Nenhum dado de extração carregado;INFO
+2025-07-28 19:43:40;andrademp;172.22.6.137;Sistema;Janela principal fechada pelo usuário.;INFO
+2025-07-28 19:56:14;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-07-28 19:56:16;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso.;INFO
+2025-07-28 19:56:23;andrademp;172.22.6.137;Extração;Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-07-28 19:56:46;andrademp;172.22.6.137;Salvar JSON Extração;Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-07-28 19:56:48;andrademp;172.22.6.137;Extração;Processo de extração concluído com sucesso;INFO
+2025-07-28 19:56:48;andrademp;172.22.6.137;Busca Extração;Extração carregada com sucesso;INFO
+2025-07-28 19:56:55;andrademp;172.22.6.137;Análise Integrada;Iniciando análise com dados de extração;INFO
+2025-07-28 19:56:55;andrademp;172.22.6.137;Análise PCR;Iniciando análise de placa;INFO
+2025-07-28 19:58:04;andrademp;172.22.6.137;Sistema;Janela principal fechada pelo usuário.;INFO
+2025-07-29 01:28:18;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-07-29 01:28:20;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso.;INFO
+2025-07-29 01:28:26;andrademp;172.22.6.137;Extração;Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-07-29 01:31:39;andrademp;172.22.6.137;Salvar JSON Extração;Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-07-29 01:31:42;andrademp;172.22.6.137;Extração;Processo de extração concluído com sucesso;INFO
+2025-07-29 01:31:42;andrademp;172.22.6.137;Busca Extração;Extração carregada com sucesso;INFO
+2025-07-29 01:32:49;andrademp;172.22.6.137;Análise Integrada;Iniciando análise com dados de extração;INFO
+2025-07-29 01:32:49;andrademp;172.22.6.137;Análise PCR;Iniciando análise de placa;INFO
+2025-07-29 01:39:56;andrademp;172.22.6.137;Exportação CSV;Arquivo salvo em: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/tttttttttttttttttttttttttttttttttttttttttttttttttt.csv;INFO
+2025-07-29 01:46:05;andrademp;172.22.6.137;Sistema;Sistema encerrado pelo usuário via Menu Principal.;INFO
+2025-07-29 02:02:12;andrademp;172.22.6.137;Erro Análise;'utf-8' codec can't decode byte 0xe7 in position 78: invalid continuation byte;ERROR
+2025-07-29 02:02:16;andrademp;172.22.6.137;Erro Interface;Falha na interface: A análise não retornou resultados;ERROR
+2025-07-29 02:08:06;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-07-29 02:08:07;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso.;INFO
+2025-07-29 02:09:36;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-07-29 02:09:38;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso.;INFO
+2025-07-29 02:09:43;andrademp;172.22.6.137;Extração;Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-07-29 02:10:01;andrademp;172.22.6.137;Salvar JSON Extração;Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-07-29 02:10:02;andrademp;172.22.6.137;Extração;Processo de extração concluído com sucesso;INFO
+2025-07-29 02:10:03;andrademp;172.22.6.137;Busca Extração;Extração carregada com sucesso;INFO
+2025-07-29 02:10:13;andrademp;172.22.6.137;Sistema;Janela principal fechada pelo usuário.;INFO
+2025-07-29 02:11:41;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-07-29 02:11:43;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso.;INFO
+2025-07-29 02:11:47;andrademp;172.22.6.137;Extração;Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-07-29 02:11:58;andrademp;172.22.6.137;Salvar JSON Extração;Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-07-29 02:12:00;andrademp;172.22.6.137;Extração;Processo de extração concluído com sucesso;INFO
+2025-07-29 02:12:00;andrademp;172.22.6.137;Busca Extração;Extração carregada com sucesso;INFO
+2025-07-29 02:12:15;andrademp;172.22.6.137;Análise Integrada;Iniciando análise com dados de extração;INFO
+2025-07-29 02:12:15;andrademp;172.22.6.137;Análise PCR;Iniciando análise de placa;INFO
+2025-07-29 02:13:08;andrademp;172.22.6.137;Exportação CSV;Arquivo salvo em: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/234124124124124234124.csv;INFO
+2025-07-29 02:13:23;andrademp;172.22.6.137;Sistema;Sistema encerrado pelo usuário via Menu Principal.;INFO
+2025-07-29 02:13:33;andrademp;172.22.6.137;Erro Análise;'utf-8' codec can't decode byte 0xe7 in position 78: invalid continuation byte;ERROR
+2025-07-29 02:14:07;andrademp;172.22.6.137;Erro Interface;Falha na interface: A análise não retornou resultados;ERROR
+2025-07-29 02:33:44;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-07-29 02:33:46;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso.;INFO
+2025-07-29 02:33:50;andrademp;172.22.6.137;Extração;Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-07-29 02:34:10;andrademp;172.22.6.137;Salvar JSON Extração;Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-07-29 02:34:12;andrademp;172.22.6.137;Extração;Processo de extração concluído com sucesso;INFO
+2025-07-29 02:34:13;andrademp;172.22.6.137;Busca Extração;Extração carregada com sucesso;INFO
+2025-07-29 02:34:17;andrademp;172.22.6.137;Análise Integrada;Iniciando análise com dados de extração;INFO
+2025-07-29 02:34:17;andrademp;172.22.6.137;Análise PCR;Iniciando análise de placa;INFO
+2025-07-29 02:34:44;andrademp;172.22.6.137;Exportação CSV;Arquivo salvo em: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/ewrtwertwetrwetwere.csv;INFO
+2025-07-29 02:35:12;andrademp;172.22.6.137;Sistema;Sistema encerrado pelo usuário via Menu Principal.;INFO
+2025-07-29 02:35:19;andrademp;172.22.6.137;Erro Análise;'utf-8' codec can't decode byte 0xe7 in position 78: invalid continuation byte;ERROR
+2025-07-29 02:35:30;andrademp;172.22.6.137;Erro Interface;Falha na interface: A análise não retornou resultados;ERROR
+2025-07-29 02:35:40;andrademp;172.22.6.137;Erro Execução Análise;'Posição';INFO
+2025-07-29 02:39:29;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-07-29 02:39:31;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso.;INFO
+2025-07-29 02:39:35;andrademp;172.22.6.137;Extração;Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-07-29 02:39:53;andrademp;172.22.6.137;Salvar JSON Extração;Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-07-29 02:39:55;andrademp;172.22.6.137;Extração;Processo de extração concluído com sucesso;INFO
+2025-07-29 02:39:55;andrademp;172.22.6.137;Busca Extração;Extração carregada com sucesso;INFO
+2025-07-29 02:39:59;andrademp;172.22.6.137;Análise Integrada;Iniciando análise com dados de extração;INFO
+2025-07-29 02:39:59;andrademp;172.22.6.137;Análise PCR;Iniciando análise de placa;INFO
+2025-07-29 02:40:05;andrademp;172.22.6.137;Erro Análise;"expected boolean value but got ""✓""";ERROR
+2025-07-29 02:40:20;andrademp;172.22.6.137;Erro Interface;Falha na interface: A análise não retornou resultados;ERROR
+2025-07-29 02:40:22;andrademp;172.22.6.137;Erro Execução Análise;'Posição';INFO
+2025-07-29 02:40:26;andrademp;172.22.6.137;Sistema;Sistema encerrado pelo usuário via Menu Principal.;INFO
+2025-07-29 02:54:56;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-07-29 02:54:58;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso.;INFO
+2025-07-29 02:55:02;andrademp;172.22.6.137;Extração;Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-07-29 02:55:08;andrademp;172.22.6.137;Salvar JSON Extração;Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-07-29 02:55:10;andrademp;172.22.6.137;Extração;Processo de extração concluído com sucesso;INFO
+2025-07-29 02:55:10;andrademp;172.22.6.137;Busca Extração;Extração carregada com sucesso;INFO
+2025-07-29 02:55:15;andrademp;172.22.6.137;Análise Integrada;Iniciando análise com dados de extração;INFO
+2025-07-29 02:55:15;andrademp;172.22.6.137;Análise PCR;Iniciando análise de placa;INFO
+2025-07-29 02:55:20;andrademp;172.22.6.137;Erro Análise;'Treeview' object has no attribute 'window_create';ERROR
+2025-07-29 02:55:41;andrademp;172.22.6.137;Erro Interface;Falha na interface: A análise não retornou resultados;ERROR
+2025-07-29 02:55:43;andrademp;172.22.6.137;Erro Execução Análise;'Posição';INFO
+2025-07-29 02:55:46;andrademp;172.22.6.137;Sistema;Sistema encerrado pelo usuário via Menu Principal.;INFO
+2025-07-29 03:09:01;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-07-29 03:09:02;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso.;INFO
+2025-07-29 03:09:07;andrademp;172.22.6.137;Extração;Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-07-29 03:09:13;andrademp;172.22.6.137;Salvar JSON Extração;Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-07-29 03:09:15;andrademp;172.22.6.137;Extração;Processo de extração concluído com sucesso;INFO
+2025-07-29 03:09:15;andrademp;172.22.6.137;Busca Extração;Extração carregada com sucesso;INFO
+2025-07-29 03:09:18;andrademp;172.22.6.137;Análise Integrada;Iniciando análise com dados de extração;INFO
+2025-07-29 03:09:18;andrademp;172.22.6.137;Análise PCR;Iniciando análise de placa;INFO
+2025-07-29 03:09:23;andrademp;172.22.6.137;Erro Análise;'Treeview' object has no attribute 'window_create';ERROR
+2025-07-29 03:09:34;andrademp;172.22.6.137;Análise Integrada;Análise retornou DataFrame vazio ou None;INFO
+2025-07-29 03:09:34;andrademp;172.22.6.137;Execução Análise;Análise retornou resultados vazios;INFO
+2025-07-29 03:09:49;andrademp;172.22.6.137;Sistema;Sistema encerrado pelo usuário via Menu Principal.;INFO
+2025-07-29 03:16:02;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-07-29 03:16:04;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso.;INFO
+2025-07-29 03:16:09;andrademp;172.22.6.137;Extração;Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-07-29 03:16:15;andrademp;172.22.6.137;Salvar JSON Extração;Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-07-29 03:16:17;andrademp;172.22.6.137;Extração;Processo de extração concluído com sucesso;INFO
+2025-07-29 03:16:17;andrademp;172.22.6.137;Busca Extração;Extração carregada com sucesso;INFO
+2025-07-29 03:16:21;andrademp;172.22.6.137;Análise Integrada;Iniciando análise com dados de extração;INFO
+2025-07-29 03:16:21;andrademp;172.22.6.137;Análise PCR;Iniciando análise de placa;INFO
+2025-07-29 03:17:08;andrademp;172.22.6.137;Erro Análise;'utf-8' codec can't decode byte 0xe7 in position 78: invalid continuation byte;ERROR
+2025-07-29 03:17:19;andrademp;172.22.6.137;Análise Integrada;Análise retornou DataFrame vazio ou None;INFO
+2025-07-29 03:17:19;andrademp;172.22.6.137;Execução Análise;Análise retornou resultados vazios;INFO
+2025-07-29 03:17:23;andrademp;172.22.6.137;Sistema;Sistema encerrado pelo usuário via Menu Principal.;INFO
+2025-07-29 03:26:21;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-07-29 03:26:22;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso.;INFO
+2025-07-29 03:26:27;andrademp;172.22.6.137;Extração;Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-07-29 03:26:34;andrademp;172.22.6.137;Salvar JSON Extração;Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-07-29 03:26:35;andrademp;172.22.6.137;Extração;Processo de extração concluído com sucesso;INFO
+2025-07-29 03:26:35;andrademp;172.22.6.137;Busca Extração;Extração carregada com sucesso;INFO
+2025-07-29 03:26:39;andrademp;172.22.6.137;Análise Integrada;Iniciando análise com dados de extração;INFO
+2025-07-29 03:26:39;andrademp;172.22.6.137;Análise PCR;Iniciando análise de placa;INFO
+2025-07-29 03:27:06;andrademp;172.22.6.137;Erro Análise;'utf-8' codec can't decode byte 0xe7 in position 78: invalid continuation byte;ERROR
+2025-07-29 03:27:16;andrademp;172.22.6.137;Análise Integrada;Análise retornou DataFrame vazio ou None;INFO
+2025-07-29 03:27:16;andrademp;172.22.6.137;Execução Análise;Análise retornou resultados vazios;INFO
+2025-07-29 03:27:19;andrademp;172.22.6.137;Sistema;Sistema encerrado pelo usuário via Menu Principal.;INFO
+2025-07-29 03:31:34;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-07-29 03:31:35;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso.;INFO
+2025-07-29 03:31:39;andrademp;172.22.6.137;Extração;Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-07-29 03:31:43;andrademp;172.22.6.137;Salvar JSON Extração;Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-07-29 03:31:45;andrademp;172.22.6.137;Extração;Processo de extração concluído com sucesso;INFO
+2025-07-29 03:31:45;andrademp;172.22.6.137;Busca Extração;Extração carregada com sucesso;INFO
+2025-07-29 03:31:48;andrademp;172.22.6.137;Análise Integrada;Iniciando análise com dados de extração;INFO
+2025-07-29 03:31:48;andrademp;172.22.6.137;Análise PCR;Iniciando análise de placa;INFO
+2025-07-29 03:32:02;andrademp;172.22.6.137;Erro Análise;'utf-8' codec can't decode byte 0xe7 in position 78: invalid continuation byte;ERROR
+2025-07-29 03:32:14;andrademp;172.22.6.137;Análise Integrada;Análise retornou DataFrame vazio ou None;INFO
+2025-07-29 03:32:14;andrademp;172.22.6.137;Execução Análise;Análise retornou resultados vazios;INFO
+2025-07-29 03:32:17;andrademp;172.22.6.137;Sistema;Sistema encerrado pelo usuário via Menu Principal.;INFO
+2025-07-29 03:55:54;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-07-29 03:55:56;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso.;INFO
+2025-07-29 03:55:59;andrademp;172.22.6.137;Extração;Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-07-29 03:56:07;andrademp;172.22.6.137;Salvar JSON Extração;Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-07-29 03:56:09;andrademp;172.22.6.137;Extração;Processo de extração concluído com sucesso;INFO
+2025-07-29 03:56:09;andrademp;172.22.6.137;Busca Extração;Extração carregada com sucesso;INFO
+2025-07-29 03:56:13;andrademp;172.22.6.137;Análise Integrada;Iniciando análise com dados de extração;INFO
+2025-07-29 03:56:13;andrademp;172.22.6.137;Análise PCR;Iniciando análise de placa;INFO
+2025-07-29 03:56:27;andrademp;172.22.6.137;Erro Análise;'utf-8' codec can't decode byte 0xe7 in position 78: invalid continuation byte;ERROR
+2025-07-29 03:56:36;andrademp;172.22.6.137;Análise Integrada;Análise retornou DataFrame vazio ou None;INFO
+2025-07-29 03:56:36;andrademp;172.22.6.137;Execução Análise;Análise retornou resultados vazios;INFO
+2025-07-29 03:56:39;andrademp;172.22.6.137;Sistema;Sistema encerrado pelo usuário via Menu Principal.;INFO
+2025-07-29 04:06:12;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-07-29 04:06:13;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso.;INFO
+2025-07-29 04:06:17;andrademp;172.22.6.137;Extração;Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-07-29 04:06:23;andrademp;172.22.6.137;Salvar JSON Extração;Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-07-29 04:06:25;andrademp;172.22.6.137;Extração;Processo de extração concluído com sucesso;INFO
+2025-07-29 04:06:25;andrademp;172.22.6.137;Busca Extração;Extração carregada com sucesso;INFO
+2025-07-29 04:06:29;andrademp;172.22.6.137;Análise Integrada;Iniciando análise com dados de extração;INFO
+2025-07-29 04:06:29;andrademp;172.22.6.137;Análise PCR;Iniciando análise de placa;INFO
+2025-07-29 04:06:41;andrademp;172.22.6.137;Erro Análise;'utf-8' codec can't decode byte 0xe7 in position 78: invalid continuation byte;ERROR
+2025-07-29 04:06:49;andrademp;172.22.6.137;Análise Integrada;Análise retornou DataFrame vazio ou None;INFO
+2025-07-29 04:06:49;andrademp;172.22.6.137;Execução Análise;Análise retornou resultados vazios;INFO
+2025-07-29 04:06:52;andrademp;172.22.6.137;Sistema;Sistema encerrado pelo usuário via Menu Principal.;INFO
+2025-07-29 04:11:39;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-07-29 04:11:41;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso.;INFO
+2025-07-29 04:11:44;andrademp;172.22.6.137;Extração;Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-07-29 04:11:49;andrademp;172.22.6.137;Salvar JSON Extração;Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-07-29 04:11:51;andrademp;172.22.6.137;Extração;Processo de extração concluído com sucesso;INFO
+2025-07-29 04:11:51;andrademp;172.22.6.137;Busca Extração;Extração carregada com sucesso;INFO
+2025-07-29 04:11:54;andrademp;172.22.6.137;Análise Integrada;Iniciando análise com dados de extração;INFO
+2025-07-29 04:11:54;andrademp;172.22.6.137;Análise PCR;Iniciando análise de placa;INFO
+2025-07-29 04:12:03;andrademp;172.22.6.137;Erro Análise;'utf-8' codec can't decode byte 0xe7 in position 78: invalid continuation byte;ERROR
+2025-07-29 04:12:12;andrademp;172.22.6.137;Análise Integrada;Análise retornou DataFrame vazio ou None;INFO
+2025-07-29 04:12:12;andrademp;172.22.6.137;Execução Análise;Análise retornou resultados vazios;INFO
+2025-07-29 04:12:16;andrademp;172.22.6.137;Sistema;Sistema encerrado pelo usuário via Menu Principal.;INFO
+2025-07-29 04:20:35;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-07-29 04:20:36;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso.;INFO
+2025-07-29 04:20:39;andrademp;172.22.6.137;Extração;Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-07-29 04:20:45;andrademp;172.22.6.137;Salvar JSON Extração;Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-07-29 04:20:46;andrademp;172.22.6.137;Extração;Processo de extração concluído com sucesso;INFO
+2025-07-29 04:20:46;andrademp;172.22.6.137;Busca Extração;Extração carregada com sucesso;INFO
+2025-07-29 04:20:49;andrademp;172.22.6.137;Análise Integrada;Iniciando análise com dados de extração;INFO
+2025-07-29 04:20:49;andrademp;172.22.6.137;Análise PCR;Iniciando análise de placa;INFO
+2025-07-29 04:20:58;andrademp;172.22.6.137;Erro Análise;'utf-8' codec can't decode byte 0xe7 in position 78: invalid continuation byte;ERROR
+2025-07-29 04:20:59;andrademp;172.22.6.137;Análise Integrada;Análise retornou DataFrame vazio ou None;INFO
+2025-07-29 04:20:59;andrademp;172.22.6.137;Execução Análise;Análise retornou resultados vazios;INFO
+2025-07-29 04:21:02;andrademp;172.22.6.137;Sistema;Janela principal fechada pelo usuário.;INFO
+2025-07-29 04:23:29;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-07-29 04:23:30;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso.;INFO
+2025-07-29 04:23:34;andrademp;172.22.6.137;Extração;Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-07-29 04:23:40;andrademp;172.22.6.137;Salvar JSON Extração;Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-07-29 04:23:42;andrademp;172.22.6.137;Extração;Processo de extração concluído com sucesso;INFO
+2025-07-29 04:23:42;andrademp;172.22.6.137;Busca Extração;Extração carregada com sucesso;INFO
+2025-07-29 04:23:45;andrademp;172.22.6.137;Análise Integrada;Iniciando análise com dados de extração;INFO
+2025-07-29 04:23:45;andrademp;172.22.6.137;Análise PCR;Iniciando análise de placa;INFO
+2025-07-29 04:23:56;andrademp;172.22.6.137;Erro Análise;'utf-8' codec can't decode byte 0xe7 in position 78: invalid continuation byte;ERROR
+2025-07-29 04:24:32;andrademp;172.22.6.137;Análise Integrada;Análise retornou DataFrame vazio ou None;INFO
+2025-07-29 04:24:32;andrademp;172.22.6.137;Execução Análise;Análise retornou resultados vazios;INFO
+2025-07-29 04:24:34;andrademp;172.22.6.137;Sistema;Sistema encerrado pelo usuário via Menu Principal.;INFO
+2025-07-29 04:42:42;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-07-29 04:42:44;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso.;INFO
+2025-07-29 04:42:47;andrademp;172.22.6.137;Extração;Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-07-29 04:42:52;andrademp;172.22.6.137;Salvar JSON Extração;Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-07-29 04:42:53;andrademp;172.22.6.137;Extração;Processo de extração concluído com sucesso;INFO
+2025-07-29 04:42:53;andrademp;172.22.6.137;Busca Extração;Extração carregada com sucesso;INFO
+2025-07-29 04:42:56;andrademp;172.22.6.137;Análise Integrada;Iniciando análise com dados de extração;INFO
+2025-07-29 04:42:56;andrademp;172.22.6.137;Análise PCR;Iniciando análise de placa;INFO
+2025-07-29 04:43:07;andrademp;172.22.6.137;Erro Análise;'utf-8' codec can't decode byte 0xe7 in position 78: invalid continuation byte;ERROR
+2025-07-29 04:43:20;andrademp;172.22.6.137;Análise Integrada;Análise retornou DataFrame vazio ou None;INFO
+2025-07-29 04:43:20;andrademp;172.22.6.137;Execução Análise;Análise retornou resultados vazios;INFO
+2025-07-29 04:43:22;andrademp;172.22.6.137;Sistema;Sistema encerrado pelo usuário via Menu Principal.;INFO
+2025-07-29 13:00:39;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-07-29 13:00:40;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso.;INFO
+2025-07-29 13:00:44;andrademp;172.22.6.137;Extração;Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-07-29 13:00:51;andrademp;172.22.6.137;Salvar JSON Extração;Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-07-29 13:00:52;andrademp;172.22.6.137;Extração;Processo de extração concluído com sucesso;INFO
+2025-07-29 13:00:52;andrademp;172.22.6.137;Busca Extração;Extração carregada com sucesso;INFO
+2025-07-29 13:00:56;andrademp;172.22.6.137;Análise Integrada;Iniciando análise com dados de extração;INFO
+2025-07-29 13:00:56;andrademp;172.22.6.137;Análise PCR;Iniciando análise de placa;INFO
+2025-07-29 13:01:09;andrademp;172.22.6.137;Erro Análise;'utf-8' codec can't decode byte 0xe7 in position 78: invalid continuation byte;ERROR
+2025-07-29 13:01:12;andrademp;172.22.6.137;Análise Integrada;Análise retornou DataFrame vazio ou None;INFO
+2025-07-29 13:01:12;andrademp;172.22.6.137;Execução Análise;Análise retornou resultados vazios;INFO
+2025-07-29 13:01:14;andrademp;172.22.6.137;Sistema;Janela principal fechada pelo usuário.;INFO
+2025-07-29 13:19:12;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-07-29 13:19:13;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso.;INFO
+2025-07-29 13:19:16;andrademp;172.22.6.137;Extração;Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-07-29 13:19:27;andrademp;172.22.6.137;Salvar JSON Extração;Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-07-29 13:19:28;andrademp;172.22.6.137;Extração;Processo de extração concluído com sucesso;INFO
+2025-07-29 13:19:29;andrademp;172.22.6.137;Busca Extração;Extração carregada com sucesso;INFO
+2025-07-29 13:19:32;andrademp;172.22.6.137;Análise Integrada;Iniciando análise com dados de extração;INFO
+2025-07-29 13:19:32;andrademp;172.22.6.137;Análise PCR;Iniciando análise de placa;INFO
+2025-07-29 13:19:41;andrademp;172.22.6.137;Erro Análise;'utf-8' codec can't decode byte 0xe7 in position 78: invalid continuation byte;ERROR
+2025-07-29 13:19:46;andrademp;172.22.6.137;Análise Integrada;Análise retornou DataFrame vazio ou None;INFO
+2025-07-29 13:19:46;andrademp;172.22.6.137;Execução Análise;Análise retornou resultados vazios;INFO
+2025-07-29 13:19:56;andrademp;172.22.6.137;Sistema;Sistema encerrado pelo usuário via Menu Principal.;INFO
+2025-07-29 13:26:48;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-07-29 13:26:49;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso.;INFO
+2025-07-29 13:26:52;andrademp;172.22.6.137;Extração;Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-07-29 13:26:57;andrademp;172.22.6.137;Salvar JSON Extração;Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-07-29 13:26:58;andrademp;172.22.6.137;Extração;Processo de extração concluído com sucesso;INFO
+2025-07-29 13:26:58;andrademp;172.22.6.137;Busca Extração;Extração carregada com sucesso;INFO
+2025-07-29 13:27:02;andrademp;172.22.6.137;Análise Integrada;Iniciando análise com dados de extração;INFO
+2025-07-29 13:27:02;andrademp;172.22.6.137;Análise PCR;Iniciando análise de placa;INFO
+2025-07-29 13:27:27;andrademp;172.22.6.137;Erro Análise;'utf-8' codec can't decode byte 0xe7 in position 78: invalid continuation byte;ERROR
+2025-07-29 13:27:28;andrademp;172.22.6.137;Análise Integrada;Análise retornou DataFrame vazio ou None;INFO
+2025-07-29 13:27:28;andrademp;172.22.6.137;Execução Análise;Análise retornou resultados vazios;INFO
+2025-07-29 13:28:22;andrademp;172.22.6.137;Sistema;Janela principal fechada pelo usuário.;INFO
+2025-07-29 16:02:05;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-07-29 16:02:06;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso.;INFO
+2025-07-29 16:02:58;andrademp;172.22.6.137;Extração;Processo de extração cancelado pelo usuário;INFO
+2025-07-29 16:02:58;andrademp;172.22.6.137;Busca Extração;Nenhum dado de extração carregado;INFO
+2025-07-29 16:03:09;andrademp;172.22.6.137;Extração;Processo de extração cancelado pelo usuário;INFO
+2025-07-29 16:03:09;andrademp;172.22.6.137;Busca Extração;Nenhum dado de extração carregado;INFO
+2025-07-29 16:03:14;andrademp;172.22.6.137;Sistema;Janela principal fechada pelo usuário.;INFO
+2025-07-29 16:08:20;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-07-29 16:08:21;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso.;INFO
+2025-07-29 16:08:29;andrademp;172.22.6.137;Extração;Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-07-29 16:08:35;andrademp;172.22.6.137;Salvar JSON Extração;Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-07-29 16:08:36;andrademp;172.22.6.137;Extração;Processo de extração concluído com sucesso;INFO
+2025-07-29 16:08:36;andrademp;172.22.6.137;Busca Extração;Extração carregada com sucesso;INFO
+2025-07-29 16:08:39;andrademp;172.22.6.137;Análise Integrada;Iniciando análise com dados de extração;INFO
+2025-07-29 16:08:39;andrademp;172.22.6.137;Análise PCR;Iniciando análise de placa;INFO
+2025-07-29 16:08:56;andrademp;172.22.6.137;Erro Análise;'utf-8' codec can't decode byte 0xe7 in position 78: invalid continuation byte;ERROR
+2025-07-29 16:09:08;andrademp;172.22.6.137;Análise Integrada;Análise retornou DataFrame vazio ou None;INFO
+2025-07-29 16:09:08;andrademp;172.22.6.137;Execução Análise;Análise retornou resultados vazios;INFO
+2025-07-29 16:09:15;andrademp;172.22.6.137;Sistema;Sistema encerrado pelo usuário via Menu Principal.;INFO
+2025-07-29 16:17:39;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-07-29 16:17:41;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso.;INFO
+2025-07-29 16:17:45;andrademp;172.22.6.137;Extração;Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-07-29 16:17:51;andrademp;172.22.6.137;Salvar JSON Extração;Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-07-29 16:17:52;andrademp;172.22.6.137;Extração;Processo de extração concluído com sucesso;INFO
+2025-07-29 16:17:53;andrademp;172.22.6.137;Busca Extração;Extração carregada com sucesso;INFO
+2025-07-29 16:18:02;andrademp;172.22.6.137;Extração;Processo de extração cancelado pelo usuário;INFO
+2025-07-29 16:18:02;andrademp;172.22.6.137;Busca Extração;Nenhum dado de extração carregado;INFO
+2025-07-29 16:18:06;andrademp;172.22.6.137;Extração;Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-07-29 16:18:15;andrademp;172.22.6.137;Salvar JSON Extração;Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-07-29 16:18:16;andrademp;172.22.6.137;Extração;Processo de extração concluído com sucesso;INFO
+2025-07-29 16:18:17;andrademp;172.22.6.137;Busca Extração;Extração carregada com sucesso;INFO
+2025-07-29 16:18:21;andrademp;172.22.6.137;Análise Integrada;Iniciando análise com dados de extração;INFO
+2025-07-29 16:18:21;andrademp;172.22.6.137;Análise PCR;Iniciando análise de placa;INFO
+2025-07-29 16:18:34;andrademp;172.22.6.137;Erro Análise;'utf-8' codec can't decode byte 0xe7 in position 78: invalid continuation byte;ERROR
+2025-07-29 16:18:35;andrademp;172.22.6.137;Análise Integrada;Análise retornou DataFrame vazio ou None;INFO
+2025-07-29 16:18:35;andrademp;172.22.6.137;Execução Análise;Análise retornou resultados vazios;INFO
+2025-07-29 16:19:17;andrademp;172.22.6.137;Sistema;Janela principal fechada pelo usuário.;INFO
+2025-07-29 17:42:28;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-07-29 17:42:29;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso.;INFO
+2025-07-29 17:42:33;andrademp;172.22.6.137;Extração;Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-07-29 17:42:37;andrademp;172.22.6.137;Salvar JSON Extração;Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-07-29 17:42:38;andrademp;172.22.6.137;Extração;Processo de extração concluído com sucesso;INFO
+2025-07-29 17:42:38;andrademp;172.22.6.137;Busca Extração;Extração carregada com sucesso;INFO
+2025-07-29 17:42:41;andrademp;172.22.6.137;Análise Integrada;Iniciando análise com dados de extração;INFO
+2025-07-29 17:42:41;andrademp;172.22.6.137;Análise PCR;Iniciando análise de placa;INFO
+2025-07-29 17:42:51;andrademp;172.22.6.137;Erro Análise;'utf-8' codec can't decode byte 0xe7 in position 78: invalid continuation byte;ERROR
+2025-07-29 17:42:53;andrademp;172.22.6.137;Análise Integrada;Análise retornou DataFrame vazio ou None;INFO
+2025-07-29 17:42:53;andrademp;172.22.6.137;Execução Análise;Análise retornou resultados vazios;INFO
+2025-07-29 17:42:58;andrademp;172.22.6.137;Sistema;Janela principal fechada pelo usuário.;INFO
+2025-08-01 20:28:24;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-08-01 20:30:00;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO

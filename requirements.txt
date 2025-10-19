@@ -1,0 +1,11 @@
+pandas
+openpyxl
+matplotlib
+selenium-requests
+dearpygui
+simplejson
+psycopg2-binary
+tk
+Pillow
+pandas
+openpyxl

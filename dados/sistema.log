@@ -1,0 +1,514 @@
+2025-08-01 21:50:57;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-08-01 21:53:58;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-08-01 21:53:59;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso após autenticação.;INFO
+2025-08-01 21:53:59;andrademp;172.22.6.137;Sistema;Aplicação principal inicializada.;INFO
+2025-08-01 21:54:00;andrademp;172.22.6.137;Menu Principal;Botão 'Busca de Extração' clicado.;INFO
+2025-08-01 21:54:00;andrademp;172.22.6.137;Busca Extração;Iniciando processo de carregamento de dados de extração.;INFO
+2025-08-01 21:54:01;andrademp;172.22.6.137;Busca Extração GUI;Janela de mapeamento de extração inicializada.;INFO
+2025-08-01 21:54:04;andrademp;172.22.6.137;IO Utils;Tentando ler arquivo Excel: EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-08-01 21:54:05;andrademp;172.22.6.137;IO Utils;Cabeçalho não detectado em Excel 'EXT 49 COVID EXTRACTA.xlsx'. Usando linha 0.;WARNING
+2025-08-01 21:54:05;andrademp;172.22.6.137;IO Utils;Falha ao ler arquivo Excel 'EXT 49 COVID EXTRACTA.xlsx': Worksheet named 'Results' not found;ERROR
+2025-08-01 21:54:05;andrademp;172.22.6.137;Erro Extração;Ocorreu um erro ao processar o arquivo de extração 'EXT 49 COVID EXTRACTA.xlsx': Não foi possível carregar o DataFrame. Verifique o arquivo.;ERROR
+2025-08-01 21:54:23;andrademp;172.22.6.137;Busca Extração;Processo de extração cancelado pelo usuário.;INFO
+2025-08-01 21:54:23;andrademp;172.22.6.137;Busca Extração;Processo de carregamento de dados de extração cancelado ou falhou.;INFO
+2025-08-01 21:54:23;andrademp;172.22.6.137;Busca Extração;Nenhum dado de extração carregado ou processo cancelado.;WARNING
+2025-08-01 21:54:36;andrademp;172.22.6.137;Sistema;Janela principal fechada pelo usuário.;INFO
+2025-08-01 21:57:06;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-08-01 21:57:07;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso após autenticação.;INFO
+2025-08-01 21:57:07;andrademp;172.22.6.137;Sistema;Aplicação principal inicializada.;INFO
+2025-08-01 21:57:08;andrademp;172.22.6.137;Menu Principal;Botão 'Busca de Extração' clicado.;INFO
+2025-08-01 21:57:11;andrademp;172.22.6.137;Extração;Arquivo carregado com sucesso: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-08-01 21:57:15;andrademp;172.22.6.137;Mapeamento Placas;Mapeamento de 48 poços (parte 1) gerado com sucesso.;INFO
+2025-08-01 21:57:15;andrademp;172.22.6.137;Mapeamento;Mapeamento gerado para kit 48, parte 1.;INFO
+2025-08-01 21:57:20;andrademp;172.22.6.137;Salvar JSON Extração;Mapeamento salvo em: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-08-01 21:57:21;andrademp;172.22.6.137;Extração;Processo de extração concluído com sucesso.;INFO
+2025-08-01 21:57:21;andrademp;172.22.6.137;Busca Extração;Nenhum dado de extração carregado ou processo cancelado.;WARNING
+2025-08-01 21:57:35;andrademp;172.22.6.137;Menu Principal;Botão 'Análise' clicado.;INFO
+2025-08-01 21:57:35;andrademp;172.22.6.137;Análise;Dados de extração não encontrados em memória, tentando carregar de arquivo temporário.;INFO
+2025-08-01 21:57:35;andrademp;172.22.6.137;Análise;Dados de extração carregados de arquivo temporário.;INFO
+2025-08-01 21:57:35;andrademp;172.22.6.137;Menu Principal;Exibindo diálogo de seleção de exames.;INFO
+2025-08-01 21:57:38;andrademp;172.22.6.137;Menu Principal;Diálogo de seleção de exames fechado. Escolha: 3;INFO
+2025-08-01 21:57:38;andrademp;172.22.6.137;Análise;Iniciando análise para o exame: VR1e2 Biomanguinhos 7500 usando módulo: analise.vr1e2_biomanguinhos_7500.analisar_placa_vr1e2_7500;INFO
+2025-08-01 21:57:38;andrademp;172.22.6.137;Análise Integrada;Iniciando análise com dados de extração (chamada sistêmica).;INFO
+2025-08-01 21:57:38;andrademp;172.22.6.137;Análise Integrada;Chamada para abrir janela de análise.;INFO
+2025-08-01 21:57:38;andrademp;172.22.6.137;AnalysisWindow;Janela de análise inicializada.;INFO
+2025-08-01 21:57:39;andrademp;172.22.6.137;Análise Dados;Carregando e pré-processando dados de: EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-08-01 21:57:39;andrademp;172.22.6.137;IO Utils;Tentando ler arquivo Excel: EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-08-01 21:57:41;andrademp;172.22.6.137;IO Utils;Cabeçalho não detectado em Excel 'EXT 49 COVID EXTRACTA.xlsx'. Usando linha 0.;WARNING
+2025-08-01 21:57:41;andrademp;172.22.6.137;IO Utils;Falha ao ler arquivo Excel 'EXT 49 COVID EXTRACTA.xlsx': Worksheet named 'Results' not found;ERROR
+2025-08-01 21:57:41;andrademp;172.22.6.137;Análise Dados;Não foi possível carregar dados válidos do arquivo: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;ERROR
+2025-08-01 21:57:41;andrademp;172.22.6.137;Erro Análise;Erro durante a análise da placa: Não foi possível carregar dados válidos do arquivo: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx.;ERROR
+2025-08-01 21:57:45;andrademp;172.22.6.137;AnalysisWindow;Janela de análise fechada pelo usuário.;INFO
+2025-08-01 21:57:46;andrademp;172.22.6.137;Menu Principal;Botão 'Análise' clicado.;INFO
+2025-08-01 21:57:46;andrademp;172.22.6.137;Menu Principal;Exibindo diálogo de seleção de exames.;INFO
+2025-08-01 21:57:49;andrademp;172.22.6.137;Menu Principal;Diálogo de seleção de exames fechado. Escolha: 3;INFO
+2025-08-01 21:57:49;andrademp;172.22.6.137;Análise;Iniciando análise para o exame: VR1e2 Biomanguinhos 7500 usando módulo: analise.vr1e2_biomanguinhos_7500.analisar_placa_vr1e2_7500;INFO
+2025-08-01 21:57:49;andrademp;172.22.6.137;Análise Integrada;Iniciando análise com dados de extração (chamada sistêmica).;INFO
+2025-08-01 21:57:49;andrademp;172.22.6.137;Análise Integrada;Chamada para abrir janela de análise.;INFO
+2025-08-01 21:57:49;andrademp;172.22.6.137;AnalysisWindow;Janela de análise inicializada.;INFO
+2025-08-01 21:57:52;andrademp;172.22.6.137;Análise Dados;Carregando e pré-processando dados de: 20250718 VR1-VR2 BIOM PLACA 5.xls;INFO
+2025-08-01 21:57:52;andrademp;172.22.6.137;IO Utils;Tentando ler arquivo Excel: 20250718 VR1-VR2 BIOM PLACA 5.xls;INFO
+2025-08-01 21:57:53;andrademp;172.22.6.137;IO Utils;Cabeçalho não detectado em Excel '20250718 VR1-VR2 BIOM PLACA 5.xls'. Usando linha 0.;WARNING
+2025-08-01 21:57:53;andrademp;172.22.6.137;IO Utils;Falha ao ler arquivo Excel '20250718 VR1-VR2 BIOM PLACA 5.xls': File is not a zip file;ERROR
+2025-08-01 21:57:53;andrademp;172.22.6.137;Análise Dados;Não foi possível carregar dados válidos do arquivo: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/20250718 VR1-VR2 BIOM PLACA 5.xls;ERROR
+2025-08-01 21:57:53;andrademp;172.22.6.137;Erro Análise;Erro durante a análise da placa: Não foi possível carregar dados válidos do arquivo: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/20250718 VR1-VR2 BIOM PLACA 5.xls.;ERROR
+2025-08-01 21:57:56;andrademp;172.22.6.137;AnalysisWindow;Janela de análise fechada pelo usuário.;INFO
+2025-08-01 21:57:59;andrademp;172.22.6.137;Sistema;Sistema encerrado pelo usuário via Menu Principal.;INFO
+2025-08-01 21:57:59;andrademp;172.22.6.137;Sistema;Janela principal fechada pelo usuário.;INFO
+2025-08-01 22:02:31;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-08-01 22:02:32;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso após autenticação.;INFO
+2025-08-01 22:02:32;andrademp;172.22.6.137;Sistema;Aplicação principal inicializada.;INFO
+2025-08-01 22:02:33;andrademp;172.22.6.137;Menu Principal;Botão 'Busca de Extração' clicado.;INFO
+2025-08-01 22:02:36;andrademp;172.22.6.137;Extração;Arquivo carregado com sucesso: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-08-01 22:02:41;andrademp;172.22.6.137;Mapeamento Placas;Mapeamento de 48 poços (parte 1) gerado com sucesso.;INFO
+2025-08-01 22:02:41;andrademp;172.22.6.137;Mapeamento;Mapeamento gerado para kit 48, parte 1.;INFO
+2025-08-01 22:02:43;andrademp;172.22.6.137;Salvar JSON Extração;Mapeamento salvo em: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-08-01 22:02:45;andrademp;172.22.6.137;Extração;Processo de extração concluído com sucesso.;INFO
+2025-08-01 22:02:45;andrademp;172.22.6.137;Busca Extração;Nenhum dado de extração carregado ou processo cancelado.;WARNING
+2025-08-01 22:03:02;andrademp;172.22.6.137;Sistema;Sistema encerrado pelo usuário via Menu Principal.;INFO
+2025-08-01 22:03:02;andrademp;172.22.6.137;Sistema;Janela principal fechada pelo usuário.;INFO
+2025-08-01 22:17:36;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-08-01 22:17:37;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso após autenticação.;INFO
+2025-08-01 22:17:37;andrademp;172.22.6.137;Sistema;Aplicação principal inicializada.;INFO
+2025-08-01 22:17:38;andrademp;172.22.6.137;Menu Principal;Botão 'Busca de Extração' clicado.;INFO
+2025-08-01 22:17:41;andrademp;172.22.6.137;Extração;Arquivo carregado com sucesso: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-08-01 22:17:45;andrademp;172.22.6.137;Mapeamento Placas;Mapeamento de 48 poços (parte 1) gerado com sucesso.;INFO
+2025-08-01 22:17:45;andrademp;172.22.6.137;Mapeamento;Mapeamento gerado para kit 48, parte 1.;INFO
+2025-08-01 22:18:00;andrademp;172.22.6.137;Salvar JSON Extração;Mapeamento salvo em: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-08-01 22:18:01;andrademp;172.22.6.137;Extração;Processo de extração concluído com sucesso.;INFO
+2025-08-01 22:18:01;andrademp;172.22.6.137;Busca Extração;Nenhum dado de extração carregado ou processo cancelado.;WARNING
+2025-08-01 22:19:22;andrademp;172.22.6.137;Menu Principal;Botão 'Análise' clicado.;INFO
+2025-08-01 22:19:22;andrademp;172.22.6.137;Análise;Dados de extração não encontrados em memória, tentando carregar de arquivo temporário.;INFO
+2025-08-01 22:19:22;andrademp;172.22.6.137;Análise;Dados de extração carregados de arquivo temporário.;INFO
+2025-08-01 22:19:22;andrademp;172.22.6.137;Menu Principal;Exibindo diálogo de seleção de exames.;INFO
+2025-08-01 22:19:24;andrademp;172.22.6.137;Menu Principal;Diálogo de seleção de exames fechado. Escolha: 3;INFO
+2025-08-01 22:19:24;andrademp;172.22.6.137;Análise;Iniciando análise para o exame: VR1e2 Biomanguinhos 7500 usando módulo: analise.vr1e2_biomanguinhos_7500.analisar_placa_vr1e2_7500;INFO
+2025-08-01 22:19:24;andrademp;172.22.6.137;Erro Análise;Ocorreu um erro inesperado durante a análise: analisar_placa_vr1e2_7500() missing 1 required positional argument: 'parte_placa';ERROR
+2025-08-01 22:19:49;andrademp;172.22.6.137;Sistema;Sistema encerrado pelo usuário via Menu Principal.;INFO
+2025-08-01 22:19:49;andrademp;172.22.6.137;Sistema;Janela principal fechada pelo usuário.;INFO
+2025-08-01 22:34:33;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-08-01 22:34:34;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso após autenticação.;INFO
+2025-08-01 22:34:34;andrademp;172.22.6.137;Sistema;Aplicação principal inicializada.;INFO
+2025-08-01 22:34:35;andrademp;172.22.6.137;Menu Principal;Botão 'Busca de Extração' clicado.;INFO
+2025-08-01 22:34:36;andrademp;172.22.6.137;Extração;Arquivo carregado com sucesso: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-08-01 22:34:40;andrademp;172.22.6.137;Mapeamento Placas;Mapeamento de 48 poços (parte 1) gerado com sucesso.;INFO
+2025-08-01 22:34:41;andrademp;172.22.6.137;Mapeamento;Mapeamento gerado para kit 48, parte 1.;INFO
+2025-08-01 22:34:42;andrademp;172.22.6.137;Salvar JSON Extração;Mapeamento salvo em: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-08-01 22:34:43;andrademp;172.22.6.137;Extração;Processo de extração concluído com sucesso.;INFO
+2025-08-01 22:34:43;andrademp;172.22.6.137;Busca Extração;Nenhum dado de extração carregado ou processo cancelado.;WARNING
+2025-08-01 22:34:45;andrademp;172.22.6.137;Menu Principal;Botão 'Busca de Extração' clicado.;INFO
+2025-08-01 22:34:47;andrademp;172.22.6.137;Extração;Arquivo carregado com sucesso: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-08-01 22:34:53;andrademp;172.22.6.137;Mapeamento Placas;Mapeamento de 48 poços (parte 2) gerado com sucesso.;INFO
+2025-08-01 22:34:54;andrademp;172.22.6.137;Mapeamento;Mapeamento gerado para kit 48, parte 2.;INFO
+2025-08-01 22:34:57;andrademp;172.22.6.137;Extração;Voltando para a etapa de seleção de kit.;INFO
+2025-08-01 22:35:02;andrademp;172.22.6.137;Mapeamento Placas;Mapeamento de 48 poços (parte 1) gerado com sucesso.;INFO
+2025-08-01 22:35:03;andrademp;172.22.6.137;Mapeamento;Mapeamento gerado para kit 48, parte 1.;INFO
+2025-08-01 22:35:08;andrademp;172.22.6.137;Salvar JSON Extração;Mapeamento salvo em: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-08-01 22:35:18;andrademp;172.22.6.137;Extração;Processo de extração concluído com sucesso.;INFO
+2025-08-01 22:35:18;andrademp;172.22.6.137;Busca Extração;Nenhum dado de extração carregado ou processo cancelado.;WARNING
+2025-08-01 22:35:43;andrademp;172.22.6.137;Menu Principal;Botão 'Busca de Extração' clicado.;INFO
+2025-08-01 22:35:45;andrademp;172.22.6.137;Extração;Arquivo carregado com sucesso: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-08-01 22:35:49;andrademp;172.22.6.137;Mapeamento Placas;Mapeamento de 48 poços (parte 1) gerado com sucesso.;INFO
+2025-08-01 22:35:49;andrademp;172.22.6.137;Mapeamento;Mapeamento gerado para kit 48, parte 1.;INFO
+2025-08-01 22:35:51;andrademp;172.22.6.137;Salvar JSON Extração;Mapeamento salvo em: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-08-01 22:35:53;andrademp;172.22.6.137;Extração;Processo de extração concluído com sucesso.;INFO
+2025-08-01 22:35:53;andrademp;172.22.6.137;Busca Extração;Nenhum dado de extração carregado ou processo cancelado.;WARNING
+2025-08-01 22:36:38;andrademp;172.22.6.137;Sistema;Janela principal fechada pelo usuário.;INFO
+2025-08-02 01:35:14;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-08-02 01:35:16;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso após autenticação.;INFO
+2025-08-02 01:35:16;andrademp;172.22.6.137;Sistema;Aplicação principal inicializada.;INFO
+2025-08-02 01:35:18;andrademp;172.22.6.137;Menu Principal;Botão 'Busca de Extração' clicado.;INFO
+2025-08-02 01:35:20;andrademp;172.22.6.137;Extração;Arquivo carregado com sucesso: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-08-02 01:35:29;andrademp;172.22.6.137;Mapeamento Placas;Mapeamento de 48 poços (parte 1) gerado com sucesso.;INFO
+2025-08-02 01:35:29;andrademp;172.22.6.137;Mapeamento;Mapeamento gerado para kit 48, parte 1.;INFO
+2025-08-02 01:35:31;andrademp;172.22.6.137;Salvar JSON Extração;Mapeamento salvo em: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-08-02 01:35:34;andrademp;172.22.6.137;Extração;Processo de extração concluído com sucesso.;INFO
+2025-08-02 01:35:34;andrademp;172.22.6.137;Busca Extração;Nenhum dado de extração carregado ou processo cancelado.;WARNING
+2025-08-02 01:40:47;andrademp;172.22.6.137;Menu Principal;Botão 'Salvar Resultados' clicado.;INFO
+2025-08-02 01:40:48;andrademp;172.22.6.137;Salvar Resultados;Tentativa de salvar sem resultados de análise.;WARNING
+2025-08-02 01:40:49;andrademp;172.22.6.137;Menu Principal;Botão 'Análise' clicado.;INFO
+2025-08-02 01:40:49;andrademp;172.22.6.137;Análise;Dados de extração não encontrados em memória, tentando carregar de arquivo temporário.;INFO
+2025-08-02 01:40:49;andrademp;172.22.6.137;Análise;Dados de extração carregados de arquivo temporário.;INFO
+2025-08-02 01:40:49;andrademp;172.22.6.137;Menu Principal;Exibindo diálogo de seleção de exames.;INFO
+2025-08-02 01:40:52;andrademp;172.22.6.137;Menu Principal;Diálogo de seleção de exames fechado. Escolha: 3;INFO
+2025-08-02 01:40:52;andrademp;172.22.6.137;Análise;Iniciando análise para o exame: VR1e2 Biomanguinhos 7500 usando módulo: analise.vr1e2_biomanguinhos_7500.analisar_placa_vr1e2_7500;INFO
+2025-08-02 01:40:52;andrademp;172.22.6.137;Erro Análise;Ocorreu um erro inesperado durante a análise: analisar_placa_vr1e2_7500() missing 1 required positional argument: 'parte_placa';ERROR
+2025-08-02 01:40:56;andrademp;172.22.6.137;Sistema;Janela principal fechada pelo usuário.;INFO
+2025-08-02 01:49:37;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-08-02 01:49:39;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso após autenticação.;INFO
+2025-08-02 01:49:39;andrademp;172.22.6.137;Sistema;Aplicação principal inicializada.;INFO
+2025-08-02 01:49:40;andrademp;172.22.6.137;Menu Principal;Botão 'Busca de Extração' clicado.;INFO
+2025-08-02 01:49:43;andrademp;172.22.6.137;Extração;Arquivo carregado com sucesso: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-08-02 01:49:49;andrademp;172.22.6.137;Mapeamento Placas;Mapeamento de 48 poços (parte 1) gerado com sucesso.;INFO
+2025-08-02 01:49:49;andrademp;172.22.6.137;Mapeamento;Mapeamento gerado para kit 48, parte 1.;INFO
+2025-08-02 01:50:06;andrademp;172.22.6.137;Salvar JSON Extração;Mapeamento salvo em: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-08-02 01:50:17;andrademp;172.22.6.137;Extração;Processo de extração concluído com sucesso.;INFO
+2025-08-02 01:50:17;andrademp;172.22.6.137;Busca Extração;Nenhum dado de extração carregado ou processo cancelado.;WARNING
+2025-08-02 01:50:31;andrademp;172.22.6.137;Menu Principal;Botão 'Análise' clicado.;INFO
+2025-08-02 01:50:31;andrademp;172.22.6.137;Análise;Dados de extração não encontrados em memória, tentando carregar de arquivo temporário.;INFO
+2025-08-02 01:50:31;andrademp;172.22.6.137;Análise;Dados de extração carregados de arquivo temporário.;INFO
+2025-08-02 01:50:31;andrademp;172.22.6.137;Menu Principal;Exibindo diálogo de seleção de exames.;INFO
+2025-08-02 01:50:36;andrademp;172.22.6.137;Menu Principal;Diálogo de seleção de exames fechado. Escolha: 3;INFO
+2025-08-02 01:50:36;andrademp;172.22.6.137;Análise;Iniciando análise para o exame: VR1e2 Biomanguinhos 7500 usando módulo: analise.vr1e2_biomanguinhos_7500.analisar_placa_vr1e2_7500;INFO
+2025-08-02 01:50:36;andrademp;172.22.6.137;Erro Análise;Ocorreu um erro inesperado durante a análise: analisar_placa_vr1e2_7500() missing 1 required positional argument: 'parte_placa';ERROR
+2025-08-02 01:51:00;andrademp;172.22.6.137;Sistema;Sistema encerrado pelo usuário via Menu Principal.;INFO
+2025-08-02 01:51:00;andrademp;172.22.6.137;Sistema;Janela principal fechada pelo usuário.;INFO
+2025-08-02 01:53:08;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-08-02 01:53:09;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso após autenticação.;INFO
+2025-08-02 01:53:09;andrademp;172.22.6.137;Sistema;Aplicação principal inicializada.;INFO
+2025-08-02 01:53:12;andrademp;172.22.6.137;Menu Principal;Botão 'Busca de Extração' clicado.;INFO
+2025-08-02 01:53:14;andrademp;172.22.6.137;Extração;Arquivo carregado com sucesso: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-08-02 01:53:18;andrademp;172.22.6.137;Mapeamento Placas;Mapeamento de 48 poços (parte 1) gerado com sucesso.;INFO
+2025-08-02 01:53:18;andrademp;172.22.6.137;Mapeamento;Mapeamento gerado para kit 48, parte 1.;INFO
+2025-08-02 01:53:20;andrademp;172.22.6.137;Salvar JSON Extração;Mapeamento salvo em: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-08-02 01:53:29;andrademp;172.22.6.137;Extração;Processo de extração concluído com sucesso.;INFO
+2025-08-02 01:53:29;andrademp;172.22.6.137;Busca Extração;Nenhum dado de extração carregado ou processo cancelado.;WARNING
+2025-08-02 02:02:01;andrademp;172.22.6.137;Sistema;Janela principal fechada pelo usuário.;INFO
+2025-08-02 02:34:19;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-08-02 02:34:21;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso após autenticação.;INFO
+2025-08-02 02:34:21;andrademp;172.22.6.137;Sistema;Aplicação principal inicializada.;INFO
+2025-08-02 02:34:22;andrademp;172.22.6.137;Menu Principal;Botão 'Busca de Extração' clicado.;INFO
+2025-08-02 02:34:22;andrademp;172.22.6.137;Erro Busca Extração;Erro durante o processo de extração: 'BuscaExtracaoApp' object has no attribute 'aguardar_conclusao';ERROR
+2025-08-02 02:34:25;andrademp;172.22.6.137;Extração;Arquivo carregado com sucesso: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-08-02 02:34:30;andrademp;172.22.6.137;Mapeamento Placas;Mapeamento de 48 poços (parte 1) gerado com sucesso.;INFO
+2025-08-02 02:34:30;andrademp;172.22.6.137;Mapeamento;Mapeamento gerado para kit 48, parte 1.;INFO
+2025-08-02 02:34:32;andrademp;172.22.6.137;Salvar JSON Extração;Mapeamento salvo em: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-08-02 02:34:34;andrademp;172.22.6.137;Extração;Processo de extração concluído com sucesso.;INFO
+2025-08-02 02:35:18;andrademp;172.22.6.137;Menu Principal;Botão 'Exportar Resultados CSV' clicado.;INFO
+2025-08-02 02:35:20;andrademp;172.22.6.137;Exportação;Tentativa de exportar sem resultados de análise.;WARNING
+2025-08-02 02:35:22;andrademp;172.22.6.137;Menu Principal;Botão 'Análise' clicado.;INFO
+2025-08-02 02:35:22;andrademp;172.22.6.137;Análise;Dados de extração não encontrados em memória, tentando carregar de arquivo temporário.;INFO
+2025-08-02 02:35:22;andrademp;172.22.6.137;Análise;Dados de extração carregados de arquivo temporário.;INFO
+2025-08-02 02:35:22;andrademp;172.22.6.137;Menu Principal;Exibindo diálogo de seleção de exames.;INFO
+2025-08-02 02:35:24;andrademp;172.22.6.137;Menu Principal;Diálogo de seleção de exames fechado. Escolha: 3;INFO
+2025-08-02 02:35:24;andrademp;172.22.6.137;Análise;Iniciando análise para o exame: VR1e2 Biomanguinhos 7500 usando módulo: analise.vr1e2_biomanguinhos_7500.analisar_placa_vr1e2_7500;INFO
+2025-08-02 02:35:24;andrademp;172.22.6.137;Erro Análise;Ocorreu um erro inesperado durante a análise: analisar_placa_vr1e2_7500() missing 1 required positional argument: 'parte_placa';ERROR
+2025-08-02 02:35:30;andrademp;172.22.6.137;Menu Principal;Botão 'Análise' clicado.;INFO
+2025-08-02 02:35:30;andrademp;172.22.6.137;Menu Principal;Exibindo diálogo de seleção de exames.;INFO
+2025-08-02 02:35:36;andrademp;172.22.6.137;Menu Principal;Diálogo de seleção de exames fechado. Escolha: 3;INFO
+2025-08-02 02:35:36;andrademp;172.22.6.137;Análise;Iniciando análise para o exame: VR1e2 Biomanguinhos 7500 usando módulo: analise.vr1e2_biomanguinhos_7500.analisar_placa_vr1e2_7500;INFO
+2025-08-02 02:35:36;andrademp;172.22.6.137;Erro Análise;Ocorreu um erro inesperado durante a análise: analisar_placa_vr1e2_7500() missing 1 required positional argument: 'parte_placa';ERROR
+2025-08-02 02:36:00;andrademp;172.22.6.137;Sistema;Sistema encerrado pelo usuário via Menu Principal.;INFO
+2025-08-02 02:36:00;andrademp;172.22.6.137;Sistema;Janela principal fechada pelo usuário.;INFO
+2025-08-02 02:47:22;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-08-02 02:47:24;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso após autenticação.;INFO
+2025-08-02 02:47:24;andrademp;172.22.6.137;Sistema;Aplicação principal inicializada.;INFO
+2025-08-02 02:47:26;andrademp;172.22.6.137;Menu Principal;Botão 'Busca de Extração' clicado.;INFO
+2025-08-02 02:47:26;andrademp;172.22.6.137;Erro Busca Extração;Erro durante o processo de extração: 'BuscaExtracaoApp' object has no attribute 'aguardar_conclusao';ERROR
+2025-08-02 02:47:29;andrademp;172.22.6.137;Extração;Arquivo carregado com sucesso: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-08-02 02:47:43;andrademp;172.22.6.137;Mapeamento Placas;Mapeamento de 48 poços (parte 1) gerado com sucesso.;INFO
+2025-08-02 02:47:43;andrademp;172.22.6.137;Mapeamento;Mapeamento gerado para kit 48, parte 1.;INFO
+2025-08-02 02:47:46;andrademp;172.22.6.137;Salvar JSON Extração;Mapeamento salvo em: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-08-02 02:47:47;andrademp;172.22.6.137;Extração;Processo de extração concluído com sucesso.;INFO
+2025-08-02 02:47:48;andrademp;172.22.6.137;Menu Principal;Botão 'Análise' clicado.;INFO
+2025-08-02 02:47:48;andrademp;172.22.6.137;Análise;Dados de extração não encontrados em memória, tentando carregar de arquivo temporário.;INFO
+2025-08-02 02:47:48;andrademp;172.22.6.137;Análise;Dados de extração carregados de arquivo temporário.;INFO
+2025-08-02 02:47:48;andrademp;172.22.6.137;Menu Principal;Exibindo diálogo de seleção de exames.;INFO
+2025-08-02 02:47:51;andrademp;172.22.6.137;Menu Principal;Diálogo de seleção de exames fechado. Escolha: 3;INFO
+2025-08-02 02:47:51;andrademp;172.22.6.137;Análise;Iniciando análise para o exame: VR1e2 Biomanguinhos 7500 usando módulo: analise.vr1e2_biomanguinhos_7500.analisar_placa_vr1e2_7500;INFO
+2025-08-02 02:47:51;andrademp;172.22.6.137;Análise Integrada;Iniciando análise com dados de extração;INFO
+2025-08-02 02:47:51;andrademp;172.22.6.137;Análise Integrada;Chamada para abrir janela de análise.;INFO
+2025-08-02 02:47:51;andrademp;172.22.6.137;AnalysisWindow;Janela de análise inicializada.;INFO
+2025-08-02 02:47:55;andrademp;172.22.6.137;Análise Dados;Carregando e pré-processando dados de: 20250718 VR1-VR2 BIOM PLACA 5.xls;INFO
+2025-08-02 02:47:55;andrademp;172.22.6.137;IO Utils;Tentando ler arquivo Excel: 20250718 VR1-VR2 BIOM PLACA 5.xls;INFO
+2025-08-02 02:47:55;andrademp;172.22.6.137;IO Utils;Cabeçalho não detectado em Excel '20250718 VR1-VR2 BIOM PLACA 5.xls'. Usando linha 0.;WARNING
+2025-08-02 02:47:55;andrademp;172.22.6.137;IO Utils;Falha ao ler arquivo Excel '20250718 VR1-VR2 BIOM PLACA 5.xls': File is not a zip file;ERROR
+2025-08-02 02:47:55;andrademp;172.22.6.137;Análise Dados;Não foi possível carregar dados válidos do arquivo: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/20250718 VR1-VR2 BIOM PLACA 5.xls;ERROR
+2025-08-02 02:47:55;andrademp;172.22.6.137;Erro Análise;Erro durante a análise da placa: Não foi possível carregar dados válidos do arquivo: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/20250718 VR1-VR2 BIOM PLACA 5.xls.;ERROR
+2025-08-02 02:48:41;andrademp;172.22.6.137;AnalysisWindow;Janela de análise fechada pelo usuário.;INFO
+2025-08-02 02:48:41;andrademp;172.22.6.137;Análise Integrada;Análise retornou DataFrame vazio ou None;WARNING
+2025-08-02 02:48:41;andrademp;172.22.6.137;Execução Análise;Análise retornou resultados vazios.;WARNING
+2025-08-02 02:48:45;andrademp;172.22.6.137;Menu Principal;Botão 'Análise' clicado.;INFO
+2025-08-02 02:48:45;andrademp;172.22.6.137;Menu Principal;Exibindo diálogo de seleção de exames.;INFO
+2025-08-02 02:48:48;andrademp;172.22.6.137;Menu Principal;Diálogo de seleção de exames fechado. Escolha: 3;INFO
+2025-08-02 02:48:48;andrademp;172.22.6.137;Análise;Iniciando análise para o exame: VR1e2 Biomanguinhos 7500 usando módulo: analise.vr1e2_biomanguinhos_7500.analisar_placa_vr1e2_7500;INFO
+2025-08-02 02:48:48;andrademp;172.22.6.137;Análise Integrada;Iniciando análise com dados de extração;INFO
+2025-08-02 02:48:48;andrademp;172.22.6.137;Análise Integrada;Chamada para abrir janela de análise.;INFO
+2025-08-02 02:48:48;andrademp;172.22.6.137;AnalysisWindow;Janela de análise inicializada.;INFO
+2025-08-02 02:48:51;andrademp;172.22.6.137;Análise Dados;Carregando e pré-processando dados de: 20250718 VR1-VR2 BIOM PLACA 5.xls;INFO
+2025-08-02 02:48:51;andrademp;172.22.6.137;IO Utils;Tentando ler arquivo Excel: 20250718 VR1-VR2 BIOM PLACA 5.xls;INFO
+2025-08-02 02:48:51;andrademp;172.22.6.137;IO Utils;Cabeçalho não detectado em Excel '20250718 VR1-VR2 BIOM PLACA 5.xls'. Usando linha 0.;WARNING
+2025-08-02 02:48:51;andrademp;172.22.6.137;IO Utils;Falha ao ler arquivo Excel '20250718 VR1-VR2 BIOM PLACA 5.xls': File is not a zip file;ERROR
+2025-08-02 02:48:51;andrademp;172.22.6.137;Análise Dados;Não foi possível carregar dados válidos do arquivo: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/20250718 VR1-VR2 BIOM PLACA 5.xls;ERROR
+2025-08-02 02:48:51;andrademp;172.22.6.137;Erro Análise;Erro durante a análise da placa: Não foi possível carregar dados válidos do arquivo: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/20250718 VR1-VR2 BIOM PLACA 5.xls.;ERROR
+2025-08-02 02:48:54;andrademp;172.22.6.137;AnalysisWindow;Janela de análise fechada pelo usuário.;INFO
+2025-08-02 02:48:54;andrademp;172.22.6.137;Análise Integrada;Análise retornou DataFrame vazio ou None;WARNING
+2025-08-02 02:48:54;andrademp;172.22.6.137;Execução Análise;Análise retornou resultados vazios.;WARNING
+2025-08-02 02:48:57;andrademp;172.22.6.137;Sistema;Sistema encerrado pelo usuário via Menu Principal.;INFO
+2025-08-02 02:48:57;andrademp;172.22.6.137;Sistema;Janela principal fechada pelo usuário.;INFO
+2025-08-02 02:56:19;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-08-02 02:56:21;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso após autenticação.;INFO
+2025-08-02 02:56:21;andrademp;172.22.6.137;Sistema;Aplicação principal inicializada.;INFO
+2025-08-02 02:56:22;andrademp;172.22.6.137;Menu Principal;Botão 'Busca de Extração' clicado.;INFO
+2025-08-02 02:56:25;andrademp;172.22.6.137;Extração;Arquivo carregado com sucesso: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-08-02 02:56:30;andrademp;172.22.6.137;Mapeamento Placas;Mapeamento de 48 poços (parte 1) gerado com sucesso.;INFO
+2025-08-02 02:56:30;andrademp;172.22.6.137;Mapeamento;Mapeamento gerado para kit 48, parte 1.;INFO
+2025-08-02 02:56:31;andrademp;172.22.6.137;Salvar JSON Extração;Mapeamento salvo em: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-08-02 02:56:33;andrademp;172.22.6.137;Extração;Processo de extração concluído com sucesso.;INFO
+2025-08-02 02:56:33;andrademp;172.22.6.137;Busca Extração;Extração carregada com sucesso;INFO
+2025-08-02 02:56:36;andrademp;172.22.6.137;Menu Principal;Botão 'Análise' clicado.;INFO
+2025-08-02 02:56:36;andrademp;172.22.6.137;Menu Principal;Exibindo diálogo de seleção de exames.;INFO
+2025-08-02 02:56:38;andrademp;172.22.6.137;Menu Principal;Diálogo de seleção de exames fechado. Escolha: 3;INFO
+2025-08-02 02:56:38;andrademp;172.22.6.137;Análise;Iniciando análise para o exame: VR1e2 Biomanguinhos 7500 usando módulo: analise.vr1e2_biomanguinhos_7500.analisar_placa_vr1e2_7500;INFO
+2025-08-02 02:56:38;andrademp;172.22.6.137;Análise Integrada;Iniciando análise com dados de extração;INFO
+2025-08-02 02:56:38;andrademp;172.22.6.137;Análise Integrada;Chamada para abrir janela de análise.;INFO
+2025-08-02 02:56:38;andrademp;172.22.6.137;AnalysisWindow;Janela de análise inicializada.;INFO
+2025-08-02 02:56:42;andrademp;172.22.6.137;Análise Dados;Carregando e pré-processando dados de: 20250718 VR1-VR2 BIOM PLACA 5.xls;INFO
+2025-08-02 02:56:42;andrademp;172.22.6.137;IO Utils;Tentando ler arquivo Excel: 20250718 VR1-VR2 BIOM PLACA 5.xls;INFO
+2025-08-02 02:56:42;andrademp;172.22.6.137;IO Utils;Cabeçalho não detectado em Excel '20250718 VR1-VR2 BIOM PLACA 5.xls'. Usando linha 0.;WARNING
+2025-08-02 02:56:42;andrademp;172.22.6.137;IO Utils;Falha ao ler arquivo Excel '20250718 VR1-VR2 BIOM PLACA 5.xls': File is not a zip file;ERROR
+2025-08-02 02:56:42;andrademp;172.22.6.137;Análise Dados;Não foi possível carregar dados válidos do arquivo: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/20250718 VR1-VR2 BIOM PLACA 5.xls;ERROR
+2025-08-02 02:56:42;andrademp;172.22.6.137;Erro Análise;Erro durante a análise da placa: Não foi possível carregar dados válidos do arquivo: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/20250718 VR1-VR2 BIOM PLACA 5.xls.;ERROR
+2025-08-02 02:56:55;andrademp;172.22.6.137;AnalysisWindow;Janela de análise fechada pelo usuário.;INFO
+2025-08-02 02:56:55;andrademp;172.22.6.137;Análise Integrada;Análise retornou DataFrame vazio ou None;WARNING
+2025-08-02 02:56:55;andrademp;172.22.6.137;Execução Análise;Análise retornou resultados vazios.;WARNING
+2025-08-02 02:56:59;andrademp;172.22.6.137;Sistema;Janela principal fechada pelo usuário.;INFO
+2025-08-02 03:06:29;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-08-02 03:06:31;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso após autenticação.;INFO
+2025-08-02 03:06:31;andrademp;172.22.6.137;Sistema;Aplicação principal inicializada.;INFO
+2025-08-02 03:06:32;andrademp;172.22.6.137;Menu Principal;Botão 'Busca de Extração' clicado.;INFO
+2025-08-02 03:06:34;andrademp;172.22.6.137;Extração;Arquivo carregado com sucesso: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-08-02 03:06:38;andrademp;172.22.6.137;Mapeamento Placas;Mapeamento de 48 poços (parte 1) gerado com sucesso.;INFO
+2025-08-02 03:06:38;andrademp;172.22.6.137;Mapeamento;Mapeamento gerado para kit 48, parte 1.;INFO
+2025-08-02 03:06:39;andrademp;172.22.6.137;Salvar JSON Extração;Mapeamento salvo em: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-08-02 03:06:41;andrademp;172.22.6.137;Extração;Processo de extração concluído com sucesso.;INFO
+2025-08-02 03:06:41;andrademp;172.22.6.137;Busca Extração;Extração carregada com sucesso;INFO
+2025-08-02 03:06:43;andrademp;172.22.6.137;Menu Principal;Botão 'Análise' clicado.;INFO
+2025-08-02 03:06:43;andrademp;172.22.6.137;Menu Principal;Exibindo diálogo de seleção de exames.;INFO
+2025-08-02 03:06:46;andrademp;172.22.6.137;Menu Principal;Diálogo de seleção de exames fechado. Escolha: 3;INFO
+2025-08-02 03:06:46;andrademp;172.22.6.137;Análise;Iniciando análise para o exame: VR1e2 Biomanguinhos 7500 usando módulo: analise.vr1e2_biomanguinhos_7500.analisar_placa_vr1e2_7500;INFO
+2025-08-02 03:06:46;andrademp;172.22.6.137;Análise Integrada;Iniciando análise com dados de extração;INFO
+2025-08-02 03:06:46;andrademp;172.22.6.137;Análise Integrada;Chamada para abrir janela de análise.;INFO
+2025-08-02 03:06:46;andrademp;172.22.6.137;AnalysisWindow;Janela de análise inicializada.;INFO
+2025-08-02 03:06:49;andrademp;172.22.6.137;Análise Dados;Carregando e pré-processando dados de: 20250718 VR1-VR2 BIOM PLACA 5.xls;INFO
+2025-08-02 03:06:49;andrademp;172.22.6.137;Análise Dados;Colunas essenciais faltando no DataFrame após pré-processamento: ['Well', 'Target', 'Sample'];ERROR
+2025-08-02 03:06:49;andrademp;172.22.6.137;Erro Análise;Erro durante a análise: O arquivo de dados não contém as colunas essenciais para análise: Well, Target, Sample.;ERROR
+2025-08-02 03:07:17;andrademp;172.22.6.137;AnalysisWindow;Fechando janela de análise.;INFO
+2025-08-02 03:07:17;andrademp;172.22.6.137;Erro Interface;"Falha na interface de análise: bad window path name "".!analysiswindow""";ERROR
+2025-08-02 03:07:37;andrademp;172.22.6.137;Execução Análise;Análise retornou resultados vazios.;WARNING
+2025-08-02 03:07:42;andrademp;172.22.6.137;Sistema;Sistema encerrado pelo usuário via Menu Principal.;INFO
+2025-08-02 03:07:42;andrademp;172.22.6.137;Sistema;Janela principal fechada pelo usuário.;INFO
+2025-08-02 03:20:24;andrademp;172.22.6.137;Login Sucesso;Usuário autenticado: 1;INFO
+2025-08-02 03:20:26;andrademp;172.22.6.137;Sistema;Sistema iniciado com sucesso após autenticação.;INFO
+2025-08-02 03:20:26;andrademp;172.22.6.137;Sistema;Aplicação principal inicializada.;INFO
+2025-08-02 03:20:27;andrademp;172.22.6.137;Menu Principal;Botão 'Busca de Extração' clicado.;INFO
+2025-08-02 03:20:30;andrademp;172.22.6.137;Extração;Arquivo carregado com sucesso: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-08-02 03:20:35;andrademp;172.22.6.137;Mapeamento Placas;Mapeamento de 48 poços (parte 1) gerado com sucesso.;INFO
+2025-08-02 03:20:35;andrademp;172.22.6.137;Mapeamento;Mapeamento gerado para kit 48, parte 1.;INFO
+2025-08-02 03:20:37;andrademp;172.22.6.137;Salvar JSON Extração;Mapeamento salvo em: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json;INFO
+2025-08-02 03:20:38;andrademp;172.22.6.137;Extração;Processo de extração concluído com sucesso.;INFO
+2025-08-02 03:20:38;andrademp;172.22.6.137;Busca Extração;Extração carregada com sucesso;INFO
+2025-08-02 03:20:41;andrademp;172.22.6.137;Menu Principal;Botão 'Análise' clicado.;INFO
+2025-08-02 03:20:41;andrademp;172.22.6.137;Menu Principal;Exibindo diálogo de seleção de exames.;INFO
+2025-08-02 03:20:44;andrademp;172.22.6.137;Menu Principal;Diálogo de seleção de exames fechado. Escolha: 3;INFO
+2025-08-02 03:20:44;andrademp;172.22.6.137;Análise;Iniciando análise para o exame: VR1e2 Biomanguinhos 7500 usando módulo: analise.vr1e2_biomanguinhos_7500.analisar_placa_vr1e2_7500;INFO
+2025-08-02 03:20:44;andrademp;172.22.6.137;Análise Integrada;Iniciando análise com dados de extração;INFO
+2025-08-02 03:20:44;andrademp;172.22.6.137;Análise Integrada;Chamada para abrir janela de análise.;INFO
+2025-08-02 03:20:44;andrademp;172.22.6.137;AnalysisWindow;Janela de análise inicializada.;INFO
+2025-08-02 03:20:47;andrademp;172.22.6.137;Análise Dados;Carregando: 20250718 VR1-VR2 BIOM PLACA 5.xls;INFO
+2025-08-02 03:20:47;andrademp;172.22.6.137;Leitura;Arquivo lido com engine xlrd, pulando 7 linhas;INFO
+2025-08-02 03:20:47;andrademp;172.22.6.137;Análise CT;"Falha ao converter valor CT '0      Undetermined
+1      Undetermined
+2      Undetermined
+3         27.946194
+4      Undetermined
+           ...     
+343       21.849501
+344       21.466293
+345       25.166521
+346       22.342218
+347        20.96134
+Name: CT, Length: 348, dtype: object': could not convert string to float: '0      Undetermined\n1      Undetermined\n2      Undetermined\n3         27.946194\n4      Undetermined\n           ...     \n343       21.849501\n344       21.466293\n345       25.166521\n346       22.342218\n347        20.96134\nName: CT. Length: 348. dtype: object'";DEBUG
+2025-08-02 03:20:47;andrademp;172.22.6.137;Análise CT;"Falha ao converter valor CT '0      29.915886
+1      20.978100
+2            NaN
+3      25.397312
+4            NaN
+         ...    
+343    21.849501
+344    21.466293
+345    25.166521
+346    22.342218
+347    20.961340
+Name: CT, Length: 348, dtype: float64': could not convert string to float: '0      29.915886\n1      20.978100\n2            NaN\n3      25.397312\n4            NaN\n         ...    \n343    21.849501\n344    21.466293\n345    25.166521\n346    22.342218\n347    20.961340\nName: CT. Length: 348. dtype: float64'";DEBUG
+2025-08-02 03:20:47;andrademp;172.22.6.137;Análise CT;"Falha ao converter valor CT '0      5.032989
+1      2.562438
+2           NaN
+3      2.684744
+4           NaN
+         ...   
+343         NaN
+344         NaN
+345         NaN
+346         NaN
+347         NaN
+Name: CT, Length: 348, dtype: float64': could not convert string to float: '0      5.032989\n1      2.562438\n2           NaN\n3      2.684744\n4           NaN\n         ...   \n343         NaN\n344         NaN\n345         NaN\n346         NaN\n347         NaN\nName: CT. Length: 348. dtype: float64'";DEBUG
+2025-08-02 03:20:47;andrademp;172.22.6.137;Análise CT;"Falha ao converter valor CT '0      0.0
+1      0.0
+2      0.0
+3      0.0
+4      0.0
+      ... 
+343    0.0
+344    0.0
+345    0.0
+346    0.0
+347    0.0
+Name: CT, Length: 348, dtype: float64': could not convert string to float: '0      0.0\n1      0.0\n2      0.0\n3      0.0\n4      0.0\n      ... \n343    0.0\n344    0.0\n345    0.0\n346    0.0\n347    0.0\nName: CT. Length: 348. dtype: float64'";DEBUG
+2025-08-02 03:20:47;andrademp;172.22.6.137;Análise CT;"Falha ao converter valor CT '0      18000.0
+1      25000.0
+2      25000.0
+3      25000.0
+4      20000.0
+        ...   
+343    20000.0
+344    25000.0
+345    25000.0
+346    25000.0
+347    20000.0
+Name: CT, Length: 348, dtype: float64': could not convert string to float: '0      18000.0\n1      25000.0\n2      25000.0\n3      25000.0\n4      20000.0\n        ...   \n343    20000.0\n344    25000.0\n345    25000.0\n346    25000.0\n347    20000.0\nName: CT. Length: 348. dtype: float64'";DEBUG
+2025-08-02 03:20:47;andrademp;172.22.6.137;Análise Dados;Arquivo carregado: 20250718 VR1-VR2 BIOM PLACA 5.xls;INFO
+2025-08-02 03:20:47;andrademp;172.22.6.137;PlateAnalysisProcessor;Processador inicializado para arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xls;INFO
+2025-08-02 03:20:47;andrademp;172.22.6.137;PlateAnalysisProcessor;Iniciando análise da placa.;INFO
+2025-08-02 03:20:47;andrademp;172.22.6.137;PlateAnalysisProcessor;Metadados da placa extraídos: Placa Desconhecida, Data Desconhecida;INFO
+2025-08-02 03:20:47;andrademp;172.22.6.137;Erro Análise;Erro durante a análise: '<=' not supported between instances of 'int' and 'str';ERROR
+2025-08-02 03:21:28;andrademp;172.22.6.137;AnalysisWindow;Fechando janela de análise.;INFO
+2025-08-02 03:21:28;andrademp;172.22.6.137;Erro Interface;"Falha na interface de análise: bad window path name "".!analysiswindow""";ERROR
+2025-08-02 03:21:39;andrademp;172.22.6.137;Execução Análise;Análise retornou resultados vazios.;WARNING
+2025-08-02 03:21:42;andrademp;172.22.6.137;Sistema;Sistema encerrado pelo usuário via Menu Principal.;INFO
+2025-08-02 03:21:42;andrademp;172.22.6.137;Sistema;Janela principal fechada pelo usuário.;INFO
+2025-08-06 04:52:55;marci;192.168.0.55;Login Sucesso;Usuário autenticado: 1;INFO
+2025-08-06 04:52:57;marci;192.168.0.55;Sistema;Sistema iniciado com sucesso após autenticação.;INFO
+2025-08-06 04:52:57;marci;192.168.0.55;Sistema;Aplicação principal inicializada.;INFO
+2025-08-06 04:52:58;marci;192.168.0.55;Menu;Iniciando busca de extração;INFO
+2025-08-06 04:54:13;marci;192.168.0.55;Erro Extração;Erro ao ler ou processar o arquivo de extração: Worksheet named 'PLANILHA EXTRAÇÃO' not found;ERROR
+2025-08-06 04:54:14;marci;192.168.0.55;Extração;Processo cancelado pelo usuário;INFO
+2025-08-06 04:54:14;marci;192.168.0.55;Fechamento;Janela de extração fechada com segurança;INFO
+2025-08-06 04:54:14;marci;192.168.0.55;BuscaExtração;Processo cancelado ou sem dados;WARNING
+2025-08-06 04:54:16;marci;192.168.0.55;Menu Principal;Botão 'Análise' clicado.;INFO
+2025-08-06 04:54:16;marci;192.168.0.55;Análise;Nenhum dado de extração disponível para análise.;WARNING
+2025-08-06 04:54:21;marci;192.168.0.55;Sistema;Sistema encerrado pelo usuário via Menu Principal.;INFO
+2025-08-06 04:54:21;marci;192.168.0.55;Sistema;Janela principal fechada pelo usuário.;INFO
+2025-08-06 05:07:45;marci;192.168.0.55;Login Sucesso;Usuário autenticado: 1;INFO
+2025-08-06 05:07:46;marci;192.168.0.55;Sistema;Sistema iniciado com sucesso após autenticação.;INFO
+2025-08-06 05:07:46;marci;192.168.0.55;Configuração;Carregando exames disponíveis...;INFO
+2025-08-06 05:07:46;marci;192.168.0.55;Configuração;Configuração de exames carregada com sucesso.;INFO
+2025-08-06 05:07:47;marci;192.168.0.55;Sistema;Aplicação principal inicializada.;INFO
+2025-08-06 05:07:48;marci;192.168.0.55;Menu;Iniciando busca de extração;INFO
+2025-08-06 05:07:51;marci;192.168.0.55;Extração;Seleção de arquivo de extração cancelada pelo usuário.;INFO
+2025-08-06 05:07:51;marci;192.168.0.55;Extração;Processo cancelado pelo usuário;INFO
+2025-08-06 05:07:51;marci;192.168.0.55;Fechamento;Janela de extração fechada com segurança;INFO
+2025-08-06 05:07:51;marci;192.168.0.55;BuscaExtração;Processo cancelado ou sem dados;WARNING
+2025-08-06 05:07:53;marci;192.168.0.55;Menu Principal;Botão 'Análise' clicado.;INFO
+2025-08-06 05:07:53;marci;192.168.0.55;Análise;Nenhum dado de extração disponível para análise.;WARNING
+2025-08-06 05:07:55;marci;192.168.0.55;Sistema;Sistema encerrado pelo usuário via Menu Principal.;INFO
+2025-08-06 05:07:55;marci;192.168.0.55;Sistema;Janela principal fechada pelo usuário.;INFO
+2025-08-06 05:09:47;marci;192.168.0.55;Login Sucesso;Usuário autenticado: 1;INFO
+2025-08-06 05:09:48;marci;192.168.0.55;Sistema;Sistema iniciado com sucesso após autenticação.;INFO
+2025-08-06 05:09:48;marci;192.168.0.55;Configuração;Carregando exames disponíveis...;INFO
+2025-08-06 05:09:48;marci;192.168.0.55;Configuração;Configuração de exames carregada com sucesso.;INFO
+2025-08-06 05:09:48;marci;192.168.0.55;Sistema;Aplicação principal inicializada.;INFO
+2025-08-06 05:09:51;marci;192.168.0.55;Sistema;Sistema encerrado pelo usuário via Menu Principal.;INFO
+2025-08-06 05:09:51;marci;192.168.0.55;Sistema;Janela principal fechada pelo usuário.;INFO
+2025-08-07 02:16:55;marci;192.168.0.55;Login Sucesso;Usuário autenticado: 1;INFO
+2025-08-07 02:16:56;marci;192.168.0.55;Sistema;Sistema iniciado com sucesso após autenticação.;INFO
+2025-08-07 02:16:57;marci;192.168.0.55;Sistema;Aplicação principal inicializada.;INFO
+2025-08-07 02:16:58;marci;192.168.0.55;Menu;Iniciando busca de extração;INFO
+2025-08-07 02:17:02;marci;192.168.0.55;Extração;Arquivo carregado com sucesso: C:/Users/marci/Downloads/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-08-07 02:17:07;marci;192.168.0.55;Mapeamento Placas;Mapeamento de 48 poços (parte 1) gerado com sucesso.;INFO
+2025-08-07 02:17:08;marci;192.168.0.55;Mapeamento;Mapeamento gerado para kit 48, parte 1.;INFO
+2025-08-07 02:17:16;marci;192.168.0.55;Salvar JSON Extração;Mapeamento salvo em: C:\Users\marci\AppData\Local\Temp\dados_extracao.json;INFO
+2025-08-07 02:17:18;marci;192.168.0.55;Extração;Processo concluído com sucesso;INFO
+2025-08-07 02:17:18;marci;192.168.0.55;Fechamento;Janela de extração fechada com segurança;INFO
+2025-08-07 02:17:18;marci;192.168.0.55;BuscaExtração;Dados carregados: 96 amostras, parte 1;INFO
+2025-08-07 02:17:21;marci;192.168.0.55;Menu Principal;Botão 'Análise' clicado.;INFO
+2025-08-07 02:17:21;marci;192.168.0.55;Menu Principal;Exibindo diálogo de seleção de exames.;INFO
+2025-08-07 02:17:24;marci;192.168.0.55;Menu Principal;Diálogo de seleção de exames fechado. Escolha: 3;INFO
+2025-08-07 02:17:24;marci;192.168.0.55;Análise;Iniciando análise para o exame: VR1e2 Biomanguinhos 7500 usando módulo: analise.vr1e2_biomanguinhos_7500.analisar_placa_vr1e2_7500;INFO
+2025-08-07 02:17:24;marci;192.168.0.55;Análise Integrada;Iniciando análise com dados de extração;INFO
+2025-08-07 02:17:24;marci;192.168.0.55;Análise Integrada;Chamada para abrir janela de análise.;INFO
+2025-08-07 02:17:24;marci;192.168.0.55;AnalysisWindow;Janela de análise inicializada.;INFO
+2025-08-07 02:17:32;marci;192.168.0.55;Análise Dados;Carregando: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
+2025-08-07 02:17:32;marci;192.168.0.55;Leitura;Arquivo lido com engine openpyxl, pulando 7 linhas;INFO
+2025-08-07 02:17:32;marci;192.168.0.55;PlateAnalysisProcessor;Processador inicializado para arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
+2025-08-07 02:17:32;marci;192.168.0.55;PlateAnalysisProcessor;Iniciando análise da placa.;INFO
+2025-08-07 02:17:32;marci;192.168.0.55;PlateAnalysisProcessor;Metadados da placa extraídos: Placa Desconhecida, Data Desconhecida;INFO
+2025-08-07 02:17:32;marci;192.168.0.55;Erro Análise;Erro durante a análise da placa: '<=' not supported between instances of 'int' and 'str';ERROR
+2025-08-07 02:17:41;marci;192.168.0.55;Fechamento;Janela de análise fechada com segurança;INFO
+2025-08-07 02:17:41;marci;192.168.0.55;Erro Interface;"Falha na interface de análise: bad window path name "".!analysiswindow""";ERROR
+2025-08-07 02:17:45;marci;192.168.0.55;Execução Análise;Análise retornou resultados vazios.;WARNING
+2025-08-07 02:17:48;marci;192.168.0.55;Sistema;Sistema encerrado pelo usuário via Menu Principal.;INFO
+2025-08-07 02:17:48;marci;192.168.0.55;Sistema;Janela principal fechada pelo usuário.;INFO
+2025-08-07 02:32:15;marci;192.168.0.55;Login Sucesso;Usuário autenticado: 1;INFO
+2025-08-07 02:32:17;marci;192.168.0.55;Sistema;Sistema iniciado com sucesso após autenticação.;INFO
+2025-08-07 02:32:17;marci;192.168.0.55;Sistema;Aplicação principal inicializada.;INFO
+2025-08-07 02:32:18;marci;192.168.0.55;Menu;Iniciando busca de extração;INFO
+2025-08-07 02:32:20;marci;192.168.0.55;Extração;Arquivo carregado com sucesso: C:/Users/marci/Downloads/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-08-07 02:32:25;marci;192.168.0.55;Mapeamento Placas;Mapeamento de 48 poços (parte 1) gerado com sucesso.;INFO
+2025-08-07 02:32:26;marci;192.168.0.55;Mapeamento;Mapeamento gerado para kit 48, parte 1.;INFO
+2025-08-07 02:32:27;marci;192.168.0.55;Salvar JSON Extração;Mapeamento salvo em: C:\Users\marci\AppData\Local\Temp\dados_extracao.json;INFO
+2025-08-07 02:32:29;marci;192.168.0.55;Extração;Processo concluído com sucesso;INFO
+2025-08-07 02:32:29;marci;192.168.0.55;Fechamento;Janela de extração fechada com segurança;INFO
+2025-08-07 02:32:29;marci;192.168.0.55;BuscaExtração;Dados carregados: 96 amostras, parte 1;INFO
+2025-08-07 02:32:31;marci;192.168.0.55;Menu Principal;Botão 'Análise' clicado.;INFO
+2025-08-07 02:32:31;marci;192.168.0.55;Menu Principal;Exibindo diálogo de seleção de exames.;INFO
+2025-08-07 02:32:35;marci;192.168.0.55;Menu Principal;Diálogo de seleção de exames fechado. Escolha: 3;INFO
+2025-08-07 02:32:35;marci;192.168.0.55;Análise;Iniciando análise para o exame: VR1e2 Biomanguinhos 7500 usando módulo: analise.vr1e2_biomanguinhos_7500.analisar_placa_vr1e2_7500;INFO
+2025-08-07 02:32:35;marci;192.168.0.55;Erro Análise;Erro de importação do módulo de análise: Erro ao importar 'analise.vr1e2_biomanguinhos_7500.analisar_placa_vr1e2_7500': attempted relative import beyond top-level package;ERROR
+2025-08-07 02:33:09;marci;192.168.0.55;Sistema;Sistema encerrado pelo usuário via Menu Principal.;INFO
+2025-08-07 02:33:09;marci;192.168.0.55;Sistema;Janela principal fechada pelo usuário.;INFO
+2025-08-07 02:40:52;marci;192.168.0.55;Login Sucesso;Usuário autenticado: 1;INFO
+2025-08-07 02:40:53;marci;192.168.0.55;Sistema;Sistema iniciado com sucesso após autenticação.;INFO
+2025-08-07 02:40:53;marci;192.168.0.55;Sistema;Aplicação principal inicializada.;INFO
+2025-08-07 02:40:54;marci;192.168.0.55;Menu;Iniciando busca de extração;INFO
+2025-08-07 02:40:57;marci;192.168.0.55;Extração;Arquivo carregado com sucesso: C:/Users/marci/Downloads/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-08-07 02:41:22;marci;192.168.0.55;Mapeamento Placas;Mapeamento de 48 poços (parte 1) gerado com sucesso.;INFO
+2025-08-07 02:41:22;marci;192.168.0.55;Mapeamento;Mapeamento gerado para kit 48, parte 1.;INFO
+2025-08-07 02:41:23;marci;192.168.0.55;Salvar JSON Extração;Mapeamento salvo em: C:\Users\marci\AppData\Local\Temp\dados_extracao.json;INFO
+2025-08-07 02:41:25;marci;192.168.0.55;Extração;Processo concluído com sucesso;INFO
+2025-08-07 02:41:25;marci;192.168.0.55;Fechamento;Janela de extração fechada com segurança;INFO
+2025-08-07 02:41:25;marci;192.168.0.55;BuscaExtração;Dados carregados: 96 amostras, parte 1;INFO
+2025-08-07 02:41:28;marci;192.168.0.55;Menu Principal;Botão 'Análise' clicado.;INFO
+2025-08-07 02:41:28;marci;192.168.0.55;Menu Principal;Exibindo diálogo de seleção de exames.;INFO
+2025-08-07 02:41:32;marci;192.168.0.55;Menu Principal;Diálogo de seleção de exames fechado. Escolha: 3;INFO
+2025-08-07 02:41:32;marci;192.168.0.55;Análise;Iniciando análise para o exame: VR1e2 Biomanguinhos 7500 usando módulo: analise.vr1e2_biomanguinhos_7500.analisar_placa_vr1e2_7500;INFO
+2025-08-07 02:41:32;marci;192.168.0.55;Erro Análise;Erro de importação do módulo de análise: Erro ao importar 'analise.vr1e2_biomanguinhos_7500.analisar_placa_vr1e2_7500': attempted relative import beyond top-level package;ERROR
+2025-08-07 02:41:43;marci;192.168.0.55;Sistema;Sistema encerrado pelo usuário via Menu Principal.;INFO
+2025-08-07 02:41:43;marci;192.168.0.55;Sistema;Janela principal fechada pelo usuário.;INFO
+2025-08-07 02:45:47;marci;192.168.0.55;Login Sucesso;Usuário autenticado: 1;INFO
+2025-08-07 02:45:49;marci;192.168.0.55;Sistema;Sistema iniciado com sucesso após autenticação.;INFO
+2025-08-07 02:45:49;marci;192.168.0.55;Sistema;Aplicação principal inicializada.;INFO
+2025-08-07 02:45:50;marci;192.168.0.55;Menu;Iniciando busca de extração;INFO
+2025-08-07 02:45:52;marci;192.168.0.55;Extração;Arquivo carregado com sucesso: C:/Users/marci/Downloads/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-08-07 02:45:57;marci;192.168.0.55;Mapeamento Placas;Mapeamento de 48 poços (parte 1) gerado com sucesso.;INFO
+2025-08-07 02:45:57;marci;192.168.0.55;Mapeamento;Mapeamento gerado para kit 48, parte 1.;INFO
+2025-08-07 02:45:58;marci;192.168.0.55;Salvar JSON Extração;Mapeamento salvo em: C:\Users\marci\AppData\Local\Temp\dados_extracao.json;INFO
+2025-08-07 02:45:59;marci;192.168.0.55;Extração;Processo concluído com sucesso;INFO
+2025-08-07 02:45:59;marci;192.168.0.55;Fechamento;Janela de extração fechada com segurança;INFO
+2025-08-07 02:45:59;marci;192.168.0.55;BuscaExtração;Dados carregados: 96 amostras, parte 1;INFO
+2025-08-07 02:46:02;marci;192.168.0.55;Menu Principal;Botão 'Análise' clicado.;INFO
+2025-08-07 02:46:02;marci;192.168.0.55;Menu Principal;Exibindo diálogo de seleção de exames.;INFO
+2025-08-07 02:46:06;marci;192.168.0.55;Menu Principal;Diálogo de seleção de exames fechado. Escolha: 3;INFO
+2025-08-07 02:46:06;marci;192.168.0.55;Análise;Iniciando análise para o exame: VR1e2 Biomanguinhos 7500 usando módulo: analise.vr1e2_biomanguinhos_7500.analisar_placa_vr1e2_7500;INFO
+2025-08-07 02:46:06;marci;192.168.0.55;Erro Análise;Erro de importação do módulo de análise: Erro ao importar 'analise.vr1e2_biomanguinhos_7500.analisar_placa_vr1e2_7500': attempted relative import beyond top-level package;ERROR
+2025-08-07 02:46:17;marci;192.168.0.55;Sistema;Sistema encerrado pelo usuário via Menu Principal.;INFO
+2025-08-07 02:46:17;marci;192.168.0.55;Sistema;Janela principal fechada pelo usuário.;INFO
+2025-08-07 03:23:08;marci;192.168.0.55;Login Sucesso;Usuário autenticado: 1;INFO
+2025-08-07 03:23:10;marci;192.168.0.55;Sistema;Sistema iniciado com sucesso após autenticação.;INFO
+2025-08-07 03:23:10;marci;192.168.0.55;Sistema;Aplicação principal inicializada.;INFO
+2025-08-07 03:23:11;marci;192.168.0.55;Menu;Iniciando busca de extração;INFO
+2025-08-07 03:23:13;marci;192.168.0.55;Extração;Arquivo carregado com sucesso: C:/Users/marci/Downloads/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx;INFO
+2025-08-07 03:23:16;marci;192.168.0.55;Mapeamento Placas;Mapeamento de 48 poços (parte 1) gerado com sucesso.;INFO
+2025-08-07 03:23:17;marci;192.168.0.55;Mapeamento;Mapeamento gerado para kit 48, parte 1.;INFO
+2025-08-07 03:23:18;marci;192.168.0.55;Salvar JSON Extração;Mapeamento salvo em: C:\Users\marci\AppData\Local\Temp\dados_extracao.json;INFO
+2025-08-07 03:23:19;marci;192.168.0.55;Extração;Processo concluído com sucesso;INFO
+2025-08-07 03:23:19;marci;192.168.0.55;Fechamento;Janela de extração fechada com segurança;INFO
+2025-08-07 03:23:19;marci;192.168.0.55;BuscaExtração;Dados carregados: 96 amostras, parte 1;INFO
+2025-08-07 03:23:21;marci;192.168.0.55;Menu Principal;Botão 'Análise' clicado.;INFO
+2025-08-07 03:23:21;marci;192.168.0.55;Menu Principal;Exibindo diálogo de seleção de exames.;INFO
+2025-08-07 03:23:24;marci;192.168.0.55;Menu Principal;Diálogo de seleção de exames fechado. Escolha: 3;INFO
+2025-08-07 03:23:24;marci;192.168.0.55;Análise;Iniciando análise para o exame: VR1e2 Biomanguinhos 7500 usando módulo: analise.vr1e2_biomanguinhos_7500.analisar_placa_vr1e2_7500;INFO
+2025-08-07 03:23:24;marci;192.168.0.55;Erro Análise;Erro de importação do módulo de análise: Erro ao importar 'analise.vr1e2_biomanguinhos_7500.analisar_placa_vr1e2_7500': attempted relative import beyond top-level package;ERROR
+2025-08-07 03:23:31;marci;192.168.0.55;Sistema;Sistema encerrado pelo usuário via Menu Principal.;INFO
+2025-08-07 03:23:31;marci;192.168.0.55;Sistema;Janela principal fechada pelo usuário.;INFO
+2025-10-14 00:44:19;marci;192.168.0.54;AuthService;Arquivo de credenciais criado em: C:\Users\marci\Downloads\Integragal\banco\credenciais.csv;INFO

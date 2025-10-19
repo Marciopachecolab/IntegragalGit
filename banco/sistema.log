@@ -1,0 +1,1174 @@
+[2025-06-16 18:01:18] Ação: Login | Detalhes: Usuário admin autenticado com sucesso
+[2025-06-16 18:01:34] Ação: Configuração Alterada | Detalhes: Configurações do sistema atualizadas.
+[2025-06-16 18:01:59] Ação: Busca Extração | Detalhes: Arquivo processado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/39 FOR DE EXTRAÇÃO/1 EXTRAÇÕES AUTOMATIZADAS/2025/06 JUNHO/EXT 34 EXTRACTA.xlsx
+[2025-06-16 18:01:59] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-06-16 18:02:13] Ação: Início Análise VR1 | Detalhes: Iniciando processo de análise da placa VR1
+[2025-06-16 18:04:08] Ação: Início Análise VR2 | Detalhes: Iniciando processo de análise da placa VR2
+[2025-06-16 20:29:58] Ação: Falha Login | Detalhes: Tentativa de login inválida para '1'
+[2025-06-16 20:30:16] Ação: Falha Login | Detalhes: Tentativa de login inválida para 'admin'
+[2025-06-16 20:31:49] Ação: Falha Login | Detalhes: Tentativa de login inválida para '1'
+[2025-06-16 20:37:08] Ação: Login | Detalhes: Usuário admin autenticado com sucesso
+[2025-06-16 20:37:25] Ação: Configuração Alterada | Detalhes: Configurações do sistema atualizadas.
+[2025-06-16 20:41:20] Ação: Configuração Alterada | Detalhes: Configurações do sistema atualizadas.
+[2025-06-16 20:42:37] Ação: Login Sucesso | Detalhes: Usuário: marcio
+[2025-06-16 20:42:59] Ação: Login - Reset de senha | Detalhes: Senha de 'marcio' resetada.
+[2025-06-16 20:43:11] Ação: Login - Reset de senha | Detalhes: Senha de 'marcio' resetada.
+[2025-06-16 20:43:47] Ação: Login Falha | Detalhes: Usuário: marcio
+[2025-06-16 20:43:51] Ação: Login Sucesso | Detalhes: Usuário: marcio
+[2025-06-16 20:51:05] Ação: Login Falha | Detalhes: Usuário: admin
+[2025-06-16 20:51:14] Ação: Login Sucesso | Detalhes: Usuário: admin
+[2025-06-16 20:55:41] Ação: Login Sucesso | Detalhes: Usuário: admin
+[2025-06-17 13:13:27] Ação: Login - Novo usuário | Detalhes: Usuário 'dilac' adicionado pelo admin.
+[2025-06-17 13:17:40] Ação: Login Encerrado | Detalhes: Janela de login fechada pelo usuário.
+[2025-06-17 13:17:50] Ação: Login Falha | Detalhes: Tentativa 1 - Usuário: 1
+[2025-06-17 13:17:54] Ação: Login Falha | Detalhes: Tentativa 2 - Usuário: 1
+[2025-06-17 13:17:56] Ação: Login Falha | Detalhes: Tentativa 3 - Usuário: 1
+[2025-06-17 13:17:57] Ação: Login Bloqueado | Detalhes: Usuário: 1 excedeu tentativas.
+[2025-06-17 13:18:10] Ação: Login Sucesso | Detalhes: Usuário: dilac
+[2025-06-17 14:54:52] Ação: Login Sucesso | Detalhes: Usuário: dilac
+[2025-06-17 14:55:18] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-17 17:59:10] Ação: Login Sucesso | Detalhes: Usuário: dilac
+[2025-06-17 18:10:53] Ação: Login Sucesso | Detalhes: Usuário: dilac
+[2025-06-17 18:11:56] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-17 18:14:38] Ação: Login Sucesso | Detalhes: Usuário: dilac
+[2025-06-17 18:14:59] Ação: Erro Extração | Detalhes: cannot use geometry manager pack inside . which already has slaves managed by grid
+[2025-06-17 18:15:11] Ação: Erro Extração | Detalhes: cannot use geometry manager pack inside . which already has slaves managed by grid
+[2025-06-17 18:15:46] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-17 18:18:45] Ação: Login Sucesso | Detalhes: Usuário: dilac
+[2025-06-17 18:19:11] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-17 19:27:03] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-17 19:27:10] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-17 19:30:15] Ação: Login Sucesso | Detalhes: Usuário: dilac
+[2025-06-17 19:30:30] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-17 19:33:27] Ação: Login Sucesso | Detalhes: Usuário: dilac
+[2025-06-17 19:33:56] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-17 19:33:59] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-23 16:15:23] Ação: Login - Novo usuário | Detalhes: Usuário 'admin2' adicionado pelo admin.
+[2025-06-23 16:15:32] Ação: Login Falha | Detalhes: Tentativa 1 - Usuário: admin2
+[2025-06-23 16:15:35] Ação: Login Falha | Detalhes: Tentativa 2 - Usuário: admin2
+[2025-06-23 16:15:43] Ação: Login Falha | Detalhes: Tentativa 3 - Usuário: admin2
+[2025-06-23 16:15:44] Ação: Login Bloqueado | Detalhes: Usuário: admin2 excedeu tentativas.
+[2025-06-23 16:15:54] Ação: Login Sucesso | Detalhes: Usuário: admin
+[2025-06-23 16:16:13] Ação: Configuração Alterada | Detalhes: Configurações do sistema atualizadas.
+[2025-06-23 16:17:45] Ação: Início Análise VR1 | Detalhes: Iniciando processo de análise da placa VR1
+[2025-06-23 16:17:49] Ação: Análise VR1 Cancelada | Detalhes: Nenhum arquivo CSV selecionado
+[2025-06-23 19:22:18] Ação: Login Sucesso | Detalhes: Usuário: admin
+[2025-06-23 19:33:06] Ação: Inclusão de Teste | Detalhes: Exame 'VR1e2 Biomanguinhos 7500' adicionado com Kit: 1140, Campos: ['Sars-Cov-2', 'Influenzaa', 'influenzab', 'RSV', 'adenovírus', 'metapneumovirus', 'rinovírus']
+[2025-06-23 19:33:38] Ação: Configuração Alterada | Detalhes: Configurações do sistema atualizadas.
+[2025-06-23 19:34:09] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-23 19:35:03] Ação: Início Análise VR1 | Detalhes: Iniciando processo de análise da placa VR1
+[2025-06-23 19:35:07] Ação: Análise VR1 Cancelada | Detalhes: Nenhum arquivo CSV selecionado
+[2025-06-23 19:35:13] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-23 20:34:08] Ação: Login Sucesso | Detalhes: Usuário: admin
+[2025-06-23 20:35:27] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-23 20:35:58] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-23 20:36:27] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-23 20:38:09] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-23 20:41:09] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-23 21:09:56] Ação: Login Sucesso | Detalhes: Usuário: admin
+[2025-06-23 21:10:16] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-23 21:11:00] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-23 21:12:41] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-23 21:15:39] Ação: Login Falha | Detalhes: Tentativa 1 - Usuário: ADMIN
+[2025-06-23 21:15:49] Ação: Login Sucesso | Detalhes: Usuário: admin
+[2025-06-23 21:16:08] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-23 21:16:44] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-23 21:17:18] Ação: Login Falha | Detalhes: Tentativa 1 - Usuário: 1
+[2025-06-23 21:17:24] Ação: Login Sucesso | Detalhes: Usuário: admin
+[2025-06-23 21:17:42] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-23 21:17:51] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-23 21:22:56] Ação: Login Sucesso | Detalhes: Usuário: admin
+[2025-06-23 21:23:16] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-23 21:27:47] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-23 21:32:04] Ação: Login - Novo usuário | Detalhes: Usuário '1' adicionado pelo admin.
+[2025-06-23 21:32:10] Ação: Login Falha | Detalhes: Tentativa 1 - Usuário: 1
+[2025-06-23 21:32:19] Ação: Login Sucesso | Detalhes: Usuário: admin
+[2025-06-23 21:32:39] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-23 21:33:07] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-23 21:36:25] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-23 21:36:43] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-23 21:36:49] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-23 21:37:11] Ação: Erro Análise VR1e2 7500 | Detalhes: Missing optional dependency 'xlrd'. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install xlrd.
+[2025-06-23 21:37:49] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-23 21:37:54] Ação: Erro Análise VR1e2 7500 | Detalhes: 'float' object has no attribute 'upper'
+[2025-06-23 21:42:44] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-23 21:43:16] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-23 21:45:12] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-23 21:45:32] Ação: Erro Análise VR1e2 7500 | Detalhes: TabelaComSelecaoSimulada.__init__() missing 1 required positional argument: 'agravos'
+[2025-06-23 21:48:06] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-23 21:48:10] Ação: Erro Análise VR1e2 7500 | Detalhes: TabelaComSelecaoSimulada.__init__() missing 1 required positional argument: 'agravos'
+[2025-06-23 21:48:15] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-23 21:48:32] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-23 21:49:01] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-23 21:49:07] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-23 21:49:18] Ação: Erro Análise VR1e2 7500 | Detalhes: 'Sample'
+[2025-06-23 21:49:54] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-23 21:50:01] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-23 21:50:11] Ação: Erro Análise VR1e2 7500 | Detalhes: 'Sample'
+[2025-06-23 21:56:22] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-23 21:56:53] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-23 21:57:23] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-23 21:57:27] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-23 21:57:38] Ação: Erro Análise VR1e2 7500 | Detalhes: 'Sample'
+[2025-06-23 21:57:53] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-23 21:57:57] Ação: Erro Análise VR1e2 7500 | Detalhes: 'Sample'
+[2025-06-23 22:00:01] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-23 22:01:51] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-23 22:02:24] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-23 22:02:30] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-23 22:02:48] Ação: Erro Análise VR1e2 7500 | Detalhes: 'Sample'
+[2025-06-23 22:03:08] Ação: Busca Extração | Detalhes: Nenhum dado de extração carregado
+[2025-06-23 22:03:27] Ação: Configuração Alterada | Detalhes: Configurações do sistema atualizadas.
+[2025-06-23 22:03:59] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-23 22:04:04] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-23 22:04:12] Ação: Erro Análise VR1e2 7500 | Detalhes: 'Sample'
+[2025-06-23 22:04:48] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-23 22:04:52] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-23 22:05:02] Ação: Erro Análise VR1e2 7500 | Detalhes: 'Sample'
+[2025-06-23 22:06:34] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-23 22:07:01] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-23 22:07:06] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-23 22:07:16] Ação: Erro Análise VR1e2 7500 | Detalhes: 'Sample'
+[2025-06-23 22:11:55] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-23 22:12:00] Ação: Erro Análise VR1e2 7500 | Detalhes: 'Sample'
+[2025-06-23 22:12:04] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-23 22:16:02] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-23 22:16:33] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-23 22:16:38] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-23 22:17:42] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-23 22:20:48] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-23 22:21:19] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-23 22:21:25] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-23 22:21:40] Ação: Erro Análise VR1e2 7500 | Detalhes: 'Sample'
+[2025-06-23 22:21:46] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-23 22:22:14] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-23 22:22:45] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-23 22:22:50] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-23 22:28:27] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-23 22:29:00] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-23 22:30:10] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-23 22:30:38] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-23 22:30:42] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-23 22:32:15] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-23 22:32:19] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-23 22:33:08] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-23 22:44:24] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-23 22:45:13] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-23 22:45:16] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-23 22:45:27] Ação: Erro Análise VR1e2 7500 | Detalhes: Erro ao carregar dados: 'Cт'
+[2025-06-23 22:46:26] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-23 22:46:30] Ação: Erro Análise VR1e2 7500 | Detalhes: Erro ao carregar dados: 'Cт'
+[2025-06-23 22:47:32] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-23 22:47:35] Ação: Erro Análise VR1e2 7500 | Detalhes: Erro ao carregar dados: 'Cт'
+[2025-06-23 22:47:37] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-23 22:47:50] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-23 22:48:17] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-23 22:48:21] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-23 22:48:31] Ação: Erro Análise VR1e2 7500 | Detalhes: 'Target Name'
+[2025-06-23 22:50:26] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-23 22:50:30] Ação: Erro Análise VR1e2 7500 | Detalhes: 'Target Name'
+[2025-06-23 22:50:32] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-23 22:50:45] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-23 22:51:11] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-23 22:51:16] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-23 22:52:28] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-23 22:52:33] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-23 22:52:53] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-23 23:03:30] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-23 23:03:59] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-23 23:04:03] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-23 23:04:30] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-23 23:06:43] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-23 23:06:59] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-23 23:07:03] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-23 23:07:36] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-23 23:18:39] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-23 23:18:56] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-23 23:19:00] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-23 23:19:05] Ação: Erro Análise VR1e2 7500 | Detalhes: too many values to unpack (expected 2)
+[2025-06-23 23:19:24] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-23 23:27:47] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-23 23:28:03] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-23 23:28:08] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500 - Parte: parte1
+[2025-06-23 23:39:18] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-23 23:39:33] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-23 23:39:37] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-23 23:42:35] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-23 23:42:51] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-23 23:42:56] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-23 23:43:04] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-23 23:44:21] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-23 23:44:36] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-23 23:44:40] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-24 17:39:15] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-24 17:39:40] Ação: Login Sucesso | Detalhes: Usuário: admin
+[2025-06-24 17:40:44] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-24 17:40:53] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-25 20:16:18] Ação: Login Falha | Detalhes: Tentativa 1 - Usuário: 1
+[2025-06-25 20:16:44] Ação: Login Falha | Detalhes: Tentativa 2 - Usuário: admin
+[2025-06-25 20:16:49] Ação: Login Encerrado | Detalhes: Janela de login fechada pelo usuário.
+[2025-06-25 20:21:16] Ação: Login - Novo usuário | Detalhes: Usuário '2' adicionado pelo admin.
+[2025-06-25 20:21:18] Ação: Login Encerrado | Detalhes: Janela de login fechada pelo usuário.
+[2025-06-25 20:22:36] Ação: Login Falha | Detalhes: Tentativa 1 - Usuário: 2
+[2025-06-25 20:22:47] Ação: Login Falha | Detalhes: Tentativa 2 - Usuário: 2
+[2025-06-25 20:22:50] Ação: Login Encerrado | Detalhes: Janela de login fechada pelo usuário.
+[2025-06-26 13:59:44] Ação: Login Falha | Detalhes: Tentativa 1 - Usuário: admin
+[2025-06-26 14:53:51] Ação: Login Encerrado | Detalhes: Janela de login fechada pelo usuário.
+[2025-06-26 19:32:44] Ação: Login Falha | Detalhes: Tentativa 1 - Usuário: admin
+[2025-06-26 19:32:47] Ação: Login Encerrado | Detalhes: Janela de login fechada pelo usuário.
+[2025-06-26 19:56:48] Ação: Login Falha | Detalhes: Tentativa 1 - Usuário: 1
+[2025-06-26 19:56:57] Ação: Login Falha | Detalhes: Tentativa 2 - Usuário: admin
+[2025-06-26 19:56:59] Ação: Login Encerrado | Detalhes: Janela de login fechada pelo usuário.
+[2025-06-26 20:03:11] Ação: Login Falha | Detalhes: Tentativa 1 - Usuário: admin
+[2025-06-26 20:03:16] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-26 20:03:17] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-06-26 20:04:53] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-26 20:04:57] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-26 20:30:36] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-26 20:31:19] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-26 20:31:20] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-06-26 20:38:54] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-26 20:39:37] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-26 20:39:38] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-06-26 20:40:03] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-26 20:42:24] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-26 20:42:25] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-06-26 20:42:45] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-26 20:42:50] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-26 20:43:01] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-26 20:51:28] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-26 20:51:29] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-06-26 20:52:33] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-26 20:52:34] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-06-26 20:52:57] Ação: Busca Extração | Detalhes: Nenhum dado de extração carregado
+[2025-06-26 20:52:59] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-26 20:53:57] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-26 20:53:58] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-06-26 20:54:35] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-26 20:56:26] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-26 20:56:27] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-06-26 20:57:03] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-26 20:57:09] Ação: Início Análise VR2 | Detalhes: Iniciando processo de análise da placa VR2
+[2025-06-26 20:57:29] Ação: Análise VR2 Cancelada | Detalhes: Nenhum arquivo CSV selecionado
+[2025-06-26 20:57:33] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-26 20:59:14] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-26 20:59:22] Ação: Início Análise VR2 | Detalhes: Iniciando processo de análise da placa VR2
+[2025-06-26 20:59:53] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-26 21:33:06] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-26 21:33:07] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-06-26 21:33:14] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/23 JUNHO 2025/EXT 61 EXTRACTA.xlsx
+[2025-06-26 21:33:14] Ação: Busca Extração | Detalhes: Nenhum dado de extração carregado
+[2025-06-26 21:33:27] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-26 21:34:03] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-26 21:34:04] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-06-26 21:34:08] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/23 JUNHO 2025/EXT 61 EXTRACTA.xlsx
+[2025-06-26 21:34:08] Ação: Busca Extração | Detalhes: Nenhum dado de extração carregado
+[2025-06-26 21:35:46] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-26 21:42:21] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-26 21:42:23] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-06-26 21:42:26] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/23 JUNHO 2025/EXT 61 EXTRACTA.xlsx
+[2025-06-26 21:42:26] Ação: Busca Extração | Detalhes: Nenhum dado de extração carregado
+[2025-06-26 21:42:44] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/23 JUNHO 2025/EXT 61 EXTRACTA.xlsx
+[2025-06-26 21:42:44] Ação: Busca Extração | Detalhes: Nenhum dado de extração carregado
+[2025-06-26 21:46:31] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-26 21:50:25] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-26 21:50:26] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-06-26 21:50:29] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/23 JUNHO 2025/EXT 61 EXTRACTA.xlsx
+[2025-06-26 21:50:29] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-06-26 21:50:55] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-26 21:51:02] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-26 21:51:55] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/23 JUNHO 2025/EXT 61 EXTRACTA.xlsx
+[2025-06-26 21:51:55] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-06-26 21:56:41] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-26 21:57:33] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-26 21:59:35] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-26 22:00:03] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-26 22:00:04] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-06-26 22:00:07] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/23 JUNHO 2025/EXT 61 EXTRACTA.xlsx
+[2025-06-26 22:00:07] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-06-26 22:00:18] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-26 22:00:22] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-26 22:01:41] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-26 22:21:34] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-26 22:21:36] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-06-26 22:21:39] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/23 JUNHO 2025/EXT 61 EXTRACTA.xlsx
+[2025-06-26 22:21:39] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-06-26 22:21:52] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-26 22:21:57] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-26 22:22:07] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-26 22:31:33] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-26 22:31:34] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-06-26 22:31:46] Ação: Configuração Alterada | Detalhes: Configurações do sistema atualizadas.
+[2025-06-26 22:31:50] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/23 JUNHO 2025/EXT 61 EXTRACTA.xlsx
+[2025-06-26 22:31:50] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-06-26 22:32:11] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/23 JUNHO 2025/EXT 61 EXTRACTA.xlsx
+[2025-06-26 22:32:11] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-06-26 22:32:19] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/23 JUNHO 2025/EXT 61 EXTRACTA.xlsx
+[2025-06-26 22:32:19] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-06-26 22:32:33] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-26 22:34:38] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-26 22:34:39] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-06-26 22:34:42] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/23 JUNHO 2025/EXT 61 EXTRACTA.xlsx
+[2025-06-26 22:34:43] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-06-26 22:36:03] Ação: Login Falha | Detalhes: Tentativa 1 - Usuário: 1
+[2025-06-26 22:36:08] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-26 22:36:09] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-06-26 22:36:12] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/23 JUNHO 2025/EXT 61 EXTRACTA.xlsx
+[2025-06-26 22:36:12] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-06-26 22:36:26] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-26 22:36:33] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-26 22:41:56] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-26 22:42:25] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-26 22:42:26] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-06-26 22:42:30] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/23 JUNHO 2025/EXT 61 EXTRACTA.xlsx
+[2025-06-26 22:42:30] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-06-26 22:42:40] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-26 22:42:45] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-26 22:51:23] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-26 22:51:24] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-06-26 22:51:28] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/23 JUNHO 2025/EXT 61 EXTRACTA.xlsx
+[2025-06-26 22:51:28] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-06-26 22:51:38] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-26 22:51:45] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-26 22:53:31] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-26 22:53:32] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-06-26 22:53:35] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/23 JUNHO 2025/EXT 61 EXTRACTA.xlsx
+[2025-06-26 22:53:35] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-06-26 22:53:42] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-26 22:53:47] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-26 23:01:23] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-26 23:01:32] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-26 23:01:33] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-06-26 23:01:36] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/23 JUNHO 2025/EXT 61 EXTRACTA.xlsx
+[2025-06-26 23:01:36] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-06-26 23:01:46] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-26 23:02:02] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/23 JUNHO 2025/EXT 61 EXTRACTA.xlsx
+[2025-06-26 23:02:02] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-06-26 23:02:18] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-26 23:07:58] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-26 23:07:59] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-06-26 23:08:03] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/23 JUNHO 2025/EXT 61 EXTRACTA.xlsx
+[2025-06-26 23:08:03] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-06-26 23:08:09] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-26 23:08:26] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-26 23:11:10] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-26 23:11:11] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-06-26 23:11:14] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/23 JUNHO 2025/EXT 61 EXTRACTA.xlsx
+[2025-06-26 23:11:14] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-06-26 23:11:20] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-26 23:11:26] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-26 23:13:43] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-26 23:16:18] Ação: Login Falha | Detalhes: Tentativa 1 - Usuário: 1
+[2025-06-26 23:16:26] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-26 23:16:27] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-06-26 23:16:32] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/23 JUNHO 2025/EXT 61 EXTRACTA.xlsx
+[2025-06-26 23:16:32] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-06-26 23:16:40] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-26 23:16:55] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-26 23:20:10] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-26 23:20:11] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-06-26 23:20:14] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/23 JUNHO 2025/EXT 61 EXTRACTA.xlsx
+[2025-06-26 23:20:14] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-06-26 23:20:20] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-26 23:20:33] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-26 23:22:14] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-26 23:22:15] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-06-26 23:22:18] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/23 JUNHO 2025/EXT 61 EXTRACTA.xlsx
+[2025-06-26 23:22:18] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-06-26 23:22:25] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-26 23:22:30] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-26 23:26:39] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-27 00:05:25] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-27 00:05:26] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-06-27 00:05:31] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/23 JUNHO 2025/EXT 61 EXTRACTA.xlsx
+[2025-06-27 00:05:31] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-06-27 00:05:39] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-27 00:05:45] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-27 00:06:19] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-27 00:16:21] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-27 00:16:22] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-06-27 00:16:25] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/23 JUNHO 2025/EXT 61 EXTRACTA.xlsx
+[2025-06-27 00:16:25] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-06-27 00:16:33] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-27 00:16:39] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-27 00:23:35] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-27 00:34:48] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-27 00:34:48] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-06-27 00:34:53] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/23 JUNHO 2025/EXT 61 EXTRACTA.xlsx
+[2025-06-27 00:34:53] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-06-27 00:35:02] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-27 00:35:32] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-27 00:35:42] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-27 00:35:42] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-06-27 00:35:46] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/23 JUNHO 2025/EXT 61 EXTRACTA.xlsx
+[2025-06-27 00:35:46] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-06-27 00:35:52] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-27 00:36:06] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-27 00:40:27] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-27 00:40:27] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-06-27 00:40:31] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/23 JUNHO 2025/EXT 61 EXTRACTA.xlsx
+[2025-06-27 00:40:31] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-06-27 00:40:37] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-27 00:40:42] Ação: Erro Execução Análise | Detalhes: analisar_placa_vr1() takes from 0 to 1 positional arguments but 2 were given
+[2025-06-27 00:42:34] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-27 00:42:41] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-27 00:42:41] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-06-27 00:42:45] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/23 JUNHO 2025/EXT 61 EXTRACTA.xlsx
+[2025-06-27 00:42:45] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-06-27 00:42:51] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-27 00:42:55] Ação: Início Análise VR1 | Detalhes: Iniciando processo de análise da placa VR1
+[2025-06-27 00:45:45] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-27 00:46:54] Ação: Login Encerrado | Detalhes: Janela de login fechada pelo usuário.
+[2025-06-27 16:13:10] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-27 16:13:10] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-06-27 16:13:19] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/23 JUNHO 2025/EXT 61 EXTRACTA.xlsx
+[2025-06-27 16:13:19] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-06-27 16:13:37] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-27 16:13:43] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-27 16:26:29] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-27 16:27:20] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-27 16:27:21] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-06-27 16:27:24] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/23 JUNHO 2025/EXT 61 EXTRACTA.xlsx
+[2025-06-27 16:27:24] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-06-27 16:27:33] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-27 16:28:08] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-27 16:28:09] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-06-27 16:28:14] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/23 JUNHO 2025/EXT 61 EXTRACTA.xlsx
+[2025-06-27 16:28:14] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-06-27 16:28:20] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-27 16:28:26] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-27 16:31:03] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-27 17:40:08] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-27 17:40:09] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-06-27 17:40:13] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/23 JUNHO 2025/EXT 61 EXTRACTA.xlsx
+[2025-06-27 17:40:13] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-06-27 17:40:19] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-27 17:40:24] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-27 17:47:30] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-27 17:47:42] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-27 17:47:43] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-06-27 17:47:47] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/23 JUNHO 2025/EXT 61 EXTRACTA.xlsx
+[2025-06-27 17:47:47] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-06-27 17:48:33] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-27 17:48:40] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-27 17:49:57] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-27 17:51:45] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-06-27 17:51:59] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-27 17:52:01] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-06-27 17:52:35] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/39 FOR DE EXTRAÇÃO/1 EXTRAÇÕES AUTOMATIZADAS/2025/06 JUNHO/EXT 69 EXTRACTA.xlsx
+[2025-06-27 17:52:35] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-06-27 17:52:51] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-27 17:53:01] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-27 18:04:33] Ação: Análise VR1e2 Cancelada | Detalhes: Nenhum arquivo Excel selecionado
+[2025-06-27 18:04:38] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-27 18:04:49] Ação: Erro Análise VR1e2 7500 | Detalhes: 'CT'
+[2025-06-27 18:09:59] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-06-27 18:19:54] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-06-27 18:19:55] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-06-27 18:20:32] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/39 FOR DE EXTRAÇÃO/1 EXTRAÇÕES AUTOMATIZADAS/2025/06 JUNHO/EXT 74 EXTRACTA.xlsx
+[2025-06-27 18:20:32] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-06-27 18:20:52] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-06-27 18:20:59] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-07-01 18:35:37] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-07-01 18:35:38] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-07-01 18:35:43] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/23 JUNHO 2025/EXT 61 EXTRACTA.xlsx
+[2025-07-01 18:35:43] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-07-01 18:35:49] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-07-01 18:35:55] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-07-01 18:36:32] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-07-01 19:26:25] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-07-01 19:26:27] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-07-01 19:26:31] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/23 JUNHO 2025/EXT 61 EXTRACTA.xlsx
+[2025-07-01 19:26:31] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-07-01 19:26:42] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-07-01 19:26:47] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-07-01 19:26:56] Ação: Erro Análise VR1e2 7500 | Detalhes: 'Target'
+[2025-07-01 19:27:00] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-07-01 19:30:00] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-07-01 19:30:01] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-07-01 19:30:05] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/23 JUNHO 2025/EXT 61 EXTRACTA.xlsx
+[2025-07-01 19:30:05] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-07-01 19:30:10] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-07-01 19:30:14] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-07-01 19:32:40] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-07-01 19:50:41] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-07-01 19:50:42] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-07-01 19:50:47] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/23 JUNHO 2025/EXT 61 EXTRACTA.xlsx
+[2025-07-01 19:50:47] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-07-01 19:50:52] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-07-01 19:50:58] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-07-01 19:52:42] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-07-09 09:45:33] Usuário: lacen.dilac | Início do processamento
+[2025-07-09 09:45:44] Usuário: lacen.dilac | Login realizado com sucesso
+[2025-07-09 09:45:44] Usuário: lacen.dilac | Arquivo CSV lido com 3 registros
+[2025-07-09 09:45:46] Usuário: lacen.dilac | Erro no envio da amostra 420000017
+[2025-07-09 09:45:50] Usuário: lacen.dilac | Erro no envio da amostra 420000020
+[2025-07-09 09:45:53] Usuário: lacen.dilac | Relatório final salvo em C:/Users/andrademp/Desktop/INTEGRAGAL/relatorio_final_20250709_094509.csv
+[2025-07-15 00:26:12] Usuário: lacen.dilac | Início do processamento
+[2025-07-15 00:26:25] Usuário: lacen.dilac | Login realizado com sucesso
+[2025-07-15 00:26:25] Usuário: lacen.dilac | Arquivo CSV lido com 30 registros
+[2025-07-15 00:26:27] Usuário: lacen.dilac | Erro no envio da amostra 420000028
+[2025-07-15 00:26:30] Usuário: lacen.dilac | Erro no envio da amostra 420000029
+[2025-07-15 00:26:34] Usuário: lacen.dilac | Erro no envio da amostra 420000030
+[2025-07-15 00:26:37] Usuário: lacen.dilac | Erro no envio da amostra 420000031
+[2025-07-15 00:26:41] Usuário: lacen.dilac | Erro no envio da amostra 420000032
+[2025-07-15 00:26:44] Usuário: lacen.dilac | Erro no envio da amostra 420000033
+[2025-07-15 00:26:48] Usuário: lacen.dilac | Erro no envio da amostra 420000034
+[2025-07-15 00:26:51] Usuário: lacen.dilac | Erro no envio da amostra 420000035
+[2025-07-15 00:26:55] Usuário: lacen.dilac | Erro no envio da amostra 420000036
+[2025-07-15 00:26:59] Usuário: lacen.dilac | Erro no envio da amostra 420000037
+[2025-07-15 00:27:03] Usuário: lacen.dilac | Erro no envio da amostra 420000038
+[2025-07-15 00:27:07] Usuário: lacen.dilac | Erro no envio da amostra 420000039
+[2025-07-15 00:27:10] Usuário: lacen.dilac | Erro no envio da amostra 420000040
+[2025-07-15 00:27:13] Usuário: lacen.dilac | Erro no envio da amostra 420000041
+[2025-07-15 00:27:18] Usuário: lacen.dilac | Erro no envio da amostra 420000042
+[2025-07-15 00:27:21] Usuário: lacen.dilac | Erro no envio da amostra 420000043
+[2025-07-15 00:27:25] Usuário: lacen.dilac | Erro no envio da amostra 420000044
+[2025-07-15 00:27:29] Usuário: lacen.dilac | Erro no envio da amostra 420000045
+[2025-07-15 00:27:32] Usuário: lacen.dilac | Erro no envio da amostra 420000046
+[2025-07-15 00:27:36] Usuário: lacen.dilac | Erro no envio da amostra 420000047
+[2025-07-15 00:27:39] Usuário: lacen.dilac | Erro no envio da amostra 420000048
+[2025-07-15 00:27:42] Usuário: lacen.dilac | Erro no envio da amostra 420000049
+[2025-07-15 00:27:46] Usuário: lacen.dilac | Erro no envio da amostra 420000050
+[2025-07-15 00:27:49] Usuário: lacen.dilac | Erro no envio da amostra 420000051
+[2025-07-15 00:27:52] Usuário: lacen.dilac | Erro no envio da amostra 420000052
+[2025-07-15 00:27:56] Usuário: lacen.dilac | Erro no envio da amostra 420000053
+[2025-07-15 00:28:00] Usuário: lacen.dilac | Erro no envio da amostra 420000054
+[2025-07-15 00:28:03] Usuário: lacen.dilac | Erro no envio da amostra 420000055
+[2025-07-15 00:28:07] Usuário: lacen.dilac | Erro no envio da amostra 420000056
+[2025-07-15 00:28:10] Usuário: lacen.dilac | Erro no envio da amostra 420000057
+[2025-07-15 00:28:14] Usuário: lacen.dilac | Relatório final salvo em C:/Users/andrademp/Desktop/INTEGRAGAL/relatorio_final_20250715_002559.csv
+[2025-07-18 20:19:25] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-07-18 20:19:26] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-07-18 20:33:14] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx
+[2025-07-18 20:33:14] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-07-18 20:33:37] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-07-18 20:33:44] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-07-18 20:35:32] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-07-18 21:00:30] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-07-18 21:00:31] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-07-18 21:00:35] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx
+[2025-07-18 21:00:35] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-07-18 21:00:48] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-07-18 21:03:04] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-07-18 21:05:21] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-07-18 21:05:21] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-07-18 21:05:26] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx
+[2025-07-18 21:05:26] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-07-18 21:05:32] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-07-18 21:15:17] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-07-18 21:17:41] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-07-18 21:17:42] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-07-18 21:17:47] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx
+[2025-07-18 21:17:47] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-07-18 21:17:53] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-07-18 21:17:57] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-07-18 21:18:01] Ação: Erro Análise VR1e2 7500 | Detalhes: No module named 'vr1e2_biomanguinhos_7500'
+[2025-07-18 21:27:28] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-07-18 21:27:31] Ação: Erro Análise VR1e2 7500 | Detalhes: No module named 'vr1e2_biomanguinhos_7500'
+[2025-07-18 21:27:35] Ação: Erro Execução Análise | Detalhes: int() argument must be a string, a bytes-like object or a real number, not 'NoneType'
+[2025-07-18 21:27:38] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-07-18 21:27:55] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-07-18 21:27:56] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-07-18 21:28:01] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx
+[2025-07-18 21:28:01] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-07-18 21:28:09] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-07-18 21:28:13] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-07-18 21:47:06] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-07-18 21:47:07] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-07-18 21:47:14] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx
+[2025-07-18 21:47:14] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-07-18 21:47:24] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-07-18 21:47:30] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-07-18 21:50:21] Ação: Gerar Relatório CSV | Detalhes: Relatório salvo em: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/sdafsadf.csv
+[2025-07-18 21:55:39] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-07-18 21:59:35] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-07-18 22:10:34] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-07-18 22:10:35] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-07-18 22:10:38] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx
+[2025-07-18 22:10:38] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-07-18 22:10:44] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-07-18 22:17:58] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-07-18 22:18:10] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-07-18 22:18:10] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-07-18 22:18:14] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx
+[2025-07-18 22:18:14] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-07-18 22:18:19] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-07-18 22:18:23] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-07-18 22:26:14] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-07-18 22:26:22] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-07-18 22:26:50] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-07-18 22:26:52] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-07-18 22:26:55] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx
+[2025-07-18 22:26:55] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-07-18 22:27:00] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-07-18 22:27:06] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-07-18 22:30:17] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-07-18 22:39:52] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-07-18 22:39:59] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-07-18 22:40:00] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-07-18 22:40:03] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx
+[2025-07-18 22:40:03] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-07-18 22:40:08] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-07-18 22:40:13] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-07-18 22:41:20] Ação: Gerar Relatório CSV | Detalhes: Relatório salvo em: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/qasdqsqs.csv
+[2025-07-18 22:41:25] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-07-18 22:42:53] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-07-18 22:42:54] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-07-18 22:42:57] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx
+[2025-07-18 22:42:57] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-07-18 22:43:03] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-07-18 22:43:08] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-07-18 22:45:06] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-07-18 22:45:45] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-07-18 22:45:46] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-07-18 22:45:49] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx
+[2025-07-18 22:45:49] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-07-18 22:45:55] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-07-18 22:46:00] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-07-18 22:48:52] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-07-18 22:49:02] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-07-18 22:49:03] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-07-18 22:49:07] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx
+[2025-07-18 22:49:07] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-07-18 22:49:13] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-07-18 22:49:18] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-07-18 22:56:46] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-07-18 22:56:54] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-07-18 22:56:55] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-07-18 22:56:58] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx
+[2025-07-18 22:56:58] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-07-18 22:57:03] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-07-18 22:57:07] Ação: Início Análise VR1e2 7500 | Detalhes: Iniciando análise VR1e2 Biomanguinhos 7500
+[2025-07-19 08:18:37] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-07-19 08:18:55] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-07-19 08:18:56] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-07-19 08:19:01] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx
+[2025-07-19 08:19:01] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-07-19 08:19:09] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-07-19 08:36:50] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-07-19 08:44:30] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-07-19 08:44:32] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-07-19 08:44:37] Ação: Erro Execução Análise | Detalhes: int() argument must be a string, a bytes-like object or a real number, not 'NoneType'
+[2025-07-19 08:44:44] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx
+[2025-07-19 08:44:44] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-07-19 08:44:51] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-07-19 08:45:03] Ação: Início da Aplicação | Detalhes: Iniciando o aplicativo de análise de placas PCR.
+[2025-07-19 08:45:05] Ação: Carregamento de Dados | Detalhes: Carregando dados de: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/20250718 VR1-VR2 BIOM PLACA 5.xls
+[2025-07-19 08:45:05] Ação: Carregamento de Dados de Extração | Detalhes: Tentando carregar dados de extração...
+[2025-07-19 08:45:05] Ação: Análise da Placa | Detalhes: Iniciando o processamento da análise da placa.
+[2025-07-19 08:45:05] Ação: Relatório | Detalhes: Exibindo relatório de análise ao usuário.
+[2025-07-19 08:45:08] Ação: Tabela Interativa | Detalhes: Exibindo tabela interativa de resultados.
+[2025-07-19 08:46:19] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-07-19 08:46:19] Ação: Fim da Aplicação | Detalhes: O aplicativo de análise de placas PCR foi encerrado.
+[2025-07-19 08:49:42] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-07-19 08:49:43] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-07-19 08:49:47] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx
+[2025-07-19 08:49:47] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-07-19 08:49:58] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-07-19 08:50:07] Ação: Análise VR1e2 | Detalhes: Iniciando análise com dados de extração fornecidos
+[2025-07-19 08:50:07] Ação: Início da Aplicação | Detalhes: Iniciando o aplicativo de análise de placas PCR.
+[2025-07-19 08:50:09] Ação: Carregamento de Dados | Detalhes: Carregando dados de: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/20250718 VR1-VR2 BIOM PLACA 5.xls
+[2025-07-19 08:50:09] Ação: Análise da Placa | Detalhes: Iniciando o processamento da análise da placa.
+[2025-07-19 08:50:09] Ação: Relatório | Detalhes: Exibindo relatório de análise ao usuário.
+[2025-07-19 08:50:12] Ação: Tabela Interativa | Detalhes: Exibindo tabela interativa de resultados.
+[2025-07-19 09:00:44] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx
+[2025-07-19 09:00:44] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-07-19 09:03:07] Ação: Análise VR1e2 | Detalhes: Iniciando análise com dados de extração fornecidos
+[2025-07-19 09:03:07] Ação: Início da Aplicação | Detalhes: Iniciando o aplicativo de análise de placas PCR.
+[2025-07-19 09:03:10] Ação: Carregamento de Dados | Detalhes: Carregando dados de: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/20250718 VR1-VR2 BIOM PLACA 5.xls
+[2025-07-19 09:03:10] Ação: Análise da Placa | Detalhes: Iniciando o processamento da análise da placa.
+[2025-07-19 09:03:10] Ação: Relatório | Detalhes: Exibindo relatório de análise ao usuário.
+[2025-07-19 09:03:55] Ação: Tabela Interativa | Detalhes: Exibindo tabela interativa de resultados.
+[2025-07-19 09:54:57] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-07-19 09:54:58] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-07-19 09:55:05] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-07-19 10:26:24] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-07-19 10:26:25] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-07-19 10:26:29] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx
+[2025-07-19 10:26:29] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-07-19 10:26:42] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-07-19 10:26:53] Ação: Análise VR1e2 | Detalhes: Iniciando análise com dados de extração fornecidos
+[2025-07-19 10:26:53] Ação: Início da Aplicação | Detalhes: Iniciando o aplicativo de análise de placas PCR.
+[2025-07-19 10:26:55] Ação: Carregamento de Dados | Detalhes: Carregando dados de: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/20250718 VR1-VR2 BIOM PLACA 5.xls
+[2025-07-19 10:26:55] Ação: Análise da Placa | Detalhes: Iniciando o processamento da análise da placa.
+[2025-07-19 10:26:55] Ação: Relatório | Detalhes: Exibindo relatório de análise ao usuário.
+[2025-07-19 10:26:57] Ação: Tabela Interativa | Detalhes: Exibindo tabela interativa de resultados.
+[2025-07-19 10:58:01] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-07-19 10:58:02] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-07-19 10:58:11] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx
+[2025-07-19 10:58:11] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-07-19 10:58:21] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-07-19 11:27:37] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-07-19 12:44:23] Ação: Ação Usuário | Detalhes: Buscando dados de extração
+[2025-07-19 12:44:25] Ação: Erro Extração | Detalhes: Missing optional dependency 'openpyxl'.  Use pip or conda to install openpyxl.
+[2025-07-19 12:45:07] Ação: Ação Usuário | Detalhes: Buscando dados de extração
+[2025-07-19 12:45:10] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx
+[2025-07-19 12:45:37] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-07-19 12:45:44] Ação: Ação Usuário | Detalhes: Iniciando análise VR1e2
+[2025-07-19 12:45:46] Ação: Erro Análise VR1e2 | Detalhes: Não foi possível identificar a linha de cabeçalho contendo 'Well' no arquivo: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/20250718 VR1-VR2 BIOM PLACA 5.xls.
+[2025-07-19 12:54:13] Ação: Ação Usuário | Detalhes: Buscando dados de extração
+[2025-07-19 12:54:19] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx
+[2025-07-19 12:54:37] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-07-19 13:14:30] Ação: Ação Usuário | Detalhes: Buscando dados de extração
+[2025-07-19 13:14:33] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx
+[2025-07-19 13:14:56] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-07-19 13:15:01] Ação: Ação Usuário | Detalhes: Iniciando análise VR1e2
+[2025-07-19 13:15:03] Ação: Erro Análise VR1e2 | Detalhes: Não foi possível identificar a linha de cabeçalho contendo 'Well' no arquivo: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/20250718 VR1-VR2 BIOM PLACA 5.xls.
+[2025-07-19 13:26:58] Ação: Login - Erro | Detalhes: Erro ao carregar credenciais: Missing optional dependency 'openpyxl'.  Use pip or conda to install openpyxl.
+[2025-07-19 13:27:03] Ação: Login Falha | Detalhes: Tentativa 1 - Usuário: 1
+[2025-07-19 13:27:48] Ação: Login Falha | Detalhes: Tentativa 2 - Usuário: admin
+[2025-07-19 13:27:53] Ação: Login Encerrado | Detalhes: Janela de login fechada pelo usuário.
+[2025-07-19 13:34:36] Ação: Login - Erro | Detalhes: Erro ao carregar credenciais: Missing optional dependency 'openpyxl'.  Use pip or conda to install openpyxl.
+[2025-07-19 13:34:44] Ação: Login Falha | Detalhes: Tentativa 1 - Usuário: admin
+[2025-07-19 13:34:55] Ação: Login Falha | Detalhes: Tentativa 2 - Usuário: marcio
+[2025-07-19 13:34:57] Ação: Login Encerrado | Detalhes: Janela de login fechada pelo usuário.
+[2025-07-19 13:43:33] Ação: Login - Erro | Detalhes: Erro ao carregar credenciais: Missing optional dependency 'openpyxl'.  Use pip or conda to install openpyxl.
+[2025-07-19 13:52:39] Ação: Login Sucesso | Detalhes: Usuário: 1
+[2025-07-19 14:10:14] Ação: Login Sucesso | Detalhes: Usuário autenticado: 1
+[2025-07-19 14:15:23] Ação: Login Sucesso | Detalhes: Usuário autenticado: 1
+[2025-07-19 14:15:25] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-07-19 14:15:39] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-07-19 14:25:18] Ação: Login Sucesso | Detalhes: Usuário autenticado: 1
+[2025-07-19 14:25:20] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-07-19 14:25:23] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx
+[2025-07-19 14:25:23] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-07-19 14:25:33] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-07-19 14:25:42] Ação: Análise VR1e2 | Detalhes: Iniciando análise com dados de extração recebidos
+[2025-07-19 14:25:42] Ação: Início da Aplicação | Detalhes: Iniciando o aplicativo de análise de placas PCR.
+[2025-07-19 14:25:45] Ação: Carregamento de Dados | Detalhes: Carregando dados de: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/20250718 VR1-VR2 BIOM PLACA 5.xls
+[2025-07-19 14:25:45] Ação: Análise da Placa | Detalhes: Iniciando processamento da análise da placa.
+[2025-07-19 14:25:45] Ação: Relatório | Detalhes: Exibindo relatório para usuário.
+[2025-07-19 14:25:48] Ação: Tabela Interativa | Detalhes: Exibindo tabela interativa de resultados.
+[2025-07-19 14:26:50] Ação: Análise VR1e2 | Detalhes: Iniciando análise com dados de extração recebidos
+[2025-07-19 14:26:50] Ação: Início da Aplicação | Detalhes: Iniciando o aplicativo de análise de placas PCR.
+[2025-07-19 14:26:52] Ação: Carregamento de Dados | Detalhes: Carregando dados de: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/20250718 VR1-VR2 BIOM PLACA 5.xls
+[2025-07-19 14:26:52] Ação: Análise da Placa | Detalhes: Iniciando processamento da análise da placa.
+[2025-07-19 14:26:53] Ação: Relatório | Detalhes: Exibindo relatório para usuário.
+[2025-07-19 14:26:54] Ação: Tabela Interativa | Detalhes: Exibindo tabela interativa de resultados.
+[2025-07-19 14:27:05] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-07-19 15:33:50] Ação: Login Falha | Detalhes: Tentativa 1 - Usuário: 1
+[2025-07-19 15:34:04] Ação: Login Falha | Detalhes: Tentativa 2 - Usuário: admin
+[2025-07-20 02:40:52] Ação: Login | Detalhes: Janela fechada pelo usuário
+[2025-07-20 02:40:52] Ação: Sistema | Detalhes: Falha na autenticação. Programa encerrado.
+[2025-07-22 20:05:13] Ação: Login Falha | Detalhes: Tentativa 1 - Usuário: 1
+[2025-07-22 20:05:21] Ação: Login Falha | Detalhes: Tentativa 2 - Usuário: admin
+[2025-07-22 20:05:24] Ação: Login | Detalhes: Janela fechada pelo usuário
+[2025-07-22 20:05:24] Ação: Sistema | Detalhes: Falha na autenticação. Programa encerrado.
+[2025-07-22 20:18:56] Ação: Login Falha | Detalhes: Tentativa 1 - Usuário: 1
+[2025-07-22 20:19:03] Ação: Login Falha | Detalhes: Tentativa 2 - Usuário: admin
+[2025-07-22 20:19:09] Ação: Login | Detalhes: Janela fechada pelo usuário
+[2025-07-22 20:19:09] Ação: Sistema | Detalhes: Falha na autenticação. Programa encerrado.
+[2025-07-22 20:26:35] Ação: Login Sucesso | Detalhes: Usuário autenticado: 1
+[2025-07-22 20:26:37] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-07-22 20:26:43] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx
+[2025-07-22 20:26:43] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-07-22 20:26:52] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-07-22 20:26:59] Ação: Análise Integrada | Detalhes: Iniciando análise com dados de extração
+[2025-07-22 20:26:59] Ação: Análise PCR | Detalhes: Iniciando análise de placa
+[2025-07-22 20:27:45] Ação: Exportação CSV | Detalhes: Arquivo salvo em: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/sdfsdfsdfsdf.csv
+[2025-07-22 20:29:02] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-07-22 20:34:47] Ação: Erro Execução Análise | Detalhes: registrar_log() got an unexpected keyword argument 'level'
+[2025-07-22 20:35:50] Ação: Login Falha | Detalhes: Tentativa 1 - Usuário: admin
+[2025-07-22 20:35:57] Ação: Login Falha | Detalhes: Tentativa 2 - Usuário: admin
+[2025-07-22 20:36:02] Ação: Login Sucesso | Detalhes: Usuário autenticado: 1
+[2025-07-22 20:36:03] Ação: Sistema | Detalhes: Sistema iniciado com sucesso.
+[2025-07-22 20:36:07] Ação: Extração | Detalhes: Arquivo carregado: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/EXT 49 COVID EXTRACTA.xlsx
+[2025-07-22 20:36:07] Ação: Busca Extração | Detalhes: Extração carregada com sucesso
+[2025-07-22 20:41:59] Ação: Salvar JSON Extração | Detalhes: Arquivo salvo: C:\Users\ANDRAD~1\AppData\Local\Temp\dados_extracao.json
+[2025-07-22 20:43:00] Ação: Análise Integrada | Detalhes: Iniciando análise com dados de extração
+[2025-07-22 20:43:00] Ação: Análise PCR | Detalhes: Iniciando análise de placa
+[2025-07-22 20:45:54] Ação: Exportação CSV | Detalhes: Arquivo salvo em: Z:/GEBIO/DIBMC/Biologia Molecular/SES230816/MARCIO TESTE/18 JULHO 2025/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.csv
+[2025-07-22 20:48:05] Ação: Erro Execução Análise | Detalhes: registrar_log() got an unexpected keyword argument 'level'
+[2025-07-22 20:48:09] Ação: Análise Integrada | Detalhes: Iniciando análise com dados de extração
+[2025-07-22 20:48:09] Ação: Análise PCR | Detalhes: Iniciando análise de placa
+[2025-07-22 20:50:24] Ação: Sistema | Detalhes: Janela principal fechada pelo usuário.
+[2025-07-22 20:53:07] Ação: Erro Execução Análise | Detalhes: registrar_log() got an unexpected keyword argument 'level'
+[2025-07-23 17:32:17] Usuário: lacen.dilac | Início do processamento
+[2025-07-23 17:33:25] Usuário: lacen.dilac | Início do processamento
+[2025-07-23 17:33:36] Usuário: lacen.dilac | Login realizado com sucesso
+[2025-07-23 17:33:36] Usuário: lacen.dilac | Arquivo CSV lido com 30 registros
+[2025-07-23 17:33:37] Usuário: lacen.dilac | Erro no envio da amostra 420000028
+[2025-07-23 17:33:41] Usuário: lacen.dilac | Erro no envio da amostra 420000029
+[2025-07-23 17:33:44] Usuário: lacen.dilac | Erro no envio da amostra 420000030
+[2025-07-23 17:33:48] Usuário: lacen.dilac | Erro no envio da amostra 420000031
+[2025-07-23 17:33:51] Usuário: lacen.dilac | Erro no envio da amostra 420000032
+[2025-07-23 17:33:55] Usuário: lacen.dilac | Erro no envio da amostra 420000033
+[2025-07-23 17:33:59] Usuário: lacen.dilac | Erro no envio da amostra 420000034
+[2025-07-23 17:34:04] Usuário: lacen.dilac | Erro no envio da amostra 420000035
+[2025-07-23 17:34:07] Usuário: lacen.dilac | Erro no envio da amostra 420000036
+[2025-07-23 17:34:11] Usuário: lacen.dilac | Erro no envio da amostra 420000037
+[2025-07-23 17:34:15] Usuário: lacen.dilac | Erro no envio da amostra 420000038
+[2025-07-23 17:34:20] Usuário: lacen.dilac | Erro no envio da amostra 420000039
+[2025-07-23 17:34:23] Usuário: lacen.dilac | Erro no envio da amostra 420000040
+[2025-07-23 17:34:27] Usuário: lacen.dilac | Erro no envio da amostra 420000041
+[2025-07-23 17:34:31] Usuário: lacen.dilac | Erro no envio da amostra 420000042
+[2025-07-23 17:34:36] Usuário: lacen.dilac | Erro no envio da amostra 420000043
+[2025-07-23 17:34:37] Usuário: lacen.dilac | Erro no envio da amostra 420000044
+[2025-07-23 17:34:40] Usuário: lacen.dilac | Erro no envio da amostra 420000045
+[2025-07-23 17:34:44] Usuário: lacen.dilac | Erro no envio da amostra 420000046
+[2025-07-23 17:34:48] Usuário: lacen.dilac | Erro no envio da amostra 420000047
+[2025-07-23 17:34:52] Usuário: lacen.dilac | Erro no envio da amostra 420000048
+[2025-07-23 17:34:56] Usuário: lacen.dilac | Erro no envio da amostra 420000049
+[2025-07-23 17:35:00] Usuário: lacen.dilac | Erro no envio da amostra 420000050
+[2025-07-23 17:35:05] Usuário: lacen.dilac | Erro no envio da amostra 420000051
+[2025-07-23 17:35:08] Usuário: lacen.dilac | Erro no envio da amostra 420000052
+[2025-07-23 17:35:11] Usuário: lacen.dilac | Erro no envio da amostra 420000053
+[2025-07-23 17:35:15] Usuário: lacen.dilac | Erro no envio da amostra 420000054
+[2025-07-23 17:35:18] Usuário: lacen.dilac | Erro no envio da amostra 420000055
+[2025-07-23 17:35:21] Usuário: lacen.dilac | Erro no envio da amostra 420000056
+[2025-07-23 17:35:24] Usuário: lacen.dilac | Erro no envio da amostra 420000057
+[2025-07-23 17:35:28] Usuário: lacen.dilac | Relatório final salvo em C:/Users/andrademp/Desktop/INTEGRAGAL/relatorio_final_20250723_173310.csv
+[2025-07-23 17:42:44] Usuário: lacen.dilac | Início do processamento
+[2025-07-23 17:42:55] Usuário: lacen.dilac | Login realizado com sucesso
+[2025-07-23 17:42:55] Usuário: lacen.dilac | Arquivo CSV lido com 36 registros
+[2025-07-23 17:42:56] Usuário: lacen.dilac | Erro no envio da amostra 420000058
+[2025-07-23 17:42:59] Usuário: lacen.dilac | Erro no envio da amostra 420000059
+[2025-07-23 17:43:02] Usuário: lacen.dilac | Erro no envio da amostra 420000060
+[2025-07-23 17:43:06] Usuário: lacen.dilac | Erro no envio da amostra 420000061
+[2025-07-23 17:43:09] Usuário: lacen.dilac | Erro no envio da amostra 420000062
+[2025-07-23 17:43:13] Usuário: lacen.dilac | Erro no envio da amostra 420000063
+[2025-07-23 17:43:16] Usuário: lacen.dilac | Erro no envio da amostra 420000064
+[2025-07-23 17:43:20] Usuário: lacen.dilac | Erro no envio da amostra 420000065
+[2025-07-23 17:43:23] Usuário: lacen.dilac | Erro no envio da amostra 420000066
+[2025-07-23 17:43:26] Usuário: lacen.dilac | Erro no envio da amostra 420000067
+[2025-07-23 17:43:29] Usuário: lacen.dilac | Erro no envio da amostra 420000068
+[2025-07-23 17:43:32] Usuário: lacen.dilac | Erro no envio da amostra 420000069
+[2025-07-23 17:43:36] Usuário: lacen.dilac | Erro no envio da amostra 420000070
+[2025-07-23 17:43:40] Usuário: lacen.dilac | Erro no envio da amostra 420000071
+[2025-07-23 17:43:43] Usuário: lacen.dilac | Erro no envio da amostra 420000072
+[2025-07-23 17:43:47] Usuário: lacen.dilac | Erro no envio da amostra 420000073
+[2025-07-23 17:43:50] Usuário: lacen.dilac | Erro no envio da amostra 420000074
+[2025-07-23 17:43:53] Usuário: lacen.dilac | Erro no envio da amostra 420000075
+[2025-07-23 17:43:57] Usuário: lacen.dilac | Erro no envio da amostra 420000076
+[2025-07-23 17:44:00] Usuário: lacen.dilac | Erro no envio da amostra 420000077
+[2025-07-23 17:44:05] Usuário: lacen.dilac | Erro no envio da amostra 420000078
+[2025-07-23 17:44:08] Usuário: lacen.dilac | Erro no envio da amostra 420000079
+[2025-07-23 17:44:12] Usuário: lacen.dilac | Erro no envio da amostra 420000080
+[2025-07-23 17:44:15] Usuário: lacen.dilac | Erro no envio da amostra 420000081
+[2025-07-23 17:44:19] Usuário: lacen.dilac | Erro no envio da amostra 420000082
+[2025-07-23 17:44:22] Usuário: lacen.dilac | Erro no envio da amostra 420000083
+[2025-07-23 17:44:25] Usuário: lacen.dilac | Erro no envio da amostra 420000084
+[2025-07-23 17:44:29] Usuário: lacen.dilac | Erro no envio da amostra 420000085
+[2025-07-23 17:44:32] Usuário: lacen.dilac | Erro no envio da amostra 420000086
+[2025-07-23 17:44:35] Usuário: lacen.dilac | Erro no envio da amostra 420000087
+[2025-07-23 17:44:39] Usuário: lacen.dilac | Relatório final salvo em C:/Users/andrademp/Desktop/INTEGRAGAL/relatorio_final_20250723_174230.csv
+[2025-07-23 19:36:49] Usuário: lacen.dilac | Início do processamento
+[2025-07-23 19:37:00] Usuário: lacen.dilac | Login realizado com sucesso
+[2025-07-23 19:38:46] Usuário: lacen.dilac | Início do processamento
+[2025-07-23 19:38:57] Usuário: lacen.dilac | Login realizado com sucesso
+[2025-07-23 19:47:16] Usuário: lacen.dilac | Início do processamento
+[2025-07-23 19:47:26] Usuário: lacen.dilac | Login realizado com sucesso
+[2025-07-23 19:47:26] Usuário: lacen.dilac | Arquivo CSV lido: C:\Users\andrademp\Desktop\INTEGRAGAL\vr2.csv
+[2025-07-23 19:47:27] Usuário: lacen.dilac | Erro no envio da amostra 420000058
+[2025-07-23 19:47:29] Usuário: lacen.dilac | Erro no envio da amostra 420000059
+[2025-07-23 19:47:29] Usuário: lacen.dilac | Erro no envio da amostra 420000061
+[2025-07-23 19:47:29] Usuário: lacen.dilac | Erro no envio da amostra 420000062
+[2025-07-23 19:47:30] Usuário: lacen.dilac | Erro no envio da amostra 420000060
+[2025-07-23 19:47:35] Usuário: lacen.dilac | Campos inválidos detectados: ['influenzaa', 'influenzab', 'coronavirusncov', 'coronavirus229e', 'coronavirusnl63', 'coronavirushku1', 'coronavirusoc43', 'adenovirus', 'vsincicialresp', 'metapneumovirus', 'rinovirus', 'bocavirus', 'enterovirus', 'parainflu_1', 'parainflu_2', 'parainflu_3', 'parainflu_4', 'coronavirus', 'influenzaahn', 'metapneumovirua', 'metapneumovirub', 'mycoplasma', 'parechovírus', 'vsincicialrespa', 'vsincicialrespb', 'influenzaah_3', 'influenzaah_5', 'influenzaah_7']
+[2025-07-23 19:47:35] Usuário: lacen.dilac | Erro no envio da amostra 420000063
+[2025-07-23 19:47:40] Usuário: lacen.dilac | Campos inválidos detectados: ['influenzaa', 'influenzab', 'coronavirusncov', 'coronavirus229e', 'coronavirusnl63', 'coronavirushku1', 'coronavirusoc43', 'adenovirus', 'vsincicialresp', 'metapneumovirus', 'rinovirus', 'bocavirus', 'enterovirus', 'parainflu_1', 'parainflu_2', 'parainflu_3', 'parainflu_4', 'coronavirus', 'influenzaahn', 'metapneumovirua', 'metapneumovirub', 'mycoplasma', 'parechovírus', 'vsincicialrespa', 'vsincicialrespb', 'influenzaah_3', 'influenzaah_5', 'influenzaah_7']
+[2025-07-23 19:47:40] Usuário: lacen.dilac | Campos inválidos detectados: ['influenzaa', 'influenzab', 'coronavirusncov', 'coronavirus229e', 'coronavirusnl63', 'coronavirushku1', 'coronavirusoc43', 'adenovirus', 'vsincicialresp', 'metapneumovirus', 'rinovirus', 'bocavirus', 'enterovirus', 'parainflu_1', 'parainflu_2', 'parainflu_3', 'parainflu_4', 'coronavirus', 'influenzaahn', 'metapneumovirua', 'metapneumovirub', 'mycoplasma', 'parechovírus', 'vsincicialrespa', 'vsincicialrespb', 'influenzaah_3', 'influenzaah_5', 'influenzaah_7']
+[2025-07-23 19:47:40] Usuário: lacen.dilac | Erro no envio da amostra 420000065
+[2025-07-23 19:47:40] Usuário: lacen.dilac | Erro no envio da amostra 420000064
+[2025-07-23 19:47:43] Usuário: lacen.dilac | Campos inválidos detectados: ['influenzaa', 'influenzab', 'coronavirusncov', 'coronavirus229e', 'coronavirusnl63', 'coronavirushku1', 'coronavirusoc43', 'adenovirus', 'vsincicialresp', 'metapneumovirus', 'rinovirus', 'bocavirus', 'enterovirus', 'parainflu_1', 'parainflu_2', 'parainflu_3', 'parainflu_4', 'coronavirus', 'influenzaahn', 'metapneumovirua', 'metapneumovirub', 'mycoplasma', 'parechovírus', 'vsincicialrespa', 'vsincicialrespb', 'influenzaah_3', 'influenzaah_5', 'influenzaah_7']
+[2025-07-23 19:47:43] Usuário: lacen.dilac | Erro no envio da amostra 420000066
+[2025-07-23 19:47:44] Usuário: lacen.dilac | Campos inválidos detectados: ['influenzaa', 'influenzab', 'coronavirusncov', 'coronavirus229e', 'coronavirusnl63', 'coronavirushku1', 'coronavirusoc43', 'adenovirus', 'vsincicialresp', 'metapneumovirus', 'rinovirus', 'bocavirus', 'enterovirus', 'parainflu_1', 'parainflu_2', 'parainflu_3', 'parainflu_4', 'coronavirus', 'influenzaahn', 'metapneumovirua', 'metapneumovirub', 'mycoplasma', 'parechovírus', 'vsincicialrespa', 'vsincicialrespb', 'influenzaah_3', 'influenzaah_5', 'influenzaah_7']
+[2025-07-23 19:47:44] Usuário: lacen.dilac | Erro no envio da amostra 420000067
+[2025-07-23 19:47:48] Usuário: lacen.dilac | Campos inválidos detectados: ['influenzaa', 'influenzab', 'coronavirusncov', 'coronavirus229e', 'coronavirusnl63', 'coronavirushku1', 'coronavirusoc43', 'adenovirus', 'vsincicialresp', 'metapneumovirus', 'rinovirus', 'bocavirus', 'enterovirus', 'parainflu_1', 'parainflu_2', 'parainflu_3', 'parainflu_4', 'coronavirus', 'influenzaahn', 'metapneumovirua', 'metapneumovirub', 'mycoplasma', 'parechovírus', 'vsincicialrespa', 'vsincicialrespb', 'influenzaah_3', 'influenzaah_5', 'influenzaah_7']
+[2025-07-23 19:47:49] Usuário: lacen.dilac | Erro no envio da amostra 420000068
+[2025-07-23 19:47:51] Usuário: lacen.dilac | Campos inválidos detectados: ['influenzaa', 'influenzab', 'coronavirusncov', 'coronavirus229e', 'coronavirusnl63', 'coronavirushku1', 'coronavirusoc43', 'adenovirus', 'vsincicialresp', 'metapneumovirus', 'rinovirus', 'bocavirus', 'enterovirus', 'parainflu_1', 'parainflu_2', 'parainflu_3', 'parainflu_4', 'coronavirus', 'influenzaahn', 'metapneumovirua', 'metapneumovirub', 'mycoplasma', 'parechovírus', 'vsincicialrespa', 'vsincicialrespb', 'influenzaah_3', 'influenzaah_5', 'influenzaah_7']
+[2025-07-23 19:47:52] Usuário: lacen.dilac | Erro no envio da amostra 420000069
+[2025-07-23 19:47:53] Usuário: lacen.dilac | Campos inválidos detectados: ['influenzaa', 'influenzab', 'coronavirusncov', 'coronavirus229e', 'coronavirusnl63', 'coronavirushku1', 'coronavirusoc43', 'adenovirus', 'vsincicialresp', 'metapneumovirus', 'rinovirus', 'bocavirus', 'enterovirus', 'parainflu_1', 'parainflu_2', 'parainflu_3', 'parainflu_4', 'coronavirus', 'influenzaahn', 'metapneumovirua', 'metapneumovirub', 'mycoplasma', 'parechovírus', 'vsincicialrespa', 'vsincicialrespb', 'influenzaah_3', 'influenzaah_5', 'influenzaah_7']
+[2025-07-23 19:47:53] Usuário: lacen.dilac | Erro no envio da amostra 420000070
+[2025-07-23 19:47:56] Usuário: lacen.dilac | Campos inválidos detectados: ['influenzaa', 'influenzab', 'coronavirusncov', 'coronavirus229e', 'coronavirusnl63', 'coronavirushku1', 'coronavirusoc43', 'adenovirus', 'vsincicialresp', 'metapneumovirus', 'rinovirus', 'bocavirus', 'enterovirus', 'parainflu_1', 'parainflu_2', 'parainflu_3', 'parainflu_4', 'coronavirus', 'influenzaahn', 'metapneumovirua', 'metapneumovirub', 'mycoplasma', 'parechovírus', 'vsincicialrespa', 'vsincicialrespb', 'influenzaah_3', 'influenzaah_5', 'influenzaah_7']
+[2025-07-23 19:47:56] Usuário: lacen.dilac | Erro no envio da amostra 420000071
+[2025-07-23 19:47:57] Usuário: lacen.dilac | Campos inválidos detectados: ['influenzaa', 'influenzab', 'coronavirusncov', 'coronavirus229e', 'coronavirusnl63', 'coronavirushku1', 'coronavirusoc43', 'adenovirus', 'vsincicialresp', 'metapneumovirus', 'rinovirus', 'bocavirus', 'enterovirus', 'parainflu_1', 'parainflu_2', 'parainflu_3', 'parainflu_4', 'coronavirus', 'influenzaahn', 'metapneumovirua', 'metapneumovirub', 'mycoplasma', 'parechovírus', 'vsincicialrespa', 'vsincicialrespb', 'influenzaah_3', 'influenzaah_5', 'influenzaah_7']
+[2025-07-23 19:47:58] Usuário: lacen.dilac | Erro no envio da amostra 420000072
+[2025-07-23 19:48:00] Usuário: lacen.dilac | Campos inválidos detectados: ['influenzaa', 'influenzab', 'coronavirusncov', 'coronavirus229e', 'coronavirusnl63', 'coronavirushku1', 'coronavirusoc43', 'adenovirus', 'vsincicialresp', 'metapneumovirus', 'rinovirus', 'bocavirus', 'enterovirus', 'parainflu_1', 'parainflu_2', 'parainflu_3', 'parainflu_4', 'coronavirus', 'influenzaahn', 'metapneumovirua', 'metapneumovirub', 'mycoplasma', 'parechovírus', 'vsincicialrespa', 'vsincicialrespb', 'influenzaah_3', 'influenzaah_5', 'influenzaah_7']
+[2025-07-23 19:48:00] Usuário: lacen.dilac | Erro no envio da amostra 420000073
+[2025-07-23 19:48:06] Usuário: lacen.dilac | Campos inválidos detectados: ['influenzaa', 'influenzab', 'coronavirusncov', 'coronavirus229e', 'coronavirusnl63', 'coronavirushku1', 'coronavirusoc43', 'adenovirus', 'vsincicialresp', 'metapneumovirus', 'rinovirus', 'bocavirus', 'enterovirus', 'parainflu_1', 'parainflu_2', 'parainflu_3', 'parainflu_4', 'coronavirus', 'influenzaahn', 'metapneumovirua', 'metapneumovirub', 'mycoplasma', 'parechovírus', 'vsincicialrespa', 'vsincicialrespb', 'influenzaah_3', 'influenzaah_5', 'influenzaah_7']
+[2025-07-23 19:48:07] Usuário: lacen.dilac | Erro no envio da amostra 420000074
+[2025-07-23 19:48:07] Usuário: lacen.dilac | Campos inválidos detectados: ['influenzaa', 'influenzab', 'coronavirusncov', 'coronavirus229e', 'coronavirusnl63', 'coronavirushku1', 'coronavirusoc43', 'adenovirus', 'vsincicialresp', 'metapneumovirus', 'rinovirus', 'bocavirus', 'enterovirus', 'parainflu_1', 'parainflu_2', 'parainflu_3', 'parainflu_4', 'coronavirus', 'influenzaahn', 'metapneumovirua', 'metapneumovirub', 'mycoplasma', 'parechovírus', 'vsincicialrespa', 'vsincicialrespb', 'influenzaah_3', 'influenzaah_5', 'influenzaah_7']
+[2025-07-23 19:48:07] Usuário: lacen.dilac | Erro no envio da amostra 420000075
+[2025-07-23 19:48:10] Usuário: lacen.dilac | Campos inválidos detectados: ['influenzaa', 'influenzab', 'coronavirusncov', 'coronavirus229e', 'coronavirusnl63', 'coronavirushku1', 'coronavirusoc43', 'adenovirus', 'vsincicialresp', 'metapneumovirus', 'rinovirus', 'bocavirus', 'enterovirus', 'parainflu_1', 'parainflu_2', 'parainflu_3', 'parainflu_4', 'coronavirus', 'influenzaahn', 'metapneumovirua', 'metapneumovirub', 'mycoplasma', 'parechovírus', 'vsincicialrespa', 'vsincicialrespb', 'influenzaah_3', 'influenzaah_5', 'influenzaah_7']
+[2025-07-23 19:48:10] Usuário: lacen.dilac | Erro no envio da amostra 420000076
+[2025-07-23 19:48:12] Usuário: lacen.dilac | Campos inválidos detectados: ['influenzaa', 'influenzab', 'coronavirusncov', 'coronavirus229e', 'coronavirusnl63', 'coronavirushku1', 'coronavirusoc43', 'adenovirus', 'vsincicialresp', 'metapneumovirus', 'rinovirus', 'bocavirus', 'enterovirus', 'parainflu_1', 'parainflu_2', 'parainflu_3', 'parainflu_4', 'coronavirus', 'influenzaahn', 'metapneumovirua', 'metapneumovirub', 'mycoplasma', 'parechovírus', 'vsincicialrespa', 'vsincicialrespb', 'influenzaah_3', 'influenzaah_5', 'influenzaah_7']
+[2025-07-23 19:48:12] Usuário: lacen.dilac | Campos inválidos detectados: ['influenzaa', 'influenzab', 'coronavirusncov', 'coronavirus229e', 'coronavirusnl63', 'coronavirushku1', 'coronavirusoc43', 'adenovirus', 'vsincicialresp', 'metapneumovirus', 'rinovirus', 'bocavirus', 'enterovirus', 'parainflu_1', 'parainflu_2', 'parainflu_3', 'parainflu_4', 'coronavirus', 'influenzaahn', 'metapneumovirua', 'metapneumovirub', 'mycoplasma', 'parechovírus', 'vsincicialrespa', 'vsincicialrespb', 'influenzaah_3', 'influenzaah_5', 'influenzaah_7']
+[2025-07-23 19:48:12] Usuário: lacen.dilac | Erro no envio da amostra 420000077
+[2025-07-23 19:48:13] Usuário: lacen.dilac | Erro no envio da amostra 420000078
+[2025-07-23 19:48:19] Usuário: lacen.dilac | Campos inválidos detectados: ['influenzaa', 'influenzab', 'coronavirusncov', 'coronavirus229e', 'coronavirusnl63', 'coronavirushku1', 'coronavirusoc43', 'adenovirus', 'vsincicialresp', 'metapneumovirus', 'rinovirus', 'bocavirus', 'enterovirus', 'parainflu_1', 'parainflu_2', 'parainflu_3', 'parainflu_4', 'coronavirus', 'influenzaahn', 'metapneumovirua', 'metapneumovirub', 'mycoplasma', 'parechovírus', 'vsincicialrespa', 'vsincicialrespb', 'influenzaah_3', 'influenzaah_5', 'influenzaah_7']
+[2025-07-23 19:48:19] Usuário: lacen.dilac | Erro no envio da amostra 420000079
+[2025-07-23 19:48:21] Usuário: lacen.dilac | Campos inválidos detectados: ['influenzaa', 'influenzab', 'coronavirusncov', 'coronavirus229e', 'coronavirusnl63', 'coronavirushku1', 'coronavirusoc43', 'adenovirus', 'vsincicialresp', 'metapneumovirus', 'rinovirus', 'bocavirus', 'enterovirus', 'parainflu_1', 'parainflu_2', 'parainflu_3', 'parainflu_4', 'coronavirus', 'influenzaahn', 'metapneumovirua', 'metapneumovirub', 'mycoplasma', 'parechovírus', 'vsincicialrespa', 'vsincicialrespb', 'influenzaah_3', 'influenzaah_5', 'influenzaah_7']
+[2025-07-23 19:48:21] Usuário: lacen.dilac | Campos inválidos detectados: ['influenzaa', 'influenzab', 'coronavirusncov', 'coronavirus229e', 'coronavirusnl63', 'coronavirushku1', 'coronavirusoc43', 'adenovirus', 'vsincicialresp', 'metapneumovirus', 'rinovirus', 'bocavirus', 'enterovirus', 'parainflu_1', 'parainflu_2', 'parainflu_3', 'parainflu_4', 'coronavirus', 'influenzaahn', 'metapneumovirua', 'metapneumovirub', 'mycoplasma', 'parechovírus', 'vsincicialrespa', 'vsincicialrespb', 'influenzaah_3', 'influenzaah_5', 'influenzaah_7']
+[2025-07-23 19:48:22] Usuário: lacen.dilac | Erro no envio da amostra 420000081
+[2025-07-23 19:48:22] Usuário: lacen.dilac | Erro no envio da amostra 420000080
+[2025-07-23 19:48:25] Usuário: lacen.dilac | Campos inválidos detectados: ['influenzaa', 'influenzab', 'coronavirusncov', 'coronavirus229e', 'coronavirusnl63', 'coronavirushku1', 'coronavirusoc43', 'adenovirus', 'vsincicialresp', 'metapneumovirus', 'rinovirus', 'bocavirus', 'enterovirus', 'parainflu_1', 'parainflu_2', 'parainflu_3', 'parainflu_4', 'coronavirus', 'influenzaahn', 'metapneumovirua', 'metapneumovirub', 'mycoplasma', 'parechovírus', 'vsincicialrespa', 'vsincicialrespb', 'influenzaah_3', 'influenzaah_5', 'influenzaah_7']
+[2025-07-23 19:48:25] Usuário: lacen.dilac | Erro no envio da amostra 420000082
+[2025-07-23 19:48:28] Usuário: lacen.dilac | Campos inválidos detectados: ['influenzaa', 'influenzab', 'coronavirusncov', 'coronavirus229e', 'coronavirusnl63', 'coronavirushku1', 'coronavirusoc43', 'adenovirus', 'vsincicialresp', 'metapneumovirus', 'rinovirus', 'bocavirus', 'enterovirus', 'parainflu_1', 'parainflu_2', 'parainflu_3', 'parainflu_4', 'coronavirus', 'influenzaahn', 'metapneumovirua', 'metapneumovirub', 'mycoplasma', 'parechovírus', 'vsincicialrespa', 'vsincicialrespb', 'influenzaah_3', 'influenzaah_5', 'influenzaah_7']
+[2025-07-23 19:48:28] Usuário: lacen.dilac | Erro no envio da amostra 420000083
+[2025-07-23 19:48:32] Usuário: lacen.dilac | Campos inválidos detectados: ['influenzaa', 'influenzab', 'coronavirusncov', 'coronavirus229e', 'coronavirusnl63', 'coronavirushku1', 'coronavirusoc43', 'adenovirus', 'vsincicialresp', 'metapneumovirus', 'rinovirus', 'bocavirus', 'enterovirus', 'parainflu_1', 'parainflu_2', 'parainflu_3', 'parainflu_4', 'coronavirus', 'influenzaahn', 'metapneumovirua', 'metapneumovirub', 'mycoplasma', 'parechovírus', 'vsincicialrespa', 'vsincicialrespb', 'influenzaah_3', 'influenzaah_5', 'influenzaah_7']
+[2025-07-23 19:48:32] Usuário: lacen.dilac | Campos inválidos detectados: ['influenzaa', 'influenzab', 'coronavirusncov', 'coronavirus229e', 'coronavirusnl63', 'coronavirushku1', 'coronavirusoc43', 'adenovirus', 'vsincicialresp', 'metapneumovirus', 'rinovirus', 'bocavirus', 'enterovirus', 'parainflu_1', 'parainflu_2', 'parainflu_3', 'parainflu_4', 'coronavirus', 'influenzaahn', 'metapneumovirua', 'metapneumovirub', 'mycoplasma', 'parechovírus', 'vsincicialrespa', 'vsincicialrespb', 'influenzaah_3', 'influenzaah_5', 'influenzaah_7']
+[2025-07-23 19:48:32] Usuário: lacen.dilac | Erro no envio da amostra 420000084
+[2025-07-23 19:48:32] Usuário: lacen.dilac | Erro no envio da amostra 420000085
+[2025-07-23 19:48:35] Usuário: lacen.dilac | Campos inválidos detectados: ['influenzaa', 'influenzab', 'coronavirusncov', 'coronavirus229e', 'coronavirusnl63', 'coronavirushku1', 'coronavirusoc43', 'adenovirus', 'vsincicialresp', 'metapneumovirus', 'rinovirus', 'bocavirus', 'enterovirus', 'parainflu_1', 'parainflu_2', 'parainflu_3', 'parainflu_4', 'coronavirus', 'influenzaahn', 'metapneumovirua', 'metapneumovirub', 'mycoplasma', 'parechovírus', 'vsincicialrespa', 'vsincicialrespb', 'influenzaah_3', 'influenzaah_5', 'influenzaah_7']
+[2025-07-23 19:48:36] Usuário: lacen.dilac | Erro no envio da amostra 420000086
+[2025-07-23 19:48:37] Usuário: lacen.dilac | Campos inválidos detectados: ['influenzaa', 'influenzab', 'coronavirusncov', 'coronavirus229e', 'coronavirusnl63', 'coronavirushku1', 'coronavirusoc43', 'adenovirus', 'vsincicialresp', 'metapneumovirus', 'rinovirus', 'bocavirus', 'enterovirus', 'parainflu_1', 'parainflu_2', 'parainflu_3', 'parainflu_4', 'coronavirus', 'influenzaahn', 'metapneumovirua', 'metapneumovirub', 'mycoplasma', 'parechovírus', 'vsincicialrespa', 'vsincicialrespb', 'influenzaah_3', 'influenzaah_5', 'influenzaah_7']
+[2025-07-23 19:48:38] Usuário: lacen.dilac | Erro no envio da amostra 420000087
+[2025-07-23 19:48:43] Usuário: lacen.dilac | Campos inválidos detectados: ['influenzaa', 'influenzab', 'coronavirusncov', 'coronavirus229e', 'coronavirusnl63', 'coronavirushku1', 'coronavirusoc43', 'adenovirus', 'vsincicialresp', 'metapneumovirus', 'rinovirus', 'bocavirus', 'enterovirus', 'parainflu_1', 'parainflu_2', 'parainflu_3', 'parainflu_4', 'coronavirus', 'influenzaahn', 'metapneumovirua', 'metapneumovirub', 'mycoplasma', 'parechovírus', 'vsincicialrespa', 'vsincicialrespb', 'influenzaah_3', 'influenzaah_5', 'influenzaah_7']
+[2025-07-23 19:48:44] Usuário: lacen.dilac | Campos inválidos detectados: ['influenzaa', 'influenzab', 'coronavirusncov', 'coronavirus229e', 'coronavirusnl63', 'coronavirushku1', 'coronavirusoc43', 'adenovirus', 'vsincicialresp', 'metapneumovirus', 'rinovirus', 'bocavirus', 'enterovirus', 'parainflu_1', 'parainflu_2', 'parainflu_3', 'parainflu_4', 'coronavirus', 'influenzaahn', 'metapneumovirua', 'metapneumovirub', 'mycoplasma', 'parechovírus', 'vsincicialrespa', 'vsincicialrespb', 'influenzaah_3', 'influenzaah_5', 'influenzaah_7']
+[2025-07-23 19:48:45] Usuário: lacen.dilac | Campos inválidos detectados: ['influenzaa', 'influenzab', 'coronavirusncov', 'coronavirus229e', 'coronavirusnl63', 'coronavirushku1', 'coronavirusoc43', 'adenovirus', 'vsincicialresp', 'metapneumovirus', 'rinovirus', 'bocavirus', 'enterovirus', 'parainflu_1', 'parainflu_2', 'parainflu_3', 'parainflu_4', 'coronavirus', 'influenzaahn', 'metapneumovirua', 'metapneumovirub', 'mycoplasma', 'parechovírus', 'vsincicialrespa', 'vsincicialrespb', 'influenzaah_3', 'influenzaah_5', 'influenzaah_7']
+[2025-07-23 19:48:46] Usuário: lacen.dilac | Campos inválidos detectados: ['influenzaa', 'influenzab', 'coronavirusncov', 'coronavirus229e', 'coronavirusnl63', 'coronavirushku1', 'coronavirusoc43', 'adenovirus', 'vsincicialresp', 'metapneumovirus', 'rinovirus', 'bocavirus', 'enterovirus', 'parainflu_1', 'parainflu_2', 'parainflu_3', 'parainflu_4', 'coronavirus', 'influenzaahn', 'metapneumovirua', 'metapneumovirub', 'mycoplasma', 'parechovírus', 'vsincicialrespa', 'vsincicialrespb', 'influenzaah_3', 'influenzaah_5', 'influenzaah_7']
+[2025-07-23 19:48:47] Usuário: lacen.dilac | Campos inválidos detectados: ['influenzaa', 'influenzab', 'coronavirusncov', 'coronavirus229e', 'coronavirusnl63', 'coronavirushku1', 'coronavirusoc43', 'adenovirus', 'vsincicialresp', 'metapneumovirus', 'rinovirus', 'bocavirus', 'enterovirus', 'parainflu_1', 'parainflu_2', 'parainflu_3', 'parainflu_4', 'coronavirus', 'influenzaahn', 'metapneumovirua', 'metapneumovirub', 'mycoplasma', 'parechovírus', 'vsincicialrespa', 'vsincicialrespb', 'influenzaah_3', 'influenzaah_5', 'influenzaah_7']
+[2025-07-23 19:48:47] Usuário: lacen.dilac | Relatórios salvos em C:\Users\andrademp\Desktop\INTEGRAGAL
+[2025-07-23 20:06:34] Usuário: lacen.dilac | Início do processamento
+[2025-07-23 20:15:21] Usuário: lacen.dilac | Início do processamento
+[2025-07-23 20:15:32] Usuário: lacen.dilac | Login realizado com sucesso
+[2025-07-23 20:15:32] Usuário: lacen.dilac | Arquivo CSV processado: C:\Users\andrademp\Desktop\INTEGRAGAL\vr2.csv
+[2025-07-23 20:15:32] Usuário: lacen.dilac | Erro no envio da amostra 420000058
+[2025-07-23 20:15:32] Usuário: lacen.dilac | Erro no envio da amostra 420000061
+[2025-07-23 20:15:34] Usuário: lacen.dilac | Erro no envio da amostra 420000063
+[2025-07-23 20:15:34] Usuário: lacen.dilac | Erro no envio da amostra 420000064
+[2025-07-23 20:15:34] Usuário: lacen.dilac | Erro no envio da amostra 420000060
+[2025-07-23 20:15:34] Usuário: lacen.dilac | Erro no envio da amostra 420000059
+[2025-07-23 20:15:35] Usuário: lacen.dilac | Erro no envio da amostra 420000062
+[2025-07-23 20:15:36] Usuário: lacen.dilac | Erro no envio da amostra 420000065
+[2025-07-23 20:15:37] Usuário: lacen.dilac | Erro no envio da amostra 420000066
+[2025-07-23 20:15:37] Usuário: lacen.dilac | Erro no envio da amostra 420000067
+[2025-07-23 20:15:39] Usuário: lacen.dilac | Erro no envio da amostra 420000068
+[2025-07-23 20:15:39] Usuário: lacen.dilac | Erro no envio da amostra 420000069
+[2025-07-23 20:15:40] Usuário: lacen.dilac | Erro no envio da amostra 420000070
+[2025-07-23 20:15:40] Usuário: lacen.dilac | Erro no envio da amostra 420000071
+[2025-07-23 20:15:41] Usuário: lacen.dilac | Erro no envio da amostra 420000072
+[2025-07-23 20:15:41] Usuário: lacen.dilac | Erro no envio da amostra 420000073
+[2025-07-23 20:15:44] Usuário: lacen.dilac | Erro no envio da amostra 420000074
+[2025-07-23 20:15:44] Usuário: lacen.dilac | Erro no envio da amostra 420000075
+[2025-07-23 20:15:44] Usuário: lacen.dilac | Erro no envio da amostra 420000076
+[2025-07-23 20:15:45] Usuário: lacen.dilac | Erro no envio da amostra 420000077
+[2025-07-23 20:15:45] Usuário: lacen.dilac | Erro no envio da amostra 420000078
+[2025-07-23 20:15:47] Usuário: lacen.dilac | Erro no envio da amostra 420000079
+[2025-07-23 20:15:47] Usuário: lacen.dilac | Erro no envio da amostra 420000080
+[2025-07-23 20:15:48] Usuário: lacen.dilac | Erro no envio da amostra 420000081
+[2025-07-23 20:15:49] Usuário: lacen.dilac | Erro no envio da amostra 420000083
+[2025-07-23 20:15:49] Usuário: lacen.dilac | Erro no envio da amostra 420000082
+[2025-07-23 20:15:51] Usuário: lacen.dilac | Erro no envio da amostra 420000084
+[2025-07-23 20:15:52] Usuário: lacen.dilac | Erro no envio da amostra 420000085
+[2025-07-23 20:15:52] Usuário: lacen.dilac | Erro no envio da amostra 420000086
+[2025-07-23 20:15:53] Usuário: lacen.dilac | Erro no envio da amostra 420000087
+[2025-07-23 20:38:44] Usuário: lacen.dilac | Início do processamento
+[2025-07-23 20:38:55] Usuário: lacen.dilac | Login realizado com sucesso
+[2025-07-23 20:38:55] Usuário: lacen.dilac | Arquivo CSV processado: C:\Users\andrademp\Desktop\INTEGRAGAL\vr2.csv
+[2025-07-23 20:38:55] Usuário: lacen.dilac | Erro no envio da amostra 420000058
+[2025-07-23 20:38:55] Usuário: lacen.dilac | Erro no envio da amostra 420000062
+[2025-07-23 20:38:57] Usuário: lacen.dilac | Erro no envio da amostra 420000063
+[2025-07-23 20:38:57] Usuário: lacen.dilac | Erro no envio da amostra 420000064
+[2025-07-23 20:38:58] Usuário: lacen.dilac | Erro no envio da amostra 420000061
+[2025-07-23 20:38:58] Usuário: lacen.dilac | Erro no envio da amostra 420000060
+[2025-07-23 20:38:58] Usuário: lacen.dilac | Erro no envio da amostra 420000059
+[2025-07-23 20:39:00] Usuário: lacen.dilac | Erro no envio da amostra 420000066
+[2025-07-23 20:39:01] Usuário: lacen.dilac | Erro no envio da amostra 420000065
+[2025-07-23 20:39:01] Usuário: lacen.dilac | Erro no envio da amostra 420000068
+[2025-07-23 20:39:01] Usuário: lacen.dilac | Erro no envio da amostra 420000067
+[2025-07-23 20:39:02] Usuário: lacen.dilac | Erro no envio da amostra 420000069
+[2025-07-23 20:39:02] Usuário: lacen.dilac | Erro no envio da amostra 420000070
+[2025-07-23 20:39:04] Usuário: lacen.dilac | Erro no envio da amostra 420000071
+[2025-07-23 20:39:04] Usuário: lacen.dilac | Erro no envio da amostra 420000073
+[2025-07-23 20:39:05] Usuário: lacen.dilac | Erro no envio da amostra 420000072
+[2025-07-23 20:39:05] Usuário: lacen.dilac | Erro no envio da amostra 420000074
+[2025-07-23 20:39:07] Usuário: lacen.dilac | Erro no envio da amostra 420000075
+[2025-07-23 20:39:08] Usuário: lacen.dilac | Erro no envio da amostra 420000076
+[2025-07-23 20:39:09] Usuário: lacen.dilac | Erro no envio da amostra 420000077
+[2025-07-23 20:39:09] Usuário: lacen.dilac | Erro no envio da amostra 420000078
+[2025-07-23 20:39:09] Usuário: lacen.dilac | Erro no envio da amostra 420000079
+[2025-07-23 20:39:10] Usuário: lacen.dilac | Erro no envio da amostra 420000080
+[2025-07-23 20:39:11] Usuário: lacen.dilac | Erro no envio da amostra 420000081
+[2025-07-23 20:39:12] Usuário: lacen.dilac | Erro no envio da amostra 420000082
+[2025-07-23 20:39:13] Usuário: lacen.dilac | Erro no envio da amostra 420000083
+[2025-07-23 20:39:14] Usuário: lacen.dilac | Erro no envio da amostra 420000084
+[2025-07-23 20:39:15] Usuário: lacen.dilac | Erro no envio da amostra 420000085
+[2025-07-23 20:39:15] Usuário: lacen.dilac | Erro no envio da amostra 420000086
+[2025-07-23 20:39:16] Usuário: lacen.dilac | Erro no envio da amostra 420000087
+[2025-07-23 20:41:23] Usuário: lacen.dilac | Início do processamento
+[2025-07-23 20:41:34] Usuário: lacen.dilac | Login realizado com sucesso
+[2025-07-23 20:41:34] Usuário: lacen.dilac | Arquivo CSV lido com 36 registros
+[2025-07-23 20:41:34] Usuário: lacen.dilac | Erro no envio da amostra 420000058
+[2025-07-23 20:41:38] Usuário: lacen.dilac | Erro no envio da amostra 420000059
+[2025-07-23 20:41:41] Usuário: lacen.dilac | Erro no envio da amostra 420000060
+[2025-07-23 20:41:44] Usuário: lacen.dilac | Erro no envio da amostra 420000061
+[2025-07-23 20:41:48] Usuário: lacen.dilac | Erro no envio da amostra 420000062
+[2025-07-23 20:41:51] Usuário: lacen.dilac | Erro no envio da amostra 420000063
+[2025-07-23 20:41:54] Usuário: lacen.dilac | Erro no envio da amostra 420000064
+[2025-07-23 20:41:57] Usuário: lacen.dilac | Erro no envio da amostra 420000065
+[2025-07-23 20:42:00] Usuário: lacen.dilac | Erro no envio da amostra 420000066
+[2025-07-23 20:42:03] Usuário: lacen.dilac | Erro no envio da amostra 420000067
+[2025-07-23 20:42:07] Usuário: lacen.dilac | Erro no envio da amostra 420000068
+[2025-07-23 20:42:10] Usuário: lacen.dilac | Erro no envio da amostra 420000069
+[2025-07-23 20:42:13] Usuário: lacen.dilac | Erro no envio da amostra 420000070
+[2025-07-23 20:42:16] Usuário: lacen.dilac | Erro no envio da amostra 420000071
+[2025-07-23 20:42:19] Usuário: lacen.dilac | Erro no envio da amostra 420000072
+[2025-07-23 20:42:23] Usuário: lacen.dilac | Erro no envio da amostra 420000073
+[2025-07-23 20:42:26] Usuário: lacen.dilac | Erro no envio da amostra 420000074
+[2025-07-23 20:42:29] Usuário: lacen.dilac | Erro no envio da amostra 420000075
+[2025-07-23 20:42:32] Usuário: lacen.dilac | Erro no envio da amostra 420000076
+[2025-07-23 20:42:36] Usuário: lacen.dilac | Erro no envio da amostra 420000077
+[2025-07-23 20:42:39] Usuário: lacen.dilac | Erro no envio da amostra 420000078
+[2025-07-23 20:42:42] Usuário: lacen.dilac | Erro no envio da amostra 420000079
+[2025-07-23 20:42:45] Usuário: lacen.dilac | Erro no envio da amostra 420000080
+[2025-07-23 20:42:49] Usuário: lacen.dilac | Erro no envio da amostra 420000081
+[2025-07-23 20:42:52] Usuário: lacen.dilac | Erro no envio da amostra 420000082
+[2025-07-23 20:42:56] Usuário: lacen.dilac | Erro no envio da amostra 420000083
+[2025-07-23 20:42:59] Usuário: lacen.dilac | Erro no envio da amostra 420000084
+[2025-07-23 20:43:03] Usuário: lacen.dilac | Erro no envio da amostra 420000085
+[2025-07-23 20:43:06] Usuário: lacen.dilac | Erro no envio da amostra 420000086
+[2025-07-23 20:43:09] Usuário: lacen.dilac | Erro no envio da amostra 420000087
+[2025-07-23 20:43:13] Usuário: lacen.dilac | Relatório final salvo em C:/Users/andrademp/Desktop/INTEGRAGAL/relatorio_final_20250723_204109.csv
+[2025-07-23 21:01:20] Usuário: lacen.dilac | Início do processamento
+[2025-07-23 21:01:30] Usuário: lacen.dilac | Login realizado com sucesso
+[2025-07-23 21:01:30] Usuário: lacen.dilac | Arquivo CSV processado: C:\Users\andrademp\Desktop\INTEGRAGAL\vr2.csv
+[2025-07-23 21:01:31] Usuário: lacen.dilac | Erro no envio da amostra 420000058
+[2025-07-23 21:01:32] Usuário: lacen.dilac | Erro no envio da amostra 420000059
+[2025-07-23 21:01:33] Usuário: lacen.dilac | Erro no envio da amostra 420000060
+[2025-07-23 21:01:35] Usuário: lacen.dilac | Erro no envio da amostra 420000061
+[2025-07-23 21:01:36] Usuário: lacen.dilac | Erro no envio da amostra 420000062
+[2025-07-23 21:01:37] Usuário: lacen.dilac | Erro no envio da amostra 420000063
+[2025-07-23 21:01:39] Usuário: lacen.dilac | Erro no envio da amostra 420000064
+[2025-07-23 21:01:40] Usuário: lacen.dilac | Erro no envio da amostra 420000065
+[2025-07-23 21:01:41] Usuário: lacen.dilac | Erro no envio da amostra 420000066
+[2025-07-23 21:01:43] Usuário: lacen.dilac | Erro no envio da amostra 420000067
+[2025-07-23 21:01:44] Usuário: lacen.dilac | Erro no envio da amostra 420000068
+[2025-07-23 21:01:46] Usuário: lacen.dilac | Erro no envio da amostra 420000069
+[2025-07-23 21:01:47] Usuário: lacen.dilac | Erro no envio da amostra 420000070
+[2025-07-23 21:01:49] Usuário: lacen.dilac | Erro no envio da amostra 420000071
+[2025-07-23 21:01:50] Usuário: lacen.dilac | Erro no envio da amostra 420000072
+[2025-07-23 21:01:51] Usuário: lacen.dilac | Erro no envio da amostra 420000073
+[2025-07-23 21:01:53] Usuário: lacen.dilac | Erro no envio da amostra 420000074
+[2025-07-23 21:01:54] Usuário: lacen.dilac | Erro no envio da amostra 420000075
+[2025-07-23 21:01:55] Usuário: lacen.dilac | Erro no envio da amostra 420000076
+[2025-07-23 21:01:57] Usuário: lacen.dilac | Erro no envio da amostra 420000077
+[2025-07-23 21:01:58] Usuário: lacen.dilac | Erro no envio da amostra 420000078
+[2025-07-23 21:01:59] Usuário: lacen.dilac | Erro no envio da amostra 420000079
+[2025-07-23 21:02:01] Usuário: lacen.dilac | Erro no envio da amostra 420000080
+[2025-07-23 21:02:02] Usuário: lacen.dilac | Erro no envio da amostra 420000081
+[2025-07-23 21:02:03] Usuário: lacen.dilac | Erro no envio da amostra 420000082
+[2025-07-23 21:02:05] Usuário: lacen.dilac | Erro no envio da amostra 420000083
+[2025-07-23 21:02:06] Usuário: lacen.dilac | Erro no envio da amostra 420000084
+[2025-07-23 21:02:07] Usuário: lacen.dilac | Erro no envio da amostra 420000085
+[2025-07-23 21:02:09] Usuário: lacen.dilac | Erro no envio da amostra 420000086
+[2025-07-23 21:02:10] Usuário: lacen.dilac | Erro no envio da amostra 420000087
+[2025-07-23 21:02:11] Usuário: lacen.dilac | Relatórios salvos em C:\Users\andrademp\Desktop\INTEGRAGAL
+[2025-07-23 21:15:34] Usuário: lacen.dilac | Início do processamento
+[2025-07-23 21:15:45] Usuário: lacen.dilac | Login realizado com sucesso
+[2025-07-23 21:15:45] Usuário: lacen.dilac | Arquivo CSV processado: C:\Users\andrademp\Desktop\INTEGRAGAL\vr2.csv
+[2025-07-23 21:15:45] Usuário: lacen.dilac | Amostra 420000058 enviada com sucesso
+[2025-07-23 21:15:45] Usuário: lacen.dilac | Amostra 420000059 enviada com sucesso
+[2025-07-23 21:15:46] Usuário: lacen.dilac | Amostra 420000060 enviada com sucesso
+[2025-07-23 21:15:46] Usuário: lacen.dilac | Amostra 420000061 enviada com sucesso
+[2025-07-23 21:15:46] Usuário: lacen.dilac | Amostra 420000062 enviada com sucesso
+[2025-07-23 21:15:46] Usuário: lacen.dilac | Amostra 420000063 enviada com sucesso
+[2025-07-23 21:15:46] Usuário: lacen.dilac | Amostra 420000064 enviada com sucesso
+[2025-07-23 21:15:46] Usuário: lacen.dilac | Amostra 420000065 enviada com sucesso
+[2025-07-23 21:15:46] Usuário: lacen.dilac | Amostra 420000066 enviada com sucesso
+[2025-07-23 21:15:46] Usuário: lacen.dilac | Amostra 420000067 enviada com sucesso
+[2025-07-23 21:15:47] Usuário: lacen.dilac | Amostra 420000068 enviada com sucesso
+[2025-07-23 21:15:47] Usuário: lacen.dilac | Amostra 420000069 enviada com sucesso
+[2025-07-23 21:15:47] Usuário: lacen.dilac | Amostra 420000070 enviada com sucesso
+[2025-07-23 21:15:47] Usuário: lacen.dilac | Amostra 420000071 enviada com sucesso
+[2025-07-23 21:15:47] Usuário: lacen.dilac | Amostra 420000072 enviada com sucesso
+[2025-07-23 21:15:47] Usuário: lacen.dilac | Amostra 420000073 enviada com sucesso
+[2025-07-23 21:15:47] Usuário: lacen.dilac | Amostra 420000074 enviada com sucesso
+[2025-07-23 21:15:47] Usuário: lacen.dilac | Amostra 420000075 enviada com sucesso
+[2025-07-23 21:15:48] Usuário: lacen.dilac | Amostra 420000076 enviada com sucesso
+[2025-07-23 21:15:48] Usuário: lacen.dilac | Amostra 420000077 enviada com sucesso
+[2025-07-23 21:15:48] Usuário: lacen.dilac | Amostra 420000078 enviada com sucesso
+[2025-07-23 21:15:48] Usuário: lacen.dilac | Amostra 420000079 enviada com sucesso
+[2025-07-23 21:15:48] Usuário: lacen.dilac | Amostra 420000080 enviada com sucesso
+[2025-07-23 21:15:48] Usuário: lacen.dilac | Amostra 420000081 enviada com sucesso
+[2025-07-23 21:15:48] Usuário: lacen.dilac | Amostra 420000082 enviada com sucesso
+[2025-07-23 21:15:48] Usuário: lacen.dilac | Amostra 420000083 enviada com sucesso
+[2025-07-23 21:15:49] Usuário: lacen.dilac | Amostra 420000084 enviada com sucesso
+[2025-07-23 21:15:49] Usuário: lacen.dilac | Amostra 420000085 enviada com sucesso
+[2025-07-23 21:15:49] Usuário: lacen.dilac | Amostra 420000086 enviada com sucesso
+[2025-07-23 21:15:49] Usuário: lacen.dilac | Amostra 420000087 enviada com sucesso
+[2025-07-23 21:15:49] Usuário: lacen.dilac | Relatórios salvos em C:\Users\andrademp\Desktop\INTEGRAGAL
+[2025-07-23 21:58:25] Usuário: lacen.dilac | Início do processamento | Observação: sem observações
+[2025-07-23 21:58:36] Usuário: lacen.dilac | Login realizado com sucesso
+[2025-07-23 21:58:37] Usuário: lacen.dilac | Arquivo CSV processado: C:\Users\andrademp\Desktop\INTEGRAGAL\vr2.csv
+[2025-07-23 21:58:39] Usuário: lacen.dilac | Amostra 420000058 enviada com sucesso
+[2025-07-23 21:58:40] Usuário: lacen.dilac | Amostra 420000059 enviada com sucesso
+[2025-07-23 21:58:41] Usuário: lacen.dilac | Amostra 420000060 enviada com sucesso
+[2025-07-23 21:58:42] Usuário: lacen.dilac | Amostra 420000061 enviada com sucesso
+[2025-07-23 21:58:43] Usuário: lacen.dilac | Amostra 420000062 enviada com sucesso
+[2025-07-23 21:58:44] Usuário: lacen.dilac | Amostra 420000063 enviada com sucesso
+[2025-07-23 21:58:45] Usuário: lacen.dilac | Amostra 420000064 enviada com sucesso
+[2025-07-23 21:58:46] Usuário: lacen.dilac | Amostra 420000065 enviada com sucesso
+[2025-07-23 21:58:47] Usuário: lacen.dilac | Amostra 420000066 enviada com sucesso
+[2025-07-23 21:58:48] Usuário: lacen.dilac | Amostra 420000067 enviada com sucesso
+[2025-07-23 21:58:49] Usuário: lacen.dilac | Amostra 420000068 enviada com sucesso
+[2025-07-23 21:58:50] Usuário: lacen.dilac | Amostra 420000069 enviada com sucesso
+[2025-07-23 21:58:51] Usuário: lacen.dilac | Amostra 420000070 enviada com sucesso
+[2025-07-23 21:58:52] Usuário: lacen.dilac | Amostra 420000071 enviada com sucesso
+[2025-07-23 21:58:53] Usuário: lacen.dilac | Amostra 420000072 enviada com sucesso
+[2025-07-23 21:58:54] Usuário: lacen.dilac | Amostra 420000073 enviada com sucesso
+[2025-07-23 21:58:55] Usuário: lacen.dilac | Amostra 420000074 enviada com sucesso
+[2025-07-23 21:58:56] Usuário: lacen.dilac | Amostra 420000075 enviada com sucesso
+[2025-07-23 21:58:57] Usuário: lacen.dilac | Amostra 420000076 enviada com sucesso
+[2025-07-23 21:58:59] Usuário: lacen.dilac | Amostra 420000077 enviada com sucesso
+[2025-07-23 21:59:00] Usuário: lacen.dilac | Amostra 420000078 enviada com sucesso
+[2025-07-23 21:59:00] Usuário: lacen.dilac | Amostra 420000079 enviada com sucesso
+[2025-07-23 21:59:01] Usuário: lacen.dilac | Amostra 420000080 enviada com sucesso
+[2025-07-23 21:59:02] Usuário: lacen.dilac | Amostra 420000081 enviada com sucesso
+[2025-07-23 21:59:04] Usuário: lacen.dilac | Amostra 420000082 enviada com sucesso
+[2025-07-23 21:59:05] Usuário: lacen.dilac | Amostra 420000083 enviada com sucesso
+[2025-07-23 21:59:06] Usuário: lacen.dilac | Amostra 420000084 enviada com sucesso
+[2025-07-23 21:59:07] Usuário: lacen.dilac | Amostra 420000085 enviada com sucesso
+[2025-07-23 21:59:08] Usuário: lacen.dilac | Amostra 420000086 enviada com sucesso
+[2025-07-23 21:59:09] Usuário: lacen.dilac | Amostra 420000087 enviada com sucesso
+[2025-07-24 00:29:42] Usuário: lacen.dilac | Início do processamento | Observação: svdasafvsadasdvf
+[2025-07-24 00:29:53] Usuário: lacen.dilac | Login realizado com sucesso
+[2025-07-24 00:29:54] Usuário: lacen.dilac | Amostra 420000058 enviada com sucesso
+[2025-07-24 00:29:54] Usuário: lacen.dilac | Amostra 420000059 enviada com sucesso
+[2025-07-24 00:29:54] Usuário: lacen.dilac | Amostra 420000060 enviada com sucesso
+[2025-07-24 00:29:54] Usuário: lacen.dilac | Amostra 420000061 enviada com sucesso
+[2025-07-24 00:29:54] Usuário: lacen.dilac | Amostra 420000062 enviada com sucesso
+[2025-07-24 00:29:55] Usuário: lacen.dilac | Amostra 420000063 enviada com sucesso
+[2025-07-24 00:29:55] Usuário: lacen.dilac | Amostra 420000064 enviada com sucesso
+[2025-07-24 00:29:55] Usuário: lacen.dilac | Amostra 420000065 enviada com sucesso
+[2025-07-24 00:29:55] Usuário: lacen.dilac | Amostra 420000066 enviada com sucesso
+[2025-07-24 00:29:55] Usuário: lacen.dilac | Amostra 420000067 enviada com sucesso
+[2025-07-24 00:29:55] Usuário: lacen.dilac | Amostra 420000068 enviada com sucesso
+[2025-07-24 00:29:56] Usuário: lacen.dilac | Amostra 420000069 enviada com sucesso
+[2025-07-24 00:29:56] Usuário: lacen.dilac | Amostra 420000070 enviada com sucesso
+[2025-07-24 00:29:56] Usuário: lacen.dilac | Amostra 420000071 enviada com sucesso
+[2025-07-24 00:29:56] Usuário: lacen.dilac | Amostra 420000072 enviada com sucesso
+[2025-07-24 00:29:56] Usuário: lacen.dilac | Amostra 420000073 enviada com sucesso
+[2025-07-24 00:29:57] Usuário: lacen.dilac | Amostra 420000074 enviada com sucesso
+[2025-07-24 00:29:57] Usuário: lacen.dilac | Amostra 420000075 enviada com sucesso
+[2025-07-24 00:29:57] Usuário: lacen.dilac | Amostra 420000076 enviada com sucesso
+[2025-07-24 00:29:57] Usuário: lacen.dilac | Amostra 420000077 enviada com sucesso
+[2025-07-24 00:29:57] Usuário: lacen.dilac | Amostra 420000078 enviada com sucesso
+[2025-07-24 00:29:58] Usuário: lacen.dilac | Amostra 420000079 enviada com sucesso
+[2025-07-24 00:29:58] Usuário: lacen.dilac | Amostra 420000080 enviada com sucesso
+[2025-07-24 00:29:58] Usuário: lacen.dilac | Amostra 420000081 enviada com sucesso
+[2025-07-24 00:29:58] Usuário: lacen.dilac | Amostra 420000082 enviada com sucesso
+[2025-07-24 00:29:58] Usuário: lacen.dilac | Amostra 420000083 enviada com sucesso
+[2025-07-24 00:29:59] Usuário: lacen.dilac | Amostra 420000084 enviada com sucesso
+[2025-07-24 00:29:59] Usuário: lacen.dilac | Amostra 420000085 enviada com sucesso
+[2025-07-24 00:29:59] Usuário: lacen.dilac | Amostra 420000086 enviada com sucesso
+[2025-07-24 00:29:59] Usuário: lacen.dilac | Amostra 420000087 enviada com sucesso
+[2025-07-24 00:29:59] Usuário: lacen.dilac | Relatório salvo | Arquivo: C:\Users\andrademp\Desktop\INTEGRAGAL\relatorio_20250724_002932.txt
+[2025-07-24 00:37:49] Usuário: lacen.dilac | Início do processamento | Observação: oppompompom
+[2025-07-24 00:37:59] Usuário: lacen.dilac | Login realizado com sucesso
+[2025-07-24 00:40:21] Usuário: lacen.dilac | Início do processamento | Observação: sadsqadqsdqsd
+[2025-07-24 00:40:32] Usuário: lacen.dilac | Login realizado com sucesso
+[2025-07-24 00:41:01] Usuário: lacen.dilac | Relatório salvo | Arquivo: C:\Users\andrademp\Desktop\INTEGRAGAL\relatorio_20250724_004011dsqsdqd.txt
+[2025-07-24 00:48:44] Usuário: lacen.dilac | Início do processamento | Observação: rfgregege
+[2025-07-24 00:48:55] Usuário: lacen.dilac | Login realizado com sucesso
+[2025-07-24 00:49:00] Usuário: lacen.dilac | Relatório salvo | Arquivo: C:\Users\andrademp\Desktop\INTEGRAGAL\relatorio_20250724_004838gegegeg.txt
+[2025-07-24 00:51:15] Usuário: lacen.dilac | Início do processamento | Observação: ergegregegerg
+[2025-07-24 00:51:26] Usuário: lacen.dilac | Login realizado com sucesso
+[2025-07-24 00:59:32] Usuário: lacen.dilac | Início do processamento | Observação: 
+[2025-07-24 00:59:43] Usuário: lacen.dilac | Login realizado com sucesso
+[2025-07-24 01:06:55] Usuário: lacen.dilac | Início do processamento | Observação: 
+[2025-07-24 01:07:06] Usuário: lacen.dilac | Login realizado com sucesso
+[2025-07-24 01:12:50] Usuário: lacen.dilac | Início do processamento | Observação: 
+[2025-07-24 01:13:01] Usuário: lacen.dilac | Login realizado com sucesso
