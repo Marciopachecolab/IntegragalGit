@@ -1,765 +1,32 @@
-2025-10-14 01:30:50;marci;192.168.0.54;ConfigService;Ficheiro de configuração não encontrado. A criar 'c:\Users\marci\Downloads\Integragal\config.json' padrão.;WARNING
-2025-10-14 01:34:29;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 01:36:42;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 01:36:55;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-14 01:36:55;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-14 01:36:55;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-14 01:36:55;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-14 01:36:56;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-14 01:36:56;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-14 01:36:56;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-14 01:36:58;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento de extração inicializada.;INFO
-2025-10-14 01:37:16;marci;192.168.0.54;BuscaExtração;Falha na validação da planilha: Marcadores de linha (A-H) não encontrados na primeira coluna.;ERROR
-2025-10-14 01:41:59;marci;192.168.0.54;BuscaExtração;Falha na validação da planilha: Marcadores de linha (A-H) não encontrados na primeira coluna.;ERROR
-2025-10-14 01:42:00;marci;192.168.0.54;BuscaExtração;Processo cancelado pelo utilizador.;INFO
-2025-10-14 01:42:04;marci;192.168.0.54;Sistema;Sistema encerrado pelo utilizador.;INFO
-2025-10-14 01:42:09;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 01:42:23;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-14 01:42:23;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-14 01:42:23;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-14 01:42:23;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-14 01:42:23;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-14 01:42:23;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-14 01:42:23;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-14 01:42:25;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento de extração inicializada.;INFO
-2025-10-14 01:42:50;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento de extração inicializada.;INFO
-2025-10-14 01:42:56;marci;192.168.0.54;Sistema;Sistema encerrado pelo utilizador.;INFO
-2025-10-14 01:43:06;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 01:43:16;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-14 01:43:16;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-14 01:43:16;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-14 01:43:16;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-14 01:43:16;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-14 01:43:16;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-14 01:43:16;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-14 01:43:17;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento de extração inicializada.;INFO
-2025-10-14 01:44:33;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento de extração inicializada.;INFO
-2025-10-14 01:44:41;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento de extração inicializada.;INFO
-2025-10-14 01:44:48;marci;192.168.0.54;Sistema;Sistema encerrado pelo utilizador.;INFO
-2025-10-14 01:46:37;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 01:46:46;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-14 01:46:46;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-14 01:46:46;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-14 01:46:46;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-14 01:46:46;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-14 01:46:46;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-14 01:46:46;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-14 01:46:47;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-14 01:46:51;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada.;INFO
-2025-10-14 01:46:55;marci;192.168.0.54;Mapeamento Placas;Mapeamento de 48 poÃ§os (parte 1) gerado com sucesso.;INFO
-2025-10-14 01:46:55;marci;192.168.0.54;Mapeamento;Mapeamento para kit 48 (parte 1) gerado.;INFO
-2025-10-14 01:47:27;marci;192.168.0.54;Sistema;Sistema encerrado pelo utilizador.;INFO
-2025-10-14 01:48:13;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 01:48:22;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-14 01:48:22;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-14 01:48:22;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-14 01:48:22;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-14 01:48:22;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-14 01:48:22;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-14 01:48:22;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-14 01:48:24;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-14 01:48:29;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada.;INFO
-2025-10-14 01:48:34;marci;192.168.0.54;Mapeamento Placas;Mapeamento de 48 poÃ§os (parte 1) gerado com sucesso.;INFO
-2025-10-14 01:48:34;marci;192.168.0.54;Mapeamento;Mapeamento para kit 48 (parte 1) gerado.;INFO
-2025-10-14 01:49:59;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 01:50:43;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 01:52:25;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 01:58:25;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 01:58:37;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-14 01:58:37;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-14 01:58:37;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-14 01:58:37;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-14 01:58:38;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-14 01:58:38;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-14 01:58:38;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-14 01:58:39;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-14 01:58:43;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada.;INFO
-2025-10-14 01:58:46;marci;192.168.0.54;Mapeamento Placas;Mapeamento de 48 poÃ§os (parte 1) gerado com sucesso.;INFO
-2025-10-14 01:58:46;marci;192.168.0.54;Mapeamento;Mapeamento para kit 48 (parte 1) gerado.;INFO
-2025-10-14 01:59:04;marci;192.168.0.54;Sistema;Sistema encerrado pelo utilizador.;INFO
-2025-10-14 02:24:26;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 02:24:36;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-14 02:24:36;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-14 02:24:36;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-14 02:24:36;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-14 02:24:36;marci;192.168.0.54;AuthService;Tentativa de login para utilizador inexistente: 'MARCIO';WARNING
-2025-10-14 02:24:36;marci;192.168.0.54;Login;Tentativa de login falhada para 'MARCIO'. Tentativas restantes: 2;WARNING
-2025-10-14 02:24:44;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-14 02:24:44;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-14 02:24:44;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-14 02:24:44;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-14 02:24:44;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-14 02:24:45;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-14 02:24:45;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-14 02:24:46;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-14 02:24:48;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada.;INFO
-2025-10-14 02:24:52;marci;192.168.0.54;Mapeamento Placas;Mapeamento de 48 poÃ§os (parte 1) gerado com sucesso.;INFO
-2025-10-14 02:24:52;marci;192.168.0.54;Mapeamento;Mapeamento para kit 48 (parte 1) gerado.;INFO
-2025-10-14 02:25:00;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
-2025-10-14 02:25:16;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-14 02:25:16;marci;192.168.0.54;IO Utils;Tentando ler arquivo Excel: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-14 02:25:17;marci;192.168.0.54;IO Utils;CabeÃ§alho detectado em Excel '20250718 VR1-VR2 BIOM PLACA 5.xlsx' na linha 7 (skiprows).;DEBUG
-2025-10-14 02:25:17;marci;192.168.0.54;IO Utils;Arquivo Excel '20250718 VR1-VR2 BIOM PLACA 5.xlsx' lido com sucesso.;INFO
-2025-10-14 02:25:17;marci;192.168.0.54;Fluxo Análise VR1e2;Erro ao executar o fluxo de análise: 'Well Position';CRITICAL
-2025-10-14 02:25:28;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
-2025-10-14 02:25:34;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-14 02:25:34;marci;192.168.0.54;IO Utils;Tentando ler arquivo Excel: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-14 02:25:34;marci;192.168.0.54;IO Utils;CabeÃ§alho detectado em Excel '20250718 VR1-VR2 BIOM PLACA 5.xlsx' na linha 7 (skiprows).;DEBUG
-2025-10-14 02:25:34;marci;192.168.0.54;IO Utils;Arquivo Excel '20250718 VR1-VR2 BIOM PLACA 5.xlsx' lido com sucesso.;INFO
-2025-10-14 02:25:34;marci;192.168.0.54;Fluxo Análise VR1e2;Erro ao executar o fluxo de análise: 'Well Position';CRITICAL
-2025-10-14 02:25:50;marci;192.168.0.54;Sistema;Sistema encerrado pelo utilizador.;INFO
-2025-10-14 02:39:33;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 02:39:41;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-14 02:39:41;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-14 02:39:41;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-14 02:39:41;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-14 02:39:41;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-14 02:39:41;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-14 02:39:41;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-14 02:39:42;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-14 02:39:46;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada.;INFO
-2025-10-14 02:39:47;marci;192.168.0.54;Mapeamento Placas;Mapeamento de 96 poÃ§os gerado com sucesso.;INFO
-2025-10-14 02:39:47;marci;192.168.0.54;Mapeamento;Mapeamento para kit 96 (parte 1) gerado.;INFO
-2025-10-14 02:39:50;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-14 02:39:58;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada.;INFO
-2025-10-14 02:40:00;marci;192.168.0.54;Mapeamento Placas;Mapeamento de 48 poÃ§os (parte 1) gerado com sucesso.;INFO
-2025-10-14 02:40:00;marci;192.168.0.54;Mapeamento;Mapeamento para kit 48 (parte 1) gerado.;INFO
-2025-10-14 02:40:07;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
-2025-10-14 02:40:11;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-14 02:40:11;marci;192.168.0.54;IO Utils;Tentando ler arquivo Excel: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-14 02:40:11;marci;192.168.0.54;IO Utils;CabeÃ§alho detectado em Excel '20250718 VR1-VR2 BIOM PLACA 5.xlsx' na linha 7 (skiprows).;DEBUG
-2025-10-14 02:40:11;marci;192.168.0.54;IO Utils;Arquivo Excel '20250718 VR1-VR2 BIOM PLACA 5.xlsx' lido com sucesso.;INFO
-2025-10-14 02:40:11;marci;192.168.0.54;Fluxo Análise VR1e2;Erro ao executar o fluxo de análise: 'Colunas essenciais não encontradas no arquivo de resultados: Sample Name, Target Name';CRITICAL
-2025-10-14 02:50:17;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
-2025-10-14 02:50:20;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-14 02:50:20;marci;192.168.0.54;IO Utils;Tentando ler arquivo Excel: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-14 02:50:20;marci;192.168.0.54;IO Utils;CabeÃ§alho detectado em Excel '20250718 VR1-VR2 BIOM PLACA 5.xlsx' na linha 7 (skiprows).;DEBUG
-2025-10-14 02:50:20;marci;192.168.0.54;IO Utils;Arquivo Excel '20250718 VR1-VR2 BIOM PLACA 5.xlsx' lido com sucesso.;INFO
-2025-10-14 02:50:20;marci;192.168.0.54;Fluxo Análise VR1e2;Erro ao executar o fluxo de análise: 'Colunas essenciais não encontradas no arquivo de resultados: Sample Name, Target Name';CRITICAL
-2025-10-14 02:50:24;marci;192.168.0.54;Sistema;Sistema encerrado pelo utilizador.;INFO
-2025-10-14 02:50:33;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 02:50:44;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-14 02:50:44;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-14 02:50:44;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-14 02:50:44;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-14 02:50:45;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-14 02:50:45;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-14 02:50:45;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-14 02:50:46;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-14 02:50:48;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada.;INFO
-2025-10-14 02:50:51;marci;192.168.0.54;Mapeamento Placas;Mapeamento de 48 poÃ§os (parte 1) gerado com sucesso.;INFO
-2025-10-14 02:50:51;marci;192.168.0.54;Mapeamento;Mapeamento para kit 48 (parte 1) gerado.;INFO
-2025-10-14 02:51:00;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
-2025-10-14 02:51:02;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-14 02:51:02;marci;192.168.0.54;Fluxo Análise VR1e2;Erro ao executar o fluxo de análise: read_data_with_auto_detection() got an unexpected keyword argument 'header';CRITICAL
-2025-10-14 02:51:17;marci;192.168.0.54;Sistema;Sistema encerrado pelo utilizador.;INFO
-2025-10-14 02:52:33;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 02:52:36;marci;192.168.0.54;Sistema;Login falhou ou foi cancelado. Programa encerrado.;INFO
-2025-10-14 02:52:42;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 02:52:53;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-14 02:52:53;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-14 02:52:53;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-14 02:52:53;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-14 02:52:53;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-14 02:52:53;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-14 02:52:53;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-14 02:52:54;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-14 02:52:58;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada.;INFO
-2025-10-14 02:53:02;marci;192.168.0.54;Mapeamento Placas;Mapeamento de 48 poÃ§os (parte 1) gerado com sucesso.;INFO
-2025-10-14 02:53:02;marci;192.168.0.54;Mapeamento;Mapeamento para kit 48 (parte 1) gerado.;INFO
-2025-10-14 02:53:09;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
-2025-10-14 02:53:11;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-14 02:53:11;marci;192.168.0.54;Fluxo Análise VR1e2;Erro ao executar o fluxo de análise: name 'read_data_with_auto_detection' is not defined;CRITICAL
-2025-10-14 02:53:18;marci;192.168.0.54;Sistema;Sistema encerrado pelo utilizador.;INFO
-2025-10-14 02:54:06;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 02:54:17;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-14 02:54:17;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-14 02:54:17;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-14 02:54:17;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-14 02:54:17;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-14 02:54:17;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-14 02:54:17;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-14 02:54:18;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-14 02:54:21;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada.;INFO
-2025-10-14 02:54:24;marci;192.168.0.54;Mapeamento Placas;Mapeamento de 48 poÃ§os (parte 1) gerado com sucesso.;INFO
-2025-10-14 02:54:24;marci;192.168.0.54;Mapeamento;Mapeamento para kit 48 (parte 1) gerado.;INFO
-2025-10-14 02:54:43;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
-2025-10-14 02:54:45;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-14 02:59:09;marci;192.168.0.54;DB Utils;Salvamento de histórico ignorado (conexão com DB indisponível ou desabilitada).;INFO
-2025-10-14 02:59:33;marci;192.168.0.54;Salvar Histórico;48 amostras salvas pelo utilizador marcio.;INFO
-2025-10-14 03:04:53;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 03:05:02;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-14 03:05:02;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-14 03:05:02;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-14 03:05:02;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-14 03:05:03;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-14 03:05:03;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-14 03:05:03;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-14 03:05:04;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-14 03:05:06;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada.;INFO
-2025-10-14 03:05:08;marci;192.168.0.54;Mapeamento Placas;Mapeamento de 48 poÃ§os (parte 1) gerado com sucesso.;INFO
-2025-10-14 03:05:08;marci;192.168.0.54;Mapeamento;Mapeamento para kit 48 (parte 1) gerado.;INFO
-2025-10-14 03:05:17;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
-2025-10-14 03:05:20;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-14 03:05:36;marci;192.168.0.54;Sistema;Sistema encerrado pelo utilizador.;INFO
-2025-10-14 03:05:48;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 03:05:57;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-14 03:05:57;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-14 03:05:57;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-14 03:05:57;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-14 03:05:57;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-14 03:05:57;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-14 03:05:57;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-14 03:05:58;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-14 03:06:01;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada.;INFO
-2025-10-14 03:06:02;marci;192.168.0.54;Mapeamento Placas;Mapeamento de 48 poÃ§os (parte 1) gerado com sucesso.;INFO
-2025-10-14 03:06:02;marci;192.168.0.54;Mapeamento;Mapeamento para kit 48 (parte 1) gerado.;INFO
-2025-10-14 03:06:09;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
-2025-10-14 03:06:12;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-14 03:21:33;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 03:21:43;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-14 03:21:43;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-14 03:21:43;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-14 03:21:43;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-14 03:21:43;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-14 03:21:43;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-14 03:21:43;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-14 03:21:44;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-14 03:21:48;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada.;INFO
-2025-10-14 03:21:51;marci;192.168.0.54;Mapeamento Placas;Mapeamento CORRIGIDO de 48 poços (parte 1) gerado.;INFO
-2025-10-14 03:21:51;marci;192.168.0.54;Mapeamento;Mapeamento para kit 48 (parte 1) gerado.;INFO
-2025-10-14 03:21:58;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
-2025-10-14 03:22:01;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-14 03:22:12;marci;192.168.0.54;Sistema;Sistema encerrado pelo utilizador.;INFO
-2025-10-14 03:22:22;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 03:22:31;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-14 03:22:31;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-14 03:22:31;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-14 03:22:31;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-14 03:22:31;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-14 03:22:31;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-14 03:22:31;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-14 03:22:32;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-14 03:22:35;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada.;INFO
-2025-10-14 03:22:39;marci;192.168.0.54;Mapeamento Placas;Mapeamento CORRIGIDO de 48 poços (parte 1) gerado.;INFO
-2025-10-14 03:22:39;marci;192.168.0.54;Mapeamento;Mapeamento para kit 48 (parte 1) gerado.;INFO
-2025-10-14 03:22:45;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
-2025-10-14 03:22:47;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-14 03:42:25;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 03:43:16;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 03:43:24;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-14 03:43:24;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-14 03:43:24;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-14 03:43:24;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-14 03:43:24;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-14 03:43:25;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-14 03:43:25;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-14 03:43:25;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-14 03:43:28;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada.;INFO
-2025-10-14 03:43:30;marci;192.168.0.54;Mapeamento Placas;Mapeamento CORRIGIDO de 48 poços (parte 1) gerado.;INFO
-2025-10-14 03:43:30;marci;192.168.0.54;Mapeamento;Mapeamento para kit 48 (parte 1) gerado.;INFO
-2025-10-14 03:43:37;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
-2025-10-14 03:43:40;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-14 03:43:50;marci;192.168.0.54;Sistema;Sistema encerrado pelo utilizador.;INFO
-2025-10-14 03:47:36;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 03:47:43;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-14 03:47:43;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-14 03:47:43;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-14 03:47:43;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-14 03:47:43;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-14 03:47:44;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-14 03:47:44;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-14 03:47:45;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-14 03:47:48;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada.;INFO
-2025-10-14 03:47:51;marci;192.168.0.54;Mapeamento Placas;Mapeamento CORRIGIDO de 48 poços (parte 1) gerado.;INFO
-2025-10-14 03:47:51;marci;192.168.0.54;Mapeamento;Mapeamento para kit 48 (parte 1) gerado.;INFO
-2025-10-14 03:48:00;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
-2025-10-14 03:48:06;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-14 04:01:10;marci;192.168.0.54;Sistema;Sistema encerrado pelo utilizador.;INFO
-2025-10-14 04:02:09;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 04:02:16;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-14 04:02:16;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-14 04:02:16;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-14 04:02:16;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-14 04:02:16;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-14 04:02:16;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-14 04:02:16;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-14 04:02:17;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-14 04:02:20;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada com sucesso.;INFO
-2025-10-14 04:02:33;marci;192.168.0.54;Mapeamento Placas;Mapeamento CORRIGIDO de 48 poços (parte 1) gerado.;INFO
-2025-10-14 04:02:33;marci;192.168.0.54;Mapeamento;Mapeamento para kit 48 (parte 1) gerado.;INFO
-2025-10-14 04:02:40;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
-2025-10-14 04:02:42;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-14 04:02:55;marci;192.168.0.54;Sistema;Sistema encerrado pelo utilizador.;INFO
-2025-10-14 04:07:02;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 04:07:09;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-14 04:07:09;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-14 04:07:09;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-14 04:07:09;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-14 04:07:09;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-14 04:07:09;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-14 04:07:09;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-14 04:07:10;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-14 04:07:12;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada com sucesso.;INFO
-2025-10-14 04:07:17;marci;192.168.0.54;Mapeamento Placas;Mapeamento CORRIGIDO de 48 poços (parte 1) gerado.;INFO
-2025-10-14 04:07:17;marci;192.168.0.54;Mapeamento;Mapeamento para kit 48 (parte 1) gerado.;INFO
-2025-10-14 04:07:23;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
-2025-10-14 04:07:26;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-14 04:07:38;marci;192.168.0.54;Sistema;Sistema encerrado pelo utilizador.;INFO
-2025-10-14 04:24:58;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 04:25:06;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-14 04:25:06;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-14 04:25:06;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-14 04:25:06;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-14 04:25:06;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-14 04:25:06;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-14 04:25:06;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-14 04:25:07;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-14 04:25:13;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada com sucesso.;INFO
-2025-10-14 04:25:17;marci;192.168.0.54;Mapeamento Placas;Mapeamento CORRIGIDO de 48 poços (parte 1) gerado.;INFO
-2025-10-14 04:25:17;marci;192.168.0.54;Mapeamento;Mapeamento para kit 48 (parte 1) gerado.;INFO
-2025-10-14 04:25:24;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
-2025-10-14 04:25:26;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-14 04:30:28;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 04:30:34;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-14 04:30:34;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-14 04:30:34;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-14 04:30:34;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-14 04:30:34;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-14 04:30:34;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-14 04:30:34;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-14 04:30:35;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-14 04:30:41;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada com sucesso.;INFO
-2025-10-14 04:30:43;marci;192.168.0.54;Mapeamento Placas;Mapeamento 1-para-2 de 48 poços (parte 1) gerado.;INFO
-2025-10-14 04:30:43;marci;192.168.0.54;Mapeamento;Mapeamento para kit 48 (parte 1) gerado.;INFO
-2025-10-14 04:30:51;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
-2025-10-14 04:30:53;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-14 04:31:55;marci;192.168.0.54;Análise VR1e2;Erro ao analisar placa: Length mismatch: Expected axis has 19 elements, new values have 6 elements;ERROR
-2025-10-14 04:31:55;marci;192.168.0.54;Fluxo Análise VR1e2;Erro ao executar o fluxo de análise: Length mismatch: Expected axis has 19 elements, new values have 6 elements;CRITICAL
-2025-10-14 04:36:59;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 04:37:05;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-14 04:37:05;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-14 04:37:05;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-14 04:37:05;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-14 04:37:05;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-14 04:37:05;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-14 04:37:05;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-14 04:37:06;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-14 04:37:09;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada com sucesso.;INFO
-2025-10-14 04:37:16;marci;192.168.0.54;Mapeamento Placas;Mapeamento 1-para-2 de 48 poços (parte 1) gerado.;INFO
-2025-10-14 04:37:16;marci;192.168.0.54;Mapeamento;Mapeamento para kit 48 (parte 1) gerado.;INFO
-2025-10-14 04:37:22;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
-2025-10-14 04:37:25;marci;192.168.0.54;Análise VR1e2;A analisar arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-14 04:44:55;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 04:45:03;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-14 04:45:03;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-14 04:45:03;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-14 04:45:03;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-14 04:45:04;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-14 04:45:04;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-14 04:45:04;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-14 04:45:04;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-14 04:45:07;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada com sucesso.;INFO
-2025-10-14 04:45:12;marci;192.168.0.54;Mapeamento Placas;Mapeamento 1-para-2 de 48 poços (parte 1) gerado.;INFO
-2025-10-14 04:45:12;marci;192.168.0.54;Mapeamento;Mapeamento para kit 48 (parte 1) gerado.;INFO
-2025-10-14 04:45:18;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
-2025-10-14 04:45:21;marci;192.168.0.54;Análise VR1e2;A analisar arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-14 04:45:34;marci;192.168.0.54;Sistema;Sistema encerrado pelo utilizador.;INFO
-2025-10-14 04:52:07;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 04:52:13;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-14 04:52:13;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-14 04:52:13;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-14 04:52:13;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-14 04:52:13;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-14 04:52:13;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-14 04:52:13;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-14 04:52:14;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-14 04:52:16;marci;192.168.0.54;Busca Matriz;Matriz de extração encontrada na célula (9, 0).;INFO
-2025-10-14 04:52:16;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada com sucesso.;INFO
-2025-10-14 04:52:20;marci;192.168.0.54;Mapeamento Placas;Mapeamento 1-para-2 de 48 poços (parte 1) gerado.;INFO
-2025-10-14 04:52:20;marci;192.168.0.54;Mapeamento;Mapeamento para kit 48 (parte 1) gerado.;INFO
-2025-10-14 04:52:27;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
-2025-10-14 04:52:29;marci;192.168.0.54;Análise VR1e2;A analisar arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-14 04:53:36;marci;192.168.0.54;Sistema;Sistema encerrado pelo utilizador.;INFO
-2025-10-14 04:56:50;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 04:57:02;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-14 04:57:02;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-14 04:57:02;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-14 04:57:02;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-14 04:57:03;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-14 04:57:03;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-14 04:57:03;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-14 04:57:03;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-14 04:57:06;marci;192.168.0.54;Busca Matriz;Matriz de extração encontrada na célula (9, 0).;INFO
-2025-10-14 04:57:06;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada com sucesso.;INFO
-2025-10-14 04:57:11;marci;192.168.0.54;Mapeamento Placas;Mapeamento 1-para-2 de 48 poços (parte 1) gerado.;INFO
-2025-10-14 04:57:11;marci;192.168.0.54;Mapeamento;Mapeamento para kit 48 (parte 1) gerado.;INFO
-2025-10-14 04:57:18;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
-2025-10-14 04:57:19;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-14 04:57:20;marci;192.168.0.54;Fluxo Análise VR1e2;Erro ao executar o fluxo de análise: Não foi possível ler o arquivo Excel. Verifique se o formato está correto. Erro: Length mismatch: Expected axis has 20 elements, new values have 21 elements;CRITICAL
-2025-10-14 22:18:53;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 22:19:01;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-14 22:19:01;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-14 22:19:01;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-14 22:19:01;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-14 22:19:01;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-14 22:19:02;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-14 22:19:02;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-14 22:19:03;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-14 22:19:11;marci;192.168.0.54;Busca Matriz;Matriz de extração encontrada na célula (9, 0).;INFO
-2025-10-14 22:19:11;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada com sucesso.;INFO
-2025-10-14 22:19:17;marci;192.168.0.54;Mapeamento Placas;Mapeamento 1-para-2 de 48 poços (parte 1) gerado.;INFO
-2025-10-14 22:19:17;marci;192.168.0.54;Mapeamento;Mapeamento para kit 48 (parte 1) gerado.;INFO
-2025-10-14 22:19:32;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
-2025-10-14 22:19:36;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-14 22:19:36;marci;192.168.0.54;Fluxo Análise VR1e2;Erro ao executar o fluxo de análise: 'Após a leitura, colunas essenciais não foram encontradas. Verifique o template do Excel.';CRITICAL
-2025-10-14 22:19:50;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
-2025-10-14 22:19:52;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-14 22:19:52;marci;192.168.0.54;Fluxo Análise VR1e2;Erro ao executar o fluxo de análise: 'Após a leitura, colunas essenciais não foram encontradas. Verifique o template do Excel.';CRITICAL
-2025-10-14 22:20:20;marci;192.168.0.54;Sistema;Sistema encerrado pelo utilizador.;INFO
-2025-10-14 22:28:24;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 22:28:31;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-14 22:28:31;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-14 22:28:31;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-14 22:28:31;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-14 22:28:32;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-14 22:28:32;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-14 22:28:32;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-14 22:28:32;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-14 22:28:38;marci;192.168.0.54;Busca Matriz;Matriz de extração encontrada na célula (9, 0).;INFO
-2025-10-14 22:28:38;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada com sucesso.;INFO
-2025-10-14 22:30:05;marci;192.168.0.54;Mapeamento Placas;Mapeamento 1-para-2 de 48 poços (parte 1) gerado.;INFO
-2025-10-14 22:30:05;marci;192.168.0.54;Mapeamento;Mapeamento para kit 48 (parte 1) gerado.;INFO
-2025-10-14 22:30:12;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-14 22:30:25;marci;192.168.0.54;Busca Matriz;Matriz de extração encontrada na célula (9, 0).;INFO
-2025-10-14 22:30:25;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada com sucesso.;INFO
-2025-10-14 22:30:26;marci;192.168.0.54;Mapeamento Placas;Mapeamento 1-para-2 de 48 poços (parte 1) gerado.;INFO
-2025-10-14 22:30:26;marci;192.168.0.54;Mapeamento;Mapeamento para kit 48 (parte 1) gerado.;INFO
-2025-10-14 22:30:29;marci;192.168.0.54;Sistema;Sistema encerrado pelo utilizador.;INFO
-2025-10-14 22:33:00;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 22:33:00;marci;192.168.0.54;Execução Autônoma;Iniciando módulo de análise VR1e2 em modo de teste.;INFO
-2025-10-14 22:33:21;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 22:33:21;marci;192.168.0.54;Execução Autônoma;Iniciando módulo de análise VR1e2 em modo de teste.;INFO
-2025-10-14 22:33:36;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 22:33:36;marci;192.168.0.54;Execução Autônoma;Iniciando módulo de análise VR1e2 em modo de teste.;INFO
-2025-10-14 22:35:57;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 22:36:05;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-14 22:36:05;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-14 22:36:05;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-14 22:36:05;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-14 22:36:05;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-14 22:36:06;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-14 22:36:06;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-14 22:36:06;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-14 22:36:09;marci;192.168.0.54;Busca Matriz;Matriz de extração encontrada na célula (9, 0).;INFO
-2025-10-14 22:36:09;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada com sucesso.;INFO
-2025-10-14 22:36:14;marci;192.168.0.54;Mapeamento Placas;Mapeamento 1-para-2 de 48 poços (parte 1) gerado.;INFO
-2025-10-14 22:36:14;marci;192.168.0.54;Mapeamento;Mapeamento para kit 48 (parte 1) gerado.;INFO
-2025-10-14 22:36:21;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
-2025-10-14 22:36:23;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-14 22:36:40;marci;192.168.0.54;Sistema;Sistema encerrado pelo utilizador.;INFO
-2025-10-14 22:40:36;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 22:40:43;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-14 22:40:43;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-14 22:40:43;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-14 22:40:44;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-14 22:40:44;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-14 22:40:44;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-14 22:40:44;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-14 22:40:45;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-14 22:40:49;marci;192.168.0.54;Busca Matriz;Matriz de extração encontrada na célula (9, 0).;INFO
-2025-10-14 22:40:49;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada com sucesso.;INFO
-2025-10-14 22:41:10;marci;192.168.0.54;Mapeamento Placas;Mapeamento 1-para-2 de 48 poços (parte 1) gerado.;INFO
-2025-10-14 22:41:10;marci;192.168.0.54;Mapeamento;Mapeamento para kit 48 (parte 1) gerado.;INFO
-2025-10-14 22:41:17;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
-2025-10-14 22:41:20;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-14 22:41:20;marci;192.168.0.54;Análise VR1e2;DataFrame após leitura: (348, 20) linhas;DEBUG
-2025-10-14 22:41:20;marci;192.168.0.54;Análise VR1e2;DataFrame filtrado: (324, 4) linhas;DEBUG
-2025-10-14 22:41:46;marci;192.168.0.54;Sistema;Sistema encerrado pelo utilizador.;INFO
-2025-10-14 22:52:24;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 22:52:35;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-14 22:52:35;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-14 22:52:35;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-14 22:52:35;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-14 22:52:35;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-14 22:52:35;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-14 22:52:35;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-14 22:52:36;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-14 22:55:15;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 22:55:25;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-14 22:55:25;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-14 22:55:25;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-14 22:55:25;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-14 22:55:25;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-14 22:55:25;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-14 22:55:25;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-14 22:55:26;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-14 22:55:29;marci;192.168.0.54;Busca Matriz;Possível marcador 'A' encontrado em (9, 0);DEBUG
-2025-10-14 22:55:29;marci;192.168.0.54;Busca Matriz;Sequência não confirmada em (9, 0);DEBUG
-2025-10-14 22:55:29;marci;192.168.0.54;Busca Matriz;Matriz não encontrada após varredura completa.;ERROR
-2025-10-14 22:55:34;marci;192.168.0.54;BuscaExtração;Falha: Não foi possível encontrar a matriz de extração (marcador 'A' e cabeçalho 1-12). Verifique se o arquivo segue o formato esperado.;ERROR
-2025-10-14 22:55:40;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-14 22:55:42;marci;192.168.0.54;Busca Matriz;Possível marcador 'A' encontrado em (9, 0);DEBUG
-2025-10-14 22:55:42;marci;192.168.0.54;Busca Matriz;Sequência não confirmada em (9, 0);DEBUG
-2025-10-14 22:55:42;marci;192.168.0.54;Busca Matriz;Matriz não encontrada após varredura completa.;ERROR
-2025-10-14 22:55:46;marci;192.168.0.54;BuscaExtração;Falha: Não foi possível encontrar a matriz de extração (marcador 'A' e cabeçalho 1-12). Verifique se o arquivo segue o formato esperado.;ERROR
-2025-10-14 22:57:56;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 22:58:04;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-14 22:58:04;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-14 22:58:04;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-14 22:58:04;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-14 22:58:04;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-14 22:58:04;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-14 22:58:04;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-14 22:58:05;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-14 22:58:07;marci;192.168.0.54;Busca Matriz;Possível marcador 'A' encontrado em A10 (9, 0);DEBUG
-2025-10-14 22:58:07;marci;192.168.0.54;Busca Matriz;Matriz não encontrada após varredura.;ERROR
-2025-10-14 22:58:48;marci;192.168.0.54;BuscaExtração;Falha: Não foi possível encontrar a matriz de extração. Verifique se o intervalo A9:M17 está correto.;ERROR
-2025-10-14 23:05:40;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 23:05:47;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-14 23:05:47;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-14 23:05:47;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-14 23:05:47;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-14 23:05:47;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-14 23:05:47;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-14 23:05:47;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-14 23:06:07;marci;192.168.0.54;Sistema;Sistema encerrado pelo utilizador.;INFO
-2025-10-14 23:10:00;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 23:10:06;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-14 23:10:06;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-14 23:10:06;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-14 23:10:06;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-14 23:10:07;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-14 23:10:07;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-14 23:10:07;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-14 23:10:08;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-14 23:10:12;marci;192.168.0.54;Busca Matriz;Matriz não encontrada após varredura.;ERROR
-2025-10-14 23:14:20;marci;192.168.0.54;BuscaExtração;Falha: Não foi possível encontrar a matriz de extração. Verifique o intervalo A9:M17 e o formato do arquivo.;ERROR
-2025-10-14 23:16:22;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 23:16:28;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-14 23:16:28;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-14 23:16:28;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-14 23:16:28;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-14 23:16:29;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-14 23:16:29;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-14 23:16:29;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-14 23:16:30;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-14 23:16:32;marci;192.168.0.54;Busca Matriz;Bloco A9:M17 detectado diretamente.;INFO
-2025-10-14 23:16:32;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada.;INFO
-2025-10-14 23:16:51;marci;192.168.0.54;Mapeamento Placas;Mapeamento 1-para-2 de 48 poços (parte 1) gerado.;INFO
-2025-10-14 23:16:58;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
-2025-10-14 23:17:01;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-14 23:17:01;marci;192.168.0.54;Análise VR1e2;DataFrame após leitura: (348, 20) linhas;DEBUG
-2025-10-14 23:17:01;marci;192.168.0.54;Análise VR1e2;DataFrame filtrado: (324, 4) linhas;DEBUG
-2025-10-14 23:18:32;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 23:18:38;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-14 23:18:38;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-14 23:18:38;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-14 23:18:38;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-14 23:18:38;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-14 23:18:38;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-14 23:18:38;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-14 23:18:39;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-14 23:18:43;marci;192.168.0.54;Busca Matriz;Bloco A9:M17 detectado diretamente.;INFO
-2025-10-14 23:18:43;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada.;INFO
-2025-10-14 23:18:58;marci;192.168.0.54;Mapeamento Placas;Mapeamento 1-para-2 de 48 poços (parte 1) gerado.;INFO
-2025-10-14 23:19:06;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
-2025-10-14 23:19:09;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-14 23:19:09;marci;192.168.0.54;Análise VR1e2;DataFrame após leitura: (348, 20) linhas;DEBUG
-2025-10-14 23:19:09;marci;192.168.0.54;Análise VR1e2;DataFrame filtrado: (324, 4) linhas;DEBUG
-2025-10-14 23:19:16;marci;192.168.0.54;Sistema;Sistema encerrado pelo utilizador.;INFO
-2025-10-14 23:21:47;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 23:21:54;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-14 23:21:54;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-14 23:21:54;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-14 23:21:54;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-14 23:21:54;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-14 23:21:54;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-14 23:21:54;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-14 23:21:55;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-14 23:21:58;marci;192.168.0.54;Busca Matriz;Bloco A9:M17 detectado diretamente.;INFO
-2025-10-14 23:21:58;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada.;INFO
-2025-10-14 23:22:06;marci;192.168.0.54;Mapeamento Placas;Mapeamento 1-para-2 de 48 poços (parte 1) gerado.;INFO
-2025-10-14 23:22:14;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
-2025-10-14 23:22:17;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-14 23:22:17;marci;192.168.0.54;Análise VR1e2;DataFrame após leitura: (348, 20) linhas;DEBUG
-2025-10-14 23:22:17;marci;192.168.0.54;Análise VR1e2;DataFrame filtrado: (324, 4) linhas;DEBUG
-2025-10-14 23:23:29;marci;192.168.0.54;Sistema;Sistema encerrado pelo utilizador.;INFO
-2025-10-14 23:43:50;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 23:52:55;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 23:53:02;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-14 23:53:02;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-14 23:53:02;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-14 23:53:02;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-14 23:53:03;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-14 23:53:03;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-14 23:53:03;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-14 23:53:04;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-14 23:53:07;marci;192.168.0.54;Busca Matriz;Bloco A9:M17 detectado diretamente.;INFO
-2025-10-14 23:53:07;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada.;INFO
-2025-10-14 23:53:12;marci;192.168.0.54;Mapeamento Placas;Mapeamento 1-para-2 de 48 poços (parte 1) gerado.;INFO
-2025-10-14 23:53:19;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
-2025-10-14 23:53:21;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-14 23:53:21;marci;192.168.0.54;Análise VR1e2;DataFrame após leitura: (348, 20) linhas;DEBUG
-2025-10-14 23:53:21;marci;192.168.0.54;Análise VR1e2;DataFrame filtrado: (324, 4) linhas;DEBUG
-2025-10-14 23:54:25;marci;192.168.0.54;Sistema;Sistema encerrado pelo utilizador.;INFO
-2025-10-14 23:56:49;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-14 23:56:56;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-14 23:56:56;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-14 23:56:56;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-14 23:56:56;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-14 23:56:57;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-14 23:56:57;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-14 23:56:57;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-14 23:56:58;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-14 23:57:01;marci;192.168.0.54;Busca Matriz;Bloco A9:M17 detectado diretamente.;INFO
-2025-10-14 23:57:01;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada.;INFO
-2025-10-14 23:57:07;marci;192.168.0.54;Mapeamento Placas;Mapeamento 1-para-2 de 48 poços (parte 1) gerado.;INFO
-2025-10-14 23:57:15;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
-2025-10-14 23:57:17;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-14 23:57:17;marci;192.168.0.54;Análise VR1e2;DataFrame após leitura: (348, 20) linhas;DEBUG
-2025-10-14 23:57:17;marci;192.168.0.54;Análise VR1e2;DataFrame filtrado: (324, 4) linhas;DEBUG
-2025-10-14 23:57:22;marci;192.168.0.54;Análise;Seleção de exame cancelada.;INFO
-2025-10-15 02:22:23;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-15 02:30:45;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-15 03:00:16;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-15 03:15:38;marci;192.168.0.54;Busca Matriz;Bloco A9:M17 detectado diretamente.;INFO
-2025-10-15 03:15:38;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada.;INFO
-2025-10-15 03:15:44;marci;192.168.0.54;Mapeamento Placas;Mapeamento 1-para-2 de 48 poços (parte 1) gerado.;INFO
-2025-10-15 03:15:52;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
-2025-10-15 03:15:55;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-15 03:15:55;marci;192.168.0.54;Análise VR1e2;DataFrame após leitura: (348, 20) linhas;DEBUG
-2025-10-15 03:15:55;marci;192.168.0.54;Análise VR1e2;DataFrame filtrado: (324, 4) linhas;DEBUG
-2025-10-15 03:20:02;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-15 03:20:02;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: mock_qpcr_results.xlsx;INFO
-2025-10-15 03:20:02;marci;192.168.0.54;Análise VR1e2;Erro ao ler o arquivo: Número de colunas incorreto: esperado 20, encontrado 4.;ERROR
-2025-10-15 03:20:54;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-15 03:20:54;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: mock_qpcr_results.xlsx;INFO
-2025-10-15 03:20:54;marci;192.168.0.54;Análise VR1e2;DataFrame após leitura: (425, 20) linhas;DEBUG
-2025-10-15 03:20:54;marci;192.168.0.54;Análise VR1e2;DataFrame filtrado: (425, 4) linhas;DEBUG
-2025-10-15 03:24:46;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-15 03:24:46;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: mock_qpcr_results.xlsx;INFO
-2025-10-15 03:24:46;marci;192.168.0.54;Análise VR1e2;DataFrame após leitura: (425, 20) linhas;DEBUG
-2025-10-15 03:24:46;marci;192.168.0.54;Análise VR1e2;DataFrame filtrado: (425, 4) linhas;DEBUG
-2025-10-15 03:28:05;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-15 03:28:05;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: mock_qpcr_results.xlsx;INFO
-2025-10-15 03:28:06;marci;192.168.0.54;Análise VR1e2;DataFrame após leitura: (425, 20) linhas;DEBUG
-2025-10-15 03:28:06;marci;192.168.0.54;Análise VR1e2;DataFrame filtrado: (425, 4) linhas;DEBUG
-2025-10-15 03:29:15;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-15 03:29:22;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-15 03:29:22;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-15 03:29:22;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-15 03:29:22;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-15 03:29:22;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-15 03:29:22;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-15 03:29:22;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-15 03:29:23;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-15 03:29:26;marci;192.168.0.54;Busca Matriz;Bloco A9:M17 detectado diretamente.;INFO
-2025-10-15 03:29:26;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada.;INFO
-2025-10-15 03:29:33;marci;192.168.0.54;Mapeamento Placas;Mapeamento 1-para-2 de 48 poços (parte 1) gerado.;INFO
-2025-10-15 03:29:41;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
-2025-10-15 03:29:43;marci;192.168.0.54;Análise VR1e2;"Mapping (dados_extracao) preview:
-  Poço     Amostra      Código
-0   A1  422386149R  422386149R
-1   B1   422386273   422386273
-2   C1   422386293   422386293
-3   D1   422387159   422387159
-4   E1   422386742   422386742
-5   F1           X           X
-6   G1  422386266R  422386266R
-7   H1   422387254   422387254
-8   A3   422386816   422386816
-9   B3   422387129   422387129";DEBUG
-2025-10-15 03:29:43;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-15 03:29:43;marci;192.168.0.54;Análise VR1e2;DataFrame após leitura: (348, 20) linhas;DEBUG
-2025-10-15 03:29:43;marci;192.168.0.54;Análise VR1e2;DataFrame filtrado: (324, 4) linhas;DEBUG
-2025-10-15 03:29:43;marci;192.168.0.54;Análise VR1e2;"Target ADV não encontrado nos resultados; preenchido com NaN.";WARNING
-2025-10-15 03:29:43;marci;192.168.0.54;Análise VR1e2;"Target RSV não encontrado nos resultados; preenchido com NaN.";WARNING
-2025-10-15 03:29:43;marci;192.168.0.54;Análise VR1e2;"Target HRV não encontrado nos resultados; preenchido com NaN.";WARNING
-2025-10-15 03:29:44;marci;192.168.0.54;Análise VR1e2;"Resultado final preview:
-  Poço     Amostra      Código Resultado_SC2 Resultado_HMPV Resultado_INFA Resultado_INFB  ... INF B ADV RSV  HRV       RP_1       RP_2  Status_Corrida
-0   A1  422386149R  422386149R      Inválido       Inválido       Inválido       Inválido  ...   NaN NaN NaN  NaN  27.946194        NaN          Válida
-1   B1   422386273   422386273      Inválido       Inválido       Inválido       Inválido  ...   NaN NaN NaN  NaN  30.610361        NaN          Válida
-2   C1   422386293   422386293      Inválido       Inválido       Inválido       Inválido  ...   NaN NaN NaN  NaN  27.136658        NaN          Válida
-3   D1   422387159   422387159      Inválido       Inválido       Inválido       Inválido  ...   NaN NaN NaN  NaN  27.084974        NaN          Válida
-4   E1   422386742   422386742      Inválido       Inválido       Inválido       Inválido  ...   NaN NaN NaN  NaN  25.418924        NaN          Válida
-5   F1           X           X      Inválido      Detectado      Detectado       Inválido  ...   NaN NaN NaN  NaN  23.757317  24.918055          Válida
-6   G1  422386266R  422386266R      Inválido       Inválido       Inválido       Inválido  ...   NaN NaN NaN  NaN  22.938726        NaN          Válida
-7   H1   422387254   422387254      Inválido       Inválido       Inválido       Inválido  ...   NaN NaN NaN  NaN  28.595306        NaN          Válida
-8   A3   422386816   422386816      Inválido       Inválido       Inválido       Inválido  ...   NaN NaN NaN  NaN  27.962858        NaN          Válida
-9   B3   422387129   422387129      Inválido       Inválido       Inválido       Inválido  ...   NaN NaN NaN  NaN  21.858944        NaN          Válida
-
-[10 rows x 20 columns]";DEBUG
-2025-10-15 03:35:34;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-15 03:35:39;marci;192.168.0.54;Busca Matriz;Bloco A9:M17 detectado diretamente.;INFO
-2025-10-15 03:35:39;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada.;INFO
-2025-10-15 03:35:59;marci;192.168.0.54;Mapeamento Placas;Mapeamento 1-para-2 de 48 poços (parte 1) gerado.;INFO
-2025-10-15 04:04:16;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-15 04:04:23;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-15 04:04:23;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-15 04:04:23;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-15 04:04:23;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-15 04:04:24;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-15 04:04:24;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-15 04:04:24;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-15 04:04:25;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-15 04:04:28;marci;192.168.0.54;Busca Matriz;Bloco A9:M17 detectado diretamente.;INFO
-2025-10-15 04:04:28;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada.;INFO
-2025-10-15 04:04:32;marci;192.168.0.54;Mapeamento Placas;Mapeamento 1-para-2 de 48 poços (parte 1) gerado.;INFO
-2025-10-15 04:04:39;marci;192.168.0.54;Mapeamento Placas;Mapeamento 1-para-2 de 48 poços (parte 1) gerado.;INFO
-2025-10-15 04:04:40;marci;192.168.0.54;Mapeamento Placas;Mapeamento 1-para-2 de 48 poços (parte 1) gerado.;INFO
-2025-10-15 04:04:40;marci;192.168.0.54;Mapeamento Placas;Mapeamento 1-para-2 de 48 poços (parte 1) gerado.;INFO
-2025-10-15 04:05:56;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
-2025-10-15 04:05:59;marci;192.168.0.54;Análise VR1e2;"Mapping (dados_extracao) preview:
-  Poço     Amostra      Código
-0   A1  422386149R  422386149R
-1   B1   422386273   422386273
-2   C1   422386293   422386293
-3   D1   422387159   422387159
-4   E1   422386742   422386742
-5   F1           X           X
-6   G1  422386266R  422386266R
-7   H1   422387254   422387254
-8   A3   422386816   422386816
-9   B3   422387129   422387129";DEBUG
-2025-10-15 04:05:59;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-15 04:05:59;marci;192.168.0.54;Análise VR1e2;DataFrame após leitura: (348, 20) linhas;DEBUG
-2025-10-15 04:05:59;marci;192.168.0.54;Análise VR1e2;DataFrame filtrado: (324, 4) linhas;DEBUG
-2025-10-15 04:05:59;marci;192.168.0.54;Análise VR1e2;"Target ADV não encontrado nos resultados; preenchido com NaN.";WARNING
-2025-10-15 04:05:59;marci;192.168.0.54;Análise VR1e2;"Target RSV não encontrado nos resultados; preenchido com NaN.";WARNING
-2025-10-15 04:05:59;marci;192.168.0.54;Análise VR1e2;"Target HRV não encontrado nos resultados; preenchido com NaN.";WARNING
-2025-10-15 04:05:59;marci;192.168.0.54;Análise VR1e2;"Resultado final preview:
-  Poço     Amostra      Código Resultado_SC2 Resultado_HMPV Resultado_INFA Resultado_INFB  ... INF B ADV RSV  HRV       RP_1       RP_2  Status_Corrida
-0   A1  422386149R  422386149R      Inválido       Inválido       Inválido       Inválido  ...   NaN NaN NaN  NaN  27.946194        NaN          Válida
-1   B1   422386273   422386273      Inválido       Inválido       Inválido       Inválido  ...   NaN NaN NaN  NaN  30.610361        NaN          Válida
-2   C1   422386293   422386293      Inválido       Inválido       Inválido       Inválido  ...   NaN NaN NaN  NaN  27.136658        NaN          Válida
-3   D1   422387159   422387159      Inválido       Inválido       Inválido       Inválido  ...   NaN NaN NaN  NaN  27.084974        NaN          Válida
-4   E1   422386742   422386742      Inválido       Inválido       Inválido       Inválido  ...   NaN NaN NaN  NaN  25.418924        NaN          Válida
-5   F1           X           X      Inválido      Detectado      Detectado       Inválido  ...   NaN NaN NaN  NaN  23.757317  24.918055          Válida
-6   G1  422386266R  422386266R      Inválido       Inválido       Inválido       Inválido  ...   NaN NaN NaN  NaN  22.938726        NaN          Válida
-7   H1   422387254   422387254      Inválido       Inválido       Inválido       Inválido  ...   NaN NaN NaN  NaN  28.595306        NaN          Válida
-8   A3   422386816   422386816      Inválido       Inválido       Inválido       Inválido  ...   NaN NaN NaN  NaN  27.962858        NaN          Válida
-9   B3   422387129   422387129      Inválido       Inválido       Inválido       Inválido  ...   NaN NaN NaN  NaN  21.858944        NaN          Válida
-
-[10 rows x 20 columns]";DEBUG
-2025-10-15 04:08:07;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-15 04:08:10;marci;192.168.0.54;Busca Matriz;Bloco A9:M17 detectado diretamente.;INFO
-2025-10-15 04:08:10;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada.;INFO
-2025-10-15 04:08:29;marci;192.168.0.54;Sistema;Sistema encerrado pelo utilizador.;INFO
-2025-10-15 06:04:39;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-15 06:06:06;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-15 06:06:06;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-15 06:06:06;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-15 06:06:06;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-15 06:06:06;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-15 06:06:07;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-15 06:06:07;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-15 06:06:08;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-15 06:06:11;marci;192.168.0.54;Busca Matriz;Bloco A9:M17 detectado diretamente.;INFO
-2025-10-15 06:06:11;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada.;INFO
-2025-10-15 06:06:16;marci;192.168.0.54;Mapeamento Placas;Mapeamento 1-para-2 de 48 poços (parte 1) gerado.;INFO
-2025-10-15 06:06:52;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
-2025-10-15 06:06:54;marci;192.168.0.54;Análise VR1e2;"Mapping (dados_extracao) preview:
+2025-10-19 00:56:23;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
+2025-10-19 00:56:24;marci;192.168.0.54;AuthService;Arquivo de credenciais criado em: C:\Users\marci\Downloads\Integragal\banco\credenciais.csv;INFO
+2025-10-19 00:56:33;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
+2025-10-19 00:56:33;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
+2025-10-19 00:56:33;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
+2025-10-19 00:56:33;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
+2025-10-19 00:56:33;marci;192.168.0.54;AuthService;Tentativa de login para utilizador inexistente: 'marcio';WARNING
+2025-10-19 00:56:33;marci;192.168.0.54;Login;Tentativa de login falhada. Restam 2 tentativas.;WARNING
+2025-10-19 00:56:42;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
+2025-10-19 00:56:42;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
+2025-10-19 00:56:42;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
+2025-10-19 00:56:42;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
+2025-10-19 00:56:42;marci;192.168.0.54;AuthService;Tentativa de login para utilizador inexistente: 'marcio';WARNING
+2025-10-19 00:56:42;marci;192.168.0.54;Login;Tentativa de login falhada. Restam 1 tentativas.;WARNING
+2025-10-19 00:56:46;marci;192.168.0.54;Sistema;Login falhou ou foi cancelado. Programa encerrado.;INFO
+2025-10-19 00:59:52;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
+2025-10-19 01:00:02;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
+2025-10-19 01:00:02;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
+2025-10-19 01:00:02;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
+2025-10-19 01:00:02;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
+2025-10-19 01:00:02;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
+2025-10-19 01:00:02;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
+2025-10-19 01:00:02;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
+2025-10-19 01:00:04;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
+2025-10-19 01:00:11;marci;192.168.0.54;Busca Matriz;Bloco A9:M17 detectado diretamente.;INFO
+2025-10-19 01:00:11;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada.;INFO
+2025-10-19 01:00:19;marci;192.168.0.54;Mapeamento Placas;Mapeamento 1-para-2 de 48 poços (parte 1) gerado.;INFO
+2025-10-19 01:00:42;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
+2025-10-19 01:00:44;marci;192.168.0.54;Análise VR1e2;"Mapping (dados_extracao) preview:
   Poço     Amostra      Código
 0   A1  422386149R  422386149R
 1   B1  422386266R  422386266R
@@ -771,42 +38,12 @@
 7   H1   422386268   422386268
 8   A3   422386273   422386273
 9   B3   422387254   422387254";DEBUG
-2025-10-15 06:06:54;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-15 06:06:54;marci;192.168.0.54;Análise VR1e2;DataFrame após leitura: (348, 20) linhas;DEBUG
-2025-10-15 06:06:54;marci;192.168.0.54;Análise VR1e2;DataFrame filtrado: (324, 4) linhas;DEBUG
-2025-10-15 06:06:54;marci;192.168.0.54;Análise VR1e2;"Target ADV não encontrado nos resultados; preenchido com NaN.";WARNING
-2025-10-15 06:06:54;marci;192.168.0.54;Análise VR1e2;"Target RSV não encontrado nos resultados; preenchido com NaN.";WARNING
-2025-10-15 06:06:54;marci;192.168.0.54;Análise VR1e2;"Target HRV não encontrado nos resultados; preenchido com NaN.";WARNING
-2025-10-15 06:06:55;marci;192.168.0.54;Análise VR1e2;"Resultado final preview:
-  Poço     Amostra      Código Resultado_SC2 Resultado_HMPV Resultado_INFA Resultado_INFB  ... INF B ADV RSV  HRV       RP_1  RP_2  Status_Corrida
-0   A1  422386149R  422386149R      Inválido       Inválido       Inválido       Inválido  ...   NaN NaN NaN  NaN  27.946194   NaN          Válida
-1   B1  422386266R  422386266R      Inválido       Inválido       Inválido       Inválido  ...   NaN NaN NaN  NaN  30.610361   NaN          Válida
-2   C1  422386156R  422386156R      Inválido       Inválido       Inválido       Inválido  ...   NaN NaN NaN  NaN  27.136658   NaN          Válida
-3   D1   422386625   422386625      Inválido       Inválido       Inválido       Inválido  ...   NaN NaN NaN  NaN  27.084974   NaN          Válida
-4   E1   422386851   422386851      Inválido       Inválido       Inválido       Inválido  ...   NaN NaN NaN  NaN  25.418924   NaN          Válida
-5   F1   422386866   422386866      Inválido       Inválido       Inválido       Inválido  ...   NaN NaN NaN  NaN  23.757317   NaN          Válida
-6   G1   422386883   422386883      Inválido       Inválido       Inválido       Inválido  ...   NaN NaN NaN  NaN  22.938726   NaN          Válida
-7   H1   422386268   422386268      Inválido       Inválido       Inválido       Inválido  ...   NaN NaN NaN  NaN  28.595306   NaN          Válida
-8   A3   422386273   422386273      Inválido       Inválido       Inválido       Inválido  ...   NaN NaN NaN  NaN  27.962858   NaN          Válida
-9   B3   422387254   422387254      Inválido       Inválido       Inválido       Inválido  ...   NaN NaN NaN  NaN  21.858944   NaN          Válida
-
-[10 rows x 20 columns]";DEBUG
-2025-10-15 06:12:28;marci;192.168.0.54;Sistema;Sistema encerrado pelo utilizador.;INFO
-2025-10-15 06:16:54;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-15 06:17:01;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-15 06:17:01;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-15 06:17:01;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-15 06:17:01;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-15 06:17:01;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-15 06:17:01;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-15 06:17:01;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-15 06:17:02;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-15 06:17:04;marci;192.168.0.54;Busca Matriz;Bloco A9:M17 detectado diretamente.;INFO
-2025-10-15 06:17:04;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada.;INFO
-2025-10-15 06:17:08;marci;192.168.0.54;Mapeamento Placas;Mapeamento 1-para-2 de 48 poços (parte 1) gerado.;INFO
-2025-10-15 06:17:20;marci;192.168.0.54;Mapeamento;Erro ao construir detalhes: 'analise';ERROR
-2025-10-15 06:17:34;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
-2025-10-15 06:17:38;marci;192.168.0.54;Análise VR1e2;"Mapping (dados_extracao) preview:
+2025-10-19 01:00:44;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xls;INFO
+2025-10-19 01:00:44;marci;192.168.0.54;Análise VR1e2;Erro ao ler o arquivo: File is not a zip file;ERROR
+2025-10-19 01:00:44;marci;192.168.0.54;Fluxo Análise;Erro: Erro na leitura: File is not a zip file;CRITICAL
+2025-10-19 01:00:45;marci;192.168.0.54;Análise;Retorno inesperado de executar_analise: type=<class 'tuple'>, repr=(None, 'VR1e2 Biomanguinhos 7500', 'khgkuh');ERROR
+2025-10-19 01:00:52;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
+2025-10-19 01:00:55;marci;192.168.0.54;Análise VR1e2;"Mapping (dados_extracao) preview:
   Poço     Amostra      Código
 0   A1  422386149R  422386149R
 1   B1  422386266R  422386266R
@@ -818,53 +55,10 @@
 7   H1   422386268   422386268
 8   A3   422386273   422386273
 9   B3   422387254   422387254";DEBUG
-2025-10-15 06:17:38;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-15 06:17:38;marci;192.168.0.54;Análise VR1e2;DataFrame após leitura: (348, 20) linhas;DEBUG
-2025-10-15 06:17:38;marci;192.168.0.54;Análise VR1e2;DataFrame filtrado: (324, 4) linhas;DEBUG
-2025-10-15 06:17:38;marci;192.168.0.54;Análise VR1e2;"Resultado final preview:
-  Poço     Amostra      Código Resultado_SC2 Resultado_HMPV Resultado_INFA Resultado_INFB  ... INF B ADV RSV  HRV       RP_1  RP_2  Status_Corrida
-0   A1  422386149R  422386149R      Inválido       Inválido       Inválido       Inválido  ...   NaN NaN NaN  NaN  27.946194   NaN          Válida
-1   B1  422386266R  422386266R      Inválido       Inválido       Inválido       Inválido  ...   NaN NaN NaN  NaN  30.610361   NaN          Válida
-2   C1  422386156R  422386156R      Inválido       Inválido       Inválido       Inválido  ...   NaN NaN NaN  NaN  27.136658   NaN          Válida
-3   D1   422386625   422386625      Inválido       Inválido       Inválido       Inválido  ...   NaN NaN NaN  NaN  27.084974   NaN          Válida
-4   E1   422386851   422386851      Inválido       Inválido       Inválido       Inválido  ...   NaN NaN NaN  NaN  25.418924   NaN          Válida
-5   F1   422386866   422386866      Inválido       Inválido       Inválido       Inválido  ...   NaN NaN NaN  NaN  23.757317   NaN          Válida
-6   G1   422386883   422386883      Inválido       Inválido       Inválido       Inválido  ...   NaN NaN NaN  NaN  22.938726   NaN          Válida
-7   H1   422386268   422386268      Inválido       Inválido       Inválido       Inválido  ...   NaN NaN NaN  NaN  28.595306   NaN          Válida
-8   A3   422386273   422386273      Inválido       Inválido       Inválido       Inválido  ...   NaN NaN NaN  NaN  27.962858   NaN          Válida
-9   B3   422387254   422387254      Inválido       Inválido       Inválido       Inválido  ...   NaN NaN NaN  NaN  21.858944   NaN          Válida
-
-[10 rows x 20 columns]";DEBUG
-2025-10-15 06:22:53;marci;192.168.0.54;Sistema;Sistema encerrado pelo utilizador.;INFO
-2025-10-15 06:23:58;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-15 06:24:06;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-15 06:24:06;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-15 06:24:06;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-15 06:24:06;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-15 06:24:07;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-15 06:24:07;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-15 06:24:07;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-15 06:24:08;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-15 06:24:11;marci;192.168.0.54;Busca Matriz;Bloco A9:M17 detectado diretamente.;INFO
-2025-10-15 06:24:11;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada.;INFO
-2025-10-15 06:24:13;marci;192.168.0.54;Mapeamento Placas;Mapeamento 1-para-2 de 48 poços (parte 1) gerado.;INFO
-2025-10-15 06:24:33;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
-2025-10-15 06:24:35;marci;192.168.0.54;Análise VR1e2;"Mapping (dados_extracao) preview:
-  Poço     Amostra      Código
-0   A1  422386149R  422386149R
-1   B1  422386266R  422386266R
-2   C1  422386156R  422386156R
-3   D1   422386625   422386625
-4   E1   422386851   422386851
-5   F1   422386866   422386866
-6   G1   422386883   422386883
-7   H1   422386268   422386268
-8   A3   422386273   422386273
-9   B3   422387254   422387254";DEBUG
-2025-10-15 06:24:35;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-15 06:24:35;marci;192.168.0.54;Análise VR1e2;DataFrame após leitura: (348, 20) linhas;DEBUG
-2025-10-15 06:24:35;marci;192.168.0.54;Análise VR1e2;DataFrame filtrado: (324, 4) linhas;DEBUG
-2025-10-15 06:24:36;marci;192.168.0.54;Análise VR1e2;"Resultado final preview:
+2025-10-19 01:00:55;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
+2025-10-19 01:00:55;marci;192.168.0.54;Análise VR1e2;DataFrame após leitura: (348, 20) linhas;DEBUG
+2025-10-19 01:00:55;marci;192.168.0.54;Análise VR1e2;DataFrame filtrado: (324, 4) linhas;DEBUG
+2025-10-19 01:00:55;marci;192.168.0.54;Análise VR1e2;"Resultado final preview:
   Poço     Amostra      Código Resultado_SC2 Resultado_HMPV Resultado_INFA  ...        ADV        RSV        HRV       RP_1       RP_2  Status_Corrida
 0   A1  422386149R  422386149R      Inválido       Inválido       Inválido  ...        NaN        NaN        NaN  27.946194  28.164280          Válida
 1   B1  422386266R  422386266R      Inválido       Inválido       Inválido  ...        NaN        NaN        NaN  30.610361  30.947411          Válida
@@ -878,30 +72,89 @@
 9   B3   422387254   422387254      Inválido       Inválido       Inválido  ...        NaN  32.439064        NaN  21.858944  22.210335          Válida
 
 [10 rows x 20 columns]";DEBUG
-2025-10-15 06:25:16;marci;192.168.0.54;DB Utils;Salvamento de histórico ignorado (conexão com DB indisponível ou desabilitada).;INFO
-2025-10-15 06:25:18;marci;192.168.0.54;Salvar Histórico;48 amostras salvas pelo utilizador marcio.;INFO
-2025-10-15 06:26:24;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-15 06:26:30;marci;192.168.0.54;Busca Matriz;Bloco A9:M17 detectado diretamente.;INFO
-2025-10-15 06:26:30;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada.;INFO
-2025-10-15 06:26:31;marci;192.168.0.54;Mapeamento Placas;Mapeamento 1-para-2 de 48 poços (parte 1) gerado.;INFO
-2025-10-15 06:26:39;marci;192.168.0.54;Mapeamento;Erro ao construir detalhes: 'analise';ERROR
-2025-10-15 06:27:13;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
-2025-10-15 06:27:18;marci;192.168.0.54;Análise VR1e2;"Mapping (dados_extracao) preview:
-  Poço     Amostra      Código
-0   A1  422386149R  422386149R
-1   B1  422386266R  422386266R
-2   C1  422386156R  422386156R
-3   D1   422386625   422386625
-4   E1   422386851   422386851
-5   F1   422386866   422386866
-6   G1   422386883   422386883
-7   H1   422386268   422386268
-8   A3   422386273   422386273
-9   B3   422387254   422387254";DEBUG
-2025-10-15 06:27:18;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-15 06:27:18;marci;192.168.0.54;Análise VR1e2;DataFrame após leitura: (348, 20) linhas;DEBUG
-2025-10-15 06:27:18;marci;192.168.0.54;Análise VR1e2;DataFrame filtrado: (324, 4) linhas;DEBUG
-2025-10-15 06:27:18;marci;192.168.0.54;Análise VR1e2;"Resultado final preview:
+2025-10-19 01:00:55;marci;192.168.0.54;Export GAL;Notificação exibida para arquivo GAL: C:\Users\marci\Downloads\Integragal\reports\gal_last_exame.csv;INFO
+2025-10-19 01:00:55;marci;192.168.0.54;Export GAL;Arquivo GAL gravado automaticamente em C:\Users\marci\Downloads\Integragal\reports\gal_20251019T040055Z_exame.csv e C:\Users\marci\Downloads\Integragal\reports\gal_last_exame.csv;INFO
+2025-10-19 01:01:30;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
+2025-10-19 01:01:34;marci;192.168.0.54;Busca Matriz;Bloco A9:M17 detectado diretamente.;INFO
+2025-10-19 01:01:34;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada.;INFO
+2025-10-19 01:01:39;marci;192.168.0.54;Mapeamento Placas;Mapeamento de 24 poços (parte 2) gerado com sucesso.;INFO
+2025-10-19 01:02:04;marci;192.168.0.54;Mapeamento Placas;Mapeamento de 24 poços (parte 2) gerado com sucesso.;INFO
+2025-10-19 01:02:08;marci;192.168.0.54;Mapeamento Placas;Mapeamento de 24 poços (parte 2) gerado com sucesso.;INFO
+2025-10-19 01:02:57;marci;192.168.0.54;Mapeamento Placas;Mapeamento 1-para-2 de 48 poços (parte 2) gerado.;INFO
+2025-10-19 01:03:07;marci;192.168.0.54;Sistema;Sistema encerrado pelo utilizador.;INFO
+2025-10-19 01:03:11;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
+2025-10-19 01:03:23;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
+2025-10-19 01:03:23;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
+2025-10-19 01:03:23;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
+2025-10-19 01:03:23;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
+2025-10-19 01:03:23;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
+2025-10-19 01:03:23;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
+2025-10-19 01:03:23;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
+2025-10-19 01:03:24;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
+2025-10-19 01:03:29;marci;192.168.0.54;Busca Matriz;Bloco A9:M17 detectado diretamente.;INFO
+2025-10-19 01:03:29;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada.;INFO
+2025-10-19 01:03:48;marci;192.168.0.54;Mapeamento Placas;Mapeamento de 24 poços (parte 2) gerado com sucesso.;INFO
+2025-10-19 01:03:59;marci;192.168.0.54;Mapeamento Placas;Mapeamento 1-para-2 de 48 poços (parte 1) gerado.;INFO
+2025-10-19 01:04:11;marci;192.168.0.54;Mapeamento Placas;Mapeamento de 96 poços gerado com sucesso.;INFO
+2025-10-19 01:04:22;marci;192.168.0.54;Sistema;Sistema encerrado pelo utilizador.;INFO
+2025-10-19 01:35:26;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
+2025-10-19 01:44:42;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
+2025-10-19 01:44:49;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
+2025-10-19 01:44:49;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
+2025-10-19 01:44:49;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
+2025-10-19 01:44:49;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
+2025-10-19 01:44:49;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
+2025-10-19 01:44:49;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
+2025-10-19 01:44:49;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
+2025-10-19 01:44:50;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
+2025-10-19 01:44:54;marci;192.168.0.54;Busca Matriz;Bloco A9:M17 detectado diretamente.;INFO
+2025-10-19 01:44:54;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada.;INFO
+2025-10-19 01:45:02;marci;192.168.0.54;Mapeamento Placas;Mapeamento de 24 poços (parte 2) gerado com sucesso.;INFO
+2025-10-19 01:45:21;marci;192.168.0.54;Mapeamento Placas;Mapeamento 1-para-2 de 48 poços (parte 1) gerado.;INFO
+2025-10-19 01:45:32;marci;192.168.0.54;Sistema;Sistema encerrado pelo utilizador.;INFO
+2025-10-19 01:45:36;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
+2025-10-19 01:45:43;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
+2025-10-19 01:45:43;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
+2025-10-19 01:45:43;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
+2025-10-19 01:45:43;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
+2025-10-19 01:45:43;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
+2025-10-19 01:45:43;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
+2025-10-19 01:45:43;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
+2025-10-19 01:45:44;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
+2025-10-19 01:45:47;marci;192.168.0.54;Busca Matriz;Bloco A9:M17 detectado diretamente.;INFO
+2025-10-19 01:45:47;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada.;INFO
+2025-10-19 01:45:50;marci;192.168.0.54;Mapeamento Placas;Mapeamento 1-para-2 de 48 poços (parte 1) gerado.;INFO
+2025-10-19 01:46:04;marci;192.168.0.54;Sistema;Sistema encerrado pelo utilizador.;INFO
+2025-10-19 02:02:42;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
+2025-10-19 02:02:50;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
+2025-10-19 02:02:50;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
+2025-10-19 02:02:50;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
+2025-10-19 02:02:50;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
+2025-10-19 02:02:50;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
+2025-10-19 02:02:50;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
+2025-10-19 02:02:50;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
+2025-10-19 02:02:51;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
+2025-10-19 02:02:55;marci;192.168.0.54;Busca Matriz;Bloco A9:M17 detectado diretamente.;INFO
+2025-10-19 02:02:55;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada.;INFO
+2025-10-19 02:03:00;marci;192.168.0.54;Mapeamento Placas;Mapeamento de 24 poços (parte 2) gerado com sucesso.;INFO
+2025-10-19 02:03:07;marci;192.168.0.54;Mapeamento Placas;Mapeamento 1-para-2 de 48 poços (parte 1) gerado.;INFO
+2025-10-19 02:03:19;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
+2025-10-19 02:03:23;marci;192.168.0.54;Análise VR1e2;"Mapping (dados_extracao) preview:
+  Poco Poço     Amostra      Codigo      Código
+0   A1   A1  422386149R  422386149R  422386149R
+1   B1   B1  422386266R  422386266R  422386266R
+2   C1   C1  422386156R  422386156R  422386156R
+3   D1   D1   422386625   422386625   422386625
+4   E1   E1   422386851   422386851   422386851
+5   F1   F1   422386866   422386866   422386866
+6   G1   G1   422386883   422386883   422386883
+7   H1   H1   422386268   422386268   422386268
+8   A3   A3   422386273   422386273   422386273
+9   B3   B3   422387254   422387254   422387254";DEBUG
+2025-10-19 02:03:23;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
+2025-10-19 02:03:23;marci;192.168.0.54;Análise VR1e2;DataFrame após leitura: (348, 20) linhas;DEBUG
+2025-10-19 02:03:23;marci;192.168.0.54;Análise VR1e2;DataFrame filtrado: (324, 4) linhas;DEBUG
+2025-10-19 02:03:23;marci;192.168.0.54;Análise VR1e2;"Resultado final preview:
   Poço     Amostra      Código Resultado_SC2 Resultado_HMPV Resultado_INFA  ...        ADV        RSV        HRV       RP_1       RP_2  Status_Corrida
 0   A1  422386149R  422386149R      Inválido       Inválido       Inválido  ...        NaN        NaN        NaN  27.946194  28.164280          Válida
 1   B1  422386266R  422386266R      Inválido       Inválido       Inválido  ...        NaN        NaN        NaN  30.610361  30.947411          Válida
@@ -915,229 +168,170 @@
 9   B3   422387254   422387254      Inválido       Inválido       Inválido  ...        NaN  32.439064        NaN  21.858944  22.210335          Válida
 
 [10 rows x 20 columns]";DEBUG
-2025-10-15 06:27:25;marci;192.168.0.54;DB Utils;Salvamento de histórico ignorado (conexão com DB indisponível ou desabilitada).;INFO
-2025-10-15 06:27:28;marci;192.168.0.54;Salvar Histórico;48 amostras salvas pelo utilizador marcio.;INFO
-2025-10-15 06:27:35;marci;192.168.0.54;Sistema;Sistema encerrado pelo utilizador.;INFO
-2025-10-15 06:32:13;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-15 06:32:13;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: mock_qpcr_results.xlsx;INFO
-2025-10-15 06:32:13;marci;192.168.0.54;Análise VR1e2;DataFrame após leitura: (425, 20) linhas;DEBUG
-2025-10-15 06:32:13;marci;192.168.0.54;Análise VR1e2;DataFrame filtrado: (425, 4) linhas;DEBUG
-2025-10-15 06:33:43;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-15 06:33:43;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: mock_qpcr_results.xlsx;INFO
-2025-10-15 06:33:43;marci;192.168.0.54;Análise VR1e2;DataFrame após leitura: (425, 20) linhas;DEBUG
-2025-10-15 06:33:43;marci;192.168.0.54;Análise VR1e2;DataFrame filtrado: (425, 4) linhas;DEBUG
-2025-10-15 06:35:42;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-15 06:35:42;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: mock_qpcr_results.xlsx;INFO
-2025-10-15 06:35:42;marci;192.168.0.54;Análise VR1e2;DataFrame após leitura: (425, 20) linhas;DEBUG
-2025-10-15 06:35:42;marci;192.168.0.54;Análise VR1e2;DataFrame filtrado: (425, 4) linhas;DEBUG
-2025-10-15 06:40:23;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-15 06:40:23;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: mock_qpcr_results.xlsx;INFO
-2025-10-15 06:40:23;marci;192.168.0.54;Análise VR1e2;DataFrame após leitura: (425, 20) linhas;DEBUG
-2025-10-15 06:40:23;marci;192.168.0.54;Análise VR1e2;DataFrame filtrado: (425, 4) linhas;DEBUG
-2025-10-15 06:40:50;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-15 06:40:59;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
-2025-10-15 06:40:59;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
-2025-10-15 06:40:59;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
-2025-10-15 06:40:59;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
-2025-10-15 06:40:59;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
-2025-10-15 06:40:59;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
-2025-10-15 06:40:59;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
-2025-10-15 06:41:00;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
-2025-10-15 06:41:03;marci;192.168.0.54;Busca Matriz;Bloco A9:M17 detectado diretamente.;INFO
-2025-10-15 06:41:03;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada.;INFO
-2025-10-15 06:41:07;marci;192.168.0.54;Mapeamento Placas;Mapeamento 1-para-2 de 48 poços (parte 1) gerado.;INFO
-2025-10-15 06:41:29;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
-2025-10-15 06:41:32;marci;192.168.0.54;Análise VR1e2;"Mapping (dados_extracao) preview:
-  Poço     Amostra      Código
-0   A1  422386149R  422386149R
-1   B1  422386266R  422386266R
-2   C1  422386156R  422386156R
-3   D1   422386625   422386625
-4   E1   422386851   422386851
-5   F1   422386866   422386866
-6   G1   422386883   422386883
-7   H1   422386268   422386268
-8   A3   422386273   422386273
-9   B3   422387254   422387254";DEBUG
-2025-10-15 06:41:32;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-15 06:41:32;marci;192.168.0.54;Análise VR1e2;DataFrame após leitura: (348, 20) linhas;DEBUG
-2025-10-15 06:41:32;marci;192.168.0.54;Análise VR1e2;DataFrame filtrado: (324, 4) linhas;DEBUG
-2025-10-15 06:41:32;marci;192.168.0.54;Análise VR1e2;"Resultado final preview:
-  Poço     Amostra      Código Resultado_SC2 Resultado_HMPV Resultado_INFA  ...        ADV        RSV        HRV       RP_1       RP_2  Status_Corrida
-0   A1  422386149R  422386149R      Inválido       Inválido       Inválido  ...        NaN        NaN        NaN  27.946194  28.164280          Válida
-1   B1  422386266R  422386266R      Inválido       Inválido       Inválido  ...        NaN        NaN        NaN  30.610361  30.947411          Válida
-2   C1  422386156R  422386156R      Inválido       Inválido       Inválido  ...        NaN        NaN  36.223774  27.136658  27.164909          Válida
-3   D1   422386625   422386625      Inválido       Inválido       Inválido  ...        NaN        NaN        NaN  27.084974  27.288645          Válida
-4   E1   422386851   422386851      Inválido       Inválido      Detectado  ...        NaN        NaN        NaN  25.418924  25.519039          Válida
-5   F1   422386866   422386866      Inválido       Inválido       Inválido  ...        NaN        NaN        NaN  23.757317  23.797712          Válida
-6   G1   422386883   422386883      Inválido       Inválido       Inválido  ...  37.485046        NaN        NaN  22.938726  22.808084          Válida
-7   H1   422386268   422386268      Inválido       Inválido       Inválido  ...        NaN        NaN        NaN  28.595306  28.999025          Válida
-8   A3   422386273   422386273      Inválido       Inválido       Inválido  ...        NaN        NaN  26.660690  27.962858  27.872801          Válida
-9   B3   422387254   422387254      Inválido       Inválido       Inválido  ...        NaN  32.439064        NaN  21.858944  22.210335          Válida
+2025-10-19 02:03:23;marci;192.168.0.54;Export GAL;Notificação exibida para arquivo GAL: C:\Users\marci\Downloads\Integragal\reports\gal_last_exame.csv;INFO
+2025-10-19 02:04:03;marci;192.168.0.54;DB Utils;Salvamento de histórico ignorado (conexão com DB indisponível ou desabilitada).;INFO
+2025-10-19 02:04:05;marci;192.168.0.54;Salvar Histórico;48 amostras salvas pelo utilizador marcio.;INFO
+2025-10-19 02:04:13;marci;192.168.0.54;Sistema;Sistema encerrado pelo utilizador.;INFO
+2025-10-19 02:31:44;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
+2025-10-19 02:31:50;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
+2025-10-19 02:31:50;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
+2025-10-19 02:31:50;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
+2025-10-19 02:31:50;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
+2025-10-19 02:31:50;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
+2025-10-19 02:31:51;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
+2025-10-19 02:31:51;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
+2025-10-19 02:31:51;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
+2025-10-19 02:31:55;marci;192.168.0.54;Busca Matriz;Bloco A9:M17 detectado diretamente.;INFO
+2025-10-19 02:31:55;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada.;INFO
+2025-10-19 02:31:57;marci;192.168.0.54;Mapeamento Placas;Mapeamento 1-para-2 de 48 poços (parte 1) gerado.;INFO
+2025-10-19 02:32:05;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
+2025-10-19 02:32:05;marci;192.168.0.54;AnalysisService;Erro ao executar análise: Erro ao importar 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise': invalid syntax (vr1e2_biomanguinhos_7500.py, line 383);CRITICAL
+2025-10-19 02:32:23;marci;192.168.0.54;Sistema;Sistema encerrado pelo utilizador.;INFO
+2025-10-19 02:35:12;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
+2025-10-19 02:35:18;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
+2025-10-19 02:35:18;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
+2025-10-19 02:35:18;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
+2025-10-19 02:35:18;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
+2025-10-19 02:35:18;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
+2025-10-19 02:35:18;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
+2025-10-19 02:35:18;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
+2025-10-19 02:35:20;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
+2025-10-19 02:35:22;marci;192.168.0.54;Busca Matriz;Bloco A9:M17 detectado diretamente.;INFO
+2025-10-19 02:35:22;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada.;INFO
+2025-10-19 02:35:25;marci;192.168.0.54;Mapeamento Placas;Mapeamento 1-para-2 de 48 poços (parte 1) gerado.;INFO
+2025-10-19 02:35:32;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
+2025-10-19 02:35:36;marci;192.168.0.54;Análise VR1e2;"Mapping (dados_extracao) preview:
+  Poco Poço     Amostra      Codigo      Código
+0   A1   A1  422386149R  422386149R  422386149R
+1   B1   B1  422386266R  422386266R  422386266R
+2   C1   C1  422386156R  422386156R  422386156R
+3   D1   D1   422386625   422386625   422386625
+4   E1   E1   422386851   422386851   422386851
+5   F1   F1   422386866   422386866   422386866
+6   G1   G1   422386883   422386883   422386883
+7   H1   H1   422386268   422386268   422386268
+8   A3   A3   422386273   422386273   422386273
+9   B3   B3   422387254   422387254   422387254";DEBUG
+2025-10-19 02:35:36;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
+2025-10-19 02:35:36;marci;192.168.0.54;Análise VR1e2;DataFrame após leitura: (348, 20) linhas;DEBUG
+2025-10-19 02:35:36;marci;192.168.0.54;Análise VR1e2;DataFrame filtrado: (324, 4) linhas;DEBUG
+2025-10-19 02:35:36;marci;192.168.0.54;Análise VR1e2;"Resultado final preview:
+  Poço     Amostra      Código  Resultado_SC2 Resultado_HMPV Resultado_INFA  ...           ADV           RSV           HRV       RP_1       RP_2 Status_Corrida
+0   A1  422386149R  422386149R  Nao Detectado  Nao Detectado  Nao Detectado  ...  Undetermined  Undetermined  Undetermined  27.946194  28.164280         Válida
+1   B1  422386266R  422386266R  Nao Detectado  Nao Detectado  Nao Detectado  ...  Undetermined  Undetermined  Undetermined  30.610361  30.947411         Válida
+2   C1  422386156R  422386156R  Nao Detectado  Nao Detectado  Nao Detectado  ...  Undetermined  Undetermined     36.223774  27.136658  27.164909         Válida
+3   D1   422386625   422386625  Nao Detectado  Nao Detectado  Nao Detectado  ...  Undetermined  Undetermined  Undetermined  27.084974  27.288645         Válida
+4   E1   422386851   422386851  Nao Detectado  Nao Detectado      Detectado  ...  Undetermined  Undetermined  Undetermined  25.418924  25.519039         Válida
+5   F1   422386866   422386866  Nao Detectado  Nao Detectado  Nao Detectado  ...  Undetermined  Undetermined  Undetermined  23.757317  23.797712         Válida
+6   G1   422386883   422386883  Nao Detectado  Nao Detectado  Nao Detectado  ...     37.485046  Undetermined  Undetermined  22.938726  22.808084         Válida
+7   H1   422386268   422386268  Nao Detectado  Nao Detectado  Nao Detectado  ...  Undetermined  Undetermined  Undetermined  28.595306  28.999025         Válida
+8   A3   422386273   422386273  Nao Detectado  Nao Detectado  Nao Detectado  ...  Undetermined  Undetermined      26.66069  27.962858  27.872801         Válida
+9   B3   422387254   422387254  Nao Detectado  Nao Detectado  Nao Detectado  ...  Undetermined     32.439064  Undetermined  21.858944  22.210335         Válida
 
 [10 rows x 20 columns]";DEBUG
-2025-10-15 06:41:45;marci;192.168.0.54;DB Utils;Salvamento de histórico ignorado (conexão com DB indisponível ou desabilitada).;INFO
-2025-10-15 06:41:47;marci;192.168.0.54;Salvar Histórico;48 amostras salvas pelo utilizador marcio.;INFO
-2025-10-15 06:44:57;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-15 06:44:57;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: mock_qpcr_results.xlsx;INFO
-2025-10-15 06:44:57;marci;192.168.0.54;Análise VR1e2;DataFrame após leitura: (425, 20) linhas;DEBUG
-2025-10-15 06:44:57;marci;192.168.0.54;Análise VR1e2;DataFrame filtrado: (425, 4) linhas;DEBUG
-2025-10-15 06:50:57;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
-2025-10-15 06:50:59;marci;192.168.0.54;Análise VR1e2;"Mapping (dados_extracao) preview:
-  Poço     Amostra      Código
-0   A1  422386149R  422386149R
-1   B1  422386266R  422386266R
-2   C1  422386156R  422386156R
-3   D1   422386625   422386625
-4   E1   422386851   422386851
-5   F1   422386866   422386866
-6   G1   422386883   422386883
-7   H1   422386268   422386268
-8   A3   422386273   422386273
-9   B3   422387254   422387254";DEBUG
-2025-10-15 06:50:59;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
-2025-10-15 06:50:59;marci;192.168.0.54;Análise VR1e2;DataFrame após leitura: (348, 20) linhas;DEBUG
-2025-10-15 06:50:59;marci;192.168.0.54;Análise VR1e2;DataFrame filtrado: (324, 4) linhas;DEBUG
-2025-10-15 06:50:59;marci;192.168.0.54;Análise VR1e2;"Resultado final preview:
-  Poço     Amostra      Código Resultado_SC2 Resultado_HMPV Resultado_INFA  ...        ADV        RSV        HRV       RP_1       RP_2  Status_Corrida
-0   A1  422386149R  422386149R      Inválido       Inválido       Inválido  ...        NaN        NaN        NaN  27.946194  28.164280          Válida
-1   B1  422386266R  422386266R      Inválido       Inválido       Inválido  ...        NaN        NaN        NaN  30.610361  30.947411          Válida
-2   C1  422386156R  422386156R      Inválido       Inválido       Inválido  ...        NaN        NaN  36.223774  27.136658  27.164909          Válida
-3   D1   422386625   422386625      Inválido       Inválido       Inválido  ...        NaN        NaN        NaN  27.084974  27.288645          Válida
-4   E1   422386851   422386851      Inválido       Inválido      Detectado  ...        NaN        NaN        NaN  25.418924  25.519039          Válida
-5   F1   422386866   422386866      Inválido       Inválido       Inválido  ...        NaN        NaN        NaN  23.757317  23.797712          Válida
-6   G1   422386883   422386883      Inválido       Inválido       Inválido  ...  37.485046        NaN        NaN  22.938726  22.808084          Válida
-7   H1   422386268   422386268      Inválido       Inválido       Inválido  ...        NaN        NaN        NaN  28.595306  28.999025          Válida
-8   A3   422386273   422386273      Inválido       Inválido       Inválido  ...        NaN        NaN  26.660690  27.962858  27.872801          Válida
-9   B3   422387254   422387254      Inválido       Inválido       Inválido  ...        NaN  32.439064        NaN  21.858944  22.210335          Válida
+2025-10-19 02:35:36;marci;192.168.0.54;Export GAL;Notificação exibida para arquivo GAL: C:\Users\marci\Downloads\Integragal\reports\gal_last_exame.csv;INFO
+2025-10-19 02:35:45;marci;192.168.0.54;DB Utils;Salvamento de histórico ignorado (conexão com DB indisponível ou desabilitada).;INFO
+2025-10-19 02:35:47;marci;192.168.0.54;Salvar Histórico;48 amostras salvas pelo utilizador marcio.;INFO
+2025-10-19 02:36:05;marci;192.168.0.54;Sistema;Sistema encerrado pelo utilizador.;INFO
+2025-10-19 03:07:39;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
+2025-10-19 03:07:49;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
+2025-10-19 03:07:49;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
+2025-10-19 03:07:49;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
+2025-10-19 03:07:49;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
+2025-10-19 03:07:49;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
+2025-10-19 03:07:49;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
+2025-10-19 03:07:49;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
+2025-10-19 03:07:50;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
+2025-10-19 03:07:53;marci;192.168.0.54;Busca Matriz;Bloco A9:M17 detectado diretamente.;INFO
+2025-10-19 03:07:53;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada.;INFO
+2025-10-19 03:07:55;marci;192.168.0.54;Mapeamento Placas;Mapeamento 1-para-2 de 48 poços (parte 1) gerado.;INFO
+2025-10-19 03:08:05;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
+2025-10-19 03:08:08;marci;192.168.0.54;Análise VR1e2;"Mapping (dados_extracao) preview:
+  Poco Poço     Amostra      Codigo      Código
+0   A1   A1  422386149R  422386149R  422386149R
+1   B1   B1  422386266R  422386266R  422386266R
+2   C1   C1  422386156R  422386156R  422386156R
+3   D1   D1   422386625   422386625   422386625
+4   E1   E1   422386851   422386851   422386851
+5   F1   F1   422386866   422386866   422386866
+6   G1   G1   422386883   422386883   422386883
+7   H1   H1   422386268   422386268   422386268
+8   A3   A3   422386273   422386273   422386273
+9   B3   B3   422387254   422387254   422387254";DEBUG
+2025-10-19 03:08:08;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
+2025-10-19 03:08:08;marci;192.168.0.54;Análise VR1e2;DataFrame após leitura: (348, 20) linhas;DEBUG
+2025-10-19 03:08:08;marci;192.168.0.54;Análise VR1e2;DataFrame filtrado: (324, 4) linhas;DEBUG
+2025-10-19 03:08:08;marci;192.168.0.54;Análise VR1e2;"Resultado final preview:
+  Poço     Amostra      Código  Resultado_SC2 Resultado_HMPV Resultado_INFA  ...           ADV           RSV           HRV       RP_1       RP_2 Status_Corrida
+0   A1  422386149R  422386149R  Nao Detectado  Nao Detectado  Nao Detectado  ...  Undetermined  Undetermined  Undetermined  27.946194  28.164280         Válida
+1   B1  422386266R  422386266R  Nao Detectado  Nao Detectado  Nao Detectado  ...  Undetermined  Undetermined  Undetermined  30.610361  30.947411         Válida
+2   C1  422386156R  422386156R  Nao Detectado  Nao Detectado  Nao Detectado  ...  Undetermined  Undetermined     36.223774  27.136658  27.164909         Válida
+3   D1   422386625   422386625  Nao Detectado  Nao Detectado  Nao Detectado  ...  Undetermined  Undetermined  Undetermined  27.084974  27.288645         Válida
+4   E1   422386851   422386851  Nao Detectado  Nao Detectado      Detectado  ...  Undetermined  Undetermined  Undetermined  25.418924  25.519039         Válida
+5   F1   422386866   422386866  Nao Detectado  Nao Detectado  Nao Detectado  ...  Undetermined  Undetermined  Undetermined  23.757317  23.797712         Válida
+6   G1   422386883   422386883  Nao Detectado  Nao Detectado  Nao Detectado  ...     37.485046  Undetermined  Undetermined  22.938726  22.808084         Válida
+7   H1   422386268   422386268  Nao Detectado  Nao Detectado  Nao Detectado  ...  Undetermined  Undetermined  Undetermined  28.595306  28.999025         Válida
+8   A3   422386273   422386273  Nao Detectado  Nao Detectado  Nao Detectado  ...  Undetermined  Undetermined      26.66069  27.962858  27.872801         Válida
+9   B3   422387254   422387254  Nao Detectado  Nao Detectado  Nao Detectado  ...  Undetermined     32.439064  Undetermined  21.858944  22.210335         Válida
 
 [10 rows x 20 columns]";DEBUG
-2025-10-15 06:51:45;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-15 06:51:45;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: mock_qpcr_results.xlsx;INFO
-2025-10-15 06:51:46;marci;192.168.0.54;Análise VR1e2;DataFrame após leitura: (425, 20) linhas;DEBUG
-2025-10-15 06:51:46;marci;192.168.0.54;Análise VR1e2;DataFrame filtrado: (425, 4) linhas;DEBUG
-2025-10-15 23:26:02;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-15 23:26:03;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: mock_qpcr_nao_detectado.xlsx;INFO
-2025-10-15 23:26:03;marci;192.168.0.54;Análise VR1e2;Erro ao ler o arquivo: Número de colunas incorreto: esperado 20, encontrado 0.;ERROR
-2025-10-15 23:27:19;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-15 23:27:19;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: mock_qpcr_nao_detectado.xlsx;INFO
-2025-10-15 23:27:19;marci;192.168.0.54;Análise VR1e2;Erro ao ler o arquivo: Número de colunas incorreto: esperado 20, encontrado 0.;ERROR
-2025-10-15 23:41:50;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-15 23:41:50;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: mock_qpcr_nao_detectado.xlsx;INFO
-2025-10-15 23:41:50;marci;192.168.0.54;Análise VR1e2;Erro ao ler o arquivo: Número de colunas incorreto: esperado 20, encontrado 0.;ERROR
-2025-10-15 23:42:45;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-15 23:42:46;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: mock_qpcr_nao_detectado.xlsx;INFO
-2025-10-15 23:42:46;marci;192.168.0.54;Análise VR1e2;DataFrame após leitura: (4, 20) linhas;DEBUG
-2025-10-15 23:42:46;marci;192.168.0.54;Análise VR1e2;DataFrame filtrado: (3, 4) linhas;DEBUG
-2025-10-15 23:42:53;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-15 23:42:53;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: mock_qpcr_controls.xlsx;INFO
-2025-10-15 23:42:53;marci;192.168.0.54;Análise VR1e2;DataFrame após leitura: (5, 20) linhas;DEBUG
-2025-10-15 23:42:53;marci;192.168.0.54;Análise VR1e2;DataFrame filtrado: (4, 4) linhas;DEBUG
-2025-10-15 23:49:14;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-15 23:49:14;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: mock_qpcr_controls.xlsx;INFO
-2025-10-15 23:49:14;marci;192.168.0.54;Análise VR1e2;DataFrame após leitura: (5, 20) linhas;DEBUG
-2025-10-15 23:49:14;marci;192.168.0.54;Análise VR1e2;DataFrame filtrado: (4, 4) linhas;DEBUG
-2025-10-16 00:04:09;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-16 00:04:09;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: mock_qpcr_controls.xlsx;INFO
-2025-10-16 00:04:09;marci;192.168.0.54;Análise VR1e2;DataFrame após leitura: (5, 20) linhas;DEBUG
-2025-10-16 00:04:09;marci;192.168.0.54;Análise VR1e2;DataFrame filtrado: (4, 4) linhas;DEBUG
-2025-10-16 00:07:05;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-16 00:07:06;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: mock_qpcr_controls.xlsx;INFO
-2025-10-16 00:07:06;marci;192.168.0.54;Análise VR1e2;DataFrame após leitura: (5, 20) linhas;DEBUG
-2025-10-16 00:07:06;marci;192.168.0.54;Análise VR1e2;DataFrame filtrado: (4, 4) linhas;DEBUG
-2025-10-16 00:08:43;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-16 00:08:43;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: mock_qpcr_controls.xlsx;INFO
-2025-10-16 00:08:43;marci;192.168.0.54;Análise VR1e2;DataFrame após leitura: (9, 20) linhas;DEBUG
-2025-10-16 00:08:43;marci;192.168.0.54;Análise VR1e2;DataFrame filtrado: (8, 4) linhas;DEBUG
-2025-10-16 00:10:00;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-16 00:10:00;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: mock_qpcr_controls.xlsx;INFO
-2025-10-16 00:10:00;marci;192.168.0.54;Análise VR1e2;DataFrame após leitura: (9, 20) linhas;DEBUG
-2025-10-16 00:10:00;marci;192.168.0.54;Análise VR1e2;DataFrame filtrado: (8, 4) linhas;DEBUG
-2025-10-16 00:16:11;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-16 00:16:11;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: mock_qpcr_results.xlsx;INFO
-2025-10-16 00:16:11;marci;192.168.0.54;Análise VR1e2;Erro ao ler o arquivo: Número de colunas incorreto: esperado 20, encontrado 4.;ERROR
-2025-10-16 00:16:23;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-16 00:16:23;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: mock_qpcr_nao_detectado.xlsx;INFO
-2025-10-16 00:16:23;marci;192.168.0.54;Análise VR1e2;DataFrame após leitura: (4, 20) linhas;DEBUG
-2025-10-16 00:16:23;marci;192.168.0.54;Análise VR1e2;DataFrame filtrado: (3, 4) linhas;DEBUG
-2025-10-16 00:16:23;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: mock_qpcr_controls.xlsx;INFO
-2025-10-16 00:16:23;marci;192.168.0.54;Análise VR1e2;DataFrame após leitura: (9, 20) linhas;DEBUG
-2025-10-16 00:16:23;marci;192.168.0.54;Análise VR1e2;DataFrame filtrado: (8, 4) linhas;DEBUG
-2025-10-16 00:16:24;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: mock_qpcr_integration.xlsx;INFO
-2025-10-16 00:16:24;marci;192.168.0.54;Análise VR1e2;DataFrame após leitura: (3, 20) linhas;DEBUG
-2025-10-16 00:16:24;marci;192.168.0.54;Análise VR1e2;DataFrame filtrado: (2, 4) linhas;DEBUG
-2025-10-16 00:36:31;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-16 00:36:51;marci;192.168.0.54;Envio GAL UI;Arquivo 'gal_20251016T032017Z_exame.csv' pronto para envio.;INFO
-2025-10-16 00:37:19;marci;192.168.0.54;Envio GAL UI;Acedendo a https://galteste.saude.sc.gov.br...;INFO
-2025-10-16 00:37:50;marci;192.168.0.54;Envio GAL UI;"Tentativa 1/3 falhou para 'realizar_login': Message: 
-Stacktrace:
-RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
-WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:202:5
-NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:555:5
-dom.find/</<@chrome://remote/content/shared/DOM.sys.mjs:136:16
-. Aguardando 0.50s.";WARNING
-2025-10-16 00:37:51;marci;192.168.0.54;Envio GAL UI;Acedendo a https://galteste.saude.sc.gov.br...;INFO
-2025-10-16 00:38:21;marci;192.168.0.54;Envio GAL UI;"Tentativa 2/3 falhou para 'realizar_login': Message: 
-Stacktrace:
-RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
-WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:202:5
-NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:555:5
-dom.find/</<@chrome://remote/content/shared/DOM.sys.mjs:136:16
-. Aguardando 1.00s.";WARNING
-2025-10-16 00:38:22;marci;192.168.0.54;Envio GAL UI;Acedendo a https://galteste.saude.sc.gov.br...;INFO
-2025-10-16 00:38:52;marci;192.168.0.54;Envio GAL UI;"Tentativa 3/3 falhou para 'realizar_login': Message: 
-Stacktrace:
-RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
-WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:202:5
-NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:555:5
-dom.find/</<@chrome://remote/content/shared/DOM.sys.mjs:136:16
-. Aguardando 2.00s.";WARNING
-2025-10-16 00:38:54;marci;192.168.0.54;Envio GAL UI;"ERRO CRÍTICO NO PROCESSAMENTO: Message: 
-Stacktrace:
-RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
-WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:202:5
-NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:555:5
-dom.find/</<@chrome://remote/content/shared/DOM.sys.mjs:136:16
-";CRITICAL
-2025-10-16 00:41:41;marci;192.168.0.54;Envio GAL UI;Acedendo a https://galteste.saude.sc.gov.br...;INFO
-2025-10-16 00:42:11;marci;192.168.0.54;Envio GAL UI;"Tentativa 1/3 falhou para 'realizar_login': Message: 
-Stacktrace:
-RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
-WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:202:5
-NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:555:5
-dom.find/</<@chrome://remote/content/shared/DOM.sys.mjs:136:16
-. Aguardando 0.50s.";WARNING
-2025-10-16 00:42:12;marci;192.168.0.54;Envio GAL UI;Acedendo a https://galteste.saude.sc.gov.br...;INFO
-2025-10-16 00:42:42;marci;192.168.0.54;Envio GAL UI;"Tentativa 2/3 falhou para 'realizar_login': Message: 
-Stacktrace:
-RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
-WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:202:5
-NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:555:5
-dom.find/</<@chrome://remote/content/shared/DOM.sys.mjs:136:16
-. Aguardando 1.00s.";WARNING
-2025-10-16 00:42:43;marci;192.168.0.54;Envio GAL UI;Acedendo a https://galteste.saude.sc.gov.br...;INFO
-2025-10-16 00:43:13;marci;192.168.0.54;Envio GAL UI;"Tentativa 3/3 falhou para 'realizar_login': Message: 
-Stacktrace:
-RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
-WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:202:5
-NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:555:5
-dom.find/</<@chrome://remote/content/shared/DOM.sys.mjs:136:16
-. Aguardando 2.00s.";WARNING
-2025-10-16 00:43:15;marci;192.168.0.54;Envio GAL UI;"ERRO CRÍTICO NO PROCESSAMENTO: Message: 
-Stacktrace:
-RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
-WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:202:5
-NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:555:5
-dom.find/</<@chrome://remote/content/shared/DOM.sys.mjs:136:16
-";CRITICAL
-2025-10-16 01:37:56;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-16 02:16:36;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-16 02:18:07;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-16 02:18:42;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-16 02:19:09;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-16 02:23:21;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-16 02:24:37;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-16 02:26:22;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-16 03:49:41;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-16 03:51:08;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
-2025-10-16 03:54:16;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
+2025-10-19 03:08:08;marci;192.168.0.54;Export GAL;Notificação exibida para arquivo GAL: C:\Users\marci\Downloads\Integragal\reports\gal_last_exame.csv;INFO
+2025-10-19 03:08:29;marci;192.168.0.54;DB Utils;Salvamento de histórico ignorado (conexão com DB indisponível ou desabilitada).;INFO
+2025-10-19 03:08:31;marci;192.168.0.54;Salvar Histórico;36 amostras salvas pelo utilizador marcio.;INFO
+2025-10-19 03:08:41;marci;192.168.0.54;Sistema;Sistema encerrado pelo utilizador.;INFO
+2025-10-22 04:05:57;marci;192.168.0.54;ConfigService;Configurações carregadas com sucesso.;INFO
+2025-10-22 04:06:06;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: credenciais.csv;INFO
+2025-10-22 04:06:06;marci;192.168.0.54;IO Utils;"Separador detectado para 'credenciais.csv': ';'";DEBUG
+2025-10-22 04:06:06;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'credenciais.csv'. Usando linha 0.;WARNING
+2025-10-22 04:06:06;marci;192.168.0.54;IO Utils;Arquivo CSV 'credenciais.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
+2025-10-22 04:06:06;marci;192.168.0.54;Login;Utilizador 'marcio' autenticado com sucesso.;INFO
+2025-10-22 04:06:06;marci;192.168.0.54;AnalysisService;Configuração de exames carregada com sucesso.;INFO
+2025-10-22 04:06:06;marci;192.168.0.54;Sistema;Aplicação principal inicializada.;INFO
+2025-10-22 04:06:07;marci;192.168.0.54;BuscaExtração GUI;Janela de mapeamento inicializada.;INFO
+2025-10-22 04:06:10;marci;192.168.0.54;Busca Matriz;Bloco A9:M17 detectado diretamente.;INFO
+2025-10-22 04:06:10;marci;192.168.0.54;BuscaExtração;Planilha 'EXT 49 COVID EXTRACTA.xlsx' validada.;INFO
+2025-10-22 04:06:12;marci;192.168.0.54;Mapeamento Placas;Mapeamento 1-para-2 de 48 poços (parte 1) gerado.;INFO
+2025-10-22 04:06:21;marci;192.168.0.54;AnalysisService;A importar função de UI: 'analise.vr1e2_biomanguinhos_7500.iniciar_fluxo_analise';INFO
+2025-10-22 04:06:23;marci;192.168.0.54;Análise VR1e2;"Mapping (dados_extracao) preview:
+  Poco Poço     Amostra      Codigo      Código
+0   A1   A1  422386149R  422386149R  422386149R
+1   B1   B1  422386266R  422386266R  422386266R
+2   C1   C1  422386156R  422386156R  422386156R
+3   D1   D1   422386625   422386625   422386625
+4   E1   E1   422386851   422386851   422386851
+5   F1   F1   422386866   422386866   422386866
+6   G1   G1   422386883   422386883   422386883
+7   H1   H1   422386268   422386268   422386268
+8   A3   A3   422386273   422386273   422386273
+9   B3   B3   422387254   422387254   422387254";DEBUG
+2025-10-22 04:06:23;marci;192.168.0.54;Análise VR1e2;Iniciando análise do arquivo: 20250718 VR1-VR2 BIOM PLACA 5.xlsx;INFO
+2025-10-22 04:06:23;marci;192.168.0.54;Análise VR1e2;DataFrame após leitura: (348, 20) linhas;DEBUG
+2025-10-22 04:06:23;marci;192.168.0.54;Análise VR1e2;DataFrame filtrado: (324, 4) linhas;DEBUG
+2025-10-22 04:06:23;marci;192.168.0.54;Análise VR1e2;"Resultado final preview:
+  Poço     Amostra      Código  Resultado_SC2 Resultado_HMPV Resultado_INFA  ...           ADV           RSV           HRV       RP_1       RP_2 Status_Corrida
+0   A1  422386149R  422386149R  Nao Detectado  Nao Detectado  Nao Detectado  ...  Undetermined  Undetermined  Undetermined  27.946194  28.164280         Válida
+1   B1  422386266R  422386266R  Nao Detectado  Nao Detectado  Nao Detectado  ...  Undetermined  Undetermined  Undetermined  30.610361  30.947411         Válida
+2   C1  422386156R  422386156R  Nao Detectado  Nao Detectado  Nao Detectado  ...  Undetermined  Undetermined     36.223774  27.136658  27.164909         Válida
+3   D1   422386625   422386625  Nao Detectado  Nao Detectado  Nao Detectado  ...  Undetermined  Undetermined  Undetermined  27.084974  27.288645         Válida
+4   E1   422386851   422386851  Nao Detectado  Nao Detectado      Detectado  ...  Undetermined  Undetermined  Undetermined  25.418924  25.519039         Válida
+5   F1   422386866   422386866  Nao Detectado  Nao Detectado  Nao Detectado  ...  Undetermined  Undetermined  Undetermined  23.757317  23.797712         Válida
+6   G1   422386883   422386883  Nao Detectado  Nao Detectado  Nao Detectado  ...     37.485046  Undetermined  Undetermined  22.938726  22.808084         Válida
+7   H1   422386268   422386268  Nao Detectado  Nao Detectado  Nao Detectado  ...  Undetermined  Undetermined  Undetermined  28.595306  28.999025         Válida
+8   A3   422386273   422386273  Nao Detectado  Nao Detectado  Nao Detectado  ...  Undetermined  Undetermined      26.66069  27.962858  27.872801         Válida
+9   B3   422387254   422387254  Nao Detectado  Nao Detectado  Nao Detectado  ...  Undetermined     32.439064  Undetermined  21.858944  22.210335         Válida
+
+[10 rows x 20 columns]";DEBUG
+2025-10-22 04:06:24;marci;192.168.0.54;Export GAL;Notificação exibida para arquivo GAL: C:\Users\marci\Downloads\Integragal\reports\gal_last_exame.csv;INFO
+2025-10-22 04:06:44;marci;192.168.0.54;DB Utils;Salvamento de histórico ignorado (conexão com DB indisponível ou desabilitada).;INFO
+2025-10-22 04:06:46;marci;192.168.0.54;Salvar Histórico;36 amostras salvas pelo utilizador marcio.;INFO
+2025-10-22 04:08:44;marci;192.168.0.54;Envio GAL UI;Arquivo 'gal_20251022T070623Z_exame.csv' pronto para envio.;INFO
+2025-10-22 04:09:08;marci;192.168.0.54;Envio GAL UI;Acedendo a https://galteste.saude.sc.gov.br...;INFO
+2025-10-22 04:09:20;marci;192.168.0.54;Envio GAL UI;Tentativa de login realizada (fluxo padrão).;INFO
+2025-10-22 04:09:25;marci;192.168.0.54;Envio GAL UI;Login presumido via URL '/laboratorio/'.;SUCCESS
+2025-10-22 04:09:25;marci;192.168.0.54;IO Utils;Tentando ler arquivo CSV: gal_20251022T070623Z_exame.csv;INFO
+2025-10-22 04:09:25;marci;192.168.0.54;IO Utils;Separador detectado para 'gal_20251022T070623Z_exame.csv': ',';DEBUG
+2025-10-22 04:09:25;marci;192.168.0.54;IO Utils;CabeÃ§alho nÃ£o detectado em CSV 'gal_20251022T070623Z_exame.csv'. Usando linha 0.;WARNING
+2025-10-22 04:09:25;marci;192.168.0.54;IO Utils;Arquivo CSV 'gal_20251022T070623Z_exame.csv' lido com sucesso com codificaÃ§Ã£o 'utf-8-sig'.;INFO
+2025-10-22 04:09:25;marci;192.168.0.54;Envio GAL UI;Colunas obrigatórias em falta no CSV: kit, painel, dataprocessamentofim, codigoamostra;CRITICAL
+2025-10-22 04:09:25;marci;192.168.0.54;Envio GAL UI;ERRO CRÍTICO NO PROCESSAMENTO: Arquivo CSV inválido ou vazio.;CRITICAL
+2025-10-22 04:09:51;marci;192.168.0.54;Sistema;Sistema encerrado pelo utilizador.;INFO

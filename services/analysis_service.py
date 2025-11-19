@@ -56,6 +56,22 @@ class AnalysisService:
             messagebox.showerror("Erro Crítico", "A configuração de exames não pôde ser carregada.", parent=master_window)
             return None, exame_selecionado, lote_kit
 
+        # Validação: garantir mapeamento de extração com colunas essenciais
+        try:
+            df_map = app_state.dados_extracao
+            if df_map is None or getattr(df_map, 'empty', True):
+                messagebox.showerror("Erro de Fluxo", "Mapeamento de extração não carregado.", parent=master_window)
+                return None, exame_selecionado, lote_kit
+            import unicodedata as _ud
+            def _norm(s: str) -> str:
+                return _ud.normalize('NFKD', str(s)).encode('ASCII','ignore').decode('ASCII').strip().lower()
+            cols = {_norm(c) for c in df_map.columns}
+            if not ("amostra" in cols and ("poco" in cols or "well" in cols)):
+                messagebox.showerror("Erro de Dados", "Colunas obrigatórias ausentes no mapeamento (Amostra e Poço).", parent=master_window)
+                return None, exame_selecionado, lote_kit
+        except Exception:
+            pass
+
         try:
             info_exame = self.exames_disponiveis[self.exames_disponiveis['exame'] == exame_selecionado]
             if info_exame.empty:

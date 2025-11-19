@@ -199,9 +199,21 @@ def analisar_placa_vr1e2_7500(caminho_arquivo_resultados: str, dados_extracao_df
             if well is None:
                 return None
             s = df_proc[(df_proc['WELL'] == str(well)) & (df_proc['Target'] == target.upper())]['CT']
+            # olhar valores brutos para capturar Undetermined textual
+            try:
+                s_raw = df_filtered[(df_filtered['WELL'] == str(well)) & (df_filtered['TARGET NAME'] == target.upper())]['CT']
+            except Exception:
+                s_raw = []
             s_valid = [v for v in s.tolist() if v is not None and pd.notna(v)]
             if s_valid:
                 return s_valid[0]
+            # se n�o houver num�rico v�lido, mas houver 'Undetermined' textual, preserve
+            try:
+                for rv in (s_raw.tolist() if hasattr(s_raw, 'tolist') else list(s_raw)):
+                    if isinstance(rv, str) and rv.strip().upper() == 'UNDETERMINED':
+                        return 'Undetermined'
+            except Exception:
+                pass
             return None
 
         # initial RP reads
@@ -332,12 +344,12 @@ def analisar_placa_vr1e2_7500(caminho_arquivo_resultados: str, dados_extracao_df
 
         if pd.notna(ct_cn_sc2):
             status_corrida = "Inválida (CN Detectado)"
-        if not (pd.notna(ct_cp_sc2) and CT_DETECTAVEL_MIN <= ct_cp_sc2 <= CT_DETECTAVEL_MAX):
             status_corrida = "Inválida (CP Fora do Intervalo)"
     except IndexError:
         status_corrida = "Inválida (Controles ausentes)"
     
     # helper to check if qPCR file had a SampleName recorded for a given well+target
+    run_valid = not str(status_corrida).strip().upper().startswith('INV')
     def _qpc_sample_exists(well, target):
         if well is None: return False
         s = df_proc[(df_proc['WELL'] == str(well)) & (df_proc['Target'] == target.upper())]['SampleName']
@@ -346,9 +358,11 @@ def analisar_placa_vr1e2_7500(caminho_arquivo_resultados: str, dados_extracao_df
     for target in TARGET_LIST:
         coluna_resultado = f"Resultado_{target.upper().replace(' ', '')}"
         def _compute_result(row, tgt=target):
-            if not row.get('Valid', True):
+            if not row.get('Valid', True) or not run_valid:
                 return 'Inválido'
             ct_val = row.get(tgt.upper())
+            if isinstance(ct_val, str) and ct_val.strip().upper() == 'UNDETERMINED':
+                return 'Nao Detectado'
             # if ct missing but qPCR had a sample entry for that well+target -> 'Não Detectado'
             if ct_val is None:
                 # decide which well to probe for this target
@@ -366,6 +380,10 @@ def analisar_placa_vr1e2_7500(caminho_arquivo_resultados: str, dados_extracao_df
     
     df_final = pd.merge(dados_extracao_df, df_pivot, left_on='Amostra', right_on='Sample', how='left')
     df_final['Status_Corrida'] = status_corrida
+    if 'Poço' not in df_final.columns and 'Poco' in df_final.columns:
+        df_final['Poço'] = df_final['Poco']
+    if 'C�digo' not in df_final.columns and 'Codigo' in df_final.columns:
+        df_final['C�digo'] = df_final['Codigo']
     
     colunas_resultado = [f"Resultado_{t.upper().replace(' ', '')}" for t in TARGET_LIST]
     colunas_ct = [t.upper() for t in TARGET_LIST] + ['RP_1', 'RP_2']
@@ -424,10 +442,10 @@ class AnalisarPlacaApp(AfterManagerMixin, ctk.CTkToplevel):
                 resultados = iniciar_fluxo_analise(self, self.app_state, lote_kit)
                 if resultados is not None:
                     self.df_results = resultados
-                    messagebox.showinfo("Sucesso", "Análise concluída.")
+                    messagebox.showinfo("Sucesso", "Análise concluída.", parent=self)
                     self._on_close()
         else:
-            messagebox.showwarning("Aviso", "Arquivo não selecionado.")
+            messagebox.showwarning("Aviso", "Arquivo não selecionado.", parent=self)
 
     def _on_close(self):
         self.dispose()
@@ -474,7 +492,7 @@ def iniciar_fluxo_analise(master_window, app_state: AppState, lote_kit: str) -> 
         return result_df
     except Exception as e:
         registrar_log("Fluxo Análise", f"Erro: {e}", "CRITICAL")
-        messagebox.showerror("Erro", str(e))
+        messagebox.showerror("Erro", str(e), parent=master_window)
         return None
 
 if __name__ == "__main__":
@@ -488,3 +506,10 @@ if __name__ == "__main__":
     app = AnalisarPlacaApp(root, MockAppState())
     root.wait_window(app)
     root.destroy()
+
+
+
+
+
+
+

@@ -5,6 +5,6 @@ selenium-requests
 dearpygui
 simplejson
 psycopg2-binary
-tk
 Pillow
 customtkinter
+bcrypt

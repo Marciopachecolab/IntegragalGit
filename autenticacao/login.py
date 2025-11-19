@@ -55,7 +55,7 @@ class LoginDialog(AfterManagerMixin, ctk.CTkToplevel):
             if self.tentativas_restantes > 0:
                 messagebox.showerror("Erro", f"Credenciais inválidas. {self.tentativas_restantes} tentativa(s) restante(s).", parent=self)
             else:
-                messagebox.critical("Acesso Bloqueado", "Número máximo de tentativas excedido!", parent=self)
+                messagebox.showerror("Acesso Bloqueado", "Número máximo de tentativas excedido!", parent=self)
                 self.usuario_autenticado = None
                 self._on_close(force_exit=True)
 

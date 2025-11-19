@@ -137,6 +137,21 @@ def read_data_with_auto_detection(filepath: str) -> Optional[pd.DataFrame]:
     if df is not None:
         df.columns = [col.replace('CÑ‚', 'CT').replace('Cq', 'CT') if isinstance(col, str) else col for col in df.columns]
         df.columns = [col.replace('Target Name', 'Target').replace('Sample Name', 'Sample') if isinstance(col, str) else col for col in df.columns]
+        # Reaplica uma normalizacao mais robusta dos nomes de colunas
+        try:
+            import unicodedata as _ud
+            def _norm_col(col):
+                if not isinstance(col, str):
+                    return col
+                s = _ud.normalize('NFKD', col).encode('ASCII', 'ignore').decode('ASCII')
+                s = s.strip()
+                if s.lower() in {"cq", "ct", "cq mean", "cqmean", "ct mean", "ctmean"}:
+                    s = "CT"
+                s = s.replace("Target Name", "Target").replace("Sample Name", "Sample")
+                return s
+            df.columns = [_norm_col(c) for c in df.columns]
+        except Exception:
+            pass
         
         # Converte coluna 'CT' para float de forma segura, se existir
         if 'CT' in df.columns:

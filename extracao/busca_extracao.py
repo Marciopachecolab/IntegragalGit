@@ -115,7 +115,7 @@ class BuscaExtracaoApp(AfterManagerMixin, ctk.CTkToplevel):
         kit_options_frame = ctk.CTkFrame(main_frame)
         kit_options_frame.grid(row=4, column=0, sticky="ew")
         for kit in ["96", "48", "32", "24"]:
-            rb = ctk.CTkRadioButton(kit_options_frame, text=f"{kit} poços", variable=self.kit_var, value=kit, command=self._atualizar_ui_parte)
+            rb = ctk.CTkRadioButton(kit_options_frame, text=f"{kit} Pocos", variable=self.kit_var, value=kit, command=self._atualizar_ui_parte)
             rb.pack(side="left", padx=10, expand=True)
 
         self.parte_frame = ctk.CTkFrame(main_frame)
@@ -200,7 +200,7 @@ class BuscaExtracaoApp(AfterManagerMixin, ctk.CTkToplevel):
             self.preview_textbox.delete("0.0", "end")
             self.preview_textbox.insert("0.0", f"Erro ao ler o intervalo A9:M17:\n\n{e}")
             self.preview_textbox.configure(state="disabled")
-            messagebox.showerror("Erro", str(e))
+            messagebox.showerror("Erro", str(e), parent=self)
             registrar_log("BuscaExtração", f"Falha: {e}", "ERROR")
 
     def _validar_estrutura_planilha(self, df: pd.DataFrame, start_row: int, start_col: int):
@@ -225,7 +225,7 @@ class BuscaExtracaoApp(AfterManagerMixin, ctk.CTkToplevel):
         kit = self.kit_var.get()
         parte = self.parte_var.get()
         if not kit or not parte:
-            messagebox.showerror("Erro", "Selecione kit e parte.")
+            messagebox.showerror("Erro", "Selecione kit e parte.", parent=self)
             return
         try:
             mapeamento_func = {
@@ -236,17 +236,28 @@ class BuscaExtracaoApp(AfterManagerMixin, ctk.CTkToplevel):
             }
             map_data = mapeamento_func[kit]()
             df_map = pd.DataFrame(map_data)
-            df_map['Poço'] = [item[0] for item in df_map['analise']]
+            df_map['Poco'] = [item[0] for item in df_map['analise']]
 
-            # Determine which slice of the full block to use based on parte (1 -> cols 0-5, 2 -> cols 6-11)
+                        # Determine which slice of the full block to use based on parte
             if not hasattr(self, 'df_extracao_full_block') or self.df_extracao_full_block is None:
                 raise ValueError("Bloco de extração não carregado. Selecione a planilha novamente.")
 
             part_idx = int(parte) - 1
-            if part_idx == 0:
-                block_slice = self.df_extracao_full_block.iloc[:, 0:6]
+            total_cols = self.df_extracao_full_block.shape[1]
+            if kit == "96":
+                start_c, end_c = 0, 12
+            elif kit == "48":
+                width = 6
+                start_c, end_c = part_idx * width, (part_idx + 1) * width
+            elif kit == "32":
+                width = 4
+                start_c, end_c = part_idx * width, (part_idx + 1) * width
+            elif kit == "24":
+                width = 3
+                start_c, end_c = part_idx * width, (part_idx + 1) * width
             else:
-                block_slice = self.df_extracao_full_block.iloc[:, 6:12]
+                start_c, end_c = 0, total_cols
+            block_slice = self.df_extracao_full_block.iloc[:, start_c:end_c]
 
             # Compute both flatten orders: row-major (linha-major) and column-major (coluna-major)
             flat_row = []
@@ -262,15 +273,22 @@ class BuscaExtracaoApp(AfterManagerMixin, ctk.CTkToplevel):
                     flat_col.append(val)
 
             # default to row-major
+            # default to row-major
             current_flat = flat_row
-
             df_map['Amostra'] = [str(current_flat[i-1]) if (i-1) < len(current_flat) and i-1 >= 0 else '' for i in df_map['amostra']]
-            df_map['Código'] = df_map['Amostra']
-
-            # Show confirmation dialog with a preview of the map
+            seq = list(range(1, len(df_map) + 1))
+            df_map['Amostra'] = [str(current_flat[i-1]) if 0 <= (i-1) and (i-1) < len(current_flat) else '' for i in seq]
+            df_map['Codigo'] = df_map['Amostra']
             preview_win = ctk.CTkToplevel(self)
+            df_map['Codigo'] = df_map['Amostra']
             preview_win.title('Confirme o Mapeamento')
             preview_win.geometry('700x500')
+            try:
+                preview_win.attributes('-topmost', True)
+                preview_win.lift()
+                preview_win.focus_force()
+            except Exception:
+                pass
             lbl = ctk.CTkLabel(preview_win, text='Pré-visualização do mapeamento gerado (verifique e confirme):', anchor='w')
             lbl.pack(fill='x', padx=10, pady=(10,0))
             # Use column-major only (coluna-major) as required
@@ -280,15 +298,16 @@ class BuscaExtracaoApp(AfterManagerMixin, ctk.CTkToplevel):
             txt.pack(expand=True, fill='both', padx=10, pady=10)
 
             # apply column-major order
-            df_map['Amostra'] = [str(current_flat[i-1]) if (i-1) < len(current_flat) and i-1 >= 0 else '' for i in df_map['amostra']]
-            df_map['Código'] = df_map['Amostra']
-            txt.configure(state='normal')
-            txt.delete('0.0', 'end')
-            txt.insert('0.0', df_map[['Poço', 'Amostra', 'Código']].to_string(index=False))
+            # apply column-major order
+            seq = list(range(1, len(df_map) + 1))
+            df_map['Amostra'] = [str(current_flat[i-1]) if 0 <= (i-1) and (i-1) < len(current_flat) else '' for i in seq]
+            df_map['Codigo'] = df_map['Amostra']
+            txt.insert('0.0', df_map[[c for c in ['Poco','Amostra','Codigo'] if c in df_map.columns]].to_string(index=False))
+            df_map['Codigo'] = df_map['Amostra']
             txt.configure(state='disabled')
 
             def _open_edit_window():
-                """Open a small scrollable editor allowing inline edits to Amostra and Código."""
+                """Open a small scrollable editor allowing inline edits to Amostra and Codigo."""
                 edit_win = ctk.CTkToplevel(preview_win)
                 edit_win.title("Editar Mapeamento")
                 edit_win.geometry("600x400")
@@ -307,17 +326,17 @@ class BuscaExtracaoApp(AfterManagerMixin, ctk.CTkToplevel):
                 entries_codigo = []
 
                 # Header
-                ctk.CTkLabel(inner_frame, text="Poço", width=10).grid(row=0, column=0, padx=5, pady=5)
+                ctk.CTkLabel(inner_frame, text="Poco", width=10).grid(row=0, column=0, padx=5, pady=5)
                 ctk.CTkLabel(inner_frame, text="Amostra").grid(row=0, column=1, padx=5, pady=5)
-                ctk.CTkLabel(inner_frame, text="Código").grid(row=0, column=2, padx=5, pady=5)
+                ctk.CTkLabel(inner_frame, text="Codigo").grid(row=0, column=2, padx=5, pady=5)
 
-                for idx, row in df_map[['Poço', 'Amostra', 'Código']].reset_index(drop=True).iterrows():
-                    ctk.CTkLabel(inner_frame, text=str(row['Poço'])).grid(row=idx + 1, column=0, padx=5, pady=2)
+                for idx, row in df_map[['Poco', 'Amostra', 'Codigo']].reset_index(drop=True).iterrows():
+                    ctk.CTkLabel(inner_frame, text=str(row['Poco'])).grid(row=idx + 1, column=0, padx=5, pady=2)
                     ent_a = ctk.CTkEntry(inner_frame)
                     ent_a.insert(0, '' if pd.isna(row['Amostra']) else str(row['Amostra']))
                     ent_a.grid(row=idx + 1, column=1, padx=5, pady=2)
                     ent_c = ctk.CTkEntry(inner_frame)
-                    ent_c.insert(0, '' if pd.isna(row['Código']) else str(row['Código']))
+                    ent_c.insert(0, '' if pd.isna(row['Codigo']) else str(row['Codigo']))
                     ent_c.grid(row=idx + 1, column=2, padx=5, pady=2)
                     entries_amostra.append(ent_a)
                     entries_codigo.append(ent_c)
@@ -333,11 +352,11 @@ class BuscaExtracaoApp(AfterManagerMixin, ctk.CTkToplevel):
                 def _save_edits():
                     for i in range(len(entries_amostra)):
                         df_map.at[i, 'Amostra'] = entries_amostra[i].get()
-                        df_map.at[i, 'Código'] = entries_codigo[i].get()
+                        df_map.at[i, 'Codigo'] = entries_codigo[i].get()
                     # update preview textbox
                     txt.configure(state='normal')
                     txt.delete('0.0', 'end')
-                    txt.insert('0.0', df_map[['Poço', 'Amostra', 'Código']].to_string(index=False))
+                    txt.insert('0.0', df_map[['Poco', 'Amostra', 'Codigo']].to_string(index=False))
                     txt.configure(state='disabled')
                     edit_win.destroy()
 
@@ -350,7 +369,7 @@ class BuscaExtracaoApp(AfterManagerMixin, ctk.CTkToplevel):
                 cancel_btn.pack(side='left', expand=True, padx=5)
 
             def _open_detalhes_window():
-                """Open a window that shows detailed mapping (index, Poço, Amostra, flat value) to help debug order."""
+                """Open a window that shows detailed mapping (index, Poco, Amostra, flat value) to help debug order."""
                 det_win = ctk.CTkToplevel(preview_win)
                 det_win.title("Detalhes do Mapeamento")
                 det_win.geometry('700x500')
@@ -358,11 +377,11 @@ class BuscaExtracaoApp(AfterManagerMixin, ctk.CTkToplevel):
                 # Build a DataFrame for details
                 try:
                     detalhe_rows = []
-                    for idx, row in df_map[['Poço', 'Amostra']].reset_index(drop=True).iterrows():
+                    for idx, row in df_map[['Poco', 'Amostra']].reset_index(drop=True).iterrows():
                         # Use the sequential index for i (1-based). If an 'analise' column exists and is valid, include it as extra info.
                         i = idx + 1
                         flat_val = current_flat[i-1] if (i-1) < len(current_flat) and i-1 >= 0 else ''
-                        detalhe = {'i': i, 'Poço': row['Poço'], 'Amostra': row['Amostra'], 'Flat': flat_val}
+                        detalhe = {'i': i, 'Poco': row['Poco'], 'Amostra': row['Amostra'], 'Flat': flat_val}
                         if 'analise' in df_map.columns:
                             try:
                                 detalhe['analise'] = df_map['analise'].iat[idx]
@@ -380,7 +399,18 @@ class BuscaExtracaoApp(AfterManagerMixin, ctk.CTkToplevel):
                     messagebox.showerror('Erro', f'Erro ao montar detalhes: {e}', parent=det_win)
 
             def _confirm():
-                self.resultado = (df_map[['Poço', 'Amostra', 'Código']], int(parte))
+                # adicionar colunas alias com acentos para compatibilidade com analisadores existentes
+                try:
+                    df_map['Poço'] = df_map['Poco']
+                except Exception:
+                    pass
+                try:
+                    df_map['Código'] = df_map['Codigo']
+                except Exception:
+                    pass
+                # retorna mapeamento com ambas variações para máxima compatibilidade
+                cols = [c for c in ['Poco','Poço','Amostra','Codigo','Código'] if c in df_map.columns]
+                self.resultado = (df_map[cols], int(parte))
                 preview_win.destroy()
                 self._safe_destroy()
 
@@ -398,7 +428,7 @@ class BuscaExtracaoApp(AfterManagerMixin, ctk.CTkToplevel):
             cancel_btn = ctk.CTkButton(btn_frame, text='Cancelar', command=_cancel, fg_color='#e74c3c')
             cancel_btn.pack(side='left', expand=True, padx=5)
         except Exception as e:
-            messagebox.showerror("Erro", f"{e}")
+            messagebox.showerror("Erro", f"{e}", parent=self)
             registrar_log("Mapeamento", f"Falha: {e}", "ERROR")
 
     def cancelar(self):
@@ -406,11 +436,26 @@ class BuscaExtracaoApp(AfterManagerMixin, ctk.CTkToplevel):
         self._safe_destroy()
 
     def _safe_destroy(self):
-        self.dispose()
-        self.grab_release()
-        self.destroy()
+        try:
+            self.dispose()
+        except Exception:
+            pass
+        try:
+            self.grab_release()
+        except Exception:
+            pass
+        try:
+            self.withdraw()
+        except Exception:
+            pass
+        self.after(100, self.destroy)
 
 def carregar_dados_extracao(parent) -> Optional[Tuple[pd.DataFrame, int]]:
     dialog = BuscaExtracaoApp(parent)
     parent.wait_window(dialog)
     return dialog.resultado
+
+
+
+
+

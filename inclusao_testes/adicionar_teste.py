@@ -13,7 +13,7 @@ import sys
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(BASE_DIR)
 
-from config import carregar_config, salvar_config
+from services.config_service import config_service
 from utils.logger import registrar_log
 
 # Caminho para o arquivo CSV de configuraÃ§Ã£o de exames
@@ -27,7 +27,7 @@ def adicionar_novo_teste():
     de exames (exames_config.csv).
     """
     registrar_log("InclusÃ£o Teste", "Iniciando processo de adiÃ§Ã£o de novo exame.", level='INFO')
-    config = carregar_config()
+    config = config_service.load() if hasattr(config_service, 'load') else getattr(config_service, '_config', {})
     exames_ativos = config.get("exames_ativos", [])
     exames_config = config.get("exames_config", {})
 
@@ -154,7 +154,16 @@ def adicionar_novo_teste():
         }
         config["exames_ativos"] = exames_ativos
         config["exames_config"] = exames_config
-        salvar_config(config)
+        # persiste via ConfigService
+        try:
+            if hasattr(config_service, 'update'):
+                config_service.update(config)
+            else:
+                setattr(config_service, '_config', config)
+                if hasattr(config_service, '_save_config'):
+                    config_service._save_config()
+        except Exception:
+            pass
         registrar_log("InclusÃ£o Teste", f"ConfiguraÃ§Ã£o JSON atualizada para o exame '{nome_exame}'.", level='INFO')
 
         # ---- Atualiza exames_config.csv ----
