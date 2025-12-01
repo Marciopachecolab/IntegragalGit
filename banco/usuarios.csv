@@ -1,0 +1,4 @@
+id,usuario,senha_hash,nivel_acesso,status,data_criacao,ultimo_acesso,tentativas_falhas,bloqueado_ate,preferencias
+b5af33d7,admin_master,$2b$12$lUjNVNL1z9dI1Mur9N96mOoMcCpCO93O1riExwrG/wdl1ulwv76tu,ADMIN,ATIVO,2025-11-30,2025-11-30 23:40:57,0,,"{""tema"": ""claro"", ""idioma"": ""pt_BR"", ""notificacoes"": true}"
+c2c9782d,lab_supervisor,$2b$12$VvvlID4HQSwg04/iQ6YxvOztpV78pGEhHQeVi5eund4a2CeuzfjsG,MASTER,ATIVO,2025-11-30,2025-11-30 23:40:57,0,,"{""tema"": ""claro"", ""idioma"": ""pt_BR"", ""notificacoes"": true}"
+091edb15,tecnico_lab,$2b$12$w4gXmyvJhv2mmzFrGSlm7u.hzIeZ0AA256GnawUFgtU2EzT8zXJWK,DIAGNOSTICO,ATIVO,2025-11-30,2025-11-30 23:40:58,0,,"{""tema"": ""claro"", ""idioma"": ""pt_BR"", ""notificacoes"": true}"
