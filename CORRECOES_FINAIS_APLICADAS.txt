@@ -1,0 +1,87 @@
+🔧 CORREÇÕES FINAIS APLICADAS EM 2025-12-02 13:08:19
+================================================================
+
+📦 PROBLEMAS CORRIGIDOS:
+
+1️⃣ ERRO DE INDENTAÇÃO NO GERENCIAMENTO DE USUÁRIOS
+---------------------------------------------------
+❌ ERRO: IndentationError na linha 517 do ui/user_management.py
+✅ SOLUÇÃO: Corrigida indentação do método _sair_para_menu_principal
+✅ RESULTADO: O módulo de gerenciamento de usuários agora abre sem erros
+
+2️⃣ CONFIGURAÇÕES DO SISTEMA USANDO APENAS configuracao/config.json
+--------------------------------------------------------------------
+❌ PROBLEMA: Sistema estava tentando usar config.json (raiz) e configuracao/config.json
+✅ SOLUÇÃO: Modificado para usar APENAS configuracao/config.json
+✅ RESULTADO: 
+   - Informações lidas exclusivamente de configuracao/config.json
+   - Informações salvas exclusivamente em configuracao/config.json
+   - Campo "Timeout" → linha "request_timeout": 30 (em gal_integration)
+   - Campo "Base URL GAL" → linha "base_url": "https://galteste.saude.sc.gov.br" (em gal_integration)
+
+🛠️ MODIFICAÇÕES TÉCNICAS:
+
+ui/user_management.py:
+- ✅ Corrigida indentação do método _sair_para_menu_principal
+- ✅ Método agora está no nível correto da classe
+
+ui/admin_panel.py:
+- ✅ Método _salvar_info_sistema() modificado para usar apenas configuracao/config.json
+- ✅ Método _adicionar_info_sistema() modificado para ler apenas de configuracao/config.json
+- ✅ Removidas todas as referências ao config.json (raiz)
+- ✅ Configuração específica:
+   * request_timeout → gal_integration.request_timeout
+   * base_url → gal_integration.base_url
+   * lab_name → general.lab_name
+
+📋 ESTRUTURA FINAL DE CONFIGURAÇÃO:
+===================================
+
+configuracao/config.json (ÚNICO ARQUIVO USADO):
+{
+    "general": {
+        "lab_name": "LACEN-SC",
+        "lab_responsible": "Responsável Técnico"
+    },
+    "gal_integration": {
+        "base_url": "https://galteste.saude.sc.gov.br",
+        "request_timeout": 30,
+        "login_ids": { ... },
+        "api_endpoints": { ... }
+    },
+    "paths": { ... },
+    "postgres": { ... },
+    "exams": { ... }
+}
+
+🧪 COMO TESTAR:
+===============
+
+1. EXTRAIR E EXECUTAR:
+   - Extrair o ZIP para uma pasta
+   - Executar executar.bat
+   - Login: marcio / flafla
+
+2. TESTAR GERENCIAMENTO DE USUÁRIOS:
+   - Ir em "Usuários" → "Gerenciar Usuários"
+   - VERIFICAR: Deve abrir sem erro "senha_hash"
+   - Clicar "🚪 SAIR PARA O MENU INICIAL"
+   - VERIFICAR: Deve voltar ao menu principal
+
+3. TESTAR CONFIGURAÇÕES DO SISTEMA:
+   - Ir em "Configurações" → "Gerenciar Configurações do Sistema"
+   - Alterar "🌐 URL do GAL" para "https://teste.saude.sc.gov.br"
+   - Alterar "⏱️ Timeout (segundos)" para "60"
+   - Clicar "💾 Salvar Alterações"
+   - VERIFICAR: Apenas configuracao/config.json deve ser modificado
+   - ABRIR configuracao/config.json e verificar:
+     * "base_url": "https://teste.saude.sc.gov.br"
+     * "request_timeout": 60
+
+📁 ARQUIVOS MODIFICADOS:
+========================
+✅ ui/user_management.py - Correção de indentação
+✅ ui/admin_panel.py - Configuração exclusiva para configuracao/config.json
+
+✅ STATUS: TODOS OS PROBLEMAS CORRIGIDOS
+📅 Data: 2025-12-02 13:08:19

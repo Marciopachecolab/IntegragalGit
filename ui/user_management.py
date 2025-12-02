@@ -514,7 +514,7 @@ class UserManagementPanel:
             except Exception as e:
                 messagebox.showerror("Erro", f"Erro durante a busca: {str(e)}", parent=self.user_window)
     
-        def _sair_para_menu_principal(self):
+    def _sair_para_menu_principal(self):
         """Fecha a janela de gerenciamento de usuários e volta ao menu principal"""
         try:
             # Fechar a janela de usuários

@@ -135,8 +135,8 @@ class AdminPanel:
             self.sistema_entries = {}  # Para armazenar as entries editáveis
             self.sistema_original_values = {}  # Para armazenar valores originais
             
-            # Tentar ler config.json
-            config_path = "config.json"
+            # Tentar ler configuracao/config.json
+            config_path = "configuracao/config.json"
             if os.path.exists(config_path):
                 with open(config_path, 'r', encoding='utf-8') as f:
                     self.config_sistema = json.load(f)
@@ -236,9 +236,9 @@ class AdminPanel:
             ).pack(pady=10)
     
     def _salvar_info_sistema(self):
-        """Salva as informações editadas do sistema usando ConfigService"""
+        """Salva as informações editadas do sistema APENAS no configuracao/config.json"""
         try:
-            # Caminhos dos arquivos de configuração
+            # Caminhos do arquivo de configuração
             configuracao_path = "configuracao/config.json"
             
             # Validar e coletar novos valores
@@ -255,32 +255,30 @@ class AdminPanel:
                         if timeout_int <= 0:
                             erros.append(f"Timeout deve ser um número positivo")
                         else:
+                            # Campo específico: request_timeout
                             novas_configuracoes['request_timeout'] = timeout_int
                     except ValueError:
                         erros.append(f"Timeout deve ser um número inteiro")
                 
                 elif 'URL' in key:
                     if novo_valor.startswith(('http://', 'https://')):
-                        # Usar a chave correta para GAL integration
-                        self.config_service._config.setdefault('gal_integration', {})['base_url'] = novo_valor
+                        # Campo específico: base_url
                         novas_configuracoes['base_url'] = novo_valor
                     else:
                         erros.append(f"URL do GAL deve começar com http:// ou https://")
                 
                 elif 'Log' in key:
-                    # ConfigService usa default logging, não precisa desta configuração aqui
+                    # Ignorar campo de log (não é salvo)
                     print(f"⚠️  Campo Log será ignorado: {key}")
                     continue
                 
                 else:
                     if novo_valor:
-                        # Mapear para a seção correta
+                        # Mapear para a seção general
                         if any(term in key.lower() for term in ['lab', 'laboratório']):
-                            self.config_service._config.setdefault('general', {})['lab_name'] = novo_valor
                             novas_configuracoes['lab_name'] = novo_valor
                         else:
                             # Outros campos gerais
-                            self.config_service._config.setdefault('general', {})[key.lower().replace(' ', '_')] = novo_valor
                             novas_configuracoes[key.lower().replace(' ', '_')] = novo_valor
                     else:
                         erros.append(f"Campo '{key}' não pode estar vazio")
@@ -291,77 +289,66 @@ class AdminPanel:
                 messagebox.showerror("Erro de Validação", error_message, parent=self.admin_window)
                 return
             
-            # Backup do config.json principal
-            config_backup_path = f"config_backup_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
-            if os.path.exists("config.json"):
-                shutil.copy2("config.json", config_backup_path)
+            # Verificar se arquivo existe
+            if not os.path.exists(configuracao_path):
+                messagebox.showerror("Erro", f"Arquivo de configuração não encontrado:\n{configuracao_path}", parent=self.admin_window)
+                return
             
-            # Atualizar ConfigService
-            try:
-                self.config_service._save_config()
-                print(f"✅ ConfigService salvo com sucesso")
-            except Exception as e:
-                print(f"❌ Erro ao salvar ConfigService: {e}")
-                erros.append(f"Erro interno ao salvar configurações: {e}")
+            # Backup do arquivo de configuração
+            backup_path = f"configuracao/config_backup_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+            shutil.copy2(configuracao_path, backup_path)
+            print(f"✅ Backup criado: {backup_path}")
             
-            # Sincronizar com configuracao/config.json se existir
-            try:
-                if os.path.exists(configuracao_path):
-                    # Ler ConfigService atualizado
-                    with open("config.json", 'r', encoding='utf-8') as f:
-                        config_atualizado = json.load(f)
-                    
-                    # Carregar config da subpasta
-                    with open(configuracao_path, 'r', encoding='utf-8') as f:
-                        config_subpasta = json.load(f)
-                    
-                    # Sincronizar todos os campos alterados no config da subpasta
-                    if 'base_url' in novas_configuracoes:
-                        config_subpasta.setdefault('gal_integration', {})['base_url'] = novas_configuracoes['base_url']
-                        print(f"✅ Sincronizando base_url: {novas_configuracoes['base_url']}")
-                    
-                    if 'lab_name' in novas_configuracoes:
-                        config_subpasta.setdefault('general', {})['lab_name'] = novas_configuracoes['lab_name']
-                        print(f"✅ Sincronizando lab_name: {novas_configuracoes['lab_name']}")
-                    
-                    # Sincronizar outros campos gerais
-                    for key, value in novas_configuracoes.items():
-                        if key not in ['base_url', 'lab_name']:
-                            config_subpasta.setdefault('general', {})[key] = value
-                            print(f"✅ Sincronizando {key}: {value}")
-                    
-                    # Garantir estrutura completa do arquivo da subpasta
-                    config_subpasta.setdefault('gal_integration', {})
-                    config_subpasta.setdefault('paths', {})
-                    config_subpasta.setdefault('postgres', {})
-                    config_subpasta.setdefault('exams', {})
-                    
-                    # Salvar config da subpasta
-                    backup_subpasta_path = f"configuracao/config_backup_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
-                    shutil.copy2(configuracao_path, backup_subpasta_path)
-                    
-                    with open(configuracao_path, 'w', encoding='utf-8') as f:
-                        json.dump(config_subpasta, f, indent=4, ensure_ascii=False)
-                    
-                    # Verificar se a sincronização foi bem-sucedida
-                    with open(configuracao_path, 'r', encoding='utf-8') as f:
-                        config_verificado = json.load(f)
-                    
-                    base_url_verificada = config_verificado.get('gal_integration', {}).get('base_url', 'N/A')
-                    lab_name_verificado = config_verificado.get('general', {}).get('lab_name', 'N/A')
-                    
-                    print(f"✅ Configuracao/config.json sincronizado com sucesso")
-                    print(f"   📌 Base URL sincronizada: {base_url_verificada}")
-                    print(f"   📌 Lab Name sincronizado: {lab_name_verificado}")
-                    print(f"   💾 Backup criado: {backup_subpasta_path}")
-                    
-            except Exception as e:
-                print(f"⚠️  Aviso: Erro ao sincronizar configuracao/config.json: {e}")
+            # Carregar config atual
+            with open(configuracao_path, 'r', encoding='utf-8') as f:
+                config = json.load(f)
+            
+            # Aplicar as mudanças nas seções corretas
+            
+            # 1. request_timeout vai para gal_integration
+            if 'request_timeout' in novas_configuracoes:
+                config.setdefault('gal_integration', {})['request_timeout'] = novas_configuracoes['request_timeout']
+                print(f"✅ Atualizado request_timeout: {novas_configuracoes['request_timeout']}")
+            
+            # 2. base_url vai para gal_integration
+            if 'base_url' in novas_configuracoes:
+                config.setdefault('gal_integration', {})['base_url'] = novas_configuracoes['base_url']
+                print(f"✅ Atualizado base_url: {novas_configuracoes['base_url']}")
+            
+            # 3. lab_name e outros campos gerais vão para general
+            if 'lab_name' in novas_configuracoes:
+                config.setdefault('general', {})['lab_name'] = novas_configuracoes['lab_name']
+                print(f"✅ Atualizado lab_name: {novas_configuracoes['lab_name']}")
+            
+            # Outros campos gerais
+            for key, value in novas_configuracoes.items():
+                if key not in ['request_timeout', 'base_url', 'lab_name']:
+                    config.setdefault('general', {})[key] = value
+                    print(f"✅ Atualizado {key}: {value}")
+            
+            # Salvar arquivo
+            with open(configuracao_path, 'w', encoding='utf-8') as f:
+                json.dump(config, f, indent=4, ensure_ascii=False)
+            
+            print(f"✅ Configurações salvas em: {configuracao_path}")
+            
+            # Verificar salvamento
+            with open(configuracao_path, 'r', encoding='utf-8') as f:
+                config_verificado = json.load(f)
+            
+            base_url_verificada = config_verificado.get('gal_integration', {}).get('base_url', 'N/A')
+            lab_name_verificado = config_verificado.get('general', {}).get('lab_name', 'N/A')
+            timeout_verificado = config_verificado.get('gal_integration', {}).get('request_timeout', 'N/A')
+            
+            print(f"   📌 Base URL: {base_url_verificada}")
+            print(f"   🏥 Lab Name: {lab_name_verificado}")
+            print(f"   ⏱️  Timeout: {timeout_verificado}")
             
             # Exibir sucesso
             mensagem_sucesso = f"Configurações do sistema salvas com sucesso!\n\n"
-            mensagem_sucesso += f"Backup criado: {config_backup_path}\n\n"
-            mensagem_sucesso += "Novos valores:\n" + "\n".join([f"• {k}: {v}" for k, v in novas_configuracoes.items()])
+            mensagem_sucesso += f"Arquivo: {configuracao_path}\n"
+            mensagem_sucesso += f"Backup: {backup_path}\n\n"
+            mensagem_sucesso += "Novos valores salvos:\n" + "\n".join([f"• {k}: {v}" for k, v in novas_configuracoes.items()])
             
             messagebox.showinfo("Sucesso", mensagem_sucesso, parent=self.admin_window)
             
@@ -371,6 +358,8 @@ class AdminPanel:
         except Exception as e:
             error_msg = f"Erro inesperado ao salvar configurações: {str(e)}"
             print(f"❌ {error_msg}")
+            import traceback
+            traceback.print_exc()
             messagebox.showerror("Erro", error_msg, parent=self.admin_window)
     
     
