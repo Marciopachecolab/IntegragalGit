@@ -1,0 +1,3 @@
+Poço,Amostra,Código,Resultado_SC2,Resultado_HMPV,Resultado_INFA,Resultado_INFB,Resultado_ADV,Resultado_RSV,Resultado_HRV,SC2,HMPV,INF A,INF B,ADV,RSV,HRV,RP_1,RP_2,Status_Corrida
+A1,S1,S1,Inválido,Inválido,Inválido,Inválido,Inválido,Inválido,Inválido,,,,,,,,20.0,20.0,Inválida (Controles ausentes)
+A2,S1,S1,Inválido,Inválido,Inválido,Inválido,Inválido,Inválido,Inválido,,,,,,,,20.0,20.0,Inválida (Controles ausentes)

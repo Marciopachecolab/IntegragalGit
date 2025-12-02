@@ -1,0 +1,513 @@
+﻿# exportacao/envio_gal.py
+import os
+import sys
+import threading
+import time
+from datetime import datetime
+from functools import wraps
+from typing import Any, Dict, List, Optional, Set, Tuple
+
+import customtkinter as ctk
+import pandas as pd
+import simplejson as json
+from selenium.webdriver import ActionChains
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.remote.webdriver import WebDriver
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+from seleniumrequests import Firefox
+from tkinter import filedialog, messagebox, simpledialog
+
+# --- Configuração de Paths e Imports ---
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if BASE_DIR not in sys.path:
+    sys.path.append(BASE_DIR)
+
+from services.config_service import config_service
+from utils.io_utils import read_data_with_auto_detection
+from utils.logger import registrar_log
+
+# --- Configurações Carregadas do Serviço Centralizado ---
+GAL_CONFIG = config_service.get_gal_config()
+PATHS_CONFIG = config_service.get_paths()
+
+# ==============================================================================
+# 1. DECORATOR DE RETENTATIVA
+# ==============================================================================
+def retry_with_backoff(
+    retries=int(GAL_CONFIG.get("retry_settings", {}).get("max_retries", 3)),
+    backoff_in_seconds=float(GAL_CONFIG.get("retry_settings", {}).get("backoff_factor", 1.0))
+):
+    def decorator(f):
+        @wraps(f)
+        def wrapper(*args, **kwargs):
+            attempts = 0
+            last_exception = None
+            while attempts < retries:
+                try:
+                    return f(*args, **kwargs)
+                except Exception as e:
+                    last_exception = e
+                    attempts += 1
+                    sleep_time = backoff_in_seconds * (2 ** (attempts - 1))
+                    log_msg = f"Tentativa {attempts}/{retries} falhou para '{f.__name__}': {e}. Aguardando {sleep_time:.2f}s."
+                    if args and hasattr(args[0], 'log'):
+                        args[0].log(log_msg, "warning")
+                    else:
+                        registrar_log("Retry Decorator", log_msg, "WARNING")
+                    time.sleep(sleep_time)
+            raise last_exception
+        return wrapper
+    return decorator
+
+# ==============================================================================
+# 2. CLASSE DE SERVIÇO (LÓGICA DE NEGÓCIO DESACOPLADA DA UI)
+# ==============================================================================
+class GalService:
+    def __init__(self, logger_callback):
+        self.log = logger_callback
+        self.base_url = GAL_CONFIG.get("base_url")
+        self.login_ids = GAL_CONFIG.get("login_ids", {})
+        self.endpoints = GAL_CONFIG.get("api_endpoints", {})
+        self.panel_tests = GAL_CONFIG.get("panel_tests", {})
+        self.timeout = int(GAL_CONFIG.get("request_timeout", 30))
+
+    @retry_with_backoff()
+    def realizar_login(self, driver: WebDriver, usuario: str, senha: str):
+        # Implementação exatamente como a lógica testada fornecida pelo usuário
+        self.log(f"Acedendo a {self.base_url}...", "info")
+        try:
+            driver.get(self.base_url)
+
+            # localizar elementos por IDs fixos (implementação conhecida e testada)
+            username = driver.find_element(By.ID, "ext-comp-1008")
+            password = driver.find_element(By.ID, "ext-comp-1009")
+            modulo = driver.find_element(By.ID, "ext-comp-1010")
+            lab = driver.find_element(By.ID, "ext-comp-1011")
+            login = driver.find_element(By.ID, "ext-gen68")
+
+            username.send_keys(usuario)
+            password.send_keys(senha)
+            modulo.send_keys("BIOLOGIA MEDICA")
+            time.sleep(1)
+            modulo.send_keys(Keys.TAB)
+            time.sleep(1)
+            lab.send_keys("LACEN")
+            time.sleep(2)
+            lab.send_keys(Keys.TAB)
+            time.sleep(1)
+            login.click()
+            time.sleep(1)
+            # navegar explicitamente para a página de laboratório conforme fluxo conhecido
+            try:
+                driver.get("https://galteste.saude.sc.gov.br/laboratorio/")
+            except Exception:
+                pass
+            time.sleep(1)
+
+            # enviar ESCAPE para fechar overlays
+            try:
+                ActionChains(driver).send_keys(Keys.ESCAPE).perform()
+            except Exception:
+                pass
+
+            time.sleep(4)
+            self.log("Tentativa de login realizada (fluxo padrão).", "info")
+
+            # confirmar login (mesma verificação usada anteriormente)
+            try:
+                WebDriverWait(driver, min(5, max(2, self.timeout))).until(EC.presence_of_element_located((By.ID, 'VERSAO-TOTAL')))
+                self.log('Login confirmado (VERSAO-TOTAL).', 'success')
+                return
+            except Exception:
+                try:
+                    if '/laboratorio/' in driver.current_url:
+                        self.log("Login presumido via URL '/laboratorio/'.", 'success')
+                        return
+                except Exception:
+                    pass
+
+            # se chegamos aqui, trata-se de não confirmação
+            # salvar debug e falhar para retrial
+            try:
+                debug_dir = os.path.join(BASE_DIR, 'debug')
+                os.makedirs(debug_dir, exist_ok=True)
+                driver.save_screenshot(os.path.join(debug_dir, 'gal_login_unconfirmed.png'))
+                with open(os.path.join(debug_dir, 'gal_login_unconfirmed.html'), 'w', encoding='utf-8') as f:
+                    f.write(driver.page_source)
+            except Exception:
+                pass
+            raise Exception('Login não confirmado após tentativa.')
+
+        except Exception:
+            # em caso de falha durante o fluxo, salvar artefatos em locais previsíveis
+            try:
+                debug_dirs = [os.path.join(BASE_DIR, 'debug'), os.path.join(BASE_DIR, 'exportacao', 'debug')]
+                for debug_dir in debug_dirs:
+                    os.makedirs(debug_dir, exist_ok=True)
+                    try:
+                        driver.save_screenshot(os.path.join(debug_dir, 'gal_login_fail.png'))
+                    except Exception:
+                        pass
+                    try:
+                        with open(os.path.join(debug_dir, 'gal_login_fail.html'), 'w', encoding='utf-8') as f:
+                            f.write(driver.page_source)
+                    except Exception:
+                        pass
+                    try:
+                        self.log(f"Debug artifacts gravados: {debug_dir}", 'info')
+                    except Exception:
+                        pass
+            except Exception:
+                pass
+            raise
+
+    @retry_with_backoff()
+    def buscar_metadados(self, driver: WebDriver, codigos_amostra_set: Set[str]) -> Dict[str, Any]:
+        encontrados = {}
+        url = self.base_url + self.endpoints.get('metadata')
+        start, total, limit = 0, float('inf'), 500
+
+        self.log(f"Iniciando busca de metadados para {len(codigos_amostra_set)} amostras.", "info")
+        while start < total and len(encontrados) < len(codigos_amostra_set):
+            payload = {"limit": limit, "start": start, "dtInicio": "", "dtFim": ""}
+            resp = driver.request("POST", url, data=payload, headers={"X-Requested-With": "XMLHttpRequest"}, timeout=self.timeout)
+            resp.raise_for_status()
+            data = resp.json()
+            total = data.get("total", 0)
+
+            if not data.get("dados"): break
+
+            for ex in data.get("dados", []):
+                ca = str(ex.get("codigoAmostra", "")).strip()
+                if ca in codigos_amostra_set and (ca not in encontrados or ex.get('codigo', 0) > encontrados[ca].get('codigo', 0)):
+                    encontrados[ca] = ex
+            
+            start += len(data.get("dados", []))
+            self.log(f"Progresso da busca: {len(encontrados)}/{len(codigos_amostra_set)} encontrados.", "debug")
+
+        self.log(f"Busca de metadados finalizada: {len(encontrados)} encontrados.", "info")
+        return encontrados
+
+    def construir_payload(self, meta: Dict, row: pd.Series, observacao_geral: str) -> Dict[str, Any]:
+        painel = int(row.get('painel', 1))
+        testes_do_painel = self.panel_tests.get(str(painel), [])
+        
+        resultados = {"resultado": None}
+        for teste in testes_do_painel:
+            raw = row.get(teste.lower(), None) # Garante que a busca seja case-insensitive
+            if pd.isna(raw) or str(raw).strip() == "":
+                resultados[teste] = None
+            else:
+                try: resultados[teste] = int(raw)
+                except (ValueError, TypeError): resultados[teste] = None
+        
+        codigo_amostra = str(row.get('codigoamostra', '')).strip()
+        return {
+            "codigo": str(meta.get('codigo', '')), "requisicao": meta.get('requisicao', ''),
+            "paciente": meta.get('paciente', ''), "exame": meta.get('exame', 'Vírus Respiratórios'),
+            "metodo": meta.get('metodo', 'RT-PCR em tempo real'), "registroInterno": codigo_amostra,
+            "kit": int(row.get('kit')) if pd.notna(row.get('kit')) else None, "loteKit": str(row.get('lotekit', '')),
+            "dataProcessamentoFim": str(row.get('dataprocessamentofim', datetime.now().strftime('%d/%m/%Y'))),
+            "observacao": observacao_geral, "painel": painel, "resultados": resultados
+        }
+    
+    @retry_with_backoff(retries=1)
+    def _validar_campo(self, driver: WebDriver, payload_base: Dict, campo: str, valor: Any) -> Optional[str]:
+        tmp_payload = payload_base.copy()
+        tmp_payload['resultados'] = {campo: valor}
+        url = self.base_url + self.endpoints.get('submit')
+        
+        resp = driver.request("POST", url, data={"exame": json.dumps(tmp_payload, ensure_ascii=False)}, headers={"X-Requested-With": "XMLHttpRequest"}, timeout=self.timeout)
+        data = resp.json()
+        if resp.status_code == 200 and data.get('status') == 'sucesso':
+            return None
+        return data.get('message', f"Erro desconhecido (HTTP {resp.status_code})")
+
+    @retry_with_backoff()
+    def _enviar_payload_completo(self, driver: WebDriver, payload: Dict) -> Tuple[bool, Any]:
+        url = self.base_url + self.endpoints.get('submit')
+        resp = driver.request("POST", url, data={"exame": json.dumps(payload, ensure_ascii=False)}, headers={"X-Requested-With": "XMLHttpRequest"}, timeout=self.timeout)
+        resp.raise_for_status()
+        try:
+            data = resp.json()
+            return data.get('success', False), data
+        except json.JSONDecodeError:
+            return False, {"message": f"Resposta inválida do servidor (não é JSON): {resp.text[:200]}"}
+
+    def enviar_amostra(self, driver: WebDriver, payload: Dict) -> Dict[str, Any]:
+        ca = payload.get("registroInterno")
+        paciente = payload.get("paciente")
+        resultado = {"codigoAmostra": ca, "paciente": paciente, "status": "", "erro": [], "campos_invalidos": []}
+        
+        try:
+            self.log(f"A enviar payload para {ca} (Paciente: {paciente})", "info")
+            success, response = self._enviar_payload_completo(driver, payload)
+
+            if success:
+                resultado["status"] = "sucesso"
+            else:
+                erro_principal = response.get('message', 'Erro não especificado.')
+                resultado["status"] = "erro"
+                resultado["erro"].append(erro_principal)
+                self.log(f"Erro no envio de {ca}: {erro_principal}. A iniciar validação de campos.", "error")
+                
+                testes_do_painel = self.panel_tests.get(str(payload.get('painel', 1)), [])
+                for teste in testes_do_painel:
+                    val = payload['resultados'].get(teste)
+                    if val is not None:
+                        motivo = self._validar_campo(driver, payload, teste, val)
+                        if motivo:
+                            resultado["campos_invalidos"].append({"campo": teste, "valor": val, "motivo": motivo})
+            return resultado
+        except Exception as e:
+            resultado["status"] = "erro_critico"
+            resultado["erro"].append(f"Erro inesperado no envio: {e}")
+            return resultado
+
+    def ler_csv_resultados(self, csv_path: str) -> Optional[pd.DataFrame]:
+        df = read_data_with_auto_detection(csv_path)
+        if df is None or df.empty:
+            self.log("Arquivo CSV vazio ou ilegível.", "critical")
+            return None
+        
+        df.columns = [str(col).strip().replace(' ', '').lower() for col in df.columns]
+        required = ["kit", "painel", "dataprocessamentofim", "codigoamostra"]
+        missing = [col for col in required if col not in df.columns]
+        if missing:
+            self.log(f"Colunas obrigatórias em falta no CSV: {', '.join(missing)}", "critical")
+            return None
+        
+        df.dropna(subset=[c for c in required if c != "codigoamostra"], inplace=True)
+        df["codigoamostra"] = df["codigoamostra"].astype(str).str.strip().str.replace('.0', '', regex=False)
+        df.drop(df[df["codigoamostra"] == ""].index, inplace=True)
+        self.log(f"CSV lido e validado. {len(df)} registos processáveis.", "info")
+        return df
+
+    def salvar_relatorios(self, relatorio_final: List[Dict], relatorio_local: List[Dict], usuario: str, observacao: str, kit: str, relatorio_filename: str):
+        log_dir = os.path.dirname(PATHS_CONFIG.get("log_file"))
+        os.makedirs(log_dir, exist_ok=True)
+        
+        if relatorio_final:
+            df_sucesso = pd.DataFrame(relatorio_final)
+            caminho_historico = PATHS_CONFIG.get("gal_upload_history_csv")
+            os.makedirs(os.path.dirname(caminho_historico), exist_ok=True)
+            
+            all_cols_base = ["codigoAmostra", "metodo", "registroInterno", "kit", "loteKit", "dataProcessamentoFim", "observacao", "painel", "usuario", "timestamp"]
+            all_tests = set()
+            for tests in self.panel_tests.values(): all_tests.update(tests)
+            final_cols = all_cols_base + sorted(list(all_tests))
+
+            for col in final_cols:
+                if col not in df_sucesso.columns:
+                    df_sucesso[col] = None
+
+            file_exists = os.path.exists(caminho_historico) and os.path.getsize(caminho_historico) > 0
+            df_sucesso.to_csv(caminho_historico, mode='a', header=not file_exists, index=False, sep=';', encoding='utf-8-sig', columns=final_cols)
+            self.log(f"Histórico de {len(relatorio_final)} sucessos salvo.", "success")
+
+        caminho_relatorio = os.path.join(log_dir, relatorio_filename)
+        with open(caminho_relatorio, 'w', encoding='utf-8') as f:
+            f.write(f"Relatório de Envio ao GAL - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+            f.write(f"Usuário: {usuario}\nKit: {kit}\nObservação: {observacao}\n\n")
+            for item in relatorio_local:
+                f.write(f"- Amostra: {item['codigoAmostra']} (Paciente: {item['paciente']})\n")
+                f.write(f"  Status: {item['status']}\n")
+                if item.get('erro'): f.write(f"  Erros: {'; '.join(map(str, item['erro']))}\n")
+                if item.get('campos_invalidos'):
+                    invalidos_str = "; ".join([f"{inv['campo']}='{inv['valor']}' ({inv['motivo']})" for inv in item['campos_invalidos']])
+                    f.write(f"  Campos Inválidos: {invalidos_str}\n")
+                f.write("\n")
+        self.log(f"Relatório detalhado salvo em: {caminho_relatorio}", "info")
+
+# ==============================================================================
+# 3. CLASSE DE INTERFACE GRÁFICA (UI) - COM FEEDBACK MELHORADO
+# ==============================================================================
+class IntegrationApp(ctk.CTkToplevel):
+    def __init__(self, master, usuario_logado: str):
+        super().__init__(master)
+        self.title("Envio de Resultados para o GAL")
+        self.geometry("900x800")
+
+        self.usuario_logado = usuario_logado
+        self.gal_service = GalService(self.log_to_textbox)
+        
+        self.current_csv_path: Optional[str] = None
+        self.observacao: str = ""
+        self.relatorio_filename: str = ""
+        
+        self._criar_widgets()
+        self.protocol("WM_DELETE_WINDOW", self.destroy)
+
+    def _criar_widgets(self):
+        self.grid_columnconfigure(0, weight=1)
+        self.grid_rowconfigure(2, weight=1)
+        
+        top_frame = ctk.CTkFrame(self)
+        top_frame.grid(row=0, column=0, padx=10, pady=10, sticky="ew")
+        top_frame.grid_columnconfigure((1, 3), weight=1)
+
+        ctk.CTkLabel(top_frame, text="Utilizador:").grid(row=0, column=0, padx=5, pady=5, sticky="w")
+        self.usuario_entry = ctk.CTkEntry(top_frame)
+        self.usuario_entry.grid(row=0, column=1, padx=5, pady=5, sticky="ew")
+        
+        ctk.CTkLabel(top_frame, text="Senha:").grid(row=0, column=2, padx=5, pady=5, sticky="w")
+        self.senha_entry = ctk.CTkEntry(top_frame, show="*")
+        self.senha_entry.grid(row=0, column=3, padx=5, pady=5, sticky="ew")
+        
+        self.csv_button = ctk.CTkButton(top_frame, text="Selecionar Arquivo CSV", command=self.selecionar_csv)
+        self.csv_button.grid(row=1, column=0, columnspan=2, padx=5, pady=5, sticky="ew")
+        
+        self.csv_label = ctk.CTkLabel(top_frame, text="Nenhum arquivo selecionado")
+        self.csv_label.grid(row=1, column=2, columnspan=2, padx=5, pady=5, sticky="ew")
+        
+        self.start_button = ctk.CTkButton(top_frame, text="Iniciar Processamento", command=self.iniciar_processamento, state="disabled")
+        self.start_button.grid(row=2, column=0, columnspan=4, padx=5, pady=10, sticky="ew")
+
+        progress_frame = ctk.CTkFrame(self)
+        progress_frame.grid(row=1, column=0, padx=10, pady=5, sticky="ew")
+        progress_frame.grid_columnconfigure(0, weight=1)
+
+        self.status_label = ctk.CTkLabel(progress_frame, text="Status: Pronto")
+        self.status_label.grid(row=0, column=0, padx=10, pady=(5, 0), sticky="w")
+        
+        self.progress_bar = ctk.CTkProgressBar(progress_frame, orientation="horizontal")
+        self.progress_bar.set(0)
+        self.progress_bar.grid(row=1, column=0, padx=10, pady=(0, 5), sticky="ew")
+
+        log_frame = ctk.CTkFrame(self)
+        log_frame.grid(row=2, column=0, padx=10, pady=(0, 10), sticky="nsew")
+        log_frame.grid_rowconfigure(0, weight=1); log_frame.grid_columnconfigure(0, weight=1)
+        
+        self.log_text = ctk.CTkTextbox(log_frame, wrap="word")
+        self.log_text.grid(row=0, column=0, sticky="nsew")
+        self.log_text.configure(state="disabled")
+
+    def _update_progress(self, text: str, value: float, color: str = "default"):
+        def update():
+            self.status_label.configure(text=f"Status: {text}")
+            self.progress_bar.set(value)
+            if color == "green": self.progress_bar.configure(progress_color="green")
+            elif color == "red": self.progress_bar.configure(progress_color="red")
+            else: self.progress_bar.configure(progress_color=["#3a7ebf", "#1f538d"])
+        self.after(0, update)
+
+    def log_to_textbox(self, message: str, level: str = "info"):
+        level = level.lower()
+        formatted_msg = f"[{datetime.now().strftime('%H:%M:%S')}] {level.upper()}: {message}\n"
+        
+        def update_log():
+            self.log_text.configure(state="normal")
+            color_map = {"error": "red", "warning": "orange", "critical": "darkred", "success": "green"}
+            tag = color_map.get(level)
+            if tag and tag not in self.log_text.tag_names():
+                self.log_text.tag_config(tag, foreground=tag)
+            
+            self.log_text.insert("end", formatted_msg, tag if tag else None)
+            self.log_text.see("end")
+            self.log_text.configure(state="disabled")
+        
+        self.after(0, update_log)
+        registrar_log("Envio GAL UI", message, level=level.upper())
+
+    def selecionar_csv(self):
+        path = filedialog.askopenfilename(title="Selecionar CSV de resultados", filetypes=[("CSV files", "*.csv")])
+        if not path: return
+
+        self.current_csv_path = path
+        self.csv_label.configure(text=os.path.basename(path))
+        
+        obs = simpledialog.askstring("Observações", "Informe observações sobre esta corrida (opcional):", parent=self)
+        if obs is None: 
+            self.current_csv_path = None
+            self.csv_label.configure(text="Nenhum arquivo selecionado")
+            self.start_button.configure(state="disabled")
+            return
+        self.observacao = obs if obs else "Nenhuma observação."
+
+        nome_relatorio = simpledialog.askstring("Nome do Relatório", "Nome do arquivo para o relatório TXT:", initialvalue=f"relatorio_envio_{datetime.now().strftime('%Y%m%d_%H%M')}", parent=self)
+        self.relatorio_filename = f"{nome_relatorio}.txt" if nome_relatorio else f"relatorio_envio_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
+        
+        self.start_button.configure(state="normal")
+        self.log_to_textbox(f"Arquivo '{os.path.basename(path)}' pronto para envio.", "info")
+
+    def iniciar_processamento(self):
+        usuario = self.usuario_entry.get().strip()
+        senha = self.senha_entry.get().strip()
+        if not all([usuario, senha, self.current_csv_path]):
+            messagebox.showerror("Dados Incompletos", "Utilizador, senha e arquivo CSV são obrigatórios.", parent=self)
+            return
+
+        self._update_progress("A iniciar...", 0.0)
+        self.start_button.configure(state="disabled"); self.csv_button.configure(state="disabled")
+        self.log_text.configure(state="normal"); self.log_text.delete("1.0", "end"); self.log_text.configure(state="disabled")
+
+        thread = threading.Thread(target=self._processar_em_background, args=(usuario, senha), daemon=True)
+        thread.start()
+
+    def _processar_em_background(self, usuario: str, senha: str):
+        driver = None
+        total_steps = 6
+        try:
+            self._update_progress("Passo 1/6: A iniciar o navegador Firefox...", 1/total_steps)
+            driver = Firefox()
+            
+            self._update_progress("Passo 2/6: A realizar login no GAL...", 2/total_steps)
+            self.gal_service.realizar_login(driver, usuario, senha)
+
+            self._update_progress("Passo 3/6: A ler e validar o arquivo CSV...", 3/total_steps)
+            df = self.gal_service.ler_csv_resultados(self.current_csv_path)
+            if df is None: raise ValueError("Arquivo CSV inválido ou vazio.")
+
+            self._update_progress("Passo 4/6: A buscar metadados no GAL...", 4/total_steps)
+            kit = str(df.iloc[0]['kit']) if not df.empty else "N/A"
+            metas = self.gal_service.buscar_metadados(driver, set(df["codigoamostra"]))
+            if not metas: raise ValueError("Nenhum metadado encontrado para as amostras.")
+
+            relatorio_final, relatorio_local = [], []
+            total_amostras = len(df)
+            
+            for i, (_, row) in enumerate(df.iterrows()):
+                progress = (4/total_steps) + ((i + 1) / total_amostras * (1/total_steps))
+                self._update_progress(f"Passo 5/6: A enviar amostra {i+1} de {total_amostras}...", progress)
+                ca = str(row.get('codigoamostra', ''))
+                if ca in metas:
+                    payload = self.gal_service.construir_payload(metas[ca], row, self.observacao)
+                    resultado_envio = self.gal_service.enviar_amostra(driver, payload)
+                    relatorio_local.append(resultado_envio)
+                    if resultado_envio["status"] == "sucesso":
+                        registro_sucesso = {**payload, "usuario": self.usuario_logado, "timestamp": datetime.now().isoformat()}
+                        relatorio_final.append(registro_sucesso)
+                else:
+                    relatorio_local.append({"codigoAmostra": ca, "paciente": "N/A", "status": "nao_encontrado", "erro": ["Metadados não encontrados no GAL"], "campos_invalidos":[]})
+
+            self._update_progress("Passo 6/6: A salvar relatórios...", 6/total_steps)
+            self.gal_service.salvar_relatorios(relatorio_final, relatorio_local, self.usuario_logado, self.observacao, kit, self.relatorio_filename)
+            
+            sucessos = sum(1 for r in relatorio_local if r["status"] == "sucesso")
+            self._update_progress(f"Processamento concluído com {sucessos} sucesso(s)!", 1.0, "green")
+
+        except Exception as e:
+            error_message = str(e).split('\n')[0]
+            self._update_progress(f"ERRO CRÍTICO: {error_message}", 1.0, "red")
+            self.log_to_textbox(f"ERRO CRÍTICO NO PROCESSAMENTO: {e}", "critical")
+        finally:
+            if driver: driver.quit()
+            self.after(0, lambda: self.usuario_entry.delete(0, 'end'))
+            self.after(0, lambda: self.senha_entry.delete(0, 'end'))
+            self.after(0, lambda: self.start_button.configure(state="normal"))
+            self.after(0, lambda: self.csv_button.configure(state="normal"))
+
+# ==============================================================================
+# 4. PONTO DE ENTRADA
+# ==============================================================================
+def abrir_janela_envio_gal(master, usuario_logado):
+    janela = IntegrationApp(master, usuario_logado)
+    janela.grab_set()
+
+if __name__ == "__main__":
+    root = ctk.CTk()
+    root.withdraw()
+    abrir_janela_envio_gal(root, "utilizador_de_teste")
+    root.mainloop()

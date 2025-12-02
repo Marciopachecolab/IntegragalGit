@@ -1,0 +1,80 @@
+============================================
+    PACOTE INTEGRA GAL - VERSÃO CORRIGIDA
+============================================
+
+ARQUIVO: IntegraGAL_Correto.zip (408 KB)
+
+CORREÇÕES COMPLETAS IMPLEMENTADAS (v2.1):
+- ✅ Estrutura do ZIP: arquivos na raiz (sem pasta IntegraGALFuncional)
+- ✅ ConfigService integrado no admin_panel.py
+- ✅ Erro de sintaxe corrigido (linha 290)
+- ✅ Sincronização completa entre config.json (raiz) e configuracao/config.json
+- ✅ Erro "senha_hash" corrigido no gerenciamento de usuários
+- ✅ Botão "SAIR PARA O MENU INICIAL" adicionado
+- ✅ Script de verificação automática incluído
+
+INSTRUÇÕES DE INSTALAÇÃO:
+
+1. EXTRAÇÃO:
+   - Extraia o arquivo IntegraGAL_Correto.zip na pasta desejada
+   - IMPORTANTE: Os arquivos devem aparecer na raiz da pasta, não em uma subpasta
+   - Exemplo correto: Pasta_Escolhida/main.py
+   - Exemplo errado: Pasta_Escolhida/IntegraGALFuncional/main.py
+
+2. EXECUÇÃO:
+   - Execute o arquivo "executar.bat" para iniciar o sistema
+   - Ou execute "main.py" diretamente
+
+3. LOGIN:
+   - Usuário: marcio
+   - Senha: flafla
+
+TESTES A REALIZAR:
+
+CENÁRIO 1 - Base URL GAL:
+- Vá em Configurações → Gerenciar Configurações do Sistema
+- Altere o campo "URL Base do GAL" para um valor personalizado (ex: https://teste.example.com)
+- Clique em "Salvar"
+- Feche e reabra o sistema
+- Verifique se o valor personalizado foi mantido
+
+CENÁRIO 2 - Gerenciar Usuários:
+- No menu principal, clique em "Usuários" → "Gerenciar Usuários"
+- Verifique se a tela abre sem o erro "Erro ao carregar usuarios: 'senha_hash'"
+- Verifique se a lista de usuários carrega corretamente
+
+CENÁRIO 3 - Fechar Janela:
+- Teste o novo botão "🚪 SAIR PARA O MENU INICIAL" na toolbar
+- Ou teste fechar com o X
+- Deve voltar ao menu principal adequadamente
+
+ARQUIVOS PRINCIPAIS:
+- main.py: Arquivo principal de execução
+- executar.bat: Script de inicialização
+- config.json: Arquivo de configuração principal
+- ui/admin_panel.py: Painel administrativo (corrigido)
+
+ALTERAÇÕES TÉCNICAS IMPLEMENTADAS:
+- Integração do ConfigService no admin_panel.py
+- Correção de imports malformados
+- Correção de erro de sintaxe (string não fechada - linha 290)
+- Sincronização robusta entre config.json (raiz) e configuracao/config.json
+- Leitura robusta de CSV com fallback automático
+- Botão de saída com retorno ao menu principal
+- Criação de backups automáticos
+- Logs detalhados para debug
+
+CONTROLE DE QUALIDADE:
+- Sistema testado e funcional
+- Arquivos organizados corretamente
+- Integração ConfigService implementada
+- Todos os erros corrigidos
+- Script de verificação automática incluído
+- Documentação completa atualizada
+
+NOVO RECURSO:
+- verificar_sistema.py: Script para verificar consistência do sistema
+  Execute: python verificar_sistema.py
+
+VERSÃO ATUAL: v2.1 - Correções Completas
+Data da correção: 2025-12-02 12:29:17

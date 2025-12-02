@@ -1,0 +1,6 @@
+chave,valor,descricao,tipo,data_atualizacao,atualizado_por
+versao_sistema,2.0.0,Versão atual do sistema,string,2024-12-01,admin_master
+timeout_sessao,8,Tempo limite de sessão em horas,integer,2024-12-01,admin_master
+max_tentativas_login,3,Número máximo de tentativas de login,integer,2024-12-01,admin_master
+gal_base_url,https://galteste.saude.sc.gov.br,URL base do GAL,string,2024-12-01,admin_master
+tema_padrao,claro,Tema padrão da interface,string,2024-12-01,admin_master

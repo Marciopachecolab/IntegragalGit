@@ -1,0 +1,55 @@
+{
+    "paths": {
+        "log_file": "logs/sistema.log",
+        "exams_catalog_csv": "banco/exames_config.csv",
+        "credentials_csv": "banco/usuarios.csv",
+        "gal_history_csv": "logs/total_importados_gal.csv"
+    },
+    "postgres": {
+        "enabled": false,
+        "dbname": "integragal",
+        "user": "postgres",
+        "password": "your_password_here",
+        "host": "localhost",
+        "port": 5432
+    },
+    "gal_integration": {
+        "base_url": "https://galteste.saude.sc.gov.br",
+        "login_ids": {
+            "username": "usuario",
+            "password": "senha",
+            "module_button": "ext-gen17",
+            "lab_button": "ext-gen25",
+            "login_button": "ext-gen29"
+        },
+        "api_endpoints": {
+            "metadata": "/bmh/entrada-resultados/lista/",
+            "submit": "/bmh/entrada-resultados/gravar/"
+        },
+        "retry_settings": {
+            "max_retries": 3,
+            "backoff_factor": 0.5
+        },
+        "panel_tests": {
+            "1": [
+                "influenzaa",
+                "influenzab",
+                "coronavirusncov",
+                "coronavirus229e",
+                "coronavirusnl63",
+                "coronavirushku1",
+                "coronavirusoc43",
+                "adenovirus",
+                "vsincicialresp",
+                "metapneumovirus",
+                "rinovirus",
+                "bocavirus",
+                "enterovirus",
+                "parainflu_1",
+                "parainflu_2",
+                "parainflu_3",
+                "parainflu_4"
+            ]
+        }
+    }
+}
