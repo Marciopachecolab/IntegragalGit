@@ -514,11 +514,29 @@ class UserManagementPanel:
             except Exception as e:
                 messagebox.showerror("Erro", f"Erro durante a busca: {str(e)}", parent=self.user_window)
     
-    def _sair_para_menu_principal(self):
+        def _sair_para_menu_principal(self):
         """Fecha a janela de gerenciamento de usuários e volta ao menu principal"""
-        self.user_window.destroy()
-        self.main_window.deiconify()  # Volta a mostrar a janela principal
-    
+        try:
+            # Fechar a janela de usuários
+            if hasattr(self, 'user_window') and self.user_window.winfo_exists():
+                self.user_window.withdraw()  # Esconder primeiro
+                self.user_window.destroy()   # Depois destruir
+            
+            # Garantir que a janela principal seja mostrada e focada
+            if hasattr(self, 'main_window') and self.main_window.winfo_exists():
+                self.main_window.deiconify()  # Voltar a mostrar
+                self.main_window.lift()       # Trazer para frente
+                self.main_window.focus_force() # Forçar foco
+                print("✅ Voltei ao menu principal com sucesso")
+            
+            print("✅ Botão de saída executado com sucesso")
+        except Exception as e:
+            print(f"❌ Erro ao executar botão de saída: {e}")
+            # Tentar método simples como fallback
+            try:
+                self.main_window.deiconify()
+            except:
+                pass
     def _atualizar_lista(self):
         """Atualiza lista de usuários"""
         try:

@@ -1,0 +1,76 @@
+🔧 INSTRUÇÕES - CORREÇÕES APLICADAS EM 2025-12-02 12:54:52
+================================================================
+
+📦 PACOTE: IntegraGAL_CORRECOES_APLICADAS_20251202_125452.zip
+
+🎯 PROBLEMAS CORRIGIDOS:
+========================
+
+1️⃣ PROBLEMA DO BOTÃO "SAIR PARA O MENU INICIAL"
+-----------------------------------------------
+✅ CORREÇÃO: Melhorado o método _sair_para_menu_principal
+   - Adicionado tratamento de erro robusto
+   - Melhorado o controle de visibilidade das janelas
+   - Garantido foco adequado na janela principal
+
+2️⃣ PROBLEMA DO ARQUIVO DE CONFIGURAÇÃO NÃO SALVANDO
+----------------------------------------------------
+✅ CORREÇÃO: Unificada estrutura dos arquivos de configuração
+   - config.json agora tem seção 'general' com lab_name
+   - Configuracoes sincronizadas entre config.json e configuracao/config.json
+   - Método de salvamento aprimorado para ambas as estruturas
+
+📋 ESTRUTURA ANTES → DEPOIS:
+============================
+
+ANTES:
+config.json (raiz): { paths, postgres, gal_integration } ❌ SEM 'general'
+configuracao/config.json: { general, paths, postgres, gal_integration } ✅ COM 'general'
+
+DEPOIS:
+config.json (raiz): { paths, postgres, gal_integration, general, exams } ✅ COMPLETO
+configuracao/config.json: { general, paths, postgres, gal_integration, exams } ✅ COMPLETO
+
+🧪 COMO TESTAR:
+===============
+
+1. EXTRAIR E EXECUTAR:
+   - Extrair o ZIP para uma pasta
+   - Executar executar.bat
+   - Login: marcio / flafla
+
+2. TESTAR CONFIGURAÇÕES DO SISTEMA:
+   - Ir em "Configurações" → "Gerenciar Configurações do Sistema"
+   - Alterar "Nome do Laboratório" (ex: "LACEN-SC TESTE")
+   - Alterar "URL Base do GAL" (ex: "https://teste.saude.sc.gov.br")
+   - Clicar "Salvar Configurações"
+   - Verificar se AMBOS os arquivos foram atualizados:
+     * config.json (raiz)
+     * configuracao/config.json
+
+3. TESTAR GERENCIAMENTO DE USUÁRIOS:
+   - Ir em "Usuários" → "Gerenciar Usuários"
+   - Confirmar que NÃO há erro "senha_hash"
+   - Clicar no botão "🚪 SAIR PARA O MENU INICIAL"
+   - Confirmar que volta ao menu principal corretamente
+
+📁 ARQUIVOS MODIFICADOS:
+========================
+✅ ui/user_management.py - Melhoria do botão de saída
+✅ ui/admin_panel.py - Não necessário (já estava correto)
+✅ config.json - Adicionada seção 'general'
+✅ configuracao/config.json - Estrutura preservada
+
+🔍 BACKUP CRIADO:
+=================
+config_backup_correcao_20251202_125452.json
+configuracao/config_backup_correcao_20251202_125452.json
+
+📞 SE AINDA HOUVER PROBLEMAS:
+=============================
+1. Verificar se ambos os arquivos config.json foram atualizados
+2. Executar: python verificar_sistema.py
+3. Verificar logs para erros específicos
+
+✅ STATUS: CORREÇÕES APLICADAS COM SUCESSO
+📅 Data: 2025-12-02 12:54:52
