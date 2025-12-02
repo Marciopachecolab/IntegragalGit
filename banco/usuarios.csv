@@ -1,5 +1,6 @@
-id;usuario;senha_hash;nivel_acesso;status;data_criacao;ultimo_acesso;tentativas_falhas;bloqueado_ate;preferencias
-b5af33d7;admin_master;$2b$12$lUjNVNL1z9dI1Mur9N96mOoMcCpCO93O1riExwrG/wdl1ulwv76tu;ADMIN;ATIVO;2025-11-30;2025-11-30 23:40:57;0;;"{""tema"": ""claro"", ""idioma"": ""pt_BR"", ""notificacoes"": true}"
-c2c9782d;lab_supervisor;$2b$12$VvvlID4HQSwg04/iQ6YxvOztpV78pGEhHQeVi5eund4a2CeuzfjsG;MASTER;ATIVO;2025-11-30;2025-11-30 23:40:57;0;;"{""tema"": ""claro"", ""idioma"": ""pt_BR"", ""notificacoes"": true}"
-091edb15;tecnico_lab;$2b$12$w4gXmyvJhv2mmzFrGSlm7u.hzIeZ0AA256GnawUFgtU2EzT8zXJWK;DIAGNOSTICO;ATIVO;2025-11-30;2025-11-30 23:40:58;0;;"{""tema"": ""claro"", ""idioma"": ""pt_BR"", ""notificacoes"": true}"
-usr_4809;marcio;$2b$12$tBZZ5hWsiWr7XmsRZG7i4.CSUuP4bok2LHDZ/8nQ6jXnB4rEh9762;USER;ATIVO;2025-12-02;;0;;"{""tema"":""claro"",""idioma"":""pt_BR"",""notificacoes"":true}"
+usuario;senha_hash;nivel_acesso
+admin_master;$2b$12$5Ur2cXl/E2DcY3k0gc72PuR5sIG.nm5Uin7L42oGwdJ7DsSfmI.zW;ADMIN
+lab_supervisor;$2b$12$k3CQSFsTCNkdeKi3eyzOBOZvSPCXRk3yrPiNWI0nzeWbC6oPFBoTO;MASTER
+tecnico_lab;$2b$12$0jjnrwdgInsFpG8QvfhtLeUzl7mQyQy2svqyv8XLenZVM1SL6A34i;DIAGNOSTICO
+marcio;$2b$12$t1y/Dz/E36QVkJcYt7nkeuXyBV0s3bWchr4aXIlobAzo877Y/l1wK;ADMIN
+lacen;$2b$12$.gCsEmK5Pj7fcrzfx9nyqOUqS9yWOPQLKqIDUaQ2s.ZupjKP8Ye9q;ADMIN

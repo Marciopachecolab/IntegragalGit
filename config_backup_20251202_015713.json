@@ -1,27 +1,20 @@
 {
-    "general": {
-        "lab_name": "LACEN-SC",
-        "lab_responsible": "Responsável Técnico"
-    },
     "paths": {
         "log_file": "logs/sistema.log",
         "exams_catalog_csv": "banco/exames_config.csv",
-        "credentials_csv": "banco/credenciais.csv",
-        "gal_upload_history_csv": "logs/total_importados_gal.csv",
-        "default_csv_folder": "Z:\\GEBIO\\DIBMC\\Biologia Molecular\\SES230816\\MARCIO TESTE",
-        "default_results_folder": "C:/Sistemas/Resultados/"
+        "credentials_csv": "banco/usuarios.csv",
+        "gal_history_csv": "logs/total_importados_gal.csv"
     },
     "postgres": {
-        "enabled": true,
-        "dbname": "seu_banco",
-        "user": "marcio",
-        "password": "sua_senha",
+        "enabled": false,
+        "dbname": "integragal",
+        "user": "postgres",
+        "password": "your_password_here",
         "host": "localhost",
         "port": 5432
     },
     "gal_integration": {
-        "base_url": "https://galteste.saude.sc.gov.br",
-        "geckodriver_path": "",
+        "base_url": "https://correcao-teste.saude.sc.gov.br",
         "login_ids": {
             "username": "usuario",
             "password": "senha",
@@ -35,9 +28,8 @@
         },
         "retry_settings": {
             "max_retries": 3,
-            "backoff_factor": 2
+            "backoff_factor": 0.5
         },
-        "request_timeout": 45,
         "panel_tests": {
             "1": [
                 "influenzaa",
@@ -56,20 +48,13 @@
                 "parainflu_1",
                 "parainflu_2",
                 "parainflu_3",
-                "parainflu_4",
-                "coronavirus",
-                "influenzaahn",
-                "metapneumovirua",
-                "metapneumovirub",
-                "mycoplasma",
-                "parechovírus",
-                "vsincicialrespa",
-                "vsincicialrespb",
-                "influenzaah_3",
-                "influenzaah_5",
-                "influenzaah_7"
+                "parainflu_4"
             ]
         }
+    },
+    "general": {
+        "lab_name": "LAB TESTE CORREÇÃO",
+        "lab_responsible": "Responsável Técnico"
     },
     "exams": {
         "active_exams": [

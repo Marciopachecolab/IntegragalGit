@@ -1,0 +1,6 @@
+usuario;senha;nivel_acesso
+admin_master;$2b$12$lUjNVNL1z9dI1Mur9N96mOoMcCpCO93O1riExwrG/wdl1ulwv76tu;ADMIN
+lab_supervisor;$2b$12$VvvlID4HQSwg04/iQ6YxvOztpV78pGEhHQeVi5eund4a2CeuzfjsG;MASTER
+tecnico_lab;$2b$12$w4gXmyvJhv2mmzFrGSlm7u.hzIeZ0AA256GnawUFgtU2EzT8zXJWK;DIAGNOSTICO
+marcio;$2b$12$tiuLuj2/o3wDOy41dpSc/.45sKyQNVUhuVnAc3vRXQxEHIXW.ca9e;MASTER
+lacen;$2b$12$2qzedylG5VOgy6L/PUiJwe3qtw7gSZsVI94ZsM0ays3ioJRij/BCW;ADMIN

@@ -1,7 +1,8 @@
 {
     "general": {
         "lab_name": "LACEN-SC",
-        "lab_responsible": "Responsável Técnico"
+        "lab_responsible": "Responsável Técnico",
+        "": "https://galteste.saude.sc.gov.br"
     },
     "paths": {
         "log_file": "logs/sistema.log",
@@ -37,7 +38,7 @@
             "max_retries": 3,
             "backoff_factor": 2
         },
-        "request_timeout": 45,
+        "request_timeout": 30,
         "panel_tests": {
             "1": [
                 "influenzaa",
