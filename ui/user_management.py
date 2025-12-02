@@ -29,6 +29,7 @@ class UserManagementPanel:
         self.usuario_logado = usuario_logado
         self.auth_service = AuthService()
         self.usuarios_path = "banco/usuarios.csv"
+        self._closing = False  # Flag para evitar cliques duplicados
         self._criar_interface()
     
     def _criar_interface(self):
@@ -517,26 +518,52 @@ class UserManagementPanel:
     def _sair_para_menu_principal(self):
         """Fecha a janela de gerenciamento de usuários e volta ao menu principal"""
         try:
+            print("🖱️ Botão de saída clicado")
+            
+            # Verificar se já está fechando para evitar múltiplas execuções
+            if hasattr(self, '_closing') and self._closing:
+                print("⚠️ Já está fechando, ignorando clique duplicado")
+                return
+            
+            self._closing = True  # Marcar como fechando
+            
             # Fechar a janela de usuários
             if hasattr(self, 'user_window') and self.user_window.winfo_exists():
-                self.user_window.withdraw()  # Esconder primeiro
-                self.user_window.destroy()   # Depois destruir
+                print("🪟 Fechando janela de gerenciamento de usuários")
+                try:
+                    self.user_window.withdraw()  # Esconder primeiro
+                    self.user_window.update()    # Forçar update da UI
+                    self.user_window.destroy()   # Depois destruir
+                    print("✅ Janela de usuários fechada")
+                except Exception as e:
+                    print(f"❌ Erro ao fechar janela: {e}")
             
             # Garantir que a janela principal seja mostrada e focada
             if hasattr(self, 'main_window') and self.main_window.winfo_exists():
-                self.main_window.deiconify()  # Voltar a mostrar
-                self.main_window.lift()       # Trazer para frente
-                self.main_window.focus_force() # Forçar foco
-                print("✅ Voltei ao menu principal com sucesso")
+                print("🏠 Restaurando janela principal")
+                try:
+                    self.main_window.deiconify()  # Voltar a mostrar
+                    self.main_window.lift()       # Trazer para frente
+                    self.main_window.focus_force() # Forçar foco
+                    self.main_window.update()     # Forçar update
+                    print("✅ Janela principal restaurada e focada")
+                except Exception as e:
+                    print(f"❌ Erro ao restaurar janela principal: {e}")
             
-            print("✅ Botão de saída executado com sucesso")
+            print("✅ Processo de saída concluído")
+            
         except Exception as e:
-            print(f"❌ Erro ao executar botão de saída: {e}")
+            print(f"❌ Erro geral ao executar botão de saída: {e}")
             # Tentar método simples como fallback
             try:
-                self.main_window.deiconify()
-            except:
-                pass
+                if hasattr(self, 'main_window'):
+                    self.main_window.deiconify()
+                    print("✅ Fallback: janela principal restaurada")
+            except Exception as fallback_error:
+                print(f"❌ Erro no fallback: {fallback_error}")
+        finally:
+            # Resetar flag de fechamento após um pequeno delay
+            self.after(100, lambda: setattr(self, '_closing', False))
     def _atualizar_lista(self):
         """Atualiza lista de usuários"""
         try:

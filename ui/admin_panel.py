@@ -209,8 +209,20 @@ class AdminPanel:
                         command=lambda k=label, v=str(valor): self._restaurar_valor_sistema(k, v)
                     ).pack(side="left", padx=5, pady=10)
                     
-                    # Armazenar entry
-                    key = label.split(' ')[0].replace('🌐', '').replace('⏱️', '').replace('📝', '').strip()
+                    # Armazenar entry com mapeamento melhorado
+                    # Mapeamento específico para cada tipo de campo
+                    if 'URL' in label and 'GAL' in label:
+                        key = 'base_url'
+                    elif 'Timeout' in label:
+                        key = 'request_timeout'
+                    elif 'Log' in label:
+                        key = 'log_level'
+                    elif 'Lab' in label or 'Laboratório' in label:
+                        key = 'lab_name'
+                    else:
+                        # Fallback: usar primeira palavra limpa
+                        key = label.split(' ')[0].replace('🌐', '').replace('⏱️', '').replace('📝', '').strip().lower()
+                    
                     self.sistema_entries[key] = entry
                     self.sistema_original_values[key] = str(valor)
 
@@ -248,8 +260,8 @@ class AdminPanel:
             for key, entry in self.sistema_entries.items():
                 novo_valor = entry.get().strip()
                 
-                # Validações específicas por chave
-                if 'Timeout' in key:
+                # Validações específicas por chave (melhorado)
+                if key in ['request_timeout', 'timeout'] or 'Timeout' in key:
                     try:
                         timeout_int = int(novo_valor)
                         if timeout_int <= 0:
@@ -260,7 +272,7 @@ class AdminPanel:
                     except ValueError:
                         erros.append(f"Timeout deve ser um número inteiro")
                 
-                elif 'URL' in key:
+                elif key in ['base_url', 'url'] or 'URL' in key:
                     if novo_valor.startswith(('http://', 'https://')):
                         # Campo específico: base_url
                         novas_configuracoes['base_url'] = novo_valor
