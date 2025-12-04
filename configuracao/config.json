@@ -37,37 +37,16 @@
             "max_retries": 3,
             "backoff_factor": 2
         },
-        "request_timeout": 45,
+        "request_timeout": 30,
         "panel_tests": {
             "1": [
-                "influenzaa",
-                "influenzab",
-                "coronavirusncov",
-                "coronavirus229e",
-                "coronavirusnl63",
-                "coronavirushku1",
-                "coronavirusoc43",
-                "adenovirus",
-                "vsincicialresp",
-                "metapneumovirus",
-                "rinovirus",
-                "bocavirus",
-                "enterovirus",
-                "parainflu_1",
-                "parainflu_2",
-                "parainflu_3",
-                "parainflu_4",
-                "coronavirus",
-                "influenzaahn",
-                "metapneumovirua",
-                "metapneumovirub",
-                "mycoplasma",
-                "parechovírus",
-                "vsincicialrespa",
-                "vsincicialrespb",
-                "influenzaah_3",
-                "influenzaah_5",
-                "influenzaah_7"
+                "influenzaa", "influenzab", "coronavirusncov", "coronavirus229e",
+                "coronavirusnl63", "coronavirushku1", "coronavirusoc43", "adenovirus",
+                "vsincicialresp", "metapneumovirus", "rinovirus", "bocavirus",
+                "enterovirus", "parainflu_1", "parainflu_2", "parainflu_3", "parainflu_4",
+                "coronavirus", "influenzaahn", "metapneumovirua", "metapneumovirub",
+                "mycoplasma", "parechovírus", "vsincicialrespa", "vsincicialrespb",
+                "influenzaah_3", "influenzaah_5", "influenzaah_7"
             ]
         }
     },
@@ -83,73 +62,32 @@
         "configs": {
             "VR1": {
                 "kit_codigo": 100,
-                "export_fields": [
-                    "SC2",
-                    "Inf A",
-                    "Inf B"
-                ]
+                "export_fields": ["SC2", "Inf A", "Inf B"]
             },
             "VR2": {
                 "kit_codigo": 200,
-                "export_fields": [
-                    "ADV",
-                    "RSV",
-                    "HRV"
-                ]
+                "export_fields": ["ADV", "RSV", "HRV"]
             },
             "Arboviroses": {
                 "kit_codigo": 893,
-                "export_fields": [
-                    "dengue",
-                    "chikungunya",
-                    "zika",
-                    "denguect",
-                    "chikungunyact",
-                    "zikact",
-                    "sorotipo"
-                ]
+                "export_fields": ["dengue", "chikungunya", "zika", "denguect", "chikungunyact", "zikact", "sorotipo"]
             },
             "Vírus Respiratórios": {
                 "kit_codigo": 427,
                 "export_fields": [
-                    "influenzaa",
-                    "influenzab",
-                    "coronavirusncov",
-                    "coronavirus229e",
-                    "coronavirusnl63",
-                    "coronavirushku1",
-                    "coronavirusoc43",
-                    "adenovirus",
-                    "vsincicialresp",
-                    "metapneumovirus",
-                    "rinovirus",
-                    "bocavirus",
-                    "enterovirus",
-                    "parainflu_1",
-                    "parainflu_2",
-                    "parainflu_3",
-                    "parainflu_4",
-                    "influenzaahn",
-                    "metapneumovirua",
-                    "metapneumovirub",
-                    "parechovírus",
-                    "vsincicialrespa",
-                    "vsincicialrespb",
-                    "influenzaah_3",
-                    "influenzaah_5",
-                    "influenzaah_7"
+                    "influenzaa", "influenzab", "coronavirusncov", "coronavirus229e",
+                    "coronavirusnl63", "coronavirushku1", "coronavirusoc43", "adenovirus",
+                    "vsincicialresp", "metapneumovirus", "rinovirus", "bocavirus",
+                    "enterovirus", "parainflu_1", "parainflu_2", "parainflu_3", "parainflu_4",
+                    "influenzaahn", "metapneumovirua", "metapneumovirub", "parechovírus",
+                    "vsincicialrespa", "vsincicialrespb", "influenzaah_3", "influenzaah_5", "influenzaah_7"
                 ]
             },
             "VR1e2 Biomanguinhos 7500": {
                 "kit_codigo": 1140,
                 "export_fields": [
-                    "Sars-Cov-2",
-                    "Influenzaa",
-                    "influenzab",
-                    "RSV",
-                    "adenovírus",
-                    "metapneumovirus",
-                    "rinovírus"
+                    "Sars-Cov-2", "Influenzaa", "influenzab", "RSV", "adenovírus",
+                    "metapneumovirus", "rinovírus"
                 ]
             }
         }

@@ -130,103 +130,55 @@ class AdminPanel:
         ).pack(side="left", padx=10, pady=10)
     
     def _adicionar_info_sistema(self, parent):
-        """Adiciona informações básicas do sistema - VERSÃO ROBUSTA"""
+        """Adiciona informações básicas do sistema"""
         try:
             self.sistema_entries = {}  # Para armazenar as entries editáveis
             self.sistema_original_values = {}  # Para armazenar valores originais
             
-            # Tentar ler configuracao/config.json
-            config_path = "configuracao/config.json"
+            # Tentar ler config.json
+            config_path = "config.json"
             if os.path.exists(config_path):
                 with open(config_path, 'r', encoding='utf-8') as f:
                     self.config_sistema = json.load(f)
             else:
                 self.config_sistema = {}
             
-            # MAPEAMENTO CENTRALIZADO E ROBUSTO DE CONFIGURAÇÃO
-            # Configurações editáveis com mapeamento direto para o config.json
-            config_fields = [
-                {
-                    'label': "🌐 Base URL GAL",
-                    'section': 'gal_integration',
-                    'key': 'base_url',
-                    'fallback': 'https://galteste.saude.sc.gov.br',
-                    'editavel': True
-                },
-                {
-                    'label': "⏱️ Timeout (segundos)",
-                    'section': 'gal_integration',
-                    'key': 'request_timeout',
-                    'fallback': '30',
-                    'editavel': True
-                },
-                {
-                    'label': "🏥 Nome do Laboratório",
-                    'section': 'general',
-                    'key': 'lab_name',
-                    'fallback': 'LACEN-SC',
-                    'editavel': True
-                },
-                {
-                    'label': "👨‍💼 Responsável Técnico",
-                    'section': 'general',
-                    'key': 'lab_responsible',
-                    'fallback': 'Responsável Técnico',
-                    'editavel': True
-                }
+            # Itens editáveis e informativos (config.json principal)
+            info_items = [
+                ("🌐 URL do GAL", self.config_sistema.get('gal_url', 'http://localhost:8080'), True),
+                ("⏱️ Timeout (segundos)", str(self.config_sistema.get('timeout', '30')), True),
+                ("📝 Nível de Log", self.config_sistema.get('log_level', 'INFO'), True),
+                ("🗄️ Banco PostgreSQL", "Ativo" if self.config_sistema.get('postgres_enabled', True) else "Inativo", False),
+                ("🐍 Versão Python", f"{'.'.join(map(str, __import__('sys').version_info[:3]))}", False),
+                ("📅 Data/Hora", datetime.now().strftime('%d/%m/%Y %H:%M:%S'), False),
             ]
             
-            # Construir lista de itens para interface
-            info_items = []
-            
-            # Adicionar campos editáveis com valores reais do config.json
-            for field in config_fields:
-                section = self.config_sistema.get(field['section'], {})
-                if isinstance(section, dict):
-                    valor_atual = section.get(field['key'], field['fallback'])
-                else:
-                    valor_atual = field['fallback']
-                
-                info_items.append((field['label'], str(valor_atual), field['editavel'], field['section'], field['key']))
-            
-            # Adicionar campos informativos (apenas leitura)
-            info_items.extend([
-                ("🐍 Versão Python", f"{'.'.join(map(str, __import__('sys').version_info[:3]))}", False, None, None),
-                ("📅 Data/Hora", datetime.now().strftime('%d/%m/%Y %H:%M:%S'), False, None, None),
-                ("🗄️ Banco PostgreSQL", "Ativo" if self.config_sistema.get('postgres', {}).get('enabled', True) else "Inativo", False, None, None),
-            ])
-            
-            # Adicionar informações de paths se existir
+            # Adicionar informações detalhadas do config.json
             if 'paths' in self.config_sistema:
                 paths = self.config_sistema['paths']
                 info_items.extend([
-                    ("📄 Arquivo de Log", os.path.basename(paths.get('log_file', 'logs/sistema.log')), False, None, None),
-                    ("📋 Catálogo de Exames", os.path.basename(paths.get('exams_catalog_csv', 'banco/exames_config.csv')), False, None, None),
+                    ("📄 Arquivo de Log", os.path.basename(paths.get('log_file', 'logs/sistema.log')), False),
+                    ("📋 Catálogo de Exames", os.path.basename(paths.get('exams_catalog_csv', 'banco/exames_config.csv')), False),
+                    ("👥 Credenciais", os.path.basename(paths.get('credentials_csv', 'banco/credenciais.csv')), False),
                 ])
             
-            # Adicionar informações do gal_integration se existir
             if 'gal_integration' in self.config_sistema:
                 gal_config = self.config_sistema['gal_integration']
                 info_items.extend([
-                    ("🔄 Máximo Tentativas", str(gal_config.get('retry_settings', {}).get('max_retries', 3)), False, None, None),
-                    ("⏳ Fator Backoff", str(gal_config.get('retry_settings', {}).get('backoff_factor', 0.5)), False, None, None),
+                    ("🌐 Base URL GAL", gal_config.get('base_url', 'Não configurada'), True),
+                    ("🔄 Máximo Tentativas", str(gal_config.get('retry_settings', {}).get('max_retries', 3)), False),
+                    ("⏳ Fator Backoff", str(gal_config.get('retry_settings', {}).get('backoff_factor', 0.5)), False),
                 ])
             
             if 'postgres' in self.config_sistema:
                 postgres = self.config_sistema['postgres']
                 info_items.extend([
-                    ("🗄️ Host BD", postgres.get('host', 'localhost'), False, None, None),
-                    ("🗄️ Porta BD", str(postgres.get('port', 5432)), False, None, None),
-                    ("🗄️ Nome BD", postgres.get('dbname', 'integragal'), False, None, None),
+                    ("🗄️ Host BD", postgres.get('host', 'localhost'), False),
+                    ("🗄️ Porta BD", str(postgres.get('port', 5432)), False),
+                    ("🗄️ Nome BD", postgres.get('dbname', 'integragal'), False),
                 ])
             
-            for item_info in info_items:
-                label = item_info[0]
-                valor = item_info[1]
-                editavel = item_info[2]
-                section = item_info[3] if len(item_info) > 3 else None
-                key = item_info[4] if len(item_info) > 4 else None
-                
+            for label, valor, editavel in info_items:
                 item_frame = ctk.CTkFrame(parent)
                 item_frame.pack(fill="x", pady=5)
                 
@@ -239,7 +191,7 @@ class AdminPanel:
                     font=ctk.CTkFont(weight="bold" if editavel else "normal")
                 ).pack(side="left", padx=10, pady=10)
                 
-                if editavel and section and key:
+                if editavel:
                     # Campo editável para itens configuráveis
                     entry = ctk.CTkEntry(
                         item_frame,
@@ -254,14 +206,19 @@ class AdminPanel:
                         item_frame,
                         text="↺",
                         width=30,
-                        command=lambda s=section, k=key, v=str(valor): self._restaurar_valor_sistema_robusto(s, k, v)
+                        command=lambda k=label, v=str(valor): self._restaurar_valor_sistema(k, v)
                     ).pack(side="left", padx=5, pady=10)
                     
-                    # Armazenar entry com mapeamento robusto (section + key)
-                    entry_key = f"{section}.{key}"
-                    self.sistema_entries[entry_key] = (entry, section, key)
-                    self.sistema_original_values[entry_key] = str(valor)
-                
+                    # Armazenar entry
+                    key = label.split(' ')[0].replace('🌐', '').replace('⏱️', '').replace('📝', '').strip()
+                    self.sistema_entries[key] = entry
+                    self.sistema_original_values[key] = str(valor)
+
+                elif 'Base URL' in key:
+                    # Atualizar gal_integration.base_url
+                    if 'gal_integration' not in config_completo:
+                        config_completo['gal_integration'] = {}
+                    config_completo['gal_integration']['base_url'] = novo_valor
                 else:
                     # Campo informativo (apenas leitura)
                     ctk.CTkLabel(
@@ -279,43 +236,54 @@ class AdminPanel:
             ).pack(pady=10)
     
     def _salvar_info_sistema(self):
-        """Salva as informações editadas do sistema APENAS no configuracao/config.json - VERSÃO ROBUSTA"""
+        """Salva as informações editadas do sistema usando ConfigService"""
         try:
-            # Caminhos do arquivo de configuração
+            # Caminhos dos arquivos de configuração
             configuracao_path = "configuracao/config.json"
             
             # Validar e coletar novos valores
             novas_configuracoes = {}
             erros = []
             
-            for entry_key, (entry, section, key) in self.sistema_entries.items():
+            for key, entry in self.sistema_entries.items():
                 novo_valor = entry.get().strip()
                 
                 # Validações específicas por chave
-                if key == 'request_timeout':
+                if 'Timeout' in key:
                     try:
                         timeout_int = int(novo_valor)
                         if timeout_int <= 0:
                             erros.append(f"Timeout deve ser um número positivo")
                         else:
-                            novas_configuracoes[(section, key)] = timeout_int
+                            novas_configuracoes['request_timeout'] = timeout_int
                     except ValueError:
                         erros.append(f"Timeout deve ser um número inteiro")
                 
-                elif key == 'base_url':
+                elif 'URL' in key:
                     if novo_valor.startswith(('http://', 'https://')):
-                        novas_configuracoes[(section, key)] = novo_valor
+                        # Usar a chave correta para GAL integration
+                        self.config_service._config.setdefault('gal_integration', {})['base_url'] = novo_valor
+                        novas_configuracoes['base_url'] = novo_valor
                     else:
                         erros.append(f"URL do GAL deve começar com http:// ou https://")
                 
-                elif key in ['lab_name', 'lab_responsible']:
-                    if novo_valor:
-                        novas_configuracoes[(section, key)] = novo_valor
-                    else:
-                        erros.append(f"Campo '{key}' não pode estar vazio")
+                elif 'Log' in key:
+                    # ConfigService usa default logging, não precisa desta configuração aqui
+                    print(f"⚠️  Campo Log será ignorado: {key}")
+                    continue
+                
                 else:
                     if novo_valor:
-                        novas_configuracoes[(section, key)] = novo_valor
+                        # Mapear para a seção correta
+                        if any(term in key.lower() for term in ['lab', 'laboratório']):
+                            self.config_service._config.setdefault('general', {})['lab_name'] = novo_valor
+                            novas_configuracoes['lab_name'] = novo_valor
+                        else:
+                            # Outros campos gerais
+                            self.config_service._config.setdefault('general', {})[key.lower().replace(' ', '_')] = novo_valor
+                            novas_configuracoes[key.lower().replace(' ', '_')] = novo_valor
+                    else:
+                        erros.append(f"Campo '{key}' não pode estar vazio")
             
             # Exibir erros se houver
             if erros:
@@ -323,48 +291,77 @@ class AdminPanel:
                 messagebox.showerror("Erro de Validação", error_message, parent=self.admin_window)
                 return
             
-            # Verificar se arquivo existe
-            if not os.path.exists(configuracao_path):
-                messagebox.showerror("Erro", f"Arquivo de configuração não encontrado:\n{configuracao_path}", parent=self.admin_window)
-                return
+            # Backup do config.json principal
+            config_backup_path = f"config_backup_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+            if os.path.exists("config.json"):
+                shutil.copy2("config.json", config_backup_path)
             
-            # Backup do arquivo de configuração
-            backup_path = f"configuracao/config_backup_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
-            shutil.copy2(configuracao_path, backup_path)
-            print(f"✅ Backup criado: {backup_path}")
+            # Atualizar ConfigService
+            try:
+                self.config_service._save_config()
+                print(f"✅ ConfigService salvo com sucesso")
+            except Exception as e:
+                print(f"❌ Erro ao salvar ConfigService: {e}")
+                erros.append(f"Erro interno ao salvar configurações: {e}")
             
-            # Carregar config atual
-            with open(configuracao_path, 'r', encoding='utf-8') as f:
-                config = json.load(f)
-            
-            # Aplicar as mudanças nas seções corretas usando tuplas (section, key)
-            for (section, key), value in novas_configuracoes.items():
-                config.setdefault(section, {})[key] = value
-                print(f"✅ Atualizado {section}.{key}: {value}")
-            
-            # Salvar arquivo
-            with open(configuracao_path, 'w', encoding='utf-8') as f:
-                json.dump(config, f, indent=4, ensure_ascii=False)
-            
-            print(f"✅ Configurações salvas em: {configuracao_path}")
-            
-            # Verificar salvamento
-            with open(configuracao_path, 'r', encoding='utf-8') as f:
-                config_verificado = json.load(f)
-            
-            base_url_verificada = config_verificado.get('gal_integration', {}).get('base_url', 'N/A')
-            lab_name_verificado = config_verificado.get('general', {}).get('lab_name', 'N/A')
-            timeout_verificado = config_verificado.get('gal_integration', {}).get('request_timeout', 'N/A')
-            
-            print(f"   📌 Base URL: {base_url_verificada}")
-            print(f"   🏥 Lab Name: {lab_name_verificado}")
-            print(f"   ⏱️  Timeout: {timeout_verificado}")
+            # Sincronizar com configuracao/config.json se existir
+            try:
+                if os.path.exists(configuracao_path):
+                    # Ler ConfigService atualizado
+                    with open("config.json", 'r', encoding='utf-8') as f:
+                        config_atualizado = json.load(f)
+                    
+                    # Carregar config da subpasta
+                    with open(configuracao_path, 'r', encoding='utf-8') as f:
+                        config_subpasta = json.load(f)
+                    
+                    # Sincronizar todos os campos alterados no config da subpasta
+                    if 'base_url' in novas_configuracoes:
+                        config_subpasta.setdefault('gal_integration', {})['base_url'] = novas_configuracoes['base_url']
+                        print(f"✅ Sincronizando base_url: {novas_configuracoes['base_url']}")
+                    
+                    if 'lab_name' in novas_configuracoes:
+                        config_subpasta.setdefault('general', {})['lab_name'] = novas_configuracoes['lab_name']
+                        print(f"✅ Sincronizando lab_name: {novas_configuracoes['lab_name']}")
+                    
+                    # Sincronizar outros campos gerais
+                    for key, value in novas_configuracoes.items():
+                        if key not in ['base_url', 'lab_name']:
+                            config_subpasta.setdefault('general', {})[key] = value
+                            print(f"✅ Sincronizando {key}: {value}")
+                    
+                    # Garantir estrutura completa do arquivo da subpasta
+                    config_subpasta.setdefault('gal_integration', {})
+                    config_subpasta.setdefault('paths', {})
+                    config_subpasta.setdefault('postgres', {})
+                    config_subpasta.setdefault('exams', {})
+                    
+                    # Salvar config da subpasta
+                    backup_subpasta_path = f"configuracao/config_backup_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+                    shutil.copy2(configuracao_path, backup_subpasta_path)
+                    
+                    with open(configuracao_path, 'w', encoding='utf-8') as f:
+                        json.dump(config_subpasta, f, indent=4, ensure_ascii=False)
+                    
+                    # Verificar se a sincronização foi bem-sucedida
+                    with open(configuracao_path, 'r', encoding='utf-8') as f:
+                        config_verificado = json.load(f)
+                    
+                    base_url_verificada = config_verificado.get('gal_integration', {}).get('base_url', 'N/A')
+                    lab_name_verificado = config_verificado.get('general', {}).get('lab_name', 'N/A')
+                    
+                    print(f"✅ Configuracao/config.json sincronizado com sucesso")
+                    print(f"   📌 Base URL sincronizada: {base_url_verificada}")
+                    print(f"   📌 Lab Name sincronizado: {lab_name_verificado}")
+                    print(f"   💾 Backup criado: {backup_subpasta_path}")
+                    
+            except Exception as e:
+                print(f"⚠️  Aviso: Erro ao sincronizar configuracao/config.json: {e}")
             
             # Exibir sucesso
             mensagem_sucesso = f"Configurações do sistema salvas com sucesso!\n\n"
-            mensagem_sucesso += f"Arquivo: {configuracao_path}\n"
-            mensagem_sucesso += f"Backup: {backup_path}\n\n"
-            mensagem_sucesso += "Novos valores salvos:\n" + "\n".join([f"• {section}.{key}: {v}" for (section, key), v in novas_configuracoes.items()])
+            mensagem_sucesso += f"Backup criado: {config_backup_path}\n\n"
+            mensagem_sucesso += "Novos valores:\n" + "\n".join([f"• {k}: {v}" for k, v in novas_configuracoes.items()])
             
             messagebox.showinfo("Sucesso", mensagem_sucesso, parent=self.admin_window)
             
@@ -374,24 +371,25 @@ class AdminPanel:
         except Exception as e:
             error_msg = f"Erro inesperado ao salvar configurações: {str(e)}"
             print(f"❌ {error_msg}")
-            import traceback
-            traceback.print_exc()
             messagebox.showerror("Erro", error_msg, parent=self.admin_window)
     
     
-    def _restaurar_valor_sistema_robusto(self, section, key, original_value):
-        """Restaura valor original do campo do sistema - VERSÃO ROBUSTA"""
+    def _restaurar_valor_sistema(self, key, original_value):
+        """Restaura valor original do campo do sistema"""
         try:
-            # Mapeamento robusto usando (section, key) como chave única
-            entry_key = f"{section}.{key}"
+            # Mapear labels para chaves
+            key_map = {
+                "🌐 URL do GAL": "gal_url",
+                "⏱️ Timeout (segundos)": "timeout",
+                "📝 Nível de Log": "log_level"
+            }
             
-            if entry_key in self.sistema_entries:
-                entry, _, _ = self.sistema_entries[entry_key]
-                entry.delete(0, "end")
-                entry.insert(0, str(original_value))
-                messagebox.showinfo("Restaurar", f"Valor de '{section}.{key}' restaurado para: {original_value}", parent=self.admin_window)
-            else:
-                messagebox.showwarning("Aviso", f"Campo não encontrado: {entry_key}", parent=self.admin_window)
+            actual_key = key_map.get(key, key.lower().replace(' ', '_'))
+            
+            if actual_key in self.sistema_entries:
+                self.sistema_entries[actual_key].delete(0, "end")
+                self.sistema_entries[actual_key].insert(0, original_value)
+                messagebox.showinfo("Restaurar", f"Valor de '{key}' restaurado para: {original_value}", parent=self.admin_window)
         except Exception as e:
             messagebox.showerror("Erro", f"Erro ao restaurar valor: {str(e)}", parent=self.admin_window)
     

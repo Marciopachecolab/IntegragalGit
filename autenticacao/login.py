@@ -6,7 +6,7 @@ from typing import Optional
 
 from utils.after_mixin import AfterManagerMixin
 from utils.logger import registrar_log
-from autenticacao.auth_service import AuthService
+from .auth_service import AuthService
 
 MAX_TENTATIVAS = 3
 

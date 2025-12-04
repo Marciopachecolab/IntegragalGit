@@ -14,16 +14,12 @@ from datetime import datetime, timedelta
 from typing import Optional, List, Dict, Any, Tuple
 from dataclasses import dataclass
 from enum import Enum
-import pandas as pd
-import os
-import sys
 
 class NivelAcesso(Enum):
     """Níveis de acesso hierárquicos"""
     ADMINISTRADOR = "ADMIN"
     MASTER = "MASTER" 
     DIAGNOSTICO = "DIAGNOSTICO"
-    USER = "USER"
 
 class StatusUsuario(Enum):
     """Status possíveis do usuário"""
@@ -54,11 +50,6 @@ class UserManager:
     
     def __init__(self, csv_path: str = "banco/usuarios.csv"):
         self.csv_path = csv_path
-        # Corrigir caminho absoluto se necessário
-        if not os.path.isabs(csv_path):
-            base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-            self.csv_path = os.path.join(base_dir, csv_path)
-        
         self._garantir_arquivo_existe()
         self._session_timeout = timedelta(hours=8)  # 8 horas de sessão
         self._max_tentativas = 3
@@ -80,23 +71,22 @@ class UserManager:
         """Carrega usuários do arquivo CSV"""
         usuarios = []
         try:
-            # Usar pandas com separador ';' para compatibilidade
-            df = pd.read_csv(self.csv_path, sep=';')
-            
-            for _, row in df.iterrows():
-                usuario = Usuario(
-                    id=row.get('id', f"usr_{hash(row['usuario']) % 10000:04d}"),
-                    usuario=row['usuario'],
-                    senha_hash=row['senha_hash'],
-                    nivel_acesso=NivelAcesso(row.get('nivel_acesso', 'USER')),
-                    status=StatusUsuario(row.get('status', 'ATIVO')),
-                    data_criacao=row.get('data_criacao', datetime.now().strftime('%Y-%m-%d')),
-                    ultimo_acesso=row.get('ultimo_acesso', ''),
-                    tentativas_falhas=int(row.get('tentativas_falhas', 0)),
-                    bloqueado_ate=row.get('bloqueado_ate') if pd.notna(row.get('bloqueado_ate')) else None,
-                    preferencias=self._parse_json(row.get('preferencias', '{}'))
-                )
-                usuarios.append(usuario)
+            with open(self.csv_path, 'r', encoding='utf-8') as file:
+                reader = csv.DictReader(file)
+                for row in reader:
+                    usuario = Usuario(
+                        id=row['id'],
+                        usuario=row['usuario'],
+                        senha_hash=row['senha_hash'],
+                        nivel_acesso=NivelAcesso(row['nivel_acesso']),
+                        status=StatusUsuario(row['status']),
+                        data_criacao=row['data_criacao'],
+                        ultimo_acesso=row['ultimo_acesso'],
+                        tentativas_falhas=int(row.get('tentativas_falhas', 0)),
+                        bloqueado_ate=row.get('bloqueado_ate'),
+                        preferencias=self._parse_json(row.get('preferencias', '{}'))
+                    )
+                    usuarios.append(usuario)
         except Exception as e:
             print(f"Erro ao carregar usuários: {e}")
         return usuarios
@@ -104,25 +94,28 @@ class UserManager:
     def _salvar_usuarios(self, usuarios: List[Usuario]) -> bool:
         """Salva lista de usuários no arquivo CSV"""
         try:
-            # Converter para DataFrame
-            data = []
-            for usuario in usuarios:
-                row = {
-                    'id': usuario.id,
-                    'usuario': usuario.usuario,
-                    'senha_hash': usuario.senha_hash,
-                    'nivel_acesso': usuario.nivel_acesso.value,
-                    'status': usuario.status.value,
-                    'data_criacao': usuario.data_criacao,
-                    'ultimo_acesso': usuario.ultimo_acesso,
-                    'tentativas_falhas': usuario.tentativas_falhas,
-                    'bloqueado_ate': usuario.bloqueado_ate or '',
-                    'preferencias': self._to_json(usuario.preferencias or {})
-                }
-                data.append(row)
-            
-            df = pd.DataFrame(data)
-            df.to_csv(self.csv_path, sep=';', index=False)
+            with open(self.csv_path, 'w', newline='', encoding='utf-8') as file:
+                writer = csv.DictWriter(file, fieldnames=[
+                    'id', 'usuario', 'senha_hash', 'nivel_acesso', 'status',
+                    'data_criacao', 'ultimo_acesso', 'tentativas_falhas',
+                    'bloqueado_ate', 'preferencias'
+                ])
+                writer.writeheader()
+                
+                for usuario in usuarios:
+                    row = {
+                        'id': usuario.id,
+                        'usuario': usuario.usuario,
+                        'senha_hash': usuario.senha_hash,
+                        'nivel_acesso': usuario.nivel_acesso.value,
+                        'status': usuario.status.value,
+                        'data_criacao': usuario.data_criacao,
+                        'ultimo_acesso': usuario.ultimo_acesso,
+                        'tentativas_falhas': usuario.tentativas_falhas,
+                        'bloqueado_ate': usuario.bloqueado_ate,
+                        'preferencias': self._to_json(usuario.preferencias or {})
+                    }
+                    writer.writerow(row)
             return True
         except Exception as e:
             print(f"Erro ao salvar usuários: {e}")

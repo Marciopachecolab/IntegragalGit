@@ -5,32 +5,32 @@ from typing import Optional
 from utils.logger import registrar_log # Importa o logger centralizado
 
 def detectar_separador_csv(filepath: str) -> str:
+    """
+    Tenta detectar o separador de um arquivo CSV lendo as primeiras linhas.
+    Prioriza ponto e vÃ­rgula (;) sobre vÃ­rgula (,).
+    """
     try:
-        # Tenta múltiplos encodings
-        encodings = ['utf-8-sig', 'utf-8', 'latin-1', 'cp1252', 'windows-1252']
-        
-        for encoding in encodings:
-            try:
-                with open(filepath, 'r', encoding=encoding) as f:
-                    for _ in range(5):
-                        linha = f.readline()
-                        if ';' in linha and ',' not in linha:
-                            return ';'
-                        if ',' in linha and ';' not in linha:
-                            return ','
-                        if ';' in linha and ',' in linha:
-                            if linha.count(';') >= linha.count(','):
-                                return ';'
-                            else:
-                                return ','
-                break
-            except UnicodeDecodeError:
-                continue
-        
-        # Se chegou aqui, usa padrão ';'
-        return ','
+        with open(filepath, 'r', encoding='utf-8-sig') as f:
+            for _ in range(5): # LÃª as primeiras 5 linhas para anÃ¡lise
+                linha = f.readline()
+                if ';' in linha and ',' not in linha: # Se sÃ³ tem ponto e vÃ­rgula
+                    registrar_log("IO Utils", f"Separador detectado para '{os.path.basename(filepath)}': ';'", level='DEBUG')
+                    return ';'
+                if ',' in linha and ';' not in linha: # Se sÃ³ tem vÃ­rgula
+                    registrar_log("IO Utils", f"Separador detectado para '{os.path.basename(filepath)}': ','", level='DEBUG')
+                    return ','
+                if ';' in linha and ',' in linha: # Se tem ambos, prioriza o que aparece mais
+                    if linha.count(';') > linha.count(','):
+                        registrar_log("IO Utils", f"Separador detectado para '{os.path.basename(filepath)}': ';'", level='DEBUG')
+                        return ';'
+                    else:
+                        registrar_log("IO Utils", f"Separador detectado para '{os.path.basename(filepath)}': ','", level='DEBUG')
+                        return ','
+        registrar_log("IO Utils", f"Separador padrÃ£o ',' usado para '{os.path.basename(filepath)}' (nÃ£o detectado claramente).", level='WARNING')
+        return ',' # PadrÃ£o se nÃ£o for claramente detectado
     except Exception as e:
-        return ';'  # Padrão mais comum em sistemas Windows
+        registrar_log("IO Utils", f"Erro ao detectar separador para '{os.path.basename(filepath)}': {e}. Usando padrÃ£o ','.", level='ERROR')
+        return ','
 
 def detectar_linha_cabecalho(filepath: str, sep: str = ',') -> int:
     """

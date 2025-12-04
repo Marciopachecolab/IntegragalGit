@@ -4,6 +4,18 @@ import sys
 import pandas as pd
 import bcrypt  # Nova dependência - adicione 'bcrypt' ao seu requirements.txt
 
+<<<<<<< HEAD
+# --- Configuração de Paths ---
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if BASE_DIR not in sys.path:
+    sys.path.append(BASE_DIR)
+
+from utils.logger import registrar_log
+from utils.io_utils import read_data_with_auto_detection # Reutilizamos o nosso leitor robusto
+
+# --- Constantes ---
+CAMINHO_CREDENCIAIS = os.path.join(BASE_DIR, "banco", "credenciais.csv") # MUDANÇA: de .xlsx para .csv
+=======
 # --- Configuração de Paths Melhorada para Windows ---
 # Tenta múltiplas formas de encontrar o diretório base
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))  # .../autenticacao
@@ -51,6 +63,7 @@ except ImportError:
 
 # --- Constantes ---
 CAMINHO_CREDENCIAIS = os.path.join(BASE_DIR, "banco", "usuarios.csv")  # Caminho absoluto
+>>>>>>> 72f8095 (Initial workspace commit)
 
 class AuthService:
     """
@@ -63,8 +76,11 @@ class AuthService:
         """Garante que o arquivo de credenciais CSV exista."""
         if not os.path.exists(CAMINHO_CREDENCIAIS):
             try:
+<<<<<<< HEAD
+=======
                 # Cria diretório se não existir
                 os.makedirs(os.path.dirname(CAMINHO_CREDENCIAIS), exist_ok=True)
+>>>>>>> 72f8095 (Initial workspace commit)
                 pd.DataFrame(columns=['usuario', 'senha_hash']).to_csv(CAMINHO_CREDENCIAIS, index=False, sep=';')
                 registrar_log("AuthService", f"Arquivo de credenciais criado em: {CAMINHO_CREDENCIAIS}", "INFO")
             except Exception as e:
@@ -84,6 +100,16 @@ class AuthService:
         Verifica se a senha fornecida corresponde ao hash armazenado para o utilizador.
         """
         try:
+<<<<<<< HEAD
+            df = read_data_with_auto_detection(CAMINHO_CREDENCIAIS)
+            if df is None or 'usuario' not in df.columns or 'senha_hash' not in df.columns:
+                registrar_log("AuthService", "Arquivo de credenciais é inválido ou está vazio.", "ERROR")
+                return False
+
+            credenciais_usuario = df[df['usuario'] == usuario]
+            if credenciais_usuario.empty:
+                registrar_log("AuthService", f"Tentativa de login para utilizador inexistente: '{usuario}'", "WARNING")
+=======
             registrar_log("AuthService", f"Tentativa de login para usuário: {usuario}", "DEBUG")
             
             # Tenta múltiplas formas de ler o arquivo
@@ -118,6 +144,7 @@ class AuthService:
             credenciais_usuario = df[df['usuario'].str.strip().str.lower() == usuario.strip().lower()]
             if credenciais_usuario.empty:
                 registrar_log("AuthService", f"Usuário '{usuario}' não encontrado", "WARNING")
+>>>>>>> 72f8095 (Initial workspace commit)
                 return False
 
             hash_armazenado_str = credenciais_usuario.iloc[0]['senha_hash']
@@ -125,9 +152,13 @@ class AuthService:
             senha_fornecida_bytes = senha_fornecida.encode('utf-8')
             
             # A função checkpw do bcrypt compara a senha com o hash (que já contém o salt)
+<<<<<<< HEAD
+            return bcrypt.checkpw(senha_fornecida_bytes, hash_armazenado_bytes)
+=======
             resultado = bcrypt.checkpw(senha_fornecida_bytes, hash_armazenado_bytes)
             registrar_log("AuthService", f"Resultado da autenticação: {'Sucesso' if resultado else 'Falha'}", "INFO")
             return resultado
+>>>>>>> 72f8095 (Initial workspace commit)
 
         except Exception as e:
             registrar_log("AuthService", f"Erro ao verificar credenciais: {e}", "CRITICAL")
