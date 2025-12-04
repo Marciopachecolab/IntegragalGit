@@ -1,0 +1,2 @@
+﻿exame,CT_RP_MIN,CT_RP_MAX,CT_DETECTAVEL_MIN,CT_DETECTAVEL_MAX,CT_INCONCLUSIVO_MIN,CT_INCONCLUSIVO_MAX,alvos,categorias_resultado,status_corrida_validos,observacoes
+"VR1e2 Biomanguinhos 7500","10","35","10","38","38.01","40","SC2;HMPV;INF A;INF B;ADV;RSV;HRV","Detectado;Nao Detectado;Inconclusivo;Invalido","Valida;Invalida (CN Detectado);Invalida (CP Fora do Intervalo);Invalida (Controles Ausentes)","Parametros extraidos do modulo analise.vr1e2_biomanguinhos_7500 para o equipamento 7500 Real-Time"

@@ -1,0 +1,2 @@
+﻿equipamento,tipo_arquivo,coluna_poco,coluna_amostra,coluna_alvo,coluna_ct,coluna_task,coluna_reporter,coluna_quencher,coluna_baseline_start,coluna_baseline_end,coluna_comments,coluna_highsd,coluna_expfail,caracteristica_1,celula_caracteristica_1,caracteristica_2,celula_caracteristica_2
+"7500 Real-Time","xlsx","WELL","SAMPLE NAME","TARGET NAME","CT","TASK","REPORTER","QUENCHER","BASELINE START","BASELINE END","COMMENTS","HIGHSD","EXPFAIL","Presenca da coluna WELL no cabecalho","HEADER:WELL","Presenca da coluna TARGET NAME no cabecalho","HEADER:TARGET NAME"

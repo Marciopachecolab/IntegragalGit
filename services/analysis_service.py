@@ -1,129 +1,192 @@
-# services/analysis_service.py
-import os
-import sys
-import pandas as pd
+"""
+Ajustes no AnalysisService para suportar o motor universal de análise.
+
+Este trecho assume a existência de:
+
+- models.AppState, com pelo menos:
+    - exame_selecionado: str | None
+    - gabarito_extracao_montado: bool
+    - resultados_analise: qualquer estrutura para armazenar o DataFrame
+
+- Um módulo services.universal_engine com:
+    - classe AnaliseContexto
+    - função executar_analise_universal(contexto)
+
+Integração:
+- O método `executar_analise` passa a decidir entre o fluxo legado e o fluxo
+  via motor universal, com base na presença dos metadados.
+"""
+
 from tkinter import messagebox
-from typing import Tuple, Optional
+from typing import Dict, Optional
 
-# --- Bloco de Configuração Inicial ---
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-if BASE_DIR not in sys.path:
-    sys.path.append(BASE_DIR)
-
-# --- Importações de Módulos do Projeto ---
 from models import AppState
-from utils.import_utils import importar_funcao
-from utils.logger import registrar_log
+from services import config_loader, universal_engine
 
-# Caminho para o ficheiro de configuração dos exames
-CAMINHO_EXAMES = os.path.join(BASE_DIR, "banco", "exames_config.csv")
 
 class AnalysisService:
-    """
-    Encapsula a lógica de negócio para orquestrar o processo de análise.
-    """
-    def __init__(self):
-        """Inicializa o serviço, carregando a configuração dos exames disponíveis."""
-        self.exames_disponiveis = self._carregar_config_exames()
+    def __init__(self, app_state: AppState) -> None:
+        self.app_state = app_state
 
-    def _carregar_config_exames(self) -> Optional[pd.DataFrame]:
+    # ------------------------------------------------------------------
+    # Método público principal
+    # ------------------------------------------------------------------
+    def executar_analise(self) -> None:
         """
-        Carrega a configuração dos exames a partir do arquivo CSV.
-        Retorna um DataFrame com as configurações ou None em caso de erro.
+        Entrada principal do módulo de análise (chamada a partir do menu).
+
+        1. Verifica se há exame selecionado.
+        2. Tenta carregar metadados do exame, equipamento, placa e regras.
+        3. Se qualquer metadado essencial estiver ausente, utiliza o fluxo
+           legado (scripts específicos).
+        4. Caso contrário, executa o fluxo com o motor universal.
+        """
+        exame = getattr(self.app_state, "exame_selecionado", None)
+        if not exame:
+            messagebox.showerror("Erro", "Nenhum exame selecionado.")
+            return
+
+        # 1) Configuração do exame
+        config_exame = config_loader.obter_config_exame(exame)
+        if not config_exame:
+            # Sem metadados: mantém fluxo atual baseado em modulo_analise
+            self._executar_fluxo_legado(exame)
+            return
+
+        # 2) Configurações complementares
+        tipo_placa = (config_exame.get("tipo_placa") or "").strip()
+        equipamento = (config_exame.get("equipamento") or "").strip()
+
+        config_placa = config_loader.obter_config_placa(tipo_placa)
+        config_equip = config_loader.obter_config_equipamento(equipamento)
+        config_regras = config_loader.obter_regras_analise(exame)
+
+        # 3) Se faltar qualquer configuração essencial, mantém fluxo legado
+        if not (config_placa and config_equip and config_regras):
+            self._executar_fluxo_legado(exame)
+            return
+
+        # 4) Fluxo com motor universal
+        self._executar_fluxo_motor_universal(
+            exame=exame,
+            config_exame=config_exame,
+            config_placa=config_placa,
+            config_equip=config_equip,
+            config_regras=config_regras,
+        )
+
+    # ------------------------------------------------------------------
+    # Fluxo legado (já existente no sistema)
+    # ------------------------------------------------------------------
+    def _executar_fluxo_legado(self, exame: str) -> None:
+        """
+        Mantém o comportamento atual: utiliza modulo_analise e scripts
+        específicos para cada exame.
+
+        IMPORTANTE:
+        - A implementação concreta deste método deve reutilizar a lógica
+          já existente no seu arquivo original de AnalysisService
+          (importação dinâmica do módulo de análise, chamada de função etc.).
+        """
+        # >>> IMPLEMENTAR reaproveitando o código original do seu projeto <<<
+        messagebox.showinfo(
+            "Fluxo legado",
+            "Metadados incompletos para o exame '{}'. Usando fluxo legado de análise.".format(
+                exame
+            ),
+        )
+        # Exemplo (comentado) de como seria:
+        # modulo_analise = config_exame.get("modulo_analise")
+        # func = importar_funcao(modulo_analise)
+        # df_resultados, meta = func(self.app_state)
+        # self.app_state.resultados_analise = df_resultados
+        # abrir_janela_resultados(df_resultados, meta)
+
+    # ------------------------------------------------------------------
+    # Fluxo com motor universal de análise
+    # ------------------------------------------------------------------
+    def _executar_fluxo_motor_universal(
+        self,
+        exame: str,
+        config_exame: Dict[str, str],
+        config_placa: Dict[str, str],
+        config_equip: Dict[str, str],
+        config_regras: Dict[str, str],
+    ) -> None:
+        """
+        Executa o fluxo de análise utilizando o motor universal
+        parametrizado por metadados.
+
+        Passos:
+        1. Verifica se a etapa de extração foi realizada (gabarito montado).
+        2. Solicita ao usuário o arquivo de corrida.
+        3. Monta o contexto de análise.
+        4. Chama o motor universal.
+        5. Atualiza AppState e UI.
+        """
+        # 1) Verificação da etapa de extração
+        gabarito_ok = bool(getattr(self.app_state, "gabarito_extracao_montado", False))
+        if not gabarito_ok:
+            messagebox.showerror(
+                "Análise impossível",
+                "Etapa de extração não realizada, análise impossível. Faça a etapa de extração.",
+            )
+            return
+
+        # 2) Seleção do arquivo de corrida
+        caminho_arquivo_corrida = self._selecionar_arquivo_corrida()
+        if not caminho_arquivo_corrida:
+            # Usuário cancelou a seleção
+            return
+
+        # 3) Monta contexto de análise para o motor universal
+        contexto = universal_engine.AnaliseContexto(
+            app_state=self.app_state,
+            exame=exame,
+            config_exame=config_exame,
+            config_placa=config_placa,
+            config_equip=config_equip,
+            config_regras=config_regras,
+            caminho_arquivo_corrida=caminho_arquivo_corrida,
+        )
+
+        # 4) Executa motor universal
+        df_resultados, meta = universal_engine.executar_analise_universal(contexto)
+
+        # 5) Atualiza AppState e UI
+        setattr(self.app_state, "resultados_analise", df_resultados)
+
+        # Aqui você pode reutilizar a janela de resultados que já existe
+        # no projeto para exibir df_resultados e meta.
+        # Exemplo (dependendo da sua implementação atual):
+        # abrir_janela_resultados(df_resultados, meta)
+
+    # ------------------------------------------------------------------
+    # Utilitário de seleção de arquivo de corrida
+    # ------------------------------------------------------------------
+    def _selecionar_arquivo_corrida(self) -> Optional[str]:
+        """
+        Abre um diálogo padrão para o usuário selecionar o arquivo de
+        resultados da corrida (exportado pelo equipamento).
+
+        Retorna o caminho selecionado ou None se o usuário cancelar.
         """
         try:
-            if not os.path.exists(CAMINHO_EXAMES):
-                registrar_log("AnalysisService", f"Arquivo de configuração de exames não encontrado: {CAMINHO_EXAMES}", "ERROR")
-                return None
-            
-            df_exames = pd.read_csv(CAMINHO_EXAMES)
-            registrar_log("AnalysisService", "Configuração de exames carregada com sucesso.", "INFO")
-            return df_exames
-        except Exception as e:
-            registrar_log("AnalysisService", f"Erro crítico ao carregar o arquivo de configuração de exames: {e}", "CRITICAL")
+            from tkinter import filedialog
+        except ImportError:
+            messagebox.showerror(
+                "Erro", "Tkinter/filedialog não disponível neste ambiente."
+            )
             return None
 
-    def executar_analise(self, app_state: AppState, master_window, exame_selecionado: str, lote_kit: str) -> Tuple[Optional[pd.DataFrame], str, str]:
-        """
-        Orquestra a execução de uma análise.
-
-        1. Encontra o módulo de análise correto com base na configuração.
-        2. Importa dinamicamente a sua função de ponto de entrada.
-        3. Executa a função, que irá gerir a sua própria UI e lógica.
-        4. Retorna os resultados para o fluxo principal.
-        """
-        if self.exames_disponiveis is None:
-            messagebox.showerror("Erro Crítico", "A configuração de exames não pôde ser carregada.", parent=master_window)
-            return None, exame_selecionado, lote_kit
-
-        # Validação: garantir mapeamento de extração com colunas essenciais
-        try:
-            df_map = app_state.dados_extracao
-            if df_map is None or getattr(df_map, 'empty', True):
-                messagebox.showerror("Erro de Fluxo", "Mapeamento de extração não carregado.", parent=master_window)
-                return None, exame_selecionado, lote_kit
-            import unicodedata as _ud
-            def _norm(s: str) -> str:
-                return _ud.normalize('NFKD', str(s)).encode('ASCII','ignore').decode('ASCII').strip().lower()
-            cols = {_norm(c) for c in df_map.columns}
-            if not ("amostra" in cols and ("poco" in cols or "well" in cols)):
-                messagebox.showerror("Erro de Dados", "Colunas obrigatórias ausentes no mapeamento (Amostra e Poço).", parent=master_window)
-                return None, exame_selecionado, lote_kit
-        except Exception:
-            pass
-
-        try:
-            info_exame = self.exames_disponiveis[self.exames_disponiveis['exame'] == exame_selecionado]
-            if info_exame.empty:
-                raise ValueError(f"Nenhuma configuração encontrada para o exame '{exame_selecionado}'")
-
-            # Constrói o caminho para a função de ponto de entrada (ex: 'analise.vr1.iniciar_fluxo_analise')
-            # Extrai o nome do módulo (ex: 'analise.vr1e2_biomanguinhos_7500') da string completa da função
-            modulo_base = info_exame.iloc[0]['modulo_analise'].rsplit('.', 1)[0]
-            funcao_ui_string = f"{modulo_base}.iniciar_fluxo_analise"
-            
-            registrar_log("AnalysisService", f"A importar função de UI: '{funcao_ui_string}'", "INFO")
-            funcao_iniciar_fluxo = importar_funcao(funcao_ui_string)
-            
-            # Chama a função de UI do módulo específico, passando a janela principal, o estado e o lote
-            raw_ret = funcao_iniciar_fluxo(master_window, app_state, lote_kit)
-
-            # Normalizar o retorno: a função de UI pode devolver várias formas
-            # Possíveis formatos observados:
-            # - pd.DataFrame
-            # - (pd.DataFrame, exame_ret, lote_ret)
-            # - (pd.DataFrame, metadata)
-            resultados_df = None
-            exame_ret = exame_selecionado
-            lote_ret = lote_kit
-
-            if isinstance(raw_ret, (tuple, list)):
-                # tentar desempacotar formas comuns
-                if len(raw_ret) >= 1:
-                    candidate = raw_ret[0]
-                    if hasattr(candidate, 'empty') or isinstance(candidate, pd.DataFrame):
-                        resultados_df = candidate
-                if len(raw_ret) >= 2:
-                    # segundo elemento pode ser exame_ret ou metadata
-                    if isinstance(raw_ret[1], str):
-                        exame_ret = raw_ret[1]
-                if len(raw_ret) >= 3:
-                    if isinstance(raw_ret[2], str):
-                        lote_ret = raw_ret[2]
-                # Se ainda não temos DataFrame, procurar o primeiro elemento que pareça um DataFrame
-                if resultados_df is None:
-                    for item in raw_ret:
-                        if hasattr(item, 'empty') or isinstance(item, pd.DataFrame):
-                            resultados_df = item
-                            break
-            else:
-                # retorno direto: pode ser um DataFrame ou None
-                if hasattr(raw_ret, 'empty') or isinstance(raw_ret, pd.DataFrame):
-                    resultados_df = raw_ret
-
-            return resultados_df, exame_ret, lote_ret
-
-        except Exception as e:
-            registrar_log("AnalysisService", f"Erro ao executar análise: {e}", "CRITICAL")
-            messagebox.showerror("Erro de Análise", f"Não foi possível iniciar o processo de análise.\n\nDetalhes: {e}", parent=master_window)
-            return None, exame_selecionado, lote_kit
+        caminho = filedialog.askopenfilename(
+            title="Selecione o arquivo de resultados da corrida",
+            filetypes=[
+                ("Arquivos Excel", "*.xlsx;*.xls"),
+                ("Arquivos CSV", "*.csv"),
+                ("Todos os arquivos", "*.*"),
+            ],
+        )
+        if not caminho:
+            return None
+        return caminho

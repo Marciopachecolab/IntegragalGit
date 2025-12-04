@@ -2,10 +2,9 @@ import asyncio
 import os
 from pathlib import Path
 
-from playwright.async_api import Page, async_playwright
-
 from metrics.metrics import metrics_counter_inc
 from neo.utils import logger
+from playwright.async_api import Page, async_playwright
 
 _BEDROCK_PROJECT = os.environ.get("BEDROCK_PROJECT", "")
 

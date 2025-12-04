@@ -1,21 +1,19 @@
 ﻿# utils/logger.py
 import csv
-from datetime import datetime
-import os
 import getpass
+import os
 import socket
-import sys
+from datetime import datetime
 
 # --- Bloco de Configuração Inicial ---
 # Define o diretório base do projeto de forma robusta
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-if BASE_DIR not in sys.path:
-    sys.path.append(BASE_DIR)
+from services.system_paths import BASE_DIR
 
 # --- MELHORIA: Quebra da Importação Circular ---
 # O caminho do log é definido aqui, de forma autônoma, sem depender do ConfigService.
 # Isto resolve o erro de importação circular.
 LOG_FILE_PATH = os.path.join(BASE_DIR, "logs", "sistema.log")
+
 
 def registrar_log(acao: str, detalhes: str, level: str = "INFO"):
     """
@@ -36,20 +34,22 @@ def registrar_log(acao: str, detalhes: str, level: str = "INFO"):
             print(f"[LOGGER] Diretório de log criado: {log_dir}")
 
         # Abre o ficheiro em modo de adição ('a') com codificação UTF-8
-        with open(LOG_FILE_PATH, 'a', newline='', encoding='utf-8') as f:
-            writer = csv.writer(f, delimiter=';')
-            writer.writerow([
-                datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                getpass.getuser(),
-                socket.gethostbyname(socket.gethostname()),
-                acao,
-                detalhes,
-                level.upper()
-            ])
+        with open(LOG_FILE_PATH, "a", newline="", encoding="utf-8") as f:
+            writer = csv.writer(f, delimiter=";")
+            writer.writerow(
+                [
+                    datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                    getpass.getuser(),
+                    socket.gethostbyname(socket.gethostname()),
+                    acao,
+                    detalhes,
+                    level.upper(),
+                ]
+            )
     except Exception as e:
         # Se o logging falhar, imprime o erro na consola para não passar despercebido.
-        print(f"--- ERRO CRÍTICO NO LOGGER ---")
-        print(f"Não foi possível registar o log:")
+        print("--- ERRO CRÍTICO NO LOGGER ---")
+        print("Não foi possível registar o log:")
         print(f"Ação: {acao}, Detalhes: {detalhes}, Nível: {level}")
         print(f"Erro: {e}")
-        print(f"--- FIM DO ERRO DO LOGGER ---")
+        print("--- FIM DO ERRO DO LOGGER ---")
