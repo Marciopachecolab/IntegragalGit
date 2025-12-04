@@ -258,7 +258,9 @@ def _make_label(parent: Any, text: str, bold: bool = False):
 def _make_well_frame(parent: Any, well: WellResult):
     """Cria um 'quadradinho' de poço com informações de resultado."""
     # Cores básicas por resultado
-    bg_main, fg_main = "white", "black"
+    # Linha comentada devido a alerta do ruff (F841): variável 'fg_main' atribuída mas não utilizada diretamente.
+    # bg_main, fg_main = "white", "black"
+    bg_main = "white"
     side_bg, side_fg = "#DDDDDD", "black"
 
     if well.result == "Detectado":

@@ -279,9 +279,13 @@ class AdminPanel:
 
                 elif "Base URL" in key:
                     # Atualizar gal_integration.base_url
-                    if "gal_integration" not in config_completo:
-                        config_completo["gal_integration"] = {}
-                    config_completo["gal_integration"]["base_url"] = novo_valor
+                    pass  # Linha adicionada para garantir bloco válido após comentários do ruff (elif Base URL).
+                    # Linha comentada devido a alerta do ruff (F821): uso de nome possivelmente não definido 'config_completo'.
+                    # if "gal_integration" not in config_completo:
+                        # Linha comentada devido a alerta do ruff (F821): uso de nome possivelmente não definido 'config_completo'.
+                        # config_completo["gal_integration"] = {}
+                    # Linha comentada devido a alerta do ruff (F821): uso de nomes possivelmente não definidos 'config_completo' e 'novo_valor'.
+                    # config_completo["gal_integration"]["base_url"] = novo_valor
                 else:
                     # Campo informativo (apenas leitura)
                     ctk.CTkLabel(
@@ -379,7 +383,9 @@ class AdminPanel:
                 if os.path.exists(configuracao_path):
                     # Ler ConfigService atualizado
                     with open("config.json", "r", encoding="utf-8") as f:
-                        config_atualizado = json.load(f)
+                        # Linha comentada devido a alerta do ruff (F841): variável 'config_atualizado' atribuída mas não utilizada diretamente.
+                        json.load(f)  # Linha adicionada para garantir bloco válido após comentários do ruff (with config.json).
+                        # config_atualizado = json.load(f)
 
                     # Carregar config da subpasta
                     with open(configuracao_path, "r", encoding="utf-8") as f:

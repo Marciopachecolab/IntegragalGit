@@ -70,7 +70,9 @@ except ImportError:
 
             # Fallback simples de leitura
             with open(filepath, "r", encoding="utf-8-sig") as f:
-                content = f.read()
+                # Linha comentada devido a alerta do ruff (F841): variável 'content' atribuída mas não utilizada diretamente.
+                # content = f.read()
+                _ = f.read()
             return pd.read_csv(filepath, sep=";", encoding="utf-8-sig")
         except Exception:
             return None

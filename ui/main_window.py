@@ -9,6 +9,15 @@ from typing import Optional
 
 import customtkinter as ctk
 import matplotlib
+from autenticacao.login import autenticar_usuario
+from models import AppState
+from services.system_paths import BASE_DIR
+from ui.menu_handler import MenuHandler
+from ui.navigation import NavigationManager
+from ui.status_manager import StatusManager
+from utils.after_mixin import AfterManagerMixin
+from utils.logger import registrar_log
+
 
 # Configurar matplotlib para modo não-interativo
 _PLOT_OK = True
@@ -18,16 +27,24 @@ except Exception:
     _PLOT_OK = False
 
 # Importações locais
-from autenticacao.login import autenticar_usuario
-from models import AppState
+# Linha comentada devido a alerta do ruff (E402): import em nível de módulo não posicionado no topo do arquivo.
+# from autenticacao.login import autenticar_usuario
+# Linha comentada devido a alerta do ruff (E402): import em nível de módulo não posicionado no topo do arquivo.
+# from models import AppState
 # Garantir BASE_DIR no sys.path
-from services.system_paths import BASE_DIR
+# Linha comentada devido a alerta do ruff (E402): import em nível de módulo não posicionado no topo do arquivo.
+# from services.system_paths import BASE_DIR
 # Importações dos novos módulos
-from ui.menu_handler import MenuHandler
-from ui.navigation import NavigationManager
-from ui.status_manager import StatusManager
-from utils.after_mixin import AfterManagerMixin
-from utils.logger import registrar_log
+# Linha comentada devido a alerta do ruff (E402): import em nível de módulo não posicionado no topo do arquivo.
+# from ui.menu_handler import MenuHandler
+# Linha comentada devido a alerta do ruff (E402): import em nível de módulo não posicionado no topo do arquivo.
+# from ui.navigation import NavigationManager
+# Linha comentada devido a alerta do ruff (E402): import em nível de módulo não posicionado no topo do arquivo.
+# from ui.status_manager import StatusManager
+# Linha comentada devido a alerta do ruff (E402): import em nível de módulo não posicionado no topo do arquivo.
+# from utils.after_mixin import AfterManagerMixin
+# Linha comentada devido a alerta do ruff (E402): import em nível de módulo não posicionado no topo do arquivo.
+# from utils.logger import registrar_log
 
 
 class MainWindow(AfterManagerMixin, ctk.CTk):

@@ -429,7 +429,9 @@ def count_detectable_samples(df_processed_results: pd.DataFrame) -> Dict[str, in
     """Conta o nÃºmero de amostras detectÃ¡veis para cada alvo em resultados vÃ¡lidos."""
     counts = {col_csv: 0 for col_csv in TARGET_RESULT_TO_CSV_COLUMN_MAPPING.values()}
 
-    df_validos = df_processed_results[df_processed_results["Selecionado"] == True]
+    # Linha comentada devido a alerta do ruff (E712): comparação direta com True.
+    # df_validos = df_processed_results[df_processed_results["Selecionado"] == True]
+    df_validos = df_processed_results[df_processed_results["Selecionado"]]
 
     for _, row in df_validos.iterrows():
         for internal_col, csv_col in TARGET_RESULT_TO_CSV_COLUMN_MAPPING.items():
@@ -539,7 +541,10 @@ def generate_plate_map(df_processed_results: pd.DataFrame) -> None:
 
         # Determina a cor do poÃ§o com base no status
         facecolor = COLOR_UNDEFINED
-        if row.get("Selecionado") == True:
+        # Linha comentada devido a alerta do ruff (E712): comparação direta com True.
+        # if row.get("Selecionado") == True:
+        if row.get("Selecionado"):
+
             facecolor = COLOR_VALID_SELECTED
         elif row.get("ValidaÃ§Ã£o") == "InvÃ¡lido":
             facecolor = COLOR_INVALID
@@ -560,7 +565,9 @@ def generate_plate_map(df_processed_results: pd.DataFrame) -> None:
         # Adiciona textos dentro do poÃ§o
         texts = []
         texts.append(
-            ("âœ“" if row.get("Selecionado") == True else "[ ]") + f" {row['Sample']}"
+            # Linha comentada devido a alerta do ruff (E712): comparação direta com True.
+            # ("âœ“" if row.get("Selecionado") == True else "[ ]") + f" {row['Sample']}"
+            ("âœ“" if row.get("Selecionado") else "[ ]") + f" {row['Sample']}"
         )
         texts.append(f"RP: {row['RP (CT)']}")
 
@@ -576,7 +583,10 @@ def generate_plate_map(df_processed_results: pd.DataFrame) -> None:
         texts.append("\n".join(detected_targets) if detected_targets else "ND")
 
         validation_status = row.get("ValidaÃ§Ã£o", "")
-        if validation_status == "VÃ¡lido" and row.get("Selecionado") != True:
+        # Linha comentada devido a alerta do ruff (E712): comparação com True para checar False.
+        # if validation_status == "VÃ¡lido" and row.get("Selecionado") != True:
+        if validation_status == "VÃ¡lido" and not row.get("Selecionado"):
+
             validation_status = "VÃ¡lido (NÃ£o Selecionado)"
 
         texts.append(f"Status: {validation_status}")
@@ -615,7 +625,9 @@ def export_analysis_to_csv(df_processed_results: pd.DataFrame, lote_kit: str) ->
         col_csv: 0 for col_csv in TARGET_RESULT_TO_CSV_COLUMN_MAPPING.values()
     }
 
-    df_selecionados = df_processed_results[df_processed_results["Selecionado"] == True]
+    # Linha comentada devido a alerta do ruff (E712): comparação direta com True.
+    # df_selecionados = df_processed_results[df_processed_results["Selecionado"] == True]
+    df_selecionados = df_processed_results[df_processed_results["Selecionado"]]
     if df_selecionados.empty:
         messagebox.showwarning(
             "Nenhuma Amostra", "Nenhuma amostra vÃ¡lida para exportaÃ§Ã£o."

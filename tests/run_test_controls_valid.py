@@ -3,6 +3,7 @@ import sys
 sys.path.insert(0, r"c:\Users\marci\Downloads\Integragal")
 import pandas as pd
 
+from openpyxl import Workbook
 from analise.vr1e2_biomanguinhos_7500 import analisar_placa_vr1e2_7500
 
 # Build extraction mapping with control samples CN and CP occupying 2 wells each
@@ -151,7 +152,8 @@ rows_qpcr.append(
 qpcr_df = pd.DataFrame(rows_qpcr)
 path = r"c:\Users\marci\Downloads\Integragal\tests\mock_qpcr_controls.xlsx"
 
-from openpyxl import Workbook
+# Linha comentada devido a alerta do ruff (E402): import em nível de módulo não posicionado no topo do arquivo.
+# from openpyxl import Workbook
 
 wb = Workbook()
 ws = wb.active

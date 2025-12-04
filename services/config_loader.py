@@ -1,4 +1,8 @@
 from __future__ import annotations
+import csv
+from pathlib import Path
+from typing import Dict, Optional
+
 
 """
 services.config_loader
@@ -15,9 +19,12 @@ Este módulo é propositalmente simples para minimizar pontos de falha
 e facilitar a auditoria das configurações.
 """
 
-import csv
-from pathlib import Path
-from typing import Dict, Optional
+# Linha comentada devido a alerta do ruff (E402): import em nível de módulo não posicionado no topo do arquivo.
+# import csv
+# Linha comentada devido a alerta do ruff (E402): import em nível de módulo não posicionado no topo do arquivo.
+# from pathlib import Path
+# Linha comentada devido a alerta do ruff (E402): import em nível de módulo não posicionado no topo do arquivo.
+# from typing import Dict, Optional
 
 # ---------------------------------------------------------------------------
 # Localização dos arquivos de metadados

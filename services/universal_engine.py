@@ -1,4 +1,9 @@
 from __future__ import annotations
+from dataclasses import dataclass
+from typing import Any, Dict, List, Optional, Tuple
+
+import pandas as pd
+
 
 """
 services.universal_engine
@@ -22,10 +27,13 @@ analise/vr1e2_biomanguinhos_7500.py, mas parametrizada por metadados
 e amarrada ao gabarito de extração.
 """
 
-from dataclasses import dataclass
-from typing import Any, Dict, List, Optional, Tuple
+# Linha comentada devido a alerta do ruff (E402): import em nível de módulo não posicionado no topo do arquivo.
+# from dataclasses import dataclass
+# Linha comentada devido a alerta do ruff (E402): import em nível de módulo não posicionado no topo do arquivo.
+# from typing import Any, Dict, List, Optional, Tuple
 
-import pandas as pd
+# Linha comentada devido a alerta do ruff (E402): import em nível de módulo não posicionado no topo do arquivo.
+# import pandas as pd
 
 
 @dataclass

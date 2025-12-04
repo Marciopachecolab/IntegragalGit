@@ -3,6 +3,7 @@ import sys
 sys.path.insert(0, r"c:\Users\marci\Downloads\Integragal")
 import pandas as pd
 
+from openpyxl import Workbook
 from analise.vr1e2_biomanguinhos_7500 import analisar_placa_vr1e2_7500
 
 # Build a minimal extraction mapping: sample S1 occupies wells A1 and A2
@@ -72,7 +73,8 @@ qpcr_df = pd.DataFrame(rows_qpcr)
 path = r"c:\Users\marci\Downloads\Integragal\tests\mock_qpcr_nao_detectado.xlsx"
 
 # Write Excel with 8 blank rows at the top so that analyzer's skiprows=8 finds the header/data
-from openpyxl import Workbook
+# Linha comentada devido a alerta do ruff (E402): import em nível de módulo não posicionado no topo do arquivo.
+# from openpyxl import Workbook
 
 wb = Workbook()
 ws = wb.active

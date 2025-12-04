@@ -12,6 +12,10 @@ from typing import Any, Dict, List, Optional, Set, Tuple
 import customtkinter as ctk
 import pandas as pd
 import simplejson as json
+from services.config_service import config_service
+from utils.io_utils import read_data_with_auto_detection
+from utils.logger import registrar_log
+
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -27,10 +31,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 if str(BASE_DIR) not in sys.path:
     sys.path.insert(0, str(BASE_DIR))
 
-from services.config_service import config_service
-from services.system_paths import BASE_DIR
-from utils.io_utils import read_data_with_auto_detection
-from utils.logger import registrar_log
+# Linha comentada devido a alerta do ruff (E402): import em nível de módulo não posicionado no topo do arquivo.
+# from services.config_service import config_service
+# Linha comentada devido a alerta do ruff (E402): import em nível de módulo não posicionado no topo do arquivo.
+# from services.system_paths import BASE_DIR
+# Linha comentada devido a alerta do ruff (E402): import em nível de módulo não posicionado no topo do arquivo.
+# from utils.io_utils import read_data_with_auto_detection
+# Linha comentada devido a alerta do ruff (E402): import em nível de módulo não posicionado no topo do arquivo.
+# from utils.logger import registrar_log
 
 # --- Configurações Carregadas do Serviço Centralizado ---
 GAL_CONFIG = config_service.get_gal_config()

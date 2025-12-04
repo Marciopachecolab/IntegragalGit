@@ -204,7 +204,9 @@ class TabelaComSelecaoSimulada(AfterManagerMixin, ctk.CTkToplevel):
         if invalid_mask.any():
             self.df.loc[invalid_mask, "Selecionado"] = False
 
-        df_selecionados = self.df[self.df["Selecionado"] == True]
+        # Linha comentada devido a alerta do ruff (E712): comparação direta com True.
+        # df_selecionados = self.df[self.df["Selecionado"] == True]
+        df_selecionados = self.df[self.df["Selecionado"]]
         total_selecionados = len(df_selecionados)
         if total_selecionados == 0:
             messagebox.showinfo(
@@ -238,7 +240,9 @@ class TabelaComSelecaoSimulada(AfterManagerMixin, ctk.CTkToplevel):
             )
 
     def _mostrar_relatorio(self):
-        df_selecionados = self.df[self.df["Selecionado"] == True]
+        # Linha comentada devido a alerta do ruff (E712): comparação direta com True.
+        # df_selecionados = self.df[self.df["Selecionado"] == True]
+        df_selecionados = self.df[self.df["Selecionado"]]
         total_amostras = len(df_selecionados)
         if total_amostras == 0:
             messagebox.showinfo(
