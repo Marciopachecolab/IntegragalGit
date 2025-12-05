@@ -71,24 +71,58 @@ class MenuHandler:
         else:
             self.main_window.update_status("Carregamento de extração cancelado.")
 
+
     def _obter_detalhes_analise_via_dialogo(
         self,
     ) -> Tuple[Optional[str], Optional[str]]:
         """
-        Exibe dialog para seleção de exame e lote
+        Exibe dialog para seleção de exame e lote.
 
-        Returns:
-            Tuple com (exame_selecionado, lote_kit) ou (None, None)
+        Returns
+        -------
+        Tuple[Optional[str], Optional[str]]
+            (exame_selecionado, lote_kit) ou (None, None) se o usuário cancelar
+            alguma etapa.
         """
-        if self.analysis_service.exames_disponiveis is None:
+        # Tenta obter a lista de exames disponíveis a partir do serviço.
+        # Primeiro usa, se existir, o atributo de cache; se não existir ou estiver vazio,
+        # chama o método público de listagem.
+        try:
+            exames_disponiveis = getattr(self.analysis_service, "exames_disponiveis", None)
+
+            if (not exames_disponiveis) and hasattr(self.analysis_service, "listar_exames_disponiveis"):
+                exames_disponiveis = self.analysis_service.listar_exames_disponiveis()
+
+            # Normaliza para uma lista de strings, independentemente de como veio.
+            if exames_disponiveis is None:
+                lista_exames: list[str] = []
+            else:
+                try:
+                    import pandas as _pd  # import local para evitar dependência no topo
+
+                    # Caso seja DataFrame com coluna "exame"
+                    if isinstance(exames_disponiveis, _pd.DataFrame) and "exame" in exames_disponiveis.columns:
+                        lista_exames = exames_disponiveis["exame"].astype(str).tolist()
+                    # Caso seja um dicionário com chave "exame"
+                    elif isinstance(exames_disponiveis, dict) and "exame" in exames_disponiveis:
+                        lista_exames = [str(x) for x in exames_disponiveis["exame"]]
+                    else:
+                        # Assume que é um iterável de strings (ou convertível para string)
+                        lista_exames = [str(x) for x in exames_disponiveis]
+                except Exception:
+                    # Fallback extremamente defensivo
+                    try:
+                        lista_exames = [str(x) for x in exames_disponiveis]
+                    except Exception:
+                        lista_exames = []
+        except Exception as exc:  # noqa: BLE001
             messagebox.showerror(
                 "Erro de Configuração",
-                "Lista de exames não carregada.",
+                f"Falha ao carregar lista de exames disponíveis: {exc}",
                 parent=self.main_window,
             )
             return None, None
 
-        lista_exames = self.analysis_service.exames_disponiveis["exame"].tolist()
         if not lista_exames:
             messagebox.showwarning(
                 "Aviso",
@@ -109,7 +143,9 @@ class MenuHandler:
             return None, None
 
         lote_kit = simpledialog.askstring(
-            "Lote do Kit", "Digite o lote do kit utilizado:", parent=self.main_window
+            "Lote do Kit",
+            "Digite o lote do kit utilizado:",
+            parent=self.main_window,
         )
         if not lote_kit:
             registrar_log("Análise", "Digitação do lote do kit cancelada.", "INFO")

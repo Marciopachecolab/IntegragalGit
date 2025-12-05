@@ -6,6 +6,7 @@ Fornece funcionalidades para gerenciar usuários do sistema.
 import os
 from datetime import datetime
 from tkinter import messagebox, simpledialog
+import tkinter as tk
 
 import bcrypt
 import customtkinter as ctk
@@ -35,7 +36,9 @@ class UserManagementPanel:
     def _criar_interface(self):
         """Cria a interface do painel de gerenciamento"""
         # Janela modal
-        self.user_window = ctk.CTkToplevel(self.main_window)
+        # Linha comentada devido a problemas recorrentes de fechamento com CTkToplevel em algumas versões do customtkinter.
+        # self.user_window = ctk.CTkToplevel(self.main_window)
+        self.user_window = tk.Toplevel(self.main_window)
         self.user_window.title("👥 Gerenciamento de Usuários")
         self.user_window.geometry("1100x800")
         self.user_window.transient(self.main_window)
@@ -165,12 +168,20 @@ class UserManagementPanel:
                 )
                 return
 
+
             # Contador de usuários
             total_usuarios = len(df)
-            usuarios_ativos = len(
-                df[df["senha_hash"].notna() & (df["senha_hash"] != "")]
-            )
-
+            # Linha comentada devido a correção de compatibilidade: alguns arquivos CSV legados podem não possuir a coluna 'senha_hash'.
+            # usuarios_ativos = len(
+            #     df[df["senha_hash"].notna() & (df["senha_hash"] != "")]
+            # )
+            if "senha_hash" in df.columns:
+                usuarios_ativos = len(
+                    df[df["senha_hash"].notna() & (df["senha_hash"] != "")]
+                )
+            else:
+                # Caso de arquivo legado sem coluna de hash: considera-se 0 usuários com senha configurada.
+                usuarios_ativos = 0
             # Header com estatísticas
             stats_frame = ctk.CTkFrame(parent)
             stats_frame.pack(fill="x", pady=(0, 20))
@@ -633,18 +644,19 @@ class UserManagementPanel:
                 "Erro", f"Erro ao atualizar lista: {str(e)}", parent=self.user_window
             )
 
-    def _selecionar_usuario(self):
-        """Permite seleção de usuário da lista"""
+    def _selecionar_usuario(self, parent):
+        """Permite selecionar um usuário do arquivo de credenciais para edição/remoção."""
         try:
+            # Verifica se o arquivo existe
             if not os.path.exists(self.usuarios_path):
                 messagebox.showerror(
                     "Erro",
-                    "Arquivo de credenciais não encontrado!",
+                    f"Arquivo de credenciais não encontrado em:\n{self.usuarios_path}",
                     parent=self.user_window,
                 )
                 return None
 
-            # Tentar ler com separador correto
+            # Tenta ler com separador ';' e, se falhar, com ','
             try:
                 df = pd.read_csv(self.usuarios_path, sep=";")
             except Exception:
@@ -660,64 +672,84 @@ class UserManagementPanel:
 
             if df.empty:
                 messagebox.showwarning(
-                    "Aviso", "Nenhum usuário cadastrado!", parent=self.user_window
-                )
-                return None
-
-            # Verificar se a coluna usuario existe
-            if "usuario" not in df.columns:
-                messagebox.showerror(
-                    "Erro",
-                    "Coluna 'usuario' não encontrada no arquivo de credenciais!",
+                    "Aviso",
+                    "Nenhum usuário cadastrado!",
                     parent=self.user_window,
                 )
                 return None
 
-            # Criar lista de opções mais limpa
-            usuarios_opcoes = df["usuario"].dropna().tolist()
+            # Normaliza nomes de colunas (remove BOM, espaços e coloca em minúsculas)
+            original_columns = list(df.columns)
+            df.columns = [
+                str(c).replace("\ufeff", "").strip().lower() for c in df.columns
+            ]
+
+            # Identifica a coluna que representa o "usuário" (login)
+            candidatos = ["usuario", "user", "login", "nome_usuario", "username", "nome"]
+            col_usuario = None
+            for nome in candidatos:
+                if nome in df.columns:
+                    col_usuario = nome
+                    break
+
+            if col_usuario is None:
+                # Linha comentada devido à rigidez anterior que exigia exatamente 'usuario'.
+                # messagebox.showerror(
+                #     "Erro",
+                #     "Coluna 'usuario' não encontrada no arquivo de credenciais (mesmo após normalização de headers).",
+                #     parent=self.user_window,
+                # )
+                # return None
+
+                # Fallback: usa a primeira coluna como identificador para não quebrar a interface.
+                col_usuario = df.columns[0]
+
+            # Monta lista de opções de usuário
+            usuarios_opcoes = df[col_usuario].dropna().astype(str).tolist()
             if not usuarios_opcoes:
                 messagebox.showwarning(
                     "Aviso",
-                    "Nenhum usuário válido encontrado!",
+                    "Nenhum usuário encontrado na coluna de identificação.",
                     parent=self.user_window,
                 )
                 return None
 
-            lista_usuarios = "\n".join(
-                [f"{i+1}. {u}" for i, u in enumerate(usuarios_opcoes)]
-            )
-
-            # Diálogo de seleção melhorado
-            nome_usuario = simpledialog.askstring(
-                "Selecionar Usuário",
-                f"Usuários disponíveis:\n\n{lista_usuarios}\n\nDigite o nome exato do usuário:",
+            # Caixa de diálogo simples para confirmar / digitar o usuário
+            usuario_selecionado = simpledialog.askstring(
+                "Selecionar usuário",
+                "Digite ou confirme o usuário a ser editado:",
+                initialvalue=usuarios_opcoes[0],
                 parent=self.user_window,
             )
+            if not usuario_selecionado:
+                return None
 
-            if nome_usuario and nome_usuario.strip():
-                nome_usuario = nome_usuario.strip()
+            # Filtro case-insensitive, ignorando espaços
+            filtro = (
+                df[col_usuario]
+                .astype(str)
+                .str.strip()
+                .str.lower()
+                == str(usuario_selecionado).strip().lower()
+            )
+            df_filtrado = df[filtro]
 
-                # Buscar usuário (case-insensitive)
-                usuario_encontrado = None
-                for idx, row in df.iterrows():
-                    if str(row["usuario"]).strip().lower() == nome_usuario.lower():
-                        usuario_encontrado = row
-                        break
+            if df_filtrado.empty:
+                messagebox.showerror(
+                    "Erro",
+                    f"Usuário '{usuario_selecionado}' não encontrado.",
+                    parent=self.user_window,
+                )
+                return None
 
-                if usuario_encontrado is not None:
-                    return usuario_encontrado
-                else:
-                    messagebox.showwarning(
-                        "Aviso",
-                        f"Usuário '{nome_usuario}' não encontrado!\n\nVerifique a ortografia.",
-                        parent=self.user_window,
-                    )
-                    return None
-            return None
+            # Retorna a linha como dict para uso nos outros métodos
+            return df_filtrado.iloc[0].to_dict()
 
         except Exception as e:
             messagebox.showerror(
-                "Erro", f"Erro ao selecionar usuário: {str(e)}", parent=self.user_window
+                "Erro",
+                f"Erro ao selecionar usuário: {str(e)}",
+                parent=self.user_window,
             )
             return None
 
@@ -947,7 +979,9 @@ class AdicionarUsuarioDialog:
         self.result = None
 
         # Janela de diálogo
-        self.dialog = ctk.CTkToplevel(parent)
+        # Linha comentada devido a problemas recorrentes de fechamento com CTkToplevel em algumas versões do customtkinter.
+        # self.dialog = ctk.CTkToplevel(parent)
+        self.dialog = tk.Toplevel(parent)
         self.dialog.title("➕ Adicionar Novo Usuário")
         self.dialog.geometry("400x300")
         self.dialog.transient(parent)

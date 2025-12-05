@@ -1,9 +1,9 @@
 {
     "paths": {
-        "log_file": "c:\\Users\\marci\\Downloads\\Integragal\\logs/sistema.log",
-        "exams_catalog_csv": "c:\\Users\\marci\\Downloads\\Integragal\\banco/exames_config.csv",
-        "credentials_csv": "c:\\Users\\marci\\Downloads\\Integragal\\banco/credenciais.csv",
-        "gal_history_csv": "c:\\Users\\marci\\Downloads\\Integragal\\logs/total_importados_gal.csv"
+        "log_file": "logs/sistema.log",
+        "exams_catalog_csv": "banco/exames_config.csv",
+        "credentials_csv": "banco/credenciais.csv",
+        "gal_history_csv": "logs/total_importados_gal.csv"
     },
     "postgres": {
         "enabled": false,
@@ -51,8 +51,5 @@
                 "parainflu_4"
             ]
         }
-    },
-    "general": {
-        "": "https://galteste.saude.sc.gov.br"
     }
 }
