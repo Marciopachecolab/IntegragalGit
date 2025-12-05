@@ -679,7 +679,8 @@ class UserManagementPanel:
                 return None
 
             # Normaliza nomes de colunas (remove BOM, espaços e coloca em minúsculas)
-            original_columns = list(df.columns)
+            # original_columns = list(df.columns)
+            # Comentado devido ao aviso F841 do Ruff (variável não utilizada, mantido apenas para histórico).
             df.columns = [
                 str(c).replace("\ufeff", "").strip().lower() for c in df.columns
             ]

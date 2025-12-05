@@ -189,3 +189,73 @@ def gerar_grafico():
     registrar_log(
         "Gerar GrÃ¡fico", f"GrÃ¡fico gerado para arquivo: {arquivo}", level="INFO"
     )
+
+
+def abrir_menu_relatorios(parent):
+    """
+    Abre uma pequena janela para o usuário escolher o tipo de relatório.
+
+    Esta função é chamada a partir do MenuHandler e utiliza as funções
+    utilitárias definidas neste módulo:
+    - gerar_relatorio_csv
+    - gerar_grafico
+    """
+    try:
+        import customtkinter as ctk
+    except Exception:
+        messagebox.showerror(
+            "Erro",
+            "customtkinter não está disponível para abrir o módulo de relatórios.",
+            parent=parent,
+        )
+        return
+
+    win = ctk.CTkToplevel(parent)
+    win.title("Relatórios do Sistema")
+    win.geometry("420x220")
+    win.grab_set()
+
+    frame = ctk.CTkFrame(win)
+    frame.pack(expand=True, fill="both", padx=20, pady=20)
+
+    label = ctk.CTkLabel(
+        frame,
+        text="Selecione a ação desejada para relatórios:",
+        anchor="w",
+    )
+    label.pack(fill="x", pady=(0, 10))
+
+    def _run_csv():
+        win.withdraw()
+        try:
+            gerar_relatorio_csv()
+        finally:
+            win.destroy()
+
+    def _run_grafico():
+        win.withdraw()
+        try:
+            gerar_grafico()
+        finally:
+            win.destroy()
+
+    btn_csv = ctk.CTkButton(
+        frame,
+        text="Exportar relatório CSV a partir de arquivo",
+        command=_run_csv,
+    )
+    btn_csv.pack(fill="x", pady=5)
+
+    btn_graf = ctk.CTkButton(
+        frame,
+        text="Gerar gráfico de amostras detectáveis por agravo",
+        command=_run_grafico,
+    )
+    btn_graf.pack(fill="x", pady=5)
+
+    btn_fechar = ctk.CTkButton(
+        frame,
+        text="Fechar",
+        command=win.destroy,
+    )
+    btn_fechar.pack(fill="x", pady=(15, 0))

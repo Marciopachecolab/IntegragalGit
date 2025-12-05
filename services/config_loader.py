@@ -105,6 +105,16 @@ def carregar_exames_metadata() -> Dict[str, Dict[str, str]]:
     return _exames_cache
 
 
+
+
+def carregar_configuracoes_exames() -> Dict[str, Dict[str, str]]:
+    """Alias de compatibilidade: retorna os metadados de exames.
+
+    Mantido para compatibilidade com versões anteriores do AnalysisService,
+    que ainda utilizam o nome ``carregar_configuracoes_exames``.
+    """
+    return carregar_exames_metadata()
+
 def carregar_equipamentos_metadata() -> Dict[str, Dict[str, str]]:
     """
     Retorna o dicionário de metadados de equipamentos, indexado por ``equipamento``.

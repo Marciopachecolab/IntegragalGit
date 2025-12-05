@@ -1,73 +1,79 @@
-# IntegraGAL
+# IntegraGAL – Sistema de Análise e Integração de Dados de Biologia Molecular com o GAL
 
-IntegraGAL é um sistema de apoio à **análise de dados de Biologia Molecular** e **integração com o sistema GAL** (Sistema Gerenciador de Ambiente Laboratorial), com foco em laboratórios de saúde pública.
-
-Ele foi desenhado para organizar o fluxo de:
-
-1. **Configuração de exames, métodos e painéis**
-2. **Importação e processamento de resultados de qPCR/RT-PCR**
-3. **Visualização e validação de placas**
-4. **Geração de arquivos e envio de resultados ao GAL**
-5. **Registro de logs, rastreabilidade e apoio à auditoria**
+O **IntegraGAL** é uma aplicação desktop desenvolvida em Python para apoiar laboratórios de biologia molecular na **análise de corridas de qPCR/RT-PCR**, consolidação de resultados e **integração com o sistema GAL** (Gerenciador de Ambiente Laboratorial).  
+O sistema organiza o fluxo desde os arquivos de extração e resultados até a geração de saídas padronizadas e prontas para envio ao GAL.
 
 ---
 
-## 📁 Estrutura geral do projeto
+## 1. Arquitetura em alto nível
 
-Principais diretórios e arquivos:
+A arquitetura do IntegraGAL está organizada em camadas, com separação clara entre interface gráfica, regras de negócio e infraestrutura:
 
-- `analise/`  
-  Módulos de análise e processamento de placas (ex.: scripts específicos para plataformas/formatos, como Biomanguinhos 7500).
+1. **Interface de Usuário (UI) – Tkinter/CustomTkinter**
+   - Janela principal da aplicação.
+   - Menus para:
+     - Seleção de arquivos (CSV de extração, CSV de resultados).
+     - Execução dos motores de análise (protocolos/placas).
+     - Visualização de mapas de trabalho e resultados consolidados.
+     - Módulo de *Cadastros Diversos* (exames, equipamentos, placas, regras).
+     - Configurações gerais do sistema.
+   - Componentes de feedback visual (barras de progresso, mensagens de status, etc.).
 
-- `autenticacao/`  
-  Fluxo de login, autenticação e carregamento de credenciais.
+2. **Camada de Serviços**
+   - **Serviços de análise**: orquestram a chamada dos motores específicos (por equipamento/kit) e do motor universal.
+   - **Serviço de configuração (`config_service`)**:
+     - Carregamento e persistência das configurações da aplicação.
+   - **Serviço de integração GAL**:
+     - Formatação dos resultados no padrão aceito pelo GAL.
+     - Preparação de arquivos/objetos para envio (via upload manual ou rotinas de automação).
+   - **Serviços auxiliares**:
+     - Validação de dados de entrada (estrutura dos CSVs, tipos de dados).
+     - Geração de arquivos de saída (CSV consolidado, relatórios, etc.).
 
-- `exportacao/`  
-  Rotinas de **envio de resultados para o GAL**, leitura de CSV e integração com serviços externos.
+3. **Motores de Análise**
+   - **Motores específicos** (por kit/protocolo/equipamento):
+     - Ex.: `vr1e2_biomanguinhos_7500.py`, outros scripts dedicados.
+   - **Motor universal de análise**:
+     - Padroniza o processamento para diferentes placas/equipamentos.
+     - Produz um `df_final` com o mesmo formato dos motores específicos consolidados.
+   - Regras de interpretação (positivo/negativo/inconclusivo, cortes de Ct, etc.) configuráveis a partir das regras cadastradas.
 
-- `ui/`  
-  Interface gráfica (CustomTkinter), incluindo:
-  - `main_window.py`: janela principal (“IntegraGAL – Menu Principal”)
-  - `menu_handler.py`: organização dos menus e ações
-  - `admin_panel.py`: painel administrativo e de configuração
-
-- `utils/`  
-  Funções utilitárias (logs, operações de GUI, helpers diversos).
-
-- `tests/`  
-  Scripts de teste e mock (ex.: geração de planilhas de controle, casos de “não detectado” etc.).
-
-- `config.json` / `configuracao/`  
-  Arquivos de configuração (paths, integrações, parâmetros de análise).
-
-- Documentação específica:
-  - `GUIA_EXECUCAO_INTEGRAGAL.md`
-  - `GUIA_EXECUCAO_RAPIDA.md`
-  - `INSTRUCOES_DEPLOY.md`
-  - `INSTRUCOES_INTEGRAGAL.md`
-
----
-
-## 📦 Requisitos
-
-- **Python 3.x** (recomenda-se a mesma versão utilizada em produção / no laboratório)
-- Ambiente Windows (desenvolvido e testado originalmente em Windows)
-- Bibliotecas principais (parcial):
-  - `pandas`
-  - `customtkinter`
-  - `simplejson`
-  - `selenium` (para integrações automatizadas quando necessário)
-  - `openpyxl`
-  - Outras dependências listadas em `requirements.txt` (se disponível)
-
-> Ajuste este bloco conforme a sua instalação oficial (versão do Python e arquivo de requisitos).
+4. **Infraestrutura e Núcleo Comum**
+   - **`AppState`**:
+     - Estrutura única que guarda o estado global da aplicação (configuração, caminhos, usuário corrente, contexto da corrida, etc.).
+   - **`system_paths`**:
+     - Responsável por definir e centralizar os diretórios de trabalho (config, dados, logs, exportações, temporários).
+   - **`logger`**:
+     - Sistema de registro de logs da aplicação, com saída em arquivo e console.
+   - **Camada de persistência (quando aplicável)**:
+     - Banco de dados local ou arquivos para armazenamento de histórico, log de operações e outras informações.
 
 ---
 
-## 🚀 Instalação
+## 2. Dependências e instalação
 
-1. **Clonar o repositório**
+### 2.1 Pré-requisitos
+
+- **Sistema operacional**: Windows (ambiente de desenvolvimento principal).
+- **Python**: versão 3.13 (ou a versão definida no projeto).
+- **Git** (opcional, se o código for obtido via repositório Git).
+
+Os demais pacotes Python devem estar listados em `requirements.txt`.
+
+### 2.2 Passos de instalação
+
+1. **Obter o código-fonte**
+
+   - Via Git:
+     ```bash
+     git clone <URL_DO_REPOSITORIO>
+     cd Integragal
+     ```
+
+   - Ou extraindo o `.zip` do projeto para uma pasta, por exemplo:
+     `C:\Users\marci\Downloads\Integragal`
+
+2. **Criar um ambiente virtual**
 
    ```bash
-   git clone https://github.com/SEU_USUARIO/SEU_REPO_INTEGRAGAL.git
-   cd SEU_REPO_INTEGRAGAL
+   python -m venv venv

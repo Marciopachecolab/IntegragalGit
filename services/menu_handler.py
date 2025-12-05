@@ -26,9 +26,7 @@ class MenuHandler:
             main_window: Instância da janela principal (App)
         """
         self.main_window = main_window
-        # AnalysisService agora requer o AppState para operar corretamente.
-        # Passamos o estado atual da aplicação (main_window.app_state).
-        self.analysis_service = AnalysisService(self.main_window.app_state)
+        self.analysis_service = AnalysisService()
         self._criar_botoes_menu()
 
     def _criar_botoes_menu(self):
@@ -318,21 +316,14 @@ class MenuHandler:
         UserManagementPanel(self.main_window, self.main_window.app_state.usuario_logado)
 
     def incluir_novo_exame(self):
-        """Abre o módulo de inclusão de novo exame"""
-        from inclusao_testes.adicionar_teste import AdicionarTesteApp
+        """Abre o módulo de Cadastros Diversos (exames, equipamentos, placas e regras)."""
+        # Import local para evitar problemas de import circular.
+        from ui.cadastros_diversos import CadastrosDiversosWindow
 
-        AdicionarTesteApp(self.main_window)
+        CadastrosDiversosWindow(self.main_window)
 
     def gerar_relatorios(self):
-        """Abre o módulo de relatórios do sistema"""
-        try:
-            from relatorios.gerar_relatorios import abrir_menu_relatorios
-
-            abrir_menu_relatorios(self.main_window)
-        except Exception as e:
-            registrar_log("Relatórios", f"Erro ao abrir módulo de relatórios: {e}", "ERROR")
-            messagebox.showerror(
-                "Erro",
-                f"Falha ao abrir o módulo de relatórios:\n{e}",
-                parent=self.main_window,
-            )
+        """Gera relatórios do sistema"""
+        messagebox.showinfo(
+            "Info", "Módulo de relatórios em desenvolvimento.", parent=self.main_window
+        )

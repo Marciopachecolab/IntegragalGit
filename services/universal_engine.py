@@ -484,6 +484,187 @@ def _interpretar_com_rp(
 # ---------------------------------------------------------------------------
 
 
+
+def _montar_df_final_vr1_like(
+    df_norm: pd.DataFrame,
+    df_interpretado: pd.DataFrame,
+    status_corrida: str,
+) -> pd.DataFrame:
+    """
+    Monta um df_final no formato inspirado em vr1e2_biomanguinhos_7500.py.
+
+    Colunas finais esperadas:
+    - Poço, Amostra, Código
+    - Resultado_<ALVO> para cada alvo configurado
+    - CT de cada alvo (colunas com nome do alvo em maiúsculas)
+    - RP_1, RP_2
+    - Status_Corrida
+    """
+    # Caso sem resultados: devolve apenas Status_Corrida
+    if df_interpretado is None or df_interpretado.empty:
+        return pd.DataFrame({"Status_Corrida": [status_corrida]})
+
+    # Identifica colunas de resultado no df_interpretado
+    colunas_resultado = [
+        c for c in df_interpretado.columns if c.startswith("Resultado_")
+    ]
+    # Deriva nomes de alvos para CT (em maiúsculas)
+    target_ct_cols = [c.replace("Resultado_", "").upper() for c in colunas_resultado]
+
+    # Base por amostra (uma linha por sample_name)
+    df_base_samples = (
+        df_interpretado.copy()
+        .reset_index(drop=True)
+    )
+
+    # Garante coluna sample_name como string
+    df_base_samples["sample_name"] = df_base_samples["sample_name"].astype(str)
+
+    # ------------------------------------------------------------------
+    # 1) CTs por alvo (pivot a partir de df_norm)
+    # ------------------------------------------------------------------
+    df_ct_sel = pd.DataFrame({"sample_name": df_base_samples["sample_name"].unique()})
+    df_ct_sel = df_ct_sel.set_index("sample_name")
+
+    if df_norm is not None and not df_norm.empty:
+        df_tmp = df_norm.copy()
+        df_tmp["sample_name"] = df_tmp["sample_name"].astype(str)
+        df_tmp["target_upper"] = df_tmp["target_name"].astype(str).str.upper()
+
+        pivot_ct_all = df_tmp.pivot_table(
+            index="sample_name",
+            columns="target_upper",
+            values="ct",
+            aggfunc="first",
+        )
+
+        for col_res in colunas_resultado:
+            alvo_label = col_res[len("Resultado_") :]
+            ct_col_name = alvo_label.upper()
+            if ct_col_name in pivot_ct_all.columns:
+                df_ct_sel[ct_col_name] = pivot_ct_all.reindex(df_ct_sel.index)[
+                    ct_col_name
+                ]
+            else:
+                df_ct_sel[ct_col_name] = pd.NA
+
+        # ------------------------------------------------------------------
+        # 2) RP_1 / RP_2 por amostra (média de RP/RP_1/RP_2)
+        # ------------------------------------------------------------------
+        df_rp = df_tmp[
+            df_tmp["target_upper"].isin(["RP", "RP_1", "RP_2"])
+        ]
+        rp_map: Dict[str, float] = {}
+        if not df_rp.empty:
+            for amostra, sub in df_rp.groupby("sample_name"):
+                vals = [v for v in sub["ct"].tolist() if v is not None]
+                if vals:
+                    rp_map[amostra] = float(sum(vals) / len(vals))
+
+        df_ct_sel["RP_1"] = df_ct_sel.index.to_series().map(rp_map)
+        df_ct_sel["RP_2"] = df_ct_sel.index.to_series().map(rp_map)
+    else:
+        # Sem df_norm: ainda assim criamos as colunas esperadas
+        for col_res in colunas_resultado:
+            alvo_label = col_res[len("Resultado_") :]
+            ct_col_name = alvo_label.upper()
+            df_ct_sel[ct_col_name] = pd.NA
+        df_ct_sel["RP_1"] = pd.NA
+        df_ct_sel["RP_2"] = pd.NA
+
+    df_ct_sel = df_ct_sel.reset_index()
+
+    # ------------------------------------------------------------------
+    # 3) Metadados de Poço / Amostra / Código a partir de df_norm
+    # ------------------------------------------------------------------
+    df_meta = pd.DataFrame({"sample_name": df_base_samples["sample_name"].unique()})
+
+    if df_norm is not None and not df_norm.empty:
+        df_tmp = df_norm.copy()
+        df_tmp["sample_name"] = df_tmp["sample_name"].astype(str)
+        cols_lower = {c: c.lower().strip() for c in df_tmp.columns}
+
+        # Candidatos a coluna de poço
+        candidatos_poco = [
+            c
+            for c, lc in cols_lower.items()
+            if lc in ("well", "poço", "poco", "poc", "posicao", "posição", "position")
+            or "poço" in lc
+            or "poco" in lc
+        ]
+        col_poco_src = candidatos_poco[0] if candidatos_poco else None
+
+        # Candidatos a coluna de código de amostra
+        candidatos_codigo = [
+            c
+            for c, lc in cols_lower.items()
+            if "código" in lc or "codigo" in lc or lc.startswith("cod")
+        ]
+        col_codigo_src = candidatos_codigo[0] if candidatos_codigo else None
+
+        grp = df_tmp.groupby("sample_name")
+
+        if col_poco_src:
+            df_poco = grp[col_poco_src].first().reset_index()
+            df_poco = df_poco.rename(columns={col_poco_src: "Poço"})
+            df_meta = df_meta.merge(df_poco, on="sample_name", how="left")
+        else:
+            df_meta["Poço"] = pd.NA
+
+        # Amostra: usamos o próprio sample_name como padrão
+        df_meta["Amostra"] = df_meta.get("Amostra", df_meta["sample_name"])
+
+        if col_codigo_src:
+            df_cod = grp[col_codigo_src].first().reset_index()
+            df_cod = df_cod.rename(columns={col_codigo_src: "Código"})
+            df_meta = df_meta.merge(df_cod, on="sample_name", how="left")
+        else:
+            # Fallback: usa Amostra como Código
+            df_meta["Código"] = df_meta["Amostra"]
+    else:
+        # Sem df_norm, preenche apenas com sample_name
+        df_meta["Poço"] = pd.NA
+        df_meta["Amostra"] = df_meta["sample_name"]
+        df_meta["Código"] = df_meta["Amostra"]
+
+    # ------------------------------------------------------------------
+    # 4) Combina meta + resultados + CT + RP em um único DataFrame
+    # ------------------------------------------------------------------
+    df_final = (
+        df_meta.merge(df_base_samples, on="sample_name", how="left")
+        .merge(df_ct_sel, on="sample_name", how="left")
+    )
+
+    # Remove coluna técnica sample_name (não existia no VR1)
+    if "sample_name" in df_final.columns:
+        df_final = df_final.drop(columns=["sample_name"])
+
+    # Normaliza nomes de colunas conforme VR1
+    if "Poço" not in df_final.columns and "Poco" in df_final.columns:
+        df_final["Poço"] = df_final["Poco"]
+    if "Código" not in df_final.columns and "Codigo" in df_final.columns:
+        df_final["Código"] = df_final["Codigo"]
+
+    # Constrói lista de colunas finais no mesmo padrão do VR1
+    colunas_ct = target_ct_cols + ["RP_1", "RP_2"]
+    colunas_finais = ["Poço", "Amostra", "Código"] + colunas_resultado + colunas_ct + [
+        "Status_Corrida"
+    ]
+
+    # Garante existência de todas as colunas esperadas
+    for col in colunas_finais:
+        if col not in df_final.columns:
+            df_final[col] = pd.NA
+
+    # Aplica Status_Corrida
+    df_final["Status_Corrida"] = status_corrida
+
+    # Ordena colunas
+    df_final = df_final[colunas_finais]
+
+    return df_final
+
+
 def _determinar_status_corrida(
     df_interpretado: pd.DataFrame,
     contexto: AnaliseContexto,
@@ -527,8 +708,7 @@ def _determinar_status_corrida(
             "exame": contexto.exame,
             "equipamento": contexto.config_exame.get("equipamento", ""),
         }
-        df_final = df_interpretado.copy()
-        df_final["Status_Corrida"] = status_corrida
+        df_final = _montar_df_final_vr1_like(df_norm, df_interpretado, status_corrida)
         return df_final, meta
 
     # Helpers para achar CT de CN/CP para o alvo principal
@@ -547,6 +727,7 @@ def _determinar_status_corrida(
     ct_cp = _ct_controle("CP")
 
     # Avaliação dos controles
+    status_corrida = "Indefinida"
     if ct_cn is None or ct_cp is None:
         status_corrida = "Invalida (Controles Ausentes)"
     else:
@@ -572,10 +753,79 @@ def _determinar_status_corrida(
         "equipamento": contexto.config_exame.get("equipamento", ""),
     }
 
-    df_final = df_interpretado.copy()
-    if not df_final.empty:
-        df_final["Status_Corrida"] = status_corrida
-    else:
-        df_final = pd.DataFrame({"Status_Corrida": [status_corrida]})
-
+    df_final = _montar_df_final_vr1_like(df_norm, df_interpretado, status_corrida)
     return df_final, meta
+
+
+# ---------------------------------------------------------------------------
+# Classe de compatibilidade UniversalEngine + função de atalho
+# ---------------------------------------------------------------------------
+
+
+class UniversalEngine:
+    """Adaptador orientado a objetos para o motor universal funcional.
+
+    Esta classe existe principalmente para expor o símbolo
+    `UniversalEngine` esperado por chamadas do tipo:
+
+        from services.universal_engine import UniversalEngine
+
+    sem alterar a lógica já implementada em `executar_analise_universal`.
+    """
+
+    def __init__(self, contexto_padrao: Optional[AnaliseContexto] = None) -> None:
+        self.contexto_padrao = contexto_padrao
+
+    def executar(
+        self, contexto: Optional[AnaliseContexto] = None
+    ) -> Tuple[pd.DataFrame, Dict[str, str]]:
+        """Executa a análise universal usando o contexto informado.
+
+        Se nenhum contexto for passado explicitamente, utiliza o
+        `contexto_padrao` definido no construtor.
+        """
+        ctx = contexto or self.contexto_padrao
+        if ctx is None:
+            raise ValueError(
+                "UniversalEngine.executar: contexto não fornecido nem definido como padrão."
+            )
+        return executar_analise_universal(ctx)
+
+    def __call__(
+        self, contexto: Optional[AnaliseContexto] = None
+    ) -> Tuple[pd.DataFrame, Dict[str, str]]:
+        """Permite chamar a instância como função.
+
+        Exemplo
+        -------
+        engine = UniversalEngine()
+        df_final, meta = engine(contexto)
+        """
+        return self.executar(contexto)
+
+    @staticmethod
+    def executar_analise_universal(
+        contexto: AnaliseContexto,
+    ) -> Tuple[pd.DataFrame, Dict[str, str]]:
+        """Atalho estático para a função `executar_analise_universal`."""
+        return executar_analise_universal(contexto)
+
+    @classmethod
+    def run(
+        cls, contexto: AnaliseContexto
+    ) -> Tuple[pd.DataFrame, Dict[str, str]]:
+        """Atalho de classe, equivalente a `executar_analise_universal`."""
+        return executar_analise_universal(contexto)
+
+
+def universal_engine(
+    contexto: AnaliseContexto,
+) -> Tuple[pd.DataFrame, Dict[str, str]]:
+    """Função de atalho compatível com chamadas funcionais antigas.
+
+    Exemplo
+    -------
+    df_final, meta = universal_engine(contexto)
+    """
+    return executar_analise_universal(contexto)
+
