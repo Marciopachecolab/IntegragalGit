@@ -8,8 +8,8 @@ import tkinter.simpledialog as simpledialog  # Para diálogos
 
 import customtkinter as ctk
 import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
+
+
 from tkinter import filedialog, messagebox
 
 # --- Bloco de Configuração Inicial ---
@@ -20,7 +20,7 @@ if BASE_DIR not in sys.path:
 from models import AppState
 from utils.logger import registrar_log
 from utils.after_mixin import AfterManagerMixin
-from utils.gui_utils import TabelaComSelecaoSimulada
+
 
 # ==============================================================================
 # 1. CONSTANTES E FUNÇÕES DE LÓGICA PURA

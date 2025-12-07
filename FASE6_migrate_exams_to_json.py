@@ -248,7 +248,7 @@ def migrate_all_exams():
             print(f"       ‚ùå Valida√ß√£o falhou: {msg}")
             results.append((nome, False, msg))
             continue
-        print(f"       ‚úì Schema validado")
+        print("       ‚úì Schema validado")
         
         # Salvar
         success, msg = save_exam_json(exam_json)
@@ -289,7 +289,7 @@ def migrate_all_exams():
             status = "‚úÖ" if ok else "‚ùå"
             f.write(f"{status} {nome}: {msg}\n")
     
-    print(f"\nüìÑ Log salvo em: FASE6_MIGRATION_LOG.txt")
+    print("\nüìÑ Log salvo em: FASE6_MIGRATION_LOG.txt")
     print("\n‚ú® Migra√ß√£o conclu√≠da!")
 
 if __name__ == "__main__":

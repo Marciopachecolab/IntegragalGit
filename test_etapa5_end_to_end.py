@@ -19,13 +19,13 @@ CenÃ¡rios testados:
 
 import sys
 from pathlib import Path
-from typing import Optional
+
 
 BASE_DIR = Path(__file__).parent
 sys.path.insert(0, str(BASE_DIR))
 
 from services.cadastros_diversos import ExamFormDialog, RegistryExamEditor
-from services.exam_registry import ExamConfig
+
 
 
 def test_1_end_to_end_create_novo_exame():

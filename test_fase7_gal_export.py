@@ -92,11 +92,11 @@ class TestGalExport:
                 content = f.read()
                 assert panel_tests_id in content, f"Missing panel_tests_id: {panel_tests_id}"
             
-            print(f"✅ Arquivo GAL contém panel_tests_id")
+            print("✅ Arquivo GAL contém panel_tests_id")
         except FileNotFoundError:
-            print(f"✅ GalExporter processa dados (arquivo pode estar em localização diferente)")
+            print("✅ GalExporter processa dados (arquivo pode estar em localização diferente)")
         except AssertionError:
-            print(f"⚠️  Panel tests ID não encontrado no esperado no arquivo")
+            print("⚠️  Panel tests ID não encontrado no esperado no arquivo")
         except Exception as e:
             print(f"✅ GalExporter funcionando ({type(e).__name__})")
 
@@ -123,7 +123,7 @@ class TestGalExport:
             
             print(f"✅ Arquivo GAL é CSV válido ({len(rows)} linhas)")
         except:
-            print(f"✅ GalExporter processa e estrutura dados corretamente")
+            print("✅ GalExporter processa e estrutura dados corretamente")
 
     def test_gal_export_preserves_sample_ids(self, gal_exporter, registry):
         """Test 4.7: Exportação GAL preserva sample IDs"""
@@ -149,7 +149,7 @@ class TestGalExport:
             
             print(f"✅ Exportação GAL preservou {len(sample_ids)} sample IDs")
         except:
-            print(f"✅ GalExporter preserva dados de amostra")
+            print("✅ GalExporter preserva dados de amostra")
 
     def test_gal_export_with_all_exams(self, gal_exporter, registry):
         """Test 4.8: GAL export funciona com todos exames do registry"""
@@ -198,9 +198,9 @@ class TestGalExport:
                 # Procurar por metadados esperados
                 assert 'VR1e2' in content or 'vr1e2' in content.lower()
             
-            print(f"✅ Exportação inclui metadata do exame")
+            print("✅ Exportação inclui metadata do exame")
         except:
-            print(f"✅ GalExporter inclui informações do exame")
+            print("✅ GalExporter inclui informações do exame")
 
     def test_gal_export_timestamp(self, gal_exporter, registry):
         """Test 4.10: Arquivo GAL tem timestamp"""
@@ -220,9 +220,9 @@ class TestGalExport:
             # Validar que arquivo tem timestamp no nome
             assert 'Z' in output_file or 'T' in output_file or '20' in output_file
             
-            print(f"✅ Arquivo GAL tem timestamp no nome")
+            print("✅ Arquivo GAL tem timestamp no nome")
         except:
-            print(f"✅ GalExporter gera archivos com identificação temporal")
+            print("✅ GalExporter gera archivos com identificação temporal")
 
 
 class TestGalExportPerformance:

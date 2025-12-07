@@ -10,7 +10,7 @@ nome = "Teste COVID-19"
 key_norm = _norm_exame(nome)
 print(f"Nome: '{nome}'")
 print(f"Key normalizada: '{key_norm}'")
-print(f"Slug desejado: 'teste_covid19'")
+print("Slug desejado: 'teste_covid19'")
 print()
 
 # O problema:
@@ -30,7 +30,7 @@ slug_correct = key_norm.replace(" ", "_")
 print(f"Nome: '{nome}'")
 print(f"Key normalizada (_norm_exame): '{key_norm}'")
 print(f"Slug correto (replace space): '{slug_correct}'")
-print(f"Quando registry carrega o JSON:")
+print("Quando registry carrega o JSON:")
 print(f"  - key = _norm_exame(nome_exame) = '{_norm_exame(nome)}'")
 print(f"  - slug no JSON = '{slug_correct}'")
 print(f"  - Correspondem? {_norm_exame(nome) == slug_correct}")

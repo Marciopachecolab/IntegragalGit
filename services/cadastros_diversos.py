@@ -1421,7 +1421,7 @@ class ExamFormDialog:
         """
         Constrói a aba "Exames (Registry)" para CRUD via RegistryExamEditor.
         """
-        from services.cadastros_diversos import RegistryExamEditor
+
         frame = ctk.CTkFrame(self.tab_exames_registry)
         frame.pack(expand=True, fill="both", padx=10, pady=10)
         frame.grid_rowconfigure(1, weight=1)
@@ -1815,7 +1815,7 @@ class RegistryExamEditor:
             if json_path.exists():
                 json_path.unlink()
                 registrar_log("delete_exam", f"Exame deletado: {json_path}", level="INFO")
-                return True, f"Exame deletado com sucesso"
+                return True, "Exame deletado com sucesso"
             else:
                 return False, f"Arquivo não encontrado: {json_path}"
 

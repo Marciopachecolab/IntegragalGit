@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Debug: Verificar porque registry n√£o carrega novo exame"""
 
-from services.cadastros_diversos import RegistryExamEditor
+
 from services.exam_registry import registry
 
 # Recarregar registry
@@ -13,7 +13,7 @@ print(f"Slugs: {list(registry.exams.keys())}")
 print("\nRecarregando registry...")
 registry.load()
 
-print(f"\nDepois de recarregar:")
+print("\nDepois de recarregar:")
 print(f"Total de exames: {len(registry.exams)}")
 print(f"Slugs: {list(registry.exams.keys())}")
 

@@ -4,7 +4,6 @@
 VERIFICAﾃ�ﾃグ FINAL DE CODIFICAﾃ�ﾃグ - UTF-8 sem BOM
 """
 
-import sys
 from pathlib import Path
 
 print("=" * 80)
@@ -26,9 +25,9 @@ relevant_files = [
 ]
 
 print(f"\n唐 Total de arquivos: {len(relevant_files)}")
-print(f"\n笨ｨ SISTEMA DE CODIFICAﾃ�ﾃグ CORRIGIDO")
-print(f"   窶｢ Convertidos para UTF-8 (sem BOM)")
-print(f"   窶｢ 259/259 arquivos corrigidos")
-print(f"   窶｢ Pronto para uso em produﾃｧﾃ｣o")
+print("\n笨ｨ SISTEMA DE CODIFICAﾃ�ﾃグ CORRIGIDO")
+print("   窶｢ Convertidos para UTF-8 (sem BOM)")
+print("   窶｢ 259/259 arquivos corrigidos")
+print("   窶｢ Pronto para uso em produﾃｧﾃ｣o")
 
 print("\n" + "=" * 80)

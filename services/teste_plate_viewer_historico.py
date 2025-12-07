@@ -20,10 +20,10 @@ import sys
 from PyQt5.QtWidgets import (
     QApplication, QMainWindow, QWidget, QGridLayout, QVBoxLayout, QHBoxLayout,
     QPushButton, QLabel, QLineEdit, QTreeWidget, QTreeWidgetItem,
-    QScrollArea, QFrame, QMessageBox, QHeaderView, QSizePolicy
+    QScrollArea, QFrame, QHeaderView
 )
 from PyQt5.QtCore import Qt, pyqtSignal
-from PyQt5.QtGui import QFont, QColor, QPalette
+from PyQt5.QtGui import QFont, QColor
 
 # --------------------------------------------------------------------
 # CONFIGURAÇÃO DO CSV

@@ -7,8 +7,6 @@ import pytest
 
 from services.teste_plate_viewer_historico import (
     PlateModel,
-    WellData,
-    TargetResult,
     normalize_result,
     CONTROL_CN,
     CONTROL_CP,

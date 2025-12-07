@@ -1,6 +1,5 @@
 import sys
 import pathlib
-import pytest
 
 # Garante que o diretório do projeto esteja no PYTHONPATH para imports relativos (analise, services, etc.).
 PROJECT_ROOT = pathlib.Path(__file__).resolve().parents[1]

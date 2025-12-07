@@ -10,19 +10,19 @@ Valida:
 """
 
 import sys
-import os
+
 from pathlib import Path
 
 # Adiciona diretório raiz ao path
 BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(BASE_DIR))
 
-import pytest
+
 import pandas as pd
-from unittest.mock import Mock, patch, MagicMock
+from unittest.mock import Mock, patch
 
 # Imports do projeto
-from services.exam_registry import get_exam_cfg, ExamRegistry
+from services.exam_registry import get_exam_cfg
 from services.plate_viewer import PlateModel, abrir_placa_ctk
 from exportacao.exportar_resultados import exportar_resultados_gal
 
@@ -175,7 +175,7 @@ class TestEndToEndRegistryFlow:
             assert hasattr(cfg, 'alvos')
             assert hasattr(cfg, 'faixas_ct')
             assert hasattr(cfg, 'bloco_size')
-            print(f"✓ Registry lookup bem-sucedido para VR1e2")
+            print("✓ Registry lookup bem-sucedido para VR1e2")
             print(f"  - Alvos: {cfg.alvos}")
             print(f"  - Faixas CT: {cfg.faixas_ct}")
         except Exception as e:

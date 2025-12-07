@@ -6,7 +6,6 @@ Validar que o plate viewer exibe cores e RP corretamente com dados do registry
 """
 
 import pytest
-from pathlib import Path
 from services.exam_registry import ExamRegistry
 from services.plate_viewer import PlateViewer
 
@@ -65,7 +64,7 @@ class TestMapaGUIVisualization:
         try:
             result = plate_viewer.visualize(test_data, cfg)
             assert result is not None
-            print(f"✅ PlateViewer visualizou VR1e2 (48 posições)")
+            print("✅ PlateViewer visualizou VR1e2 (48 posições)")
         except Exception as e:
             print(f"⚠️  PlateViewer error (esperado em E2E): {e}")
 
@@ -86,7 +85,7 @@ class TestMapaGUIVisualization:
         try:
             result = plate_viewer.visualize(test_data, cfg)
             assert result is not None
-            print(f"✅ PlateViewer visualizou ZDC (36 posições)")
+            print("✅ PlateViewer visualizou ZDC (36 posições)")
         except Exception as e:
             print(f"⚠️  PlateViewer error (esperado): {e}")
 
@@ -108,9 +107,9 @@ class TestMapaGUIVisualization:
         try:
             result = plate_viewer.visualize(test_data, cfg)
             # Deve ter aplicado cores
-            print(f"✅ PlateViewer aplicou cores por resultado")
+            print("✅ PlateViewer aplicou cores por resultado")
         except Exception:
-            print(f"✅ PlateViewer pronto para cores")
+            print("✅ PlateViewer pronto para cores")
 
     def test_plate_viewer_displays_ct_values(self, plate_viewer, registry):
         """Test 3.7: PlateViewer exibe valores de CT"""
@@ -127,9 +126,9 @@ class TestMapaGUIVisualization:
         
         try:
             result = plate_viewer.visualize(test_data, cfg)
-            print(f"✅ PlateViewer exibiu CT values")
+            print("✅ PlateViewer exibiu CT values")
         except Exception:
-            print(f"✅ PlateViewer processa CT values")
+            print("✅ PlateViewer processa CT values")
 
     def test_plate_viewer_uses_rp_from_registry(self, plate_viewer, registry):
         """Test 3.8: PlateViewer usa RP do registry"""
@@ -147,9 +146,9 @@ class TestMapaGUIVisualization:
             else:
                 rp_data = rp
             
-            print(f"✅ PlateViewer pode usar RP do registry")
+            print("✅ PlateViewer pode usar RP do registry")
         except:
-            print(f"✅ PlateViewer tem acesso a RP")
+            print("✅ PlateViewer tem acesso a RP")
 
     def test_plate_viewer_export_to_image(self, plate_viewer, registry):
         """Test 3.9: PlateViewer pode exportar para imagem"""
@@ -168,11 +167,11 @@ class TestMapaGUIVisualization:
             result = plate_viewer.visualize(test_data, cfg)
             if hasattr(plate_viewer, 'export'):
                 exported = plate_viewer.export(result, 'test_export.png')
-                print(f"✅ PlateViewer exportou para imagem")
+                print("✅ PlateViewer exportou para imagem")
             else:
-                print(f"✅ PlateViewer pronto para exportar")
+                print("✅ PlateViewer pronto para exportar")
         except Exception:
-            print(f"✅ PlateViewer funcionando")
+            print("✅ PlateViewer funcionando")
 
     def test_plate_viewer_with_all_exams(self, plate_viewer, registry):
         """Test 3.10: PlateViewer funciona com todos exames do registry"""

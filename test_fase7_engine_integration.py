@@ -7,7 +7,6 @@ Validar que o engine processa exames do registry corretamente
 
 import pytest
 import json
-import pandas as pd
 from pathlib import Path
 from services.exam_registry import ExamRegistry
 from services.universal_engine import UniversalEngine
@@ -134,7 +133,7 @@ class TestEngineIntegration:
         for field in required_fields:
             assert field in result, f"Missing field: {field}"
         
-        print(f"✅ Resultado tem campos obrigatórios")
+        print("✅ Resultado tem campos obrigatórios")
 
     def test_multiple_exams_sequential(self, registry, engine):
         """Test 1.8: Engine processa múltiplos exames sequencialmente"""

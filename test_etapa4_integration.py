@@ -17,9 +17,9 @@ Fluxo testado:
 """
 
 import sys
-import json
+
 from pathlib import Path
-from typing import Optional
+
 
 BASE_DIR = Path(__file__).parent
 sys.path.insert(0, str(BASE_DIR))

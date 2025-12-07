@@ -49,7 +49,7 @@ for slug in test_slugs:
         break
 else:
     print("   ⚠️  Nenhum dos slugs testados funcionou")
-    print(f"   Keys disponíveis:")
+    print("   Keys disponíveis:")
     for key in exams_keys:
         print(f"      • {key}")
 

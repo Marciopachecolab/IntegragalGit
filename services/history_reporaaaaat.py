@@ -1,6 +1,6 @@
 import os
 from datetime import datetime
-from typing import Dict, List, Tuple
+from typing import List, Tuple
 
 import pandas as pd
 from services.exam_registry import get_exam_cfg

@@ -1,6 +1,6 @@
 import pandas as pd
 import os
-from datetime import datetime
+
 from main import gerar_painel_csvs
 
 # Cria DataFrame de exemplo com resultados
@@ -54,10 +54,10 @@ for panel_id, path in result.items():
         print(f"    Analitos/alvos: {analito_cols}")
         
         # Mostra amostra de dados
-        print(f"\n    Amostra de dados:")
+        print("\n    Amostra de dados:")
         print(df_painel[["codigo", "exame", "painel"] + analito_cols[:3]].to_string(index=False))
     else:
-        print(f"    ✗ Arquivo não criado!")
+        print("    ✗ Arquivo não criado!")
 
 print("\n" + "=" * 80)
 print("VALIDAÇÃO:")
@@ -72,11 +72,11 @@ for panel_id, path in result.items():
                            "valorReferencia", "observacao", "resultado", "painel"] 
                           for col in df_painel.columns)
         print(f"\n✓ Painel {panel_id}:")
-        print(f"  - Arquivo criado: SIM")
+        print("  - Arquivo criado: SIM")
         print(f"  - Tem colunas de analitos: {'SIM' if has_analitos else 'NÃO'}")
         print(f"  - Linhas de dados: {len(df_painel)}")
         if len(df_painel) == len(df_input):
-            print(f"  ✅ TESTE PASSOU: CSV painel gerado com sucesso!")
+            print("  ✅ TESTE PASSOU: CSV painel gerado com sucesso!")
         else:
             print(f"  ⚠️  Aviso: linhas não correspondem (esperado {len(df_input)}, obtido {len(df_painel)})")
     else:

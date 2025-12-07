@@ -9,7 +9,7 @@ Estrat√©gia:
   4. Validar resultado
 """
 
-import os
+
 import sys
 import chardet
 from pathlib import Path
@@ -75,7 +75,7 @@ def fix_encoding(filepath: Path) -> Tuple[bool, str]:
                 except:
                     continue
             else:
-                return False, f"N√£o conseguiu decodificar"
+                return False, "N√£o conseguiu decodificar"
         
         # Remove BOM se existir no conte√∫do decodificado
         if content.startswith('\ufeff'):
@@ -117,7 +117,7 @@ def correct_all_files():
     ]
     
     print(f"\nüìÇ Total de arquivos: {len(relevant_files)}")
-    print(f"üîÑ Corrigindo...\n")
+    print("üîÑ Corrigindo...\n")
     
     success_count = 0
     error_count = 0
@@ -149,14 +149,14 @@ def correct_all_files():
     print(f"‚ùå Erros: {error_count}/{len(relevant_files)}")
     
     if error_count > 0:
-        print(f"\n‚ö†Ô∏è  Arquivos com erro:")
+        print("\n‚ö†Ô∏è  Arquivos com erro:")
         for rel_path, status, msg in results:
             if status == "‚ùå":
                 print(f"   ‚Ä¢ {rel_path}")
                 print(f"     {msg}")
     
     # Cria log detalhado
-    print(f"\nüìÑ Gerando log detalhado...")
+    print("\nüìÑ Gerando log detalhado...")
     
     with open("CORRECAO_CODIFICACAO.log", "w", encoding="utf-8") as f:
         f.write("LOG DE CORRE√á√ÉO DE CODIFICA√á√ÉO\n")
@@ -164,7 +164,7 @@ def correct_all_files():
         f.write(f"Total processado: {len(relevant_files)}\n")
         f.write(f"Sucesso: {success_count}\n")
         f.write(f"Erros: {error_count}\n")
-        f.write(f"Encoding target: UTF-8 (sem BOM)\n\n")
+        f.write("Encoding target: UTF-8 (sem BOM)\n\n")
         
         f.write("DETALHES:\n")
         f.write("-" * 80 + "\n")
@@ -177,11 +177,11 @@ def correct_all_files():
     print("\n" + "=" * 80)
     print("üéâ CORRE√á√ÉO CONCLU√çDA")
     print("=" * 80)
-    print(f"\n‚ú® Todos os arquivos foram convertidos para UTF-8 sem BOM")
-    print(f"\nPr√≥ximo passo:")
-    print(f"  1. Verificar se projeto ainda funciona")
-    print(f"  2. Rodar testes")
-    print(f"  3. Fazer commit das mudan√ßas")
+    print("\n‚ú® Todos os arquivos foram convertidos para UTF-8 sem BOM")
+    print("\nPr√≥ximo passo:")
+    print("  1. Verificar se projeto ainda funciona")
+    print("  2. Rodar testes")
+    print("  3. Fazer commit das mudan√ßas")
 
 if __name__ == "__main__":
     try:

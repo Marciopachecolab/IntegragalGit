@@ -3,7 +3,7 @@
 
 import sys
 from services.cadastros_diversos import CadastrosDiversosWindow, RegistryExamEditor
-import customtkinter as ctk
+
 
 print("=" * 70)
 print("TESTE ETAPA 3: Interface 'Exames (Registry)'")
@@ -14,7 +14,7 @@ print("\n1. Verificando RegistryExamEditor...")
 try:
     editor = RegistryExamEditor()
     exames = editor.load_all_exams()
-    print(f"   ✓ RegistryExamEditor carregado")
+    print("   ✓ RegistryExamEditor carregado")
     print(f"   ✓ Total de exames: {len(exames)}")
     for nome, slug in exames[:3]:
         print(f"     - {nome} ({slug})")
@@ -27,39 +27,39 @@ print("\n2. Verificando se CadastrosDiversosWindow contém método _build_tab_ex
 try:
     # Não vamos criar a janela (precisa de Tkinter display), apenas verificar os métodos
     if hasattr(CadastrosDiversosWindow, '_build_tab_exames_registry'):
-        print(f"   ✓ Método _build_tab_exames_registry existe")
+        print("   ✓ Método _build_tab_exames_registry existe")
     else:
-        print(f"   ✗ Método _build_tab_exames_registry NÃO existe")
+        print("   ✗ Método _build_tab_exames_registry NÃO existe")
         sys.exit(1)
         
     if hasattr(CadastrosDiversosWindow, '_carregar_exames_registry'):
-        print(f"   ✓ Método _carregar_exames_registry existe")
+        print("   ✓ Método _carregar_exames_registry existe")
     else:
-        print(f"   ✗ Método _carregar_exames_registry NÃO existe")
+        print("   ✗ Método _carregar_exames_registry NÃO existe")
         sys.exit(1)
         
     if hasattr(CadastrosDiversosWindow, '_on_select_exam_registry'):
-        print(f"   ✓ Método _on_select_exam_registry existe")
+        print("   ✓ Método _on_select_exam_registry existe")
     else:
-        print(f"   ✗ Método _on_select_exam_registry NÃO existe")
+        print("   ✗ Método _on_select_exam_registry NÃO existe")
         sys.exit(1)
         
     if hasattr(CadastrosDiversosWindow, '_novo_exame_registry'):
-        print(f"   ✓ Método _novo_exame_registry existe")
+        print("   ✓ Método _novo_exame_registry existe")
     else:
-        print(f"   ✗ Método _novo_exame_registry NÃO existe")
+        print("   ✗ Método _novo_exame_registry NÃO existe")
         sys.exit(1)
         
     if hasattr(CadastrosDiversosWindow, '_editar_exame_registry'):
-        print(f"   ✓ Método _editar_exame_registry existe")
+        print("   ✓ Método _editar_exame_registry existe")
     else:
-        print(f"   ✗ Método _editar_exame_registry NÃO existe")
+        print("   ✗ Método _editar_exame_registry NÃO existe")
         sys.exit(1)
         
     if hasattr(CadastrosDiversosWindow, '_excluir_exame_registry'):
-        print(f"   ✓ Método _excluir_exame_registry existe")
+        print("   ✓ Método _excluir_exame_registry existe")
     else:
-        print(f"   ✗ Método _excluir_exame_registry NÃO existe")
+        print("   ✗ Método _excluir_exame_registry NÃO existe")
         sys.exit(1)
         
 except Exception as e:
@@ -73,9 +73,9 @@ try:
     import inspect
     init_source = inspect.getsource(CadastrosDiversosWindow.__init__)
     if "current_exam_slug" in init_source:
-        print(f"   ✓ Atributo current_exam_slug inicializado no __init__")
+        print("   ✓ Atributo current_exam_slug inicializado no __init__")
     else:
-        print(f"   ✗ Atributo current_exam_slug NÃO encontrado no __init__")
+        print("   ✗ Atributo current_exam_slug NÃO encontrado no __init__")
         sys.exit(1)
 except Exception as e:
     print(f"   ✗ Erro ao verificar: {e}")
@@ -86,15 +86,15 @@ print("\n4. Verificando criação de tabs...")
 try:
     build_ui_source = inspect.getsource(CadastrosDiversosWindow._build_ui)
     if "tab_exames_registry" in build_ui_source:
-        print(f"   ✓ Tab 'Exames (Registry)' criada em _build_ui")
+        print("   ✓ Tab 'Exames (Registry)' criada em _build_ui")
     else:
-        print(f"   ✗ Tab 'Exames (Registry)' NÃO criada em _build_ui")
+        print("   ✗ Tab 'Exames (Registry)' NÃO criada em _build_ui")
         sys.exit(1)
         
     if "_build_tab_exames_registry()" in build_ui_source:
-        print(f"   ✓ Método _build_tab_exames_registry() chamado em _build_ui")
+        print("   ✓ Método _build_tab_exames_registry() chamado em _build_ui")
     else:
-        print(f"   ✗ Método _build_tab_exames_registry() NÃO chamado em _build_ui")
+        print("   ✗ Método _build_tab_exames_registry() NÃO chamado em _build_ui")
         sys.exit(1)
 except Exception as e:
     print(f"   ✗ Erro ao verificar: {e}")

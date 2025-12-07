@@ -15,7 +15,7 @@ from pathlib import Path
 # Adiciona projeto ao path
 sys.path.insert(0, str(Path(__file__).parent))
 
-from services.exam_registry import ExamRegistry, ExamConfig
+from services.exam_registry import ExamRegistry
 
 # ============================================================================
 # VALIDA√á√ÉO
@@ -86,7 +86,7 @@ def validate_registry():
             print(f"   ‚Ä¢ alvos (JSON): {cfg.alvos}")
             print(f"   ‚Ä¢ faixas_ct (JSON): {cfg.faixas_ct}")
             print(f"   ‚Ä¢ controles (JSON): {cfg.controles}")
-            print(f"   ‚úÖ Merge funcionando")
+            print("   ‚úÖ Merge funcionando")
     except Exception as e:
         print(f"   ‚ùå Erro no merge: {e}")
     
@@ -113,7 +113,7 @@ def validate_registry():
             status = "‚úÖ" if ok else "‚ùå"
             f.write(f"{status} {slug}: {msg}\n")
     
-    print(f"\nüìÑ Relat√≥rio salvo em: FASE6_VALIDATION_REPORT.txt")
+    print("\nüìÑ Relat√≥rio salvo em: FASE6_VALIDATION_REPORT.txt")
     
     return success_count == total
 

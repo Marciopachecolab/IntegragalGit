@@ -7,7 +7,6 @@ Incluindo os que chardet detectou incorretamente como Windows-1254, MacRoman, et
 
 import os
 import chardet
-from pathlib import Path
 
 def fix_all_files():
     """Converter todos os arquivos para UTF-8 sem BOM"""
@@ -81,14 +80,14 @@ def fix_all_files():
                 problems.append(f"   â�Œ {fpath}: {str(e)}")
     
     print("\n" + "-" * 80)
-    print(f"\nðŸ“Š RESULTADO:")
+    print("\nðŸ“Š RESULTADO:")
     print(f"   Total analisado:    {stats['total']}")
     print(f"   Corrigidos:         {stats['fixed']}")
     print(f"   Erros:              {stats['errors']}")
     print()
     
     if problems:
-        print(f"âš ï¸�  PROBLEMAS:")
+        print("âš ï¸�  PROBLEMAS:")
         for p in problems[:10]:
             print(p)
         if len(problems) > 10:

@@ -1,5 +1,5 @@
 # extracao/mapeamento_placas.py
-from typing import List, Dict, Tuple
+from typing import List, Dict
 import sys
 import os
 

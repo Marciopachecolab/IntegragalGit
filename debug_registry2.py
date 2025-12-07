@@ -25,5 +25,5 @@ if key_teste in registry.exams:
     cfg = registry.exams[key_teste]
     print(f"✓ Encontrado: {cfg.nome_exame} (slug: {cfg.slug})")
 else:
-    print(f"✗ NÃO encontrado!")
+    print("✗ NÃO encontrado!")
     print(f"Chaves disponíveis: {list(registry.exams.keys())}")

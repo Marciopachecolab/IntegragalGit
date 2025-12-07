@@ -6,7 +6,6 @@ Estrat√©gia: Ler como Latin-1 (que √© como foram salvos com acentos errado
 e reescrever como UTF-8 puro.
 """
 
-import sys
 from pathlib import Path
 
 files_to_fix = [

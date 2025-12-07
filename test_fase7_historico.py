@@ -7,7 +7,6 @@ Validar que o histórico gera colunas corretas com dados do registry
 
 import pytest
 import pandas as pd
-from pathlib import Path
 from services.exam_registry import ExamRegistry
 from services.history_report import HistoryReport
 
@@ -116,7 +115,7 @@ class TestHistoricoGeneration:
             alvo_col_name = f'alvo_negativo_{cfg.alvo_negativo_max:.1f}'
             # Pode ter nome diferente, então validar estrutura
             assert len(df_output) > 0
-            print(f"✅ Histórico gerou estrutura com alvos")
+            print("✅ Histórico gerou estrutura com alvos")
         except Exception as e:
             print(f"⚠️  Esperado em E2E: {type(e).__name__}")
 

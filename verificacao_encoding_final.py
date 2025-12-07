@@ -6,7 +6,6 @@ Verifica√ß√£o Final de Encoding - Garantir UTF-8 sem BOM em todo o projeto
 
 import os
 import chardet
-from pathlib import Path
 
 def check_file_encoding(filepath):
     """Verifica encoding e BOM de um arquivo"""
@@ -134,14 +133,14 @@ def main():
     print(f"‚ö†Ô∏è  Com BOM:      {len(bom_files)} arquivos")
     
     if non_utf8_files:
-        print(f"\n‚ùå ARQUIVOS N√ÉO-UTF-8 ENCONTRADOS:")
+        print("\n‚ùå ARQUIVOS N√ÉO-UTF-8 ENCONTRADOS:")
         for f in non_utf8_files[:10]:  # Mostrar primeiros 10
             print(f"   - {f['path']}: {f['encoding']}")
         if len(non_utf8_files) > 10:
             print(f"   ... e {len(non_utf8_files) - 10} mais")
     
     if bom_files:
-        print(f"\n‚ö†Ô∏è  ARQUIVOS COM BOM ENCONTRADOS:")
+        print("\n‚ö†Ô∏è  ARQUIVOS COM BOM ENCONTRADOS:")
         for f in bom_files[:10]:
             print(f"   - {f['path']}")
         if len(bom_files) > 10:

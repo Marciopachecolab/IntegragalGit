@@ -78,7 +78,7 @@ print("\n4. Lendo conteúdo do JSON...")
 with open(json_path) as f:
     saved_data = json.load(f)
 
-print(f"   ✓ JSON válido")
+print("   ✓ JSON válido")
 print(f"   ✓ Campos presentes: {len(saved_data)}")
 print(f"   ✓ Nome: {saved_data['nome_exame']}")
 print(f"   ✓ Slug: {saved_data['slug']}")
@@ -93,7 +93,7 @@ print(f"   Mensagem: {msg}")
 print("\n6. Verificando se novo exame aparece no registry...")
 exames = editor.load_all_exams()
 print(f"   Total de exames: {len(exames)}")
-print(f"   Procurando por slug que comece com 'teste_covid'...")
+print("   Procurando por slug que comece com 'teste_covid'...")
 
 # O slug gerado é "teste_covid_19" (COVID-19 → covid_19)
 exame_encontrado = False
@@ -134,12 +134,12 @@ if json_path.exists():
     time.sleep(0.5)  # Esperar um pouco
     try:
         json_path.unlink()
-        print(f"   ✓ Arquivo removido em segunda tentativa")
+        print("   ✓ Arquivo removido em segunda tentativa")
     except Exception as e:
         print(f"   ✗ Falha ao remover: {e}")
         exit(1)
 else:
-    print(f"   ✓ Arquivo deletado com sucesso")
+    print("   ✓ Arquivo deletado com sucesso")
 
 print("\n" + "=" * 70)
 print("✓ TODOS OS TESTES DE SAVE/DELETE PASSARAM!")

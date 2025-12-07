@@ -46,11 +46,11 @@ Objetivo:
 
 
 
-import os
+
 
 
 
-import sys
+
 
 
 
@@ -58,7 +58,7 @@ from pathlib import Path
 
 
 
-from typing import Tuple, List, Dict
+from typing import Tuple, Dict
 
 
 
@@ -722,7 +722,7 @@ def audit_project():
 
 
 
-                print(f"   Samples:")
+                print("   Samples:")
 
 
 
@@ -766,7 +766,7 @@ def audit_project():
 
 
 
-    print(f"\nï£¿Ã¼Ã¬Ã  Estatââ sticas:")
+    print("\nï£¿Ã¼Ã¬Ã  Estatââ sticas:")
 
 
 
@@ -802,7 +802,7 @@ def audit_project():
 
 
 
-    print(f"\nâÃ¶â ÃâÃ¨  Arquivos com problemas:")
+    print("\nâÃ¶â ÃâÃ¨  Arquivos com problemas:")
 
 
 
@@ -858,7 +858,7 @@ def audit_project():
 
 
 
-        print(f"\nï£¿Ã¼Ã®Ã Corrigindo arquivos...\n")
+        print("\nï£¿Ã¼Ã®Ã Corrigindo arquivos...\n")
 
 
 
@@ -978,7 +978,7 @@ def audit_project():
 
 
 
-                    f.write(f"  Issues:\n")
+                    f.write("  Issues:\n")
 
 
 

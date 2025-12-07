@@ -35,14 +35,14 @@ class TestFASE7_E2E:
         cfg = registry.get("VR1e2 Biomanguinhos 7500")
         assert cfg is not None
         assert cfg.nome_exame == "VR1e2 Biomanguinhos 7500"
-        print(f"✅ VR1e2 carregado")
+        print("✅ VR1e2 carregado")
 
     def test_1_03_engine_zdc_carregado(self, registry):
         """1.3: ZDC carregado do registry"""
         cfg = registry.get("ZDC Biomanguinhos 7500")
         assert cfg is not None
         assert cfg.nome_exame == "ZDC Biomanguinhos 7500"
-        print(f"✅ ZDC carregado")
+        print("✅ ZDC carregado")
 
     def test_1_04_engine_vr1e2_tipo_placa_48(self, registry):
         """1.4: VR1e2 tem tipo_placa 48"""
@@ -76,7 +76,7 @@ class TestFASE7_E2E:
         """1.8: ZDC tem faixas CT"""
         cfg = registry.get("ZDC Biomanguinhos 7500")
         assert len(cfg.faixas_ct) > 0
-        print(f"✅ ZDC faixas_ct configuradas")
+        print("✅ ZDC faixas_ct configuradas")
 
     def test_1_09_engine_zdc_alvos(self, registry):
         """1.9: ZDC tem alvos"""
@@ -120,7 +120,7 @@ class TestFASE7_E2E:
         """2.4: Histórico: VR1e2 tem RP"""
         cfg = registry.get("VR1e2 Biomanguinhos 7500")
         assert len(cfg.rps) > 0
-        print(f"✅ Histórico: VR1e2 RP disponível")
+        print("✅ Histórico: VR1e2 RP disponível")
 
     def test_2_05_historico_export_fields(self, registry):
         """2.5: Histórico: export_fields para coluna"""
@@ -152,7 +152,7 @@ class TestFASE7_E2E:
         cfg = registry.get("ZDC Biomanguinhos 7500")
         for alvo in cfg.alvos:
             assert alvo in cfg.mapa_alvos
-        print(f"✅ Histórico: ZDC alvos mapeados")
+        print("✅ Histórico: ZDC alvos mapeados")
 
     def test_2_10_historico_multiplos_exames(self, registry):
         """2.10: Histórico: múltiplos exames"""
@@ -170,26 +170,26 @@ class TestFASE7_E2E:
         cfg = registry.get("VR1e2 Biomanguinhos 7500")
         assert cfg.tipo_placa_analitica == "48"
         assert "96->48" in cfg.esquema_agrupamento
-        print(f"✅ Mapa: VR1e2 placa 48 (96->48)")
+        print("✅ Mapa: VR1e2 placa 48 (96->48)")
 
     def test_3_02_mapa_zdc_panel_tipo_36(self, registry):
         """3.2: Mapa GUI: ZDC é placa 36"""
         cfg = registry.get("ZDC Biomanguinhos 7500")
         assert cfg.tipo_placa_analitica == "36"
         assert "96->36" in cfg.esquema_agrupamento
-        print(f"✅ Mapa: ZDC placa 36 (96->36)")
+        print("✅ Mapa: ZDC placa 36 (96->36)")
 
     def test_3_03_mapa_vr1e2_rp(self, registry):
         """3.3: Mapa GUI: VR1e2 tem RP para visualização"""
         cfg = registry.get("VR1e2 Biomanguinhos 7500")
         assert len(cfg.rps) > 0
-        print(f"✅ Mapa: VR1e2 RP disponível")
+        print("✅ Mapa: VR1e2 RP disponível")
 
     def test_3_04_mapa_zdc_rp(self, registry):
         """3.4: Mapa GUI: ZDC tem RP"""
         cfg = registry.get("ZDC Biomanguinhos 7500")
         assert len(cfg.rps) > 0
-        print(f"✅ Mapa: ZDC RP disponível")
+        print("✅ Mapa: ZDC RP disponível")
 
     def test_3_05_mapa_vr1e2_alvos_para_cores(self, registry):
         """3.5: Mapa GUI: VR1e2 alvos para cores"""
@@ -233,7 +233,7 @@ class TestFASE7_E2E:
         cfg = registry.get("ZDC Biomanguinhos 7500")
         assert len(cfg.controles['cn']) > 0  # G7+G8
         assert len(cfg.controles['cp']) > 0  # H7+H8
-        print(f"✅ Mapa: ZDC controles configurados")
+        print("✅ Mapa: ZDC controles configurados")
 
     # ========================================================================
     # PARTE 4: GAL EXPORT (10 tests)
@@ -268,13 +268,13 @@ class TestFASE7_E2E:
         """4.5: GAL: VR1e2 nome para CSV"""
         cfg = registry.get("VR1e2 Biomanguinhos 7500")
         assert cfg.nome_exame == "VR1e2 Biomanguinhos 7500"
-        print(f"✅ GAL: VR1e2 nome para CSV")
+        print("✅ GAL: VR1e2 nome para CSV")
 
     def test_4_06_gal_zdc_nome_exame_para_csv(self, registry):
         """4.6: GAL: ZDC nome para CSV"""
         cfg = registry.get("ZDC Biomanguinhos 7500")
         assert cfg.nome_exame == "ZDC Biomanguinhos 7500"
-        print(f"✅ GAL: ZDC nome para CSV")
+        print("✅ GAL: ZDC nome para CSV")
 
     def test_4_07_gal_vr1e2_equipamento(self, registry):
         """4.7: GAL: VR1e2 equipamento"""
