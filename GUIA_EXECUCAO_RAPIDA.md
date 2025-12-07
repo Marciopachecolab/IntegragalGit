@@ -1,58 +1,58 @@
-# 🚀 GUIA DE EXECUÇÃO RÁPIDA - IntegraGAL
-
-## �“¦ Após Extrair o Pacote:
-
-### Opção 1: Usar o executar.bat (RECOMENDADO)
-1. **Extrair** o arquivo `IntegraGAL_CorrecaoSegura_20251202_113410.zip`
-2. **Clicar duas vezes** no arquivo `executar.bat`
-3. **Aguardar** o sistema abrir
-
-### Opção 2: Execução Manual
-Se o .bat não funcionar:
-1. **Abrir** Prompt de Comando (cmd) na pasta extraída
-2. **Digitar:** `python main.py`
-3. **Pressionar Enter**
-
-### Opção 3: Usar executar_simples.bat
-Se o executar.bat der problemas:
-- Usar o arquivo `executar_simples.bat`
-
-## �” Testando as Correções:
-
-### 1. **Base URL GAL**
-- ✅ Abrir â†’ Admin Panel â†’ Sistema
-- ✅ Alterar a URL do GAL
-- ✅ Clicar "Salvar"
-- ✅ **Esperado:** Mensagem de sucesso
-- ✅ **Fechar e reabrir** o painel
-- ✅ **Verificar:** A nova URL deve estar mantida
-
-### 2. **Gerenciamento de Usuários**
-- ✅ Abrir â†’ Ferramentas â†’ Gerenciar Usuários
-- ✅ **Esperado:** Deve abrir **SEM erro "senha_hash"**
-- ✅ A janela deve abrir normalmente
-
-### 3. **Fechamento da Janela**
-- ✅ Abrir o Gerenciamento de Usuários
-- ✅ **Clicar no X** para fechar
-- ✅ **Esperado:** Fecha com **1 clique** (não precisa clicar várias vezes)
-
-## 📋 Login Padrão:
-- **Usuário:** `marcio`
-- **Senha:** `flafla`
-
-## âš ï¸ Problemas Conhecidos Resolvidos:
-1. âŒ ~~Base URL GAL voltava ao valor original~~ â†’ ✅ **CORRIGIDO**
-2. âŒ ~~Erro "senha_hash" no gerenciamento~~ â†’ ✅ **CORRIGIDO**  
-3. âŒ ~~Janela não fechava com 1 clique~~ â†’ ✅ **CORRIGIDO**
-4. âŒ ~~Múltiplas janelas abertas~~ â†’ ✅ **CORRIGIDO**
-
-## �“ž Se ainda tiver problemas:
-1. Verificar se o Python está instalado
-2. Verificar se as dependências estão instaladas: `pip install customtkinter bcrypt`
-3. Verificar se os arquivos foram extraídos corretamente com estrutura de pastas
-
----
-**✅ Pacote:** `IntegraGAL_CorrecaoSegura_20251202_113410.zip`
-**�“… Data:** 02/12/2025 11:34
-**🛠 Status:** Correções Seguras e Conservadoras Aplicadas
+# ğŸš€ GUIA DE EXECUÃ‡ÃƒO RÃ�PIDA - IntegraGAL
+
+## ï¿½â€œÂ¦ ApÃ³s Extrair o Pacote:
+
+### OpÃ§Ã£o 1: Usar o executar.bat (RECOMENDADO)
+1. **Extrair** o arquivo `IntegraGAL_CorrecaoSegura_20251202_113410.zip`
+2. **Clicar duas vezes** no arquivo `executar.bat`
+3. **Aguardar** o sistema abrir
+
+### OpÃ§Ã£o 2: ExecuÃ§Ã£o Manual
+Se o .bat nÃ£o funcionar:
+1. **Abrir** Prompt de Comando (cmd) na pasta extraÃ­da
+2. **Digitar:** `python main.py`
+3. **Pressionar Enter**
+
+### OpÃ§Ã£o 3: Usar executar_simples.bat
+Se o executar.bat der problemas:
+- Usar o arquivo `executar_simples.bat`
+
+## ï¿½â€�Â� Testando as CorreÃ§Ãµes:
+
+### 1. **Base URL GAL**
+- âœ… Abrir Ã¢â€ â€™ Admin Panel Ã¢â€ â€™ Sistema
+- âœ… Alterar a URL do GAL
+- âœ… Clicar "Salvar"
+- âœ… **Esperado:** Mensagem de sucesso
+- âœ… **Fechar e reabrir** o painel
+- âœ… **Verificar:** A nova URL deve estar mantida
+
+### 2. **Gerenciamento de UsuÃ¡rios**
+- âœ… Abrir Ã¢â€ â€™ Ferramentas Ã¢â€ â€™ Gerenciar UsuÃ¡rios
+- âœ… **Esperado:** Deve abrir **SEM erro "senha_hash"**
+- âœ… A janela deve abrir normalmente
+
+### 3. **Fechamento da Janela**
+- âœ… Abrir o Gerenciamento de UsuÃ¡rios
+- âœ… **Clicar no X** para fechar
+- âœ… **Esperado:** Fecha com **1 clique** (nÃ£o precisa clicar vÃ¡rias vezes)
+
+## ğŸ“‹ Login PadrÃ£o:
+- **UsuÃ¡rio:** `marcio`
+- **Senha:** `flafla`
+
+## Ã¢Å¡Â Ã¯Â¸Â� Problemas Conhecidos Resolvidos:
+1. Ã¢Â�Å’ ~~Base URL GAL voltava ao valor original~~ Ã¢â€ â€™ âœ… **CORRIGIDO**
+2. Ã¢Â�Å’ ~~Erro "senha_hash" no gerenciamento~~ Ã¢â€ â€™ âœ… **CORRIGIDO**  
+3. Ã¢Â�Å’ ~~Janela nÃ£o fechava com 1 clique~~ Ã¢â€ â€™ âœ… **CORRIGIDO**
+4. Ã¢Â�Å’ ~~MÃºltiplas janelas abertas~~ Ã¢â€ â€™ âœ… **CORRIGIDO**
+
+## ï¿½â€œÅ¾ Se ainda tiver problemas:
+1. Verificar se o Python estÃ¡ instalado
+2. Verificar se as dependÃªncias estÃ£o instaladas: `pip install customtkinter bcrypt`
+3. Verificar se os arquivos foram extraÃ­dos corretamente com estrutura de pastas
+
+---
+**âœ… Pacote:** `IntegraGAL_CorrecaoSegura_20251202_113410.zip`
+**ï¿½â€œâ€¦ Data:** 02/12/2025 11:34
+**ğŸ›  Status:** CorreÃ§Ãµes Seguras e Conservadoras Aplicadas

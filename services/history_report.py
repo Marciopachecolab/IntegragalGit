@@ -118,9 +118,13 @@ def gerar_historico_csv(
     # monta targets (Resultado_<ALVO_NO_SPACE>, coluna de CT correspondente)
     targets: List[Tuple[str, str]] = []
     for alvo in cfg.alvos:
-        alvo_no_space = alvo.replace(" ", "")
+        try:
+            alvo_norm = cfg.normalize_target(alvo)
+        except Exception:
+            alvo_norm = alvo
+        alvo_no_space = str(alvo_norm).replace(" ", "")
         col_res = f"Resultado_{alvo_no_space}"
-        ct_found = _find_ct_col(alvo) or _find_ct_col(alvo_no_space)
+        ct_found = _find_ct_col(alvo_norm) or _find_ct_col(alvo_no_space)
         targets.append((col_res, ct_found))
 
     # inclui demais colunas Resultado_* que aparecerem no df_final
@@ -177,11 +181,17 @@ def gerar_historico_csv(
 
         # Resultados qualitativos e CTs
         for col_res, col_ct in targets:
-            base = str(col_res).replace("Resultado_", "").strip()
+            # extrai nome bruto (removendo prefixo Resultado_ quando presente)
+            base_raw = str(col_res).replace("Resultado_", "").strip()
+            try:
+                base = cfg.normalize_target(base_raw)
+            except Exception:
+                base = base_raw
+
             res_val = r.get(col_res)
             res_code = _map_result(res_val)
             linha[f"{base} - R"] = f"{base} - {res_code}" if res_code else ""
-            if col_ct in r:
+            if col_ct and (col_ct in r):
                 linha[f"{base} - CT"] = _fmt_ct(r.get(col_ct))
 
         # Extras de CT (RPs)

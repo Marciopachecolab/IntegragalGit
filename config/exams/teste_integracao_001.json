@@ -1,0 +1,41 @@
+{
+  "nome_exame": "Teste Integracao 001",
+  "slug": "teste_integracao_001",
+  "equipamento": "7500 Real-Time",
+  "tipo_placa_analitica": "96-well",
+  "esquema_agrupamento": "4x4",
+  "kit_codigo": "KIT-TEST-001",
+  "alvos": [
+    "alvo1",
+    "alvo2"
+  ],
+  "mapa_alvos": {
+    "alvo1": "Alvo 1",
+    "alvo2": "Alvo 2"
+  },
+  "faixas_ct": {
+    "detect_max": 40.0,
+    "inconc_min": 35.0,
+    "inconc_max": 39.0,
+    "rp_min": 0.5,
+    "rp_max": 2.0
+  },
+  "rps": [
+    "RP"
+  ],
+  "export_fields": [
+    "Sample",
+    "Alvo1"
+  ],
+  "panel_tests_id": "TEST-PANEL",
+  "controles": {
+    "cn": [
+      "CN"
+    ],
+    "cp": [
+      "CP"
+    ]
+  },
+  "comentarios": "",
+  "versao_protocolo": "1.0"
+}

@@ -1,4 +1,4 @@
-poco,amostra,codigo,resultado_sc2,resultado_hmpv,resultado_infa,resultado_infb,resultado_adv,resultado_rsv,resultado_hrv,sc2,hmpv,inf_a,inf_b,adv,rsv,hrv,rp_1,rp_2,status_corrida
-A1+A2,422386149R,422386149R,Nao Detectado,Nao Detectado,Nao Detectado,Nao Detectado,Nao Detectado,Nao Detectado,Nao Detectado,Undetermined,Undetermined,Undetermined,Undetermined,Undetermined,Undetermined,Undetermined,27.94619369506836,28.16427993774414,Valida
-G9+G10,CONTROLE NEGATIVO,CONTROLE NEGATIVO,Invalido,Invalido,Invalido,Invalido,Invalido,Invalido,Invalido,,,,,,,,,,Valida
-H9+H10,CONTROLE POSITIVO,CONTROLE POSITIVO,Invalido,Invalido,Invalido,Invalido,Invalido,Invalido,Invalido,,,,,,,,,,Valida
+poco,amostra,codigo,resultado_sc2,resultado_hmpv,resultado_infa,resultado_infb,resultado_adv,resultado_rsv,resultado_hrv,sc2,hmpv,inf_a,inf_b,adv,rsv,hrv,rp_1,rp_2,status_corrida
+A1+A2,422386149R,422386149R,Nao Detectado,Nao Detectado,Nao Detectado,Nao Detectado,Nao Detectado,Nao Detectado,Nao Detectado,Undetermined,Undetermined,Undetermined,Undetermined,Undetermined,Undetermined,Undetermined,27.94619369506836,28.16427993774414,Valida
+G9+G10,CONTROLE NEGATIVO,CONTROLE NEGATIVO,Invalido,Invalido,Invalido,Invalido,Invalido,Invalido,Invalido,,,,,,,,,,Valida
+H9+H10,CONTROLE POSITIVO,CONTROLE POSITIVO,Invalido,Invalido,Invalido,Invalido,Invalido,Invalido,Invalido,,,,,,,,,,Valida

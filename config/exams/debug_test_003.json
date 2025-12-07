@@ -1,0 +1,20 @@
+{
+  "nome_exame": "Debug Test 003",
+  "slug": "debug_test_003",
+  "equipamento": "QuantStudio",
+  "tipo_placa_analitica": "96-well",
+  "esquema_agrupamento": "4x4",
+  "kit_codigo": "KIT-TEST-002",
+  "alvos": [],
+  "mapa_alvos": {},
+  "faixas_ct": {},
+  "rps": [],
+  "export_fields": [],
+  "panel_tests_id": "",
+  "controles": {
+    "cn": [],
+    "cp": []
+  },
+  "comentarios": "Atualizado",
+  "versao_protocolo": ""
+}

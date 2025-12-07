@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 import pathlib
 mapping={
     "\u00c3\u00a1": "á",
@@ -43,4 +43,4 @@ for p in root.rglob('*'):
         p.write_text(new,encoding='utf-8')
         fixed+=1
         print('fixed',p)
-print('done fixed',fixed)
+print('done fixed',fixed)

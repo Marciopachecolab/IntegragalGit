@@ -1,0 +1,1252 @@
+# ETAPA 4: FORMULâÃRIO MULTI-ABA - COMPLETO âÃºÃ
+
+
+
+
+
+
+
+## ï£¿Ã¼Ã¬Ã£ Resumo Executivo
+
+
+
+
+
+
+
+ImplementaâÃâÂ£o completa da classe `ExamFormDialog` com 6 abas para criar/editar exames do registry. Todos os testes passando (6 testes de formulâÂ°rio + 5 testes de integraâÃâÂ£o = 11/11 âÃºÃ).
+
+
+
+
+
+
+
+**Tempo:** ~3 horas (estimado: 3h) âÃºÃ  
+
+
+
+**Status:** 100% COMPLETO âÃºÃ
+
+
+
+
+
+
+
+---
+
+
+
+
+
+
+
+## ï£¿Ã¼Ã©Ã Objetivos AlcanâÃados
+
+
+
+
+
+
+
+### 1. ExamFormDialog - ImplementaâÃâÂ£o Completa âÃºÃ
+
+
+
+
+
+
+
+**LocalizaâÃâÂ£o:** `services/cadastros_diverses.py` (linhas ~920-1360)
+
+
+
+
+
+
+
+**Classe:** `ExamFormDialog` - Dialog modal com 6 abas
+
+
+
+
+
+
+
+**Recursos:**
+
+
+
+- Modo novo (cfg=None) e modo editar (cfg preenchido)
+
+
+
+- ValidaâÃâÂ£o automâÂ°tica antes de salvar
+
+
+
+- Callback opcional apââ¥s sucesso
+
+
+
+- Auto-geraâÃâÂ£o de slug a partir do nome_exame
+
+
+
+- IntegraâÃâÂ£o com RegistryExamEditor
+
+
+
+
+
+
+
+**Estrutura de 6 abas:**
+
+
+
+
+
+
+
+```
+
+
+
+1. BâÂ°sico (6 campos)
+
+
+
+   - Nome do Exame * (CTkEntry obrigatââ¥rio)
+
+
+
+   - Slug (Label read-only, auto-gerado)
+
+
+
+   - Equipamento * (CTkCombobox com lista dinâÂ¢mica)
+
+
+
+   - Tipo Placa Analââ tica (CTkEntry)
+
+
+
+   - Esquema Agrupamento (CTkEntry)
+
+
+
+   - Kit Cââ¥digo (CTkEntry)
+
+
+
+
+
+
+
+2. Alvos (2 campos JSON)
+
+
+
+   - Alvos (CTkTextbox JSON list)
+
+
+
+   - Mapa Alvos (CTkTextbox JSON dict)
+
+
+
+
+
+
+
+3. Faixas CT (5 campos numâÂ©ricos)
+
+
+
+   - CT DetectâÂ°vel Max (float)
+
+
+
+   - CT Inconclusivo Min (float)
+
+
+
+   - CT Inconclusivo Max (float)
+
+
+
+   - RP Min (float)
+
+
+
+   - RP Max (float)
+
+
+
+
+
+
+
+4. RP (1 campo JSON)
+
+
+
+   - RPs (CTkTextbox JSON list)
+
+
+
+
+
+
+
+5. Export (2 campos)
+
+
+
+   - Export Fields (CTkTextbox JSON list)
+
+
+
+   - Panel Tests ID (CTkEntry)
+
+
+
+
+
+
+
+6. Controles (4 campos)
+
+
+
+   - Controles CN (CTkTextbox JSON list)
+
+
+
+   - Controles CP (CTkTextbox JSON list)
+
+
+
+   - ComentâÂ°rios (CTkTextbox)
+
+
+
+   - VersâÂ£o Protocolo (CTkEntry)
+
+
+
+```
+
+
+
+
+
+
+
+---
+
+
+
+
+
+
+
+## ï£¿Ã¼Ã®Ã Bugs Corrigidos
+
+
+
+
+
+
+
+### 1. NormalizaâÃâÂ£o de Acentos em Slugs âÃºÃ
+
+
+
+
+
+
+
+**Problema:**  
+
+
+
+- Slug "Teste IntegraâÃâÂ£o 001" âÃÃ­ "teste_integraâÃâÂ£o_001" (com til)
+
+
+
+- Registry normaliza para "teste integracao 001" (sem til)
+
+
+
+- Mismatch: arquivo salvo != chave de carregamento
+
+
+
+
+
+
+
+**SoluâÃâÂ£o:**
+
+
+
+- Atualizar `_norm_exame(nome)` em `exam_registry.py` para remover acentos (NFKD + ASCII)
+
+
+
+- Atualizar `_generate_slug_local()` em `ExamFormDialog` para fazer o mesmo
+
+
+
+- Atualizar `_generate_slug()` em `RegistryExamEditor` para consistââ¢ncia
+
+
+
+
+
+
+
+**Commits:**
+
+
+
+- `services/exam_registry.py` linha ~40: adicionar `unicodedata.normalize()`
+
+
+
+- `services/cadastros_diversos.py` linhas ~1276, ~1896: adicionar normalizaâÃâÂ£o
+
+
+
+
+
+
+
+### 2. Carregamento de Slug vs Chave em load_exam() âÃºÃ
+
+
+
+
+
+
+
+**Problema:**  
+
+
+
+- Slug: "teste_integracao_001" (com underscores)
+
+
+
+- Chave registry: "teste integracao 001" (com espaâÃos)
+
+
+
+- `load_exam(slug)` falhava porque passava slug direto
+
+
+
+
+
+
+
+**SoluâÃâÂ£o:**
+
+
+
+- Detectar se âÂ© slug (contâÂ©m `_` mas nâÂ£o espaâÃos)
+
+
+
+- Converter `_` âÃÃ­ espaâÃo antes de chamar `registry.get()`
+
+
+
+- Suportar ambos: slug e nome/chave normalizada
+
+
+
+
+
+
+
+**Commit:**
+
+
+
+- `services/cadastros_diversos.py` linhas ~1598-1630: adicionar lââ¥gica de detecâÃâÂ£o
+
+
+
+
+
+
+
+### 3. Cache nâÂ£o Limpo em registry.load() âÃºÃ
+
+
+
+
+
+
+
+**Problema:**  
+
+
+
+- `ExamRegistry.load()` sobrescreve `self.exams` mas nâÂ£o limpa antes
+
+
+
+- Exames deletados ainda aparecem no cache
+
+
+
+- AtualizaâÃâÂµes nâÂ£o refletem apââ¥s reload
+
+
+
+
+
+
+
+**SoluâÃâÂ£o:**
+
+
+
+- Adicionar `self.exams.clear()` no inââ cio de `load()`
+
+
+
+- Garante que reload() funcione corretamente
+
+
+
+
+
+
+
+**Commit:**
+
+
+
+- `services/exam_registry.py` linha ~95: adicionar `self.exams.clear()`
+
+
+
+
+
+
+
+---
+
+
+
+
+
+
+
+## ï£¿Ã¼Ãâ¢ Testes Implementados
+
+
+
+
+
+
+
+### test_etapa4_form.py - Testes de FormulâÂ°rio (6 testes)
+
+
+
+
+
+
+
+```
+
+
+
+âÃºÃ TEST 1: ExamFormDialog instantiate (novo)
+
+
+
+âÃºÃ TEST 2: ExamFormDialog instantiate (editar)
+
+
+
+âÃºÃ TEST 3: Verificar mâÂ©todos _build_tab_* (6/6 abas)
+
+
+
+âÃºÃ TEST 4: Testar _generate_slug_local
+
+
+
+âÃºÃ TEST 5: Testar _collect_form_data
+
+
+
+âÃºÃ TEST 6: Testar validaâÃâÂ£o de formulâÂ°rio
+
+
+
+
+
+
+
+Total: 6/6 PASSOU âÃºÃ
+
+
+
+```
+
+
+
+
+
+
+
+### test_etapa4_integration.py - Testes de IntegraâÃâÂ£o (5 testes)
+
+
+
+
+
+
+
+```
+
+
+
+âÃºÃ TEST 1: Criar e salvar novo exame
+
+
+
+âÃºÃ TEST 2: Recarregar registry e encontrar exame
+
+
+
+âÃºÃ TEST 3: Verificar exame na lista
+
+
+
+âÃºÃ TEST 4: Atualizar exame existente
+
+
+
+âÃºÃ TEST 5: Deletar exame
+
+
+
+
+
+
+
+Total: 5/5 PASSOU âÃºÃ
+
+
+
+```
+
+
+
+
+
+
+
+**Cobertura:** 
+
+
+
+- CriaâÃâÂ£o (novo) âÃºÃ
+
+
+
+- Leitura (load) âÃºÃ
+
+
+
+- AtualizaâÃâÂ£o (editar + save) âÃºÃ
+
+
+
+- DeleâÃâÂ£o (delete) âÃºÃ
+
+
+
+- Registry reload âÃºÃ
+
+
+
+
+
+
+
+---
+
+
+
+
+
+
+
+## ï£¿Ã¼Ã¬Ã¤ IntegraâÃâÂ£o com UI
+
+
+
+
+
+
+
+### Callbacks Implementados
+
+
+
+
+
+
+
+**_novo_exame_registry()** - Abre dialog para novo exame
+
+
+
+```python
+
+
+
+def _novo_exame_registry(self) -> None:
+
+
+
+    def on_save_callback(cfg):
+
+
+
+        self._carregar_exames_registry()  # Refresh UI
+
+
+
+        self.status_registry.configure(text=f"Exame '{cfg.nome_exame}' criado!")
+
+
+
+    
+
+
+
+    dialog = ExamFormDialog(
+
+
+
+        parent=self.window,
+
+
+
+        cfg=None,  # Modo novo
+
+
+
+        on_save=on_save_callback
+
+
+
+    )
+
+
+
+```
+
+
+
+
+
+
+
+**_editar_exame_registry()** - Abre dialog para editar
+
+
+
+```python
+
+
+
+def _editar_exame_registry(self) -> None:
+
+
+
+    if not self.current_exam_slug:
+
+
+
+        self.status_registry.configure(text="Selecione um exame...")
+
+
+
+        return
+
+
+
+    
+
+
+
+    editor = RegistryExamEditor()
+
+
+
+    cfg = editor.load_exam(self.current_exam_slug)
+
+
+
+    
+
+
+
+    def on_save_callback(updated_cfg):
+
+
+
+        self._carregar_exames_registry()
+
+
+
+        self.status_registry.configure(text=f"Exame atualizado!")
+
+
+
+    
+
+
+
+    dialog = ExamFormDialog(
+
+
+
+        parent=self.window,
+
+
+
+        cfg=cfg,  # Modo editar
+
+
+
+        on_save=on_save_callback
+
+
+
+    )
+
+
+
+```
+
+
+
+
+
+
+
+---
+
+
+
+
+
+
+
+## ï£¿Ã¼Ã¬Ã Arquivos Modificados
+
+
+
+
+
+
+
+| Arquivo | Linhas | AlteraâÃâÂµes |
+
+
+
+|---------|--------|-----------|
+
+
+
+| `services/cadastros_diversos.py` | ~920-1370 | âÃºÃ Classe ExamFormDialog (6 abas, ~450 linhas) |
+
+
+
+| `services/cadastros_diversos.py` | ~1470-1510 | âÃºÃ Callbacks _novo e _editar integrados |
+
+
+
+| `services/cadastros_diversos.py` | ~1598-1630 | âÃºÃ load_exam() com suporte slug/chave |
+
+
+
+| `services/cadastros_diversos.py` | ~1896 | âÃºÃ _generate_slug() com normalizaâÃâÂ£o |
+
+
+
+| `services/exam_registry.py` | ~40 | âÃºÃ _norm_exame() com remoâÃâÂ£o de acentos |
+
+
+
+| `services/exam_registry.py` | ~95 | âÃºÃ load() com clear() antes |
+
+
+
+| `test_etapa4_form.py` | ~1-300 | âÃºÃ 6 testes de formulâÂ°rio |
+
+
+
+| `test_etapa4_integration.py` | ~1-300 | âÃºÃ 5 testes de integraâÃâÂ£o |
+
+
+
+
+
+
+
+---
+
+
+
+
+
+
+
+## ï£¿Ã¼Ã¬Ã¹ Notas TâÂ©cnicas
+
+
+
+
+
+
+
+### ConversâÂ£o ExamConfig âÃÃ® Dict
+
+
+
+
+
+
+
+**_collect_form_data()** - Coleta dados do formulâÂ°rio e retorna ExamConfig
+
+
+
+
+
+
+
+```python
+
+
+
+def _collect_form_data(self):
+
+
+
+    cfg = ExamConfig(
+
+
+
+        nome_exame=self.entry_nome.get().strip(),
+
+
+
+        slug=self._generate_slug_local(nome),
+
+
+
+        equipamento=self.combo_equip.get().strip(),
+
+
+
+        # ... outros campos ...
+
+
+
+        alvos=json.loads(self.text_alvos.get("1.0", "end")),  # JSON parsing
+
+
+
+        mapa_alvos=json.loads(self.text_mapa.get("1.0", "end")),
+
+
+
+        # ... etc ...
+
+
+
+    )
+
+
+
+    return cfg
+
+
+
+```
+
+
+
+
+
+
+
+**_salvar()** - Valida, salva via RegistryExamEditor e fecha dialog
+
+
+
+
+
+
+
+```python
+
+
+
+def _salvar(self):
+
+
+
+    cfg = self._collect_form_data()
+
+
+
+    
+
+
+
+    # ValidaâÃâÂ£o
+
+
+
+    is_valid, msg = self.editor.validate_exam(cfg)
+
+
+
+    if not is_valid:
+
+
+
+        messagebox.showerror("Erro", f"ValidaâÃâÂ£o falhou:\n{msg}")
+
+
+
+        return
+
+
+
+    
+
+
+
+    # Salvamento
+
+
+
+    success, msg = self.editor.save_exam(cfg)
+
+
+
+    if not success:
+
+
+
+        messagebox.showerror("Erro", msg)
+
+
+
+        return
+
+
+
+    
+
+
+
+    # Recarregar registry
+
+
+
+    self.editor.reload_registry()
+
+
+
+    
+
+
+
+    # Callback
+
+
+
+    if self.on_save:
+
+
+
+        self.on_save(cfg)
+
+
+
+    
+
+
+
+    messagebox.showinfo("Sucesso", f"Exame salvo!")
+
+
+
+    self.window.destroy()
+
+
+
+```
+
+
+
+
+
+
+
+### GeraâÃâÂ£o de Slug Consistente
+
+
+
+
+
+
+
+**Algoritmo:**
+
+
+
+1. `nome_exame.strip().lower()` âÃÃ­ "Teste COVID-19" âÃÃ­ "teste covid-19"
+
+
+
+2. `unicodedata.normalize('NFKD', ...)` âÃÃ­ remove acentos âÃÃ­ "teste covid-19"
+
+
+
+3. `.replace(" ", "_").replace("-", "_")` âÃÃ­ "teste_covid_19"
+
+
+
+
+
+
+
+**Usada em 3 lugares para garantir consistââ¢ncia:**
+
+
+
+- `_norm_exame()` em `exam_registry.py` (chave de dicionâÂ°rio)
+
+
+
+- `_generate_slug_local()` em `ExamFormDialog` (para preview)
+
+
+
+- `_generate_slug()` em `RegistryExamEditor` (para arquivo)
+
+
+
+
+
+
+
+---
+
+
+
+
+
+
+
+## ï£¿Ã¼Ã©Ã¬ LiâÃâÂµes Aprendidas
+
+
+
+
+
+
+
+1. **NormalizaâÃâÂ£o de strings:** Sempre considerar acentos/caracteres especiais para chaves de dicionâÂ°rio
+
+
+
+2. **Caching:** Lembrar de limpar cache antes de recarregar dados
+
+
+
+3. **Slug vs Chave:** Distinguir entre slug de arquivo (`teste_covid_19.json`) e chave de registro (`teste covid 19`)
+
+
+
+4. **ValidaâÃâÂ£o:** Executar antes de salvar para evitar dados corrompidos
+
+
+
+5. **JSON em Textbox:** Usar `text.get("1.0", "end")` para CTkTextbox (nâÂ£o `.get()`)
+
+
+
+
+
+
+
+---
+
+
+
+
+
+
+
+## âÃ¨â ÃâÃ¨ Prââ¥ximos Passos (ETAPA 5-6)
+
+
+
+
+
+
+
+**ETAPA 5:** JSON + Registry Reload
+
+
+
+- IntegraâÃâÂ£o de callbacks com refresh automâÂ°tico
+
+
+
+- Teste end-to-end do fluxo novo exame âÃÃ­ dialog âÃÃ­ save âÃÃ­ reload âÃÃ­ listbox
+
+
+
+
+
+
+
+**ETAPA 6:** Testes & Polimento
+
+
+
+- Pytest integrado
+
+
+
+- Manual UI testing
+
+
+
+- Error handling refinement
+
+
+
+
+
+
+
+---
+
+
+
+
+
+
+
+## âÃºÃ Checklist Final ETAPA 4
+
+
+
+
+
+
+
+- [x] Classe ExamFormDialog implementada (6 abas)
+
+
+
+- [x] Modo novo (cfg=None) funciona
+
+
+
+- [x] Modo editar (cfg preenchido) funciona
+
+
+
+- [x] _build_tab_* mâÂ©todos (x6) implementados
+
+
+
+- [x] _collect_form_data() retorna ExamConfig vâÂ°lido
+
+
+
+- [x] _salvar() integrado com editor.save_exam()
+
+
+
+- [x] ValidaâÃâÂ£o antes de salvar
+
+
+
+- [x] Callbacks _novo_exame_registry() e _editar_exame_registry() integrados
+
+
+
+- [x] Slug auto-gerado e normalizado (sem acentos)
+
+
+
+- [x] load_exam() suporta slug e chave
+
+
+
+- [x] registry.load() limpa cache antes de recarregar
+
+
+
+- [x] 6 testes de formulâÂ°rio passando
+
+
+
+- [x] 5 testes de integraâÃâÂ£o passando
+
+
+
+- [x] DocumentaâÃâÂ£o completa
+
+
+
+
+
+
+
+---
+
+
+
+
+
+
+
+**Status: 100% COMPLETO** ï£¿Ã¼Ã©Ã¢
+
+
+
+
+
+
+
+Pronto para ETAPA 5!
+
+
+

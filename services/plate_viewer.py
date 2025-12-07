@@ -35,7 +35,7 @@ STATUS_COLORS = {
     INCONCLUSIVE: "#ffe89a",  # amarelo
     INVALID: "#f0f0f0",  # cinza
     CONTROL_CN: "#b3d9ff",  # azul claro
-    CONTROL_CP: "#b3d9ff",
+    CONTROL_CP: "#ffd1b3",
     EMPTY: "#ffffff",  # branco
 }
 
@@ -99,6 +99,20 @@ class PlateModel:
             exame: Nome do exame (para buscar config do registry)
         """
         model = cls()
+        # se foi passado nome do exame, carregue a configuração correspondente
+        if exame:
+            try:
+                model.exam_cfg = get_exam_cfg(exame)
+            except Exception:
+                model.exam_cfg = None
+
+        # determina tamanho de grupo preferindo valor do registry se não fornecido
+        if group_size is None and getattr(model, "exam_cfg", None) is not None:
+            try:
+                group_size = model.exam_cfg.bloco_size()
+            except Exception:
+                group_size = None
+        model.group_size = group_size or 1
         if df_final is None or df_final.empty:
             return model
         
@@ -324,6 +338,18 @@ class PlateModel:
                     wd.pair_group_id = group_id
                     model.pair_groups.setdefault(group_id, []).append(well_id)
 
+                # Detecta controles usando cfg do exame quando disponível
+                try:
+                    ctrl = PlateModel._detect_control(wd.sample_id, wd.code, exam_cfg)
+                    if ctrl:
+                        wd.is_control = True
+                        wd.metadata["control_type"] = ctrl
+                    else:
+                        wd.is_control = False
+                        wd.metadata.pop("control_type", None)
+                except Exception:
+                    wd.is_control = False
+
                 model._recompute_status(wd)
                 model.wells[well_id] = wd
 
@@ -411,12 +437,32 @@ class PlateModel:
         return max(set(sizes), key=sizes.count)
 
     @staticmethod
-    def _detect_control(sample: Optional[str], code: Optional[str]) -> Optional[str]:
+    def _detect_control(sample: Optional[str], code: Optional[str], exam_cfg: Optional[Any] = None) -> Optional[str]:
+        """
+        Detecta se a amostra/código representa um controle.
+        Primeiro tenta usar `exam_cfg.controles` (se fornecido), senão faz heurística por nomes comuns.
+        Retorna 'CN' ou 'CP' ou None.
+        """
         vals = []
         if sample:
-            vals.append(sample.upper())
+            vals.append(str(sample).upper())
         if code:
-            vals.append(code.upper())
+            vals.append(str(code).upper())
+
+        # se a config do exame fornece listas de controles, compare contra elas
+        try:
+            if exam_cfg and getattr(exam_cfg, "controles", None):
+                cn_list = [str(x).upper() for x in (exam_cfg.controles.get("cn") or [])]
+                cp_list = [str(x).upper() for x in (exam_cfg.controles.get("cp") or [])]
+                for v in vals:
+                    if v in cn_list:
+                        return "CN"
+                    if v in cp_list:
+                        return "CP"
+        except Exception:
+            pass
+
+        # Fallback heuristics
         for v in vals:
             if v in {"CN", "CONTROLE NEGATIVO", "C-", "NEGATIVO CONTROLE", "NEGATIVO", "CONTROLE N"}:
                 return "CN"
@@ -433,6 +479,7 @@ class PlateModel:
         has_pos = False
         has_inc = False
         has_nd = False
+        rp_ok = False
         
         # Valida CT de RP contra faixas do registry se disponível
         faixas_ct = None
@@ -453,7 +500,7 @@ class PlateModel:
                         
                         if tr.ct <= detect_max:
                             # RP validação é ok
-                            pass
+                            rp_ok = True
                         elif inconc_min <= tr.ct <= inconc_max:
                             # RP inconclusivo
                             has_inc = True
@@ -481,7 +528,11 @@ class PlateModel:
         elif has_nd:
             well.status = NEGATIVE
         else:
-            well.status = INVALID
+            # Se nenhum resultado analítico mas RP estava ok, considera NEGATIVE
+            if rp_ok:
+                well.status = NEGATIVE
+            else:
+                well.status = INVALID
 
     # utilidades
     def get_well(self, well_id: str) -> Optional[WellData]:
@@ -551,12 +602,14 @@ class WellButton(ctk.CTkButton):
     def _truncate(text: str, max_len: int = 12) -> str:
         return text if len(text) <= max_len else text[: max_len - 2] + ".."
 
-    def update_appearance(self, text: str, color: str, selected: bool, highlight: bool):
+    def update_appearance(self, text: str, color: str, selected: bool, highlight: bool, border_color_override: Optional[str] = None):
         self.configure(fg_color=color, text=self._truncate(text))
         if selected:
             self.configure(border_color="#FF0000", border_width=3)
         elif highlight:
             self.configure(border_color="#00AA00", border_width=2)
+        elif border_color_override:
+            self.configure(border_color=border_color_override, border_width=2)
         else:
             self.configure(border_color="#888888", border_width=2)
 
@@ -753,7 +806,15 @@ class PlateView(ctk.CTkFrame):
                     if ctype:
                         text = f"{ctype}:{text}"
             color = self._status_color(well.status if well else EMPTY)
-            btn.update_appearance(text, color, well_id == self.selected_well_id, well_id in self.highlight_group)
+            # define contorno específico para controles CN vs CP
+            border_override = None
+            if well and well.is_control:
+                ctype = well.metadata.get("control_type", "")
+                if ctype == "CP":
+                    border_override = "#AA5500"
+                elif ctype == "CN":
+                    border_override = "#0044AA"
+            btn.update_appearance(text, color, well_id == self.selected_well_id, well_id in self.highlight_group, border_override)
 
     def _fill_details(self, well: WellData):
         self.lbl_well.configure(text=well.well_id)
@@ -800,7 +861,7 @@ class PlateView(ctk.CTkFrame):
             return
         new_code = self.entry_code.get().strip()
         well.code = new_code or None
-        ctrl = PlateModel._detect_control(well.sample_id, well.code)
+        ctrl = PlateModel._detect_control(well.sample_id, well.code, self.plate_model.exam_cfg)
         if ctrl:
             well.is_control = True
             well.metadata["control_type"] = ctrl

@@ -320,9 +320,9 @@ class MenuHandler:
         UserManagementPanel(self.main_window, self.main_window.app_state.usuario_logado)
 
     def incluir_novo_exame(self):
-        """Abre o m√≥dulo de Cadastros Diversos (exames, equipamentos, placas e regras)."""
+        """Abre o módulo de Cadastros Diversos (exames, equipamentos, placas e regras)."""
         # Import local para evitar problemas de import circular.
-        from ui.cadastros_diversos import CadastrosDiversosWindow
+        from services.cadastros_diversos import CadastrosDiversosWindow
 
         CadastrosDiversosWindow(self.main_window)
 
