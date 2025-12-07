@@ -1,4 +1,4 @@
-﻿import os
+import os
 import re
 from datetime import datetime
 from tkinter import filedialog, messagebox
@@ -11,15 +11,15 @@ import pandas as pd
 from matplotlib.patches import Rectangle
 from pandas.errors import ParserError
 
-# Adiciona o diretÃ³rio base no sys.path para imports locais
+# Adiciona o diretório base no sys.path para imports locais
 from services.system_paths import BASE_DIR
 
 from ..db.db_utils import salvar_historico_processamento
 from ..utils.after_mixin import AfterManagerMixin
-# ImportaÃ§Ãµes centralizadas
+# Importações centralizadas
 from ..utils.logger import registrar_log
 
-# ---------- ConfiguraÃ§Ãµes e constantes globais ----------
+# ---------- Configurações e constantes globais ----------
 
 CT_RP_MIN = 10
 CT_RP_MAX = 35
@@ -30,7 +30,7 @@ CT_INCONCLUSIVO_MAX = 40
 
 TARGET_LIST = ["SC2", "HMPV", "INF A", "INF B", "ADV", "RSV", "HRV"]
 
-RESULT_MAPPING_TO_CSV = {"DetectÃ¡vel": "1", "ND": "2", "Inconclusivo": "3"}
+RESULT_MAPPING_TO_CSV = {"Detectável": "1", "ND": "2", "Inconclusivo": "3"}
 
 CSV_COLUMNS_MODEL = [
     "codigoAmostra",
@@ -70,7 +70,7 @@ CSV_COLUMNS_MODEL = [
     "metapneumovirua",
     "metapneumovirub",
     "mycoplasma",
-    "parechovÃ­rus",
+    "parechovírus",
     "vsincicialrespa",
     "vsincicialrespb",
     "influenzaah_3",
@@ -110,7 +110,7 @@ DEFAULT_CSV_VALUES = {
     "resultado": "",
 }
 
-# Cores para visualizaÃ§Ã£o
+# Cores para visualização
 COLOR_VALID_SELECTED = "#d4edda"
 COLOR_INVALID = "#f8d7da"
 COLOR_INCONCLUSIVE = "#fff3cd"
@@ -123,18 +123,18 @@ def _convert_ct_value(value: Any) -> Optional[float]:
         return np.nan
     try:
         cleaned = str(value).replace(",", ".").strip()
-        # Remove caracteres nÃ£o numÃ©ricos, exceto pontos
+        # Remove caracteres não numéricos, exceto pontos
         cleaned = re.sub(r"[^\d.]", "", cleaned)
         return round(float(cleaned), 2)
     except (ValueError, TypeError):
         registrar_log(
-            "ConversÃ£o", f"Falha ao converter valor de CT: '{value}'", level="WARNING"
+            "Conversão", f"Falha ao converter valor de CT: '{value}'", level="WARNING"
         )
         return np.nan
 
 
 def _generate_well_pairs() -> List[Tuple[str, str]]:
-    """Gera pares de poÃ§os (ex: A1+A2, A3+A4, ..., H11+H12) para anÃ¡lise."""
+    """Gera pares de poços (ex: A1+A2, A3+A4, ..., H11+H12) para análise."""
     return [
         (f"{row}{col}", f"{row}{col + 1}")
         for row in "ABCDEFGH"
@@ -143,15 +143,15 @@ def _generate_well_pairs() -> List[Tuple[str, str]]:
 
 
 def load_and_preprocess_data(filepath: str) -> pd.DataFrame:
-    """Carrega e prÃ©-processa dados da placa com tratamento robusto."""
+    """Carrega e pré-processa dados da placa com tratamento robusto."""
     registrar_log(
-        "AnÃ¡lise Dados", f"Carregando: {os.path.basename(filepath)}", level="INFO"
+        "Análise Dados", f"Carregando: {os.path.basename(filepath)}", level="INFO"
     )
 
     ext = os.path.splitext(filepath)[1].lower()
     df = None
 
-    # LÃ³gica de tentativa unificada para leitura de arquivos
+    # Lógica de tentativa unificada para leitura de arquivos
     for skip in range(30):
         try:
             if ext in [".xls", ".xlsx", ".xlsm"]:
@@ -177,7 +177,7 @@ def load_and_preprocess_data(filepath: str) -> pd.DataFrame:
                 # Normaliza nomes de colunas para encontrar colunas essenciais
                 df.columns = [str(col).strip() for col in df.columns]
                 if any(
-                    "Well" in col or "PoÃ§o" in col or "Poco" in col
+                    "Well" in col or "Poço" in col or "Poco" in col
                     for col in df.columns
                 ):
                     registrar_log(
@@ -190,10 +190,10 @@ def load_and_preprocess_data(filepath: str) -> pd.DataFrame:
 
     if df is None:
         raise ValueError(
-            f"NÃ£o foi possÃ­vel identificar o cabeÃ§alho em {os.path.basename(filepath)}"
+            f"Não foi possível identificar o cabeçalho em {os.path.basename(filepath)}"
         )
 
-    # Mapeamento de nomes de colunas para padronizaÃ§Ã£o
+    # Mapeamento de nomes de colunas para padronização
     column_mapping = {
         "CÑ‚": "CT",
         "Cq": "CT",
@@ -207,12 +207,12 @@ def load_and_preprocess_data(filepath: str) -> pd.DataFrame:
         "Marker": "Target",
         "Sample Name": "Sample",
         "Amostra": "Sample",
-        "IdentificaÃ§Ã£o": "Sample",
+        "Identificação": "Sample",
         "ID": "Sample",
         "Well Position": "Well",
-        "PoÃ§o": "Well",
+        "Poço": "Well",
         "Poco": "Well",
-        "PosiÃ§Ã£o": "Well",
+        "Posição": "Well",
         "Location": "Well",
     }
 
@@ -237,19 +237,19 @@ def load_and_preprocess_data(filepath: str) -> pd.DataFrame:
         available = ", ".join(df.columns)
         raise ValueError(
             f"Colunas essenciais faltando: {', '.join(missing)}\n"
-            f"Colunas disponÃ­veis: {available}"
+            f"Colunas disponíveis: {available}"
         )
 
     if "CT" in df.columns:
         df["CT"] = df["CT"].apply(_convert_ct_value)
     else:
-        registrar_log("AnÃ¡lise Dados", "Coluna CT nÃ£o encontrada", level="WARNING")
+        registrar_log("Análise Dados", "Coluna CT não encontrada", level="WARNING")
 
     return df
 
 
 class PlateAnalysisProcessor:
-    """Processa os dados brutos de uma placa de PCR para determinar resultados e status de validaÃ§Ã£o das amostras."""
+    """Processa os dados brutos de uma placa de PCR para determinar resultados e status de validação das amostras."""
 
     def __init__(
         self,
@@ -269,8 +269,8 @@ class PlateAnalysisProcessor:
         )
 
     def _extract_plate_metadata(self) -> None:
-        """Extrai metadados como nÃºmero da placa e data do nome do arquivo."""
-        # Regex aprimorada para ser mais flexÃ­vel
+        """Extrai metadados como número da placa e data do nome do arquivo."""
+        # Regex aprimorada para ser mais flexível
         match = re.search(r"(PLACA\s*\d+).*(\d{8})", self.filename, re.IGNORECASE)
         num_placa = match.group(1).replace(" ", "") if match else "Placa Desconhecida"
         data_placa = match.group(2) if match else "Data Desconhecida"
@@ -284,29 +284,29 @@ class PlateAnalysisProcessor:
             except ValueError:
                 registrar_log(
                     "PlateAnalysisProcessor",
-                    f"Formato de data invÃ¡lido no nome do arquivo: {data_placa}",
+                    f"Formato de data inválido no nome do arquivo: {data_placa}",
                     level="WARNING",
                 )
 
-        self.analysis_info["NÃºmero da Placa"] = num_placa
+        self.analysis_info["Número da Placa"] = num_placa
         self.analysis_info["Data"] = data_formatada
-        self.analysis_info["Status da Corrida"] = "Corrida vÃ¡lida"
-        self.analysis_info["Amostras InvÃ¡lidas"] = 0
+        self.analysis_info["Status da Corrida"] = "Corrida válida"
+        self.analysis_info["Amostras Inválidas"] = 0
         registrar_log(
             "PlateAnalysisProcessor",
-            f"Metadados da placa extraÃ­dos: {num_placa}, {data_formatada}",
+            f"Metadados da placa extraídos: {num_placa}, {data_formatada}",
             level="INFO",
         )
 
     def _analyze_well_pair(self, well1: str, well2: str) -> dict:
-        """Analisa um par de poÃ§os usando dados de extraÃ§Ã£o."""
+        """Analisa um par de poços usando dados de extração."""
         subset = self.df_raw_data[self.df_raw_data["Well"].isin([well1, well2])].copy()
 
         # Acesso robusto ao nome da amostra
         sample_name = self.extraction_data.get(well1, "Desconhecido")
         sample_upper = str(sample_name).upper()
 
-        # AnÃ¡lise do controle interno (RP)
+        # Análise do controle interno (RP)
         rp_subset = subset[subset["Target"] == "RP"]
         rp_cts = (
             rp_subset["CT"].dropna()
@@ -315,22 +315,22 @@ class PlateAnalysisProcessor:
         )
         rp_valido = any(CT_RP_MIN <= ct <= CT_RP_MAX for ct in rp_cts)
 
-        # Determina se Ã© um controle
+        # Determina se é um controle
         is_control = any(
             id in sample_upper
             for id in CONTROL_NEGATIVE_IDENTIFIERS + CONTROL_POSITIVE_IDENTIFIERS
         )
 
-        # ValidaÃ§Ã£o da amostra
-        status_validacao = "VÃ¡lido"
+        # Validação da amostra
+        status_validacao = "Válido"
         if not is_control and not rp_valido:
-            status_validacao = "InvÃ¡lido"
+            status_validacao = "Inválido"
         if is_control and not rp_valido:
-            status_validacao = "InvÃ¡lido"
-            self.analysis_info["Status da Corrida"] = "Corrida invÃ¡lida"
+            status_validacao = "Inválido"
+            self.analysis_info["Status da Corrida"] = "Corrida inválida"
 
         # Coleta de resultados para cada alvo
-        ct_str_por_alvo = {alvo: "â€”" for alvo in TARGET_LIST}
+        ct_str_por_alvo = {alvo: "—" for alvo in TARGET_LIST}
         resultado_por_alvo = {alvo: "ND" for alvo in TARGET_LIST}
         inconclusivo_flag = False
         alvos_detectados = []
@@ -343,12 +343,12 @@ class PlateAnalysisProcessor:
                 else pd.Series(dtype=float)
             )
 
-            # Encontra o primeiro valor detectÃ¡vel ou inconclusivo
+            # Encontra o primeiro valor detectável ou inconclusivo
             ct_val = next((ct for ct in ct_alvo if not pd.isna(ct)), None)
 
             if ct_val is not None:
                 if CT_DETECTAVEL_MIN <= ct_val <= CT_DETECTAVEL_MAX:
-                    resultado_por_alvo[alvo] = "DetectÃ¡vel"
+                    resultado_por_alvo[alvo] = "Detectável"
                     alvos_detectados.append(alvo)
                     ct_str_por_alvo[alvo] = f"{ct_val:.2f}".replace(".", ",")
                 elif CT_INCONCLUSIVO_MIN <= ct_val <= CT_INCONCLUSIVO_MAX:
@@ -358,57 +358,57 @@ class PlateAnalysisProcessor:
                 else:
                     ct_str_por_alvo[alvo] = f"{ct_val:.2f}".replace(".", ",")
 
-        selecionado = status_validacao == "VÃ¡lido" and not inconclusivo_flag
+        selecionado = status_validacao == "Válido" and not inconclusivo_flag
 
-        # Se for invÃ¡lido, nÃ£o deve ser selecionado
-        if status_validacao == "InvÃ¡lido":
+        # Se for inválido, não deve ser selecionado
+        if status_validacao == "Inválido":
             selecionado = False
 
-        # Contagem de amostras invÃ¡lidas
-        if not selecionado and status_validacao == "InvÃ¡lido":
-            self.analysis_info["Amostras InvÃ¡lidas"] += 1
+        # Contagem de amostras inválidas
+        if not selecionado and status_validacao == "Inválido":
+            self.analysis_info["Amostras Inválidas"] += 1
 
         return {
             "Selecionado": selecionado,
             "Sample": sample_name,
-            "PoÃ§os": f"{well1}+{well2}",
+            "Poços": f"{well1}+{well2}",
             "RP (CT)": (
                 ", ".join([f"{ct:.2f}".replace(".", ",") for ct in rp_cts])
                 if not rp_cts.empty
-                else "â€”"
+                else "—"
             ),
-            "ValidaÃ§Ã£o": status_validacao,
+            "Validação": status_validacao,
             "Alvos Detectados": ", ".join(alvos_detectados)
-            or "Nenhum Alvo DetectÃ¡vel",
+            or "Nenhum Alvo Detectável",
             **{f"CT({alvo})": ct_str_por_alvo[alvo] for alvo in TARGET_LIST},
             **{f"Resultado({alvo})": resultado_por_alvo[alvo] for alvo in TARGET_LIST},
         }
 
     def analyze_plate(self) -> Tuple[pd.DataFrame, Dict[str, Any]]:
-        """Executa a anÃ¡lise completa da placa, processando cada par de poÃ§os."""
+        """Executa a análise completa da placa, processando cada par de poços."""
         registrar_log(
-            "PlateAnalysisProcessor", "Iniciando anÃ¡lise da placa.", level="INFO"
+            "PlateAnalysisProcessor", "Iniciando análise da placa.", level="INFO"
         )
         self._extract_plate_metadata()
         resultados = []
         well_pairs = _generate_well_pairs()
 
         for well1, well2 in well_pairs:
-            # Verifica se pelo menos um dos poÃ§os existe nos dados brutos
+            # Verifica se pelo menos um dos poços existe nos dados brutos
             if not self.df_raw_data["Well"].isin([well1, well2]).any():
                 registrar_log(
                     "PlateAnalysisProcessor",
-                    f"PoÃ§os {well1}+{well2} nÃ£o encontrados nos dados brutos. Pulando.",
+                    f"Poços {well1}+{well2} não encontrados nos dados brutos. Pulando.",
                     level="DEBUG",
                 )
                 continue
 
-            # Garante que os poÃ§os nÃ£o sÃ£o vazios na extraÃ§Ã£o (seja por um arquivo .txt vazio)
+            # Garante que os poços não são vazios na extração (seja por um arquivo .txt vazio)
             sample_name = self.extraction_data.get(well1, "")
             if not sample_name:
                 registrar_log(
                     "PlateAnalysisProcessor",
-                    f"Amostra nÃ£o encontrada para o poÃ§o {well1}. Pulando.",
+                    f"Amostra não encontrada para o poço {well1}. Pulando.",
                     level="DEBUG",
                 )
                 continue
@@ -419,14 +419,14 @@ class PlateAnalysisProcessor:
         self.df_processed_results = pd.DataFrame(resultados)
         registrar_log(
             "PlateAnalysisProcessor",
-            f"AnÃ¡lise da placa concluÃ­da. {len(resultados)} pares de poÃ§os processados.",
+            f"Análise da placa concluída. {len(resultados)} pares de poços processados.",
             level="INFO",
         )
         return self.df_processed_results, self.analysis_info
 
 
 def count_detectable_samples(df_processed_results: pd.DataFrame) -> Dict[str, int]:
-    """Conta o nÃºmero de amostras detectÃ¡veis para cada alvo em resultados vÃ¡lidos."""
+    """Conta o número de amostras detectáveis para cada alvo em resultados válidos."""
     counts = {col_csv: 0 for col_csv in TARGET_RESULT_TO_CSV_COLUMN_MAPPING.values()}
 
     # Linha comentada devido a alerta do ruff (E712): comparação direta com True.
@@ -435,11 +435,11 @@ def count_detectable_samples(df_processed_results: pd.DataFrame) -> Dict[str, in
 
     for _, row in df_validos.iterrows():
         for internal_col, csv_col in TARGET_RESULT_TO_CSV_COLUMN_MAPPING.items():
-            if row.get(internal_col, "") == "DetectÃ¡vel":
+            if row.get(internal_col, "") == "Detectável":
                 counts[csv_col] += 1
     registrar_log(
-        "RelatÃ³rio AnÃ¡lise",
-        "Contagem de amostras detectÃ¡veis realizada.",
+        "Relatório Análise",
+        "Contagem de amostras detectáveis realizada.",
         level="INFO",
     )
     return counts
@@ -448,37 +448,37 @@ def count_detectable_samples(df_processed_results: pd.DataFrame) -> Dict[str, in
 def display_analysis_report(
     analysis_info: Dict[str, Any], detectable_counts: Dict[str, int]
 ) -> None:
-    """Exibe um relatÃ³rio de anÃ¡lise em uma caixa de mensagem."""
+    """Exibe um relatório de análise em uma caixa de mensagem."""
     report = (
-        f"Placa: {analysis_info.get('NÃºmero da Placa', 'N/A')}\n"
+        f"Placa: {analysis_info.get('Número da Placa', 'N/A')}\n"
         f"Data: {analysis_info.get('Data', 'N/A')}\n"
         f"Status da Corrida: {analysis_info.get('Status da Corrida', 'N/A')}\n"
-        f"Amostras InvÃ¡lidas: {analysis_info.get('Amostras InvÃ¡lidas', 0)}\n\n"
-        f"Contagem de DetectÃ¡veis (amostras vÃ¡lidas):\n"
+        f"Amostras Inválidas: {analysis_info.get('Amostras Inválidas', 0)}\n\n"
+        f"Contagem de Detectáveis (amostras válidas):\n"
     )
     for csv_col in sorted(
         detectable_counts.keys(), key=lambda c: HUMAN_READABLE_TARGET_NAMES.get(c, c)
     ):
         human_name = HUMAN_READABLE_TARGET_NAMES.get(csv_col, csv_col)
-        report += f"{human_name}: {detectable_counts[csv_col]} detectÃ¡veis\n"
+        report += f"{human_name}: {detectable_counts[csv_col]} detectáveis\n"
 
-    messagebox.showinfo("RelatÃ³rio de AnÃ¡lise", report)
+    messagebox.showinfo("Relatório de Análise", report)
     registrar_log(
-        "RelatÃ³rio AnÃ¡lise",
-        "RelatÃ³rio de anÃ¡lise exibido ao usuÃ¡rio.",
+        "Relatório Análise",
+        "Relatório de análise exibido ao usuário.",
         level="INFO",
     )
 
 
 def generate_detectable_plot(detectable_counts: Dict[str, int]) -> None:
-    """Gera e exibe um grÃ¡fico de barras das amostras detectÃ¡veis."""
+    """Gera e exibe um gráfico de barras das amostras detectáveis."""
     if not detectable_counts or all(v == 0 for v in detectable_counts.values()):
         messagebox.showinfo(
-            "GrÃ¡fico de DetecÃ§Ã£o", "Nenhum alvo detectÃ¡vel para gerar o grÃ¡fico."
+            "Gráfico de Detecção", "Nenhum alvo detectável para gerar o gráfico."
         )
         registrar_log(
-            "GrÃ¡fico DetecÃ§Ã£o",
-            "Nenhum alvo detectÃ¡vel para gerar o grÃ¡fico.",
+            "Gráfico Detecção",
+            "Nenhum alvo detectável para gerar o gráfico.",
             level="INFO",
         )
         return
@@ -492,15 +492,15 @@ def generate_detectable_plot(detectable_counts: Dict[str, int]) -> None:
 
     plt.figure(figsize=(10, 5))
     plt.bar(labels, values, color="skyblue")
-    plt.title("NÃºmero de Amostras DetectÃ¡veis por Agravo")
+    plt.title("Número de Amostras Detectáveis por Agravo")
     plt.xlabel("Agravo")
     plt.ylabel("Quantidade")
     plt.xticks(rotation=0)
     plt.tight_layout()
     plt.show()
     registrar_log(
-        "GrÃ¡fico DetecÃ§Ã£o",
-        "GrÃ¡fico de amostras detectÃ¡veis gerado e exibido.",
+        "Gráfico Detecção",
+        "Gráfico de amostras detectáveis gerado e exibido.",
         level="INFO",
     )
 
@@ -524,7 +524,7 @@ def generate_plate_map(df_processed_results: pd.DataFrame) -> None:
     ax.grid(True, color="gray", linestyle="-", linewidth=0.5)
     ax.set_title("Mapa de Resultados da Placa de PCR", fontsize=16)
 
-    # Adiciona rÃ³tulos de coluna e linha fora do grid
+    # Adiciona rótulos de coluna e linha fora do grid
     for c in cols:
         ax.text(
             c - 0.5, -0.7, str(c), ha="center", va="center", fontsize=10, weight="bold"
@@ -533,20 +533,20 @@ def generate_plate_map(df_processed_results: pd.DataFrame) -> None:
         ax.text(-0.7, i + 0.5, r, ha="center", va="center", fontsize=10, weight="bold")
 
     for _, row in df_processed_results.iterrows():
-        well1 = row["PoÃ§os"].split("+")[0]
+        well1 = row["Poços"].split("+")[0]
         row_char = well1[0]
         col_num = int(well1[1:])
         row_idx = rows.index(row_char)
         col_idx = col_num - 1
 
-        # Determina a cor do poÃ§o com base no status
+        # Determina a cor do poço com base no status
         facecolor = COLOR_UNDEFINED
         # Linha comentada devido a alerta do ruff (E712): comparação direta com True.
         # if row.get("Selecionado") == True:
         if row.get("Selecionado"):
 
             facecolor = COLOR_VALID_SELECTED
-        elif row.get("ValidaÃ§Ã£o") == "InvÃ¡lido":
+        elif row.get("Validação") == "Inválido":
             facecolor = COLOR_INVALID
         elif any("Inconclusivo" in row.get(f"Resultado({t})", "") for t in TARGET_LIST):
             facecolor = COLOR_INCONCLUSIVE
@@ -562,32 +562,32 @@ def generate_plate_map(df_processed_results: pd.DataFrame) -> None:
         )
         ax.add_patch(rect)
 
-        # Adiciona textos dentro do poÃ§o
+        # Adiciona textos dentro do poço
         texts = []
         texts.append(
             # Linha comentada devido a alerta do ruff (E712): comparação direta com True.
-            # ("âœ“" if row.get("Selecionado") == True else "[ ]") + f" {row['Sample']}"
-            ("âœ“" if row.get("Selecionado") else "[ ]") + f" {row['Sample']}"
+            # ("✓" if row.get("Selecionado") == True else "[ ]") + f" {row['Sample']}"
+            ("✓" if row.get("Selecionado") else "[ ]") + f" {row['Sample']}"
         )
         texts.append(f"RP: {row['RP (CT)']}")
 
         detected_targets = []
         for t in TARGET_LIST:
             res = row.get(f"Resultado({t})", "ND")
-            ct = row.get(f"CT({t})", "â€”")
-            if res == "DetectÃ¡vel":
+            ct = row.get(f"CT({t})", "—")
+            if res == "Detectável":
                 detected_targets.append(f"{t}: {ct} (D)")
             elif res == "Inconclusivo":
                 detected_targets.append(f"{t}: {ct} (I)")
 
         texts.append("\n".join(detected_targets) if detected_targets else "ND")
 
-        validation_status = row.get("ValidaÃ§Ã£o", "")
+        validation_status = row.get("Validação", "")
         # Linha comentada devido a alerta do ruff (E712): comparação com True para checar False.
-        # if validation_status == "VÃ¡lido" and row.get("Selecionado") != True:
-        if validation_status == "VÃ¡lido" and not row.get("Selecionado"):
+        # if validation_status == "Válido" and row.get("Selecionado") != True:
+        if validation_status == "Válido" and not row.get("Selecionado"):
 
-            validation_status = "VÃ¡lido (NÃ£o Selecionado)"
+            validation_status = "Válido (Não Selecionado)"
 
         texts.append(f"Status: {validation_status}")
 
@@ -606,15 +606,15 @@ def generate_plate_map(df_processed_results: pd.DataFrame) -> None:
     plt.show()
     plt.close("all")
     registrar_log(
-        "GrÃ¡fico DetecÃ§Ã£o", "Mapa da placa gerado e exibido.", level="INFO"
+        "Gráfico Detecção", "Mapa da placa gerado e exibido.", level="INFO"
     )
 
 
 def export_analysis_to_csv(df_processed_results: pd.DataFrame, lote_kit: str) -> None:
     """Exporta os resultados processados para um arquivo CSV no formato GAL."""
     registrar_log(
-        "ExportaÃ§Ã£o CSV",
-        "Iniciando exportaÃ§Ã£o de resultados para CSV (funÃ§Ã£o interna).",
+        "Exportação CSV",
+        "Iniciando exportação de resultados para CSV (função interna).",
         level="INFO",
     )
     lines_to_export = []
@@ -630,11 +630,11 @@ def export_analysis_to_csv(df_processed_results: pd.DataFrame, lote_kit: str) ->
     df_selecionados = df_processed_results[df_processed_results["Selecionado"]]
     if df_selecionados.empty:
         messagebox.showwarning(
-            "Nenhuma Amostra", "Nenhuma amostra vÃ¡lida para exportaÃ§Ã£o."
+            "Nenhuma Amostra", "Nenhuma amostra válida para exportação."
         )
         registrar_log(
-            "ExportaÃ§Ã£o CSV",
-            "Nenhuma amostra vÃ¡lida para exportaÃ§Ã£o.",
+            "Exportação CSV",
+            "Nenhuma amostra válida para exportação.",
             level="WARNING",
         )
         return
@@ -676,11 +676,11 @@ def export_analysis_to_csv(df_processed_results: pd.DataFrame, lote_kit: str) ->
 
     except Exception as e:
         registrar_log(
-            "ExportaÃ§Ã£o CSV",
-            f"Erro ao preparar dados para exportaÃ§Ã£o ou escrever log: {e}",
+            "Exportação CSV",
+            f"Erro ao preparar dados para exportação ou escrever log: {e}",
             level="ERROR",
         )
-        messagebox.showerror("Erro", f"Falha ao preparar dados para exportaÃ§Ã£o: {e}")
+        messagebox.showerror("Erro", f"Falha ao preparar dados para exportação: {e}")
         return
 
     df_export = pd.DataFrame(lines_to_export, columns=CSV_COLUMNS_MODEL)
@@ -695,52 +695,52 @@ def export_analysis_to_csv(df_processed_results: pd.DataFrame, lote_kit: str) ->
         try:
             df_export.to_csv(output_filepath, sep=";", index=False, encoding="utf-8")
             registrar_log(
-                "ExportaÃ§Ã£o CSV", f"Arquivo salvo em: {output_filepath}", level="INFO"
+                "Exportação CSV", f"Arquivo salvo em: {output_filepath}", level="INFO"
             )
 
-            msg = f"Arquivo salvo em: {output_filepath}\nLog salvo em: {log_file_path}\n\nContagem de DetectÃ¡veis:\n"
+            msg = f"Arquivo salvo em: {output_filepath}\nLog salvo em: {log_file_path}\n\nContagem de Detectáveis:\n"
             for col_csv in sorted(
                 detectable_counts.keys(),
                 key=lambda c: HUMAN_READABLE_TARGET_NAMES.get(c, c),
             ):
                 human = HUMAN_READABLE_TARGET_NAMES.get(col_csv, col_csv)
-                msg += f"{human}: {detectable_counts[col_csv]} detectÃ¡veis\n"
+                msg += f"{human}: {detectable_counts[col_csv]} detectáveis\n"
 
-            messagebox.showinfo("ExportaÃ§Ã£o ConcluÃ­da", msg)
+            messagebox.showinfo("Exportação Concluída", msg)
             generate_detectable_plot(detectable_counts)
 
         except Exception as e:
             registrar_log(
-                "Erro ExportaÃ§Ã£o", f"Falha ao salvar CSV: {e}", level="ERROR"
+                "Erro Exportação", f"Falha ao salvar CSV: {e}", level="ERROR"
             )
             messagebox.showerror("Erro", f"Falha ao salvar CSV: {e}")
     else:
-        messagebox.showwarning("Cancelado", "ExportaÃ§Ã£o cancelada pelo usuÃ¡rio.")
+        messagebox.showwarning("Cancelado", "Exportação cancelada pelo usuário.")
         registrar_log(
-            "ExportaÃ§Ã£o CSV", "ExportaÃ§Ã£o cancelada pelo usuÃ¡rio.", level="INFO"
+            "Exportação CSV", "Exportação cancelada pelo usuário.", level="INFO"
         )
 
     plt.close("all")
 
 
 class AnalysisWindow(AfterManagerMixin, ctk.CTkToplevel):
-    """Janela Toplevel para realizar a anÃ¡lise de dados de placa de PCR."""
+    """Janela Toplevel para realizar a análise de dados de placa de PCR."""
 
     def __init__(self, master, dados_extracao=None):
         super().__init__(master=master)
-        self.title("AnÃ¡lise VR1e2 Biomanguinhos 7500")
+        self.title("Análise VR1e2 Biomanguinhos 7500")
         self.geometry("1024x768")
         self.dados_extracao = dados_extracao or {}
         self.protocol("WM_DELETE_WINDOW", self._safe_close)
         self.df_results = None
         self.analysis_summary = None
         registrar_log(
-            "AnalysisWindow", "Janela de anÃ¡lise inicializada.", level="INFO"
+            "AnalysisWindow", "Janela de análise inicializada.", level="INFO"
         )
         self._init_analysis()
 
     def _init_analysis(self):
-        """Inicia o fluxo de anÃ¡lise, solicitando o arquivo de dados da placa."""
+        """Inicia o fluxo de análise, solicitando o arquivo de dados da placa."""
         file_path = filedialog.askopenfilename(
             parent=self,
             title="Selecione o Arquivo de Dados da Placa",
@@ -751,7 +751,7 @@ class AnalysisWindow(AfterManagerMixin, ctk.CTkToplevel):
         )
         if not file_path:
             registrar_log(
-                "AnÃ¡lise Cancelada",
+                "Análise Cancelada",
                 "Nenhum arquivo de dados da placa selecionado.",
                 level="INFO",
             )
@@ -766,10 +766,10 @@ class AnalysisWindow(AfterManagerMixin, ctk.CTkToplevel):
             )
             self.df_results, self.analysis_summary = processor.analyze_plate()
 
-            # Garante que temos resultados vÃ¡lidos antes de continuar
+            # Garante que temos resultados válidos antes de continuar
             if self.df_results is None or self.df_results.empty:
                 messagebox.showwarning(
-                    "Aviso", "A anÃ¡lise nÃ£o retornou resultados vÃ¡lidos."
+                    "Aviso", "A análise não retornou resultados válidos."
                 )
                 self._safe_close()
                 return
@@ -783,18 +783,18 @@ class AnalysisWindow(AfterManagerMixin, ctk.CTkToplevel):
                 self,
                 self.df_results,
                 self.analysis_summary["Status da Corrida"],
-                self.analysis_summary["NÃºmero da Placa"],
+                self.analysis_summary["Número da Placa"],
                 self.analysis_summary["Data"],
                 agravos=TARGET_LIST,
             )
             self.table_window.grab_set()
             self.wait_window(self.table_window)
 
-            # ApÃ³s a tabela ser fechada, verifica se a janela principal ainda existe
+            # Após a tabela ser fechada, verifica se a janela principal ainda existe
             if not self.winfo_exists():
                 return
 
-            # Pega o df atualizado com as seleÃ§Ãµes do usuÃ¡rio
+            # Pega o df atualizado com as seleções do usuário
             self.df_results = self.table_window.df_atualizado
 
             generate_plate_map(self.df_results)
@@ -802,19 +802,19 @@ class AnalysisWindow(AfterManagerMixin, ctk.CTkToplevel):
                 "Analista",
                 "VR1e2 Biomanguinhos 7500",
                 self.analysis_summary["Status da Corrida"],
-                f"Placa: {self.analysis_summary['NÃºmero da Placa']}",
+                f"Placa: {self.analysis_summary['Número da Placa']}",
             )
             registrar_log(
                 "AnalysisWindow",
-                "AnÃ¡lise concluÃ­da e histÃ³rico salvo.",
+                "Análise concluída e histórico salvo.",
                 level="INFO",
             )
 
         except Exception as e:
             registrar_log(
-                "Erro AnÃ¡lise", f"Erro durante a anÃ¡lise da placa: {e}", level="ERROR"
+                "Erro Análise", f"Erro durante a análise da placa: {e}", level="ERROR"
             )
-            messagebox.showerror("Erro", f"Erro durante a anÃ¡lise: {e}", parent=self)
+            messagebox.showerror("Erro", f"Erro durante a análise: {e}", parent=self)
             self._safe_close()
         finally:
             plt.close("all")
@@ -828,18 +828,18 @@ class AnalysisWindow(AfterManagerMixin, ctk.CTkToplevel):
             if self.winfo_exists():
                 self.destroy()
             registrar_log(
-                "Fechamento", "Janela de anÃ¡lise fechada com seguranÃ§a", level="INFO"
+                "Fechamento", "Janela de análise fechada com segurança", level="INFO"
             )
         except Exception as e:
             registrar_log(
-                "Erro Fechamento", f"Erro crÃ­tico ao fechar janela: {e}", level="ERROR"
+                "Erro Fechamento", f"Erro crítico ao fechar janela: {e}", level="ERROR"
             )
 
 
 def abrir_analise(master, dados_extracao=None):
-    """FunÃ§Ã£o exposta para criar a janela de anÃ¡lise."""
+    """Função exposta para criar a janela de análise."""
     registrar_log(
-        "AnÃ¡lise Integrada", "Chamada para abrir janela de anÃ¡lise.", level="INFO"
+        "Análise Integrada", "Chamada para abrir janela de análise.", level="INFO"
     )
     return AnalysisWindow(master=master, dados_extracao=dados_extracao)
 
@@ -847,11 +847,11 @@ def abrir_analise(master, dados_extracao=None):
 def analisar_placa_vr1e2_7500(
     master_app_root: ctk.CTk, dados_extracao: dict, parte_placa: str
 ) -> pd.DataFrame:
-    """FunÃ§Ã£o de anÃ¡lise para VR1e2 Biomanguinhos 7500, integrada ao sistema principal."""
+    """Função de análise para VR1e2 Biomanguinhos 7500, integrada ao sistema principal."""
     try:
         registrar_log(
-            "AnÃ¡lise Integrada",
-            "Iniciando anÃ¡lise com dados de extraÃ§Ã£o",
+            "Análise Integrada",
+            "Iniciando análise com dados de extração",
             level="INFO",
         )
 
@@ -866,33 +866,33 @@ def analisar_placa_vr1e2_7500(
             and not janela_analise.df_results.empty
         ):
             registrar_log(
-                "AnÃ¡lise Integrada", "AnÃ¡lise concluÃ­da com sucesso", level="INFO"
+                "Análise Integrada", "Análise concluída com sucesso", level="INFO"
             )
             return janela_analise.df_results
         else:
             registrar_log(
-                "AnÃ¡lise Integrada",
-                "AnÃ¡lise retornou DataFrame vazio ou None",
+                "Análise Integrada",
+                "Análise retornou DataFrame vazio ou None",
                 level="WARNING",
             )
             return pd.DataFrame()
     except Exception as e:
         registrar_log(
-            "Erro Interface", f"Falha na interface de anÃ¡lise: {str(e)}", level="ERROR"
+            "Erro Interface", f"Falha na interface de análise: {str(e)}", level="ERROR"
         )
-        messagebox.showerror("Erro", f"Falha na integraÃ§Ã£o da anÃ¡lise: {str(e)}")
+        messagebox.showerror("Erro", f"Falha na integração da análise: {str(e)}")
         return pd.DataFrame()
     finally:
         plt.close("all")
 
 
-# ---------- Entrada para execuÃ§Ã£o autÃ´noma ----------
+# ---------- Entrada para execução autônoma ----------
 if __name__ == "__main__":
-    # Define o diretÃ³rio base para que os imports relativos funcionem
+    # Define o diretório base para que os imports relativos funcionem
     os.chdir(BASE_DIR)
     registrar_log(
-        "ExecuÃ§Ã£o AutÃ´noma",
-        "Iniciando execuÃ§Ã£o autÃ´noma do mÃ³dulo de anÃ¡lise.",
+        "Execução Autônoma",
+        "Iniciando execução autônoma do módulo de análise.",
         level="INFO",
     )
 
@@ -901,13 +901,13 @@ if __name__ == "__main__":
     root_app.withdraw()
 
     janela = abrir_analise(master=root_app)
-    # A janela de anÃ¡lise irÃ¡ lidar com o seu prÃ³prio mainloop
+    # A janela de análise irá lidar com o seu próprio mainloop
 
     plt.close("all")
     if root_app.winfo_exists():
         root_app.destroy()
     registrar_log(
-        "ExecuÃ§Ã£o AutÃ´noma",
-        "ExecuÃ§Ã£o autÃ´noma do mÃ³dulo de anÃ¡lise finalizada.",
+        "Execução Autônoma",
+        "Execução autônoma do módulo de análise finalizada.",
         level="INFO",
     )

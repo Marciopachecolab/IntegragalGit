@@ -1,4 +1,4 @@
-﻿# utils/logger.py
+# utils/logger.py
 import csv
 import getpass
 import os

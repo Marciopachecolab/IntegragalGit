@@ -122,10 +122,15 @@ def analisar_placa_vr1e2_7500(caminho_arquivo_resultados: str, dados_extracao_df
             'BASELINE START', 'BASELINE END', 'COMMENTS', 'HIGHSD', 'EXPFAIL'
         ]
         
-        if len(df_raw.columns) != len(expected_columns):
-            raise ValueError(f"Número de colunas incorreto: esperado {len(expected_columns)}, encontrado {len(df_raw.columns)}.")
-        
-        df_raw.columns = expected_columns
+        # Se vier com o template completo, usa o cabeçalho esperado; caso contrário, segue com colunas originais
+        if len(df_raw.columns) == len(expected_columns):
+            df_raw.columns = expected_columns
+        else:
+            registrar_log(
+                "Análise VR1e2",
+                f"Aviso: número de colunas inesperado ({len(df_raw.columns)}). Prosseguindo com colunas originais.",
+                "WARNING",
+            )
         
         df_raw['TARGET NAME'] = df_raw['TARGET NAME'].apply(lambda x: str(x).upper().strip() if pd.notna(x) else x)
         
@@ -397,11 +402,34 @@ def analisar_placa_vr1e2_7500(caminho_arquivo_resultados: str, dados_extracao_df
         df_final['Poço'] = df_final['Poco']
     if 'C�digo' not in df_final.columns and 'Codigo' in df_final.columns:
         df_final['C�digo'] = df_final['Codigo']
-    
+
+    # ------------------------------------------------------------------
+    # Garante que df_final["Poço"] esteja preenchido para todas as amostras
+    # usando Well1/Well2 (poços da corrida) quando estiver vazio.
+    # ------------------------------------------------------------------
+    if "Poço" not in df_final.columns:
+        df_final["Poço"] = ""
+
+    def _juntar_pocos(row) -> str:
+        w1 = str(row.get("Well1", "")).strip()
+        w2 = str(row.get("Well2", "")).strip()
+        wells = [w for w in [w1, w2] if w]
+        if not wells:
+            return ""
+        return "+".join(wells)
+
+    df_final["Poço"] = df_final.apply(
+        lambda r: r["Poço"]
+        if str(r.get("Poço", "")).strip() not in ("", "nan", "NaN")
+        else _juntar_pocos(r),
+        axis=1,
+    )
+
     colunas_resultado = [f"Resultado_{t.upper().replace(' ', '')}" for t in TARGET_LIST]
     colunas_ct = [t.upper() for t in TARGET_LIST] + ['RP_1', 'RP_2']
     colunas_finais = ['Poço', 'Amostra', 'Código'] + colunas_resultado + colunas_ct + ['Status_Corrida']
-    
+
+
     for col in colunas_finais:
         # Linha comentada devido a alerta do ruff (E701): múltiplas instruções na mesma linha.
         # if col not in df_final.columns: df_final[col] = None
@@ -439,6 +467,8 @@ def analisar_placa_vr1e2_7500(caminho_arquivo_resultados: str, dados_extracao_df
             df_norm=df_norm,
             df_gabarito=df_gabarito,
             config_regras=config_regras,
+            exam_cfg=None,
+            bloco_tamanho=2,
         )
         # Exibe a placa em janela própria; usa a janela mestre se disponível
         try:
@@ -456,6 +486,25 @@ def analisar_placa_vr1e2_7500(caminho_arquivo_resultados: str, dados_extracao_df
     except Exception as e_vis:
         # Qualquer erro na visualização não deve impedir a análise principal
         registrar_log("Análise VR1e2", f"Falha ao exibir placa com plate_viewer: {e_vis}", "WARNING")
+    # --- DEBUG: inspeção de df_final antes de retornar ---
+    try:
+        print("DEBUG df_final - colunas:", list(df_final.columns))
+        print("DEBUG df_final - primeiras linhas:")
+        print(df_final.head().to_string())
+    except Exception as e:
+        registrar_log("Análise VR1e2", f"Falha ao imprimir df_final para debug: {e}", "WARNING")
+
+    try:
+        os.makedirs("logs", exist_ok=True)
+        debug_path = os.path.join(
+            "logs",
+            f"debug_df_final_vr1e2_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv",
+        )
+        df_final.to_csv(debug_path, sep=";", index=False)
+        registrar_log("Análise VR1e2", f"df_final salvo para debug em {debug_path}", "INFO")
+    except Exception as e:
+        registrar_log("Análise VR1e2", f"Falha ao salvar df_final para debug: {e}", "ERROR")
+
     return df_final[colunas_finais], status_corrida
 
 # ==============================================================================
@@ -570,5 +619,4 @@ if __name__ == "__main__":
     app = AnalisarPlacaApp(root, MockAppState())
     root.wait_window(app)
     root.destroy()
-
 

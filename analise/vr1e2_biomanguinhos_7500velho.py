@@ -1,4 +1,4 @@
-﻿# analise/vr1e2_biomanguinhos_7500.py
+# analise/vr1e2_biomanguinhos_7500.py
 import os
 import tkinter.simpledialog as simpledialog  # Para diálogos
 import unicodedata  # Importado para normalização de strings

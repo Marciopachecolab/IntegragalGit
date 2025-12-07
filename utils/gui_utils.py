@@ -40,6 +40,9 @@ class TabelaComSelecaoSimulada(AfterManagerMixin, ctk.CTkToplevel):
         data_placa_formatada,
         agravos,
         usuario_logado: str = "Desconhecido",
+        exame: str = "",
+        lote: str = "",
+        arquivo_corrida: str = "",
     ):
         super().__init__(master=root)
         self.title("RT-PCR - Análise com Seleção Simulada")
@@ -64,6 +67,9 @@ class TabelaComSelecaoSimulada(AfterManagerMixin, ctk.CTkToplevel):
         self.data_placa_formatada = data_placa_formatada
         self.agravos = agravos
         self.usuario_logado = usuario_logado
+        self.exame = exame
+        self.lote = lote
+        self.arquivo_corrida = arquivo_corrida
 
         self.transient(root)
         self.grab_set()
@@ -109,12 +115,19 @@ class TabelaComSelecaoSimulada(AfterManagerMixin, ctk.CTkToplevel):
         )
         btn_grafico.grid(row=0, column=5, padx=5)
 
+        btn_mapa = ctk.CTkButton(
+            top_frame,
+            text="Mapa da Placa",
+            command=self._gerar_mapa_placa,
+        )
+        btn_mapa.grid(row=0, column=6, padx=5)
+
         btn_salvar = ctk.CTkButton(
             top_frame,
             text="Salvar Selecionados no Histórico",
             command=self._salvar_selecionados,
         )
-        btn_salvar.grid(row=0, column=6, padx=10)
+        btn_salvar.grid(row=0, column=7, padx=10)
 
         # Frame da Tabela
         table_frame = ctk.CTkFrame(main_frame)
@@ -215,6 +228,16 @@ class TabelaComSelecaoSimulada(AfterManagerMixin, ctk.CTkToplevel):
             return
 
         try:
+            from services.history_report import gerar_historico_csv
+
+            gerar_historico_csv(
+                df_selecionados,
+                exame=getattr(self, "exame", ""),
+                usuario=self.usuario_logado or "Desconhecido",
+                lote=getattr(self, "lote", ""),
+                arquivo_corrida=getattr(self, "arquivo_corrida", ""),
+                caminho_csv="reports/historico_analises.csv",
+            )
             detalhes = f"Placa: {self.num_placa}; {total_selecionados} amostras salvas."
             salvar_historico_processamento(
                 self.usuario_logado, "Análise Manual", "Concluído", detalhes
@@ -232,7 +255,7 @@ class TabelaComSelecaoSimulada(AfterManagerMixin, ctk.CTkToplevel):
         except Exception as e:
             messagebox.showerror(
                 "Erro ao Salvar",
-                f"Não foi possível salvar o histórico no banco de dados.\n\nErro: {e}",
+                f"Não foi possível salvar o histórico.\n\nErro: {e}",
                 parent=self,
             )
             registrar_log(
@@ -296,6 +319,39 @@ class TabelaComSelecaoSimulada(AfterManagerMixin, ctk.CTkToplevel):
         plt.xticks(rotation=45, ha="right")
         plt.tight_layout()
         plt.show()
+
+    def _gerar_mapa_placa(self):
+        try:
+            from services.plate_viewer import abrir_placa_ctk
+
+            app_state = getattr(self.master, "app_state", None)
+            df_final = getattr(app_state, "resultados_analise", None)
+            df_norm = getattr(app_state, "df_norm", None)
+            # prioriza df_final consolidado; senão, df_norm
+            df_to_use = df_final if df_final is not None and not df_final.empty else df_norm
+            if df_to_use is None or df_to_use.empty:
+                messagebox.showerror(
+                    "Erro",
+                    "Não foi possível gerar o mapa: resultados não disponíveis.",
+                    parent=self,
+                )
+                return
+
+            meta = {
+                "data": getattr(app_state, "data_corrida", ""),
+                "extracao": getattr(app_state, "arquivo_corrida", "") or getattr(app_state, "lote", ""),
+                "exame": getattr(app_state, "exame_selecionado", ""),
+                "usuario": getattr(app_state, "usuario_logado", ""),
+                "teste": getattr(app_state, "exame_selecionado", ""),
+            }
+            bloco_tam = getattr(app_state, "bloco_tamanho", 2)
+            abrir_placa_ctk(df_to_use, meta_extra=meta, group_size=bloco_tam, parent=self)
+            registrar_log("Mapa Placa", "Mapa exibido na janela CTk", "INFO")
+        except Exception as e:
+            registrar_log("Mapa Placa", f"Erro ao gerar mapa: {e}", "ERROR")
+            messagebox.showerror(
+                "Erro", f"Falha ao gerar mapa da placa:\n{e}", parent=self
+            )
 
     def _on_close(self):
         self.dispose()

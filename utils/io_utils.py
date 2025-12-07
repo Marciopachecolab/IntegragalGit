@@ -1,4 +1,4 @@
-﻿# FileName: /Integragal/utils/io_utils.py
+# FileName: /Integragal/utils/io_utils.py
 import os
 from typing import Optional
 
@@ -10,20 +10,20 @@ from utils.logger import registrar_log  # Importa o logger centralizado
 def detectar_separador_csv(filepath: str) -> str:
     """
     Tenta detectar o separador de um arquivo CSV lendo as primeiras linhas.
-    Prioriza ponto e vÃ­rgula (;) sobre vÃ­rgula (,).
+    Prioriza ponto e vírgula (;) sobre vírgula (,).
     """
     try:
         with open(filepath, "r", encoding="utf-8-sig") as f:
-            for _ in range(5):  # LÃª as primeiras 5 linhas para anÃ¡lise
+            for _ in range(5):  # Lê as primeiras 5 linhas para análise
                 linha = f.readline()
-                if ";" in linha and "," not in linha:  # Se sÃ³ tem ponto e vÃ­rgula
+                if ";" in linha and "," not in linha:  # Se só tem ponto e vírgula
                     registrar_log(
                         "IO Utils",
                         f"Separador detectado para '{os.path.basename(filepath)}': ';'",
                         level="DEBUG",
                     )
                     return ";"
-                if "," in linha and ";" not in linha:  # Se sÃ³ tem vÃ­rgula
+                if "," in linha and ";" not in linha:  # Se só tem vírgula
                     registrar_log(
                         "IO Utils",
                         f"Separador detectado para '{os.path.basename(filepath)}': ','",
@@ -49,14 +49,14 @@ def detectar_separador_csv(filepath: str) -> str:
                         return ","
         registrar_log(
             "IO Utils",
-            f"Separador padrÃ£o ',' usado para '{os.path.basename(filepath)}' (nÃ£o detectado claramente).",
+            f"Separador padrão ',' usado para '{os.path.basename(filepath)}' (não detectado claramente).",
             level="WARNING",
         )
-        return ","  # PadrÃ£o se nÃ£o for claramente detectado
+        return ","  # Padrão se não for claramente detectado
     except Exception as e:
         registrar_log(
             "IO Utils",
-            f"Erro ao detectar separador para '{os.path.basename(filepath)}': {e}. Usando padrÃ£o ','.",
+            f"Erro ao detectar separador para '{os.path.basename(filepath)}': {e}. Usando padrão ','.",
             level="ERROR",
         )
         return ","
@@ -64,22 +64,22 @@ def detectar_separador_csv(filepath: str) -> str:
 
 def detectar_linha_cabecalho(filepath: str, sep: str = ",") -> int:
     """
-    Tenta detectar a linha de cabeÃ§alho em um arquivo CSV ou Excel,
+    Tenta detectar a linha de cabeçalho em um arquivo CSV ou Excel,
     procurando por palavras-chave comuns como 'Well', 'Sample', 'Target'.
-    Retorna o Ã­ndice da linha (0-based).
+    Retorna o índice da linha (0-based).
     """
     try:
         # Para CSV
         if filepath.lower().endswith(".csv"):
             with open(filepath, "r", encoding="utf-8-sig") as f:
                 for idx, linha in enumerate(f):
-                    # Verifica se a linha contÃ©m as palavras-chave comuns de cabeÃ§alho
+                    # Verifica se a linha contém as palavras-chave comuns de cabeçalho
                     if all(
                         col in linha.lower() for col in ["well", "sample", "target"]
                     ):
                         registrar_log(
                             "IO Utils",
-                            f"CabeÃ§alho detectado em CSV '{os.path.basename(filepath)}' na linha {idx}.",
+                            f"Cabeçalho detectado em CSV '{os.path.basename(filepath)}' na linha {idx}.",
                             level="DEBUG",
                         )
                         return idx
@@ -89,15 +89,15 @@ def detectar_linha_cabecalho(filepath: str, sep: str = ",") -> int:
                         break
             registrar_log(
                 "IO Utils",
-                f"CabeÃ§alho nÃ£o detectado em CSV '{os.path.basename(filepath)}'. Usando linha 0.",
+                f"Cabeçalho não detectado em CSV '{os.path.basename(filepath)}'. Usando linha 0.",
                 level="WARNING",
             )
-            return 0  # PadrÃ£o se nÃ£o encontrar
+            return 0  # Padrão se não encontrar
 
-        # Para Excel (tentativa de leitura para encontrar sheet 'Results' e cabeÃ§alho)
+        # Para Excel (tentativa de leitura para encontrar sheet 'Results' e cabeçalho)
         elif filepath.lower().endswith((".xls", ".xlsx")):
-            # Tenta ler a sheet 'Results' e procurar o cabeÃ§alho
-            for skip_rows in range(50):  # Tenta pular atÃ© 50 linhas
+            # Tenta ler a sheet 'Results' e procurar o cabeçalho
+            for skip_rows in range(50):  # Tenta pular até 50 linhas
                 try:
                     temp_df = pd.read_excel(
                         filepath,
@@ -113,29 +113,29 @@ def detectar_linha_cabecalho(filepath: str, sep: str = ",") -> int:
                     ):
                         registrar_log(
                             "IO Utils",
-                            f"CabeÃ§alho detectado em Excel '{os.path.basename(filepath)}' na linha {skip_rows} (skiprows).",
+                            f"Cabeçalho detectado em Excel '{os.path.basename(filepath)}' na linha {skip_rows} (skiprows).",
                             level="DEBUG",
                         )
                         return skip_rows
                 except Exception:
-                    continue  # Tenta a prÃ³xima skiprows
+                    continue  # Tenta a próxima skiprows
             registrar_log(
                 "IO Utils",
-                f"CabeÃ§alho nÃ£o detectado em Excel '{os.path.basename(filepath)}'. Usando linha 0.",
+                f"Cabeçalho não detectado em Excel '{os.path.basename(filepath)}'. Usando linha 0.",
                 level="WARNING",
             )
-            return 0  # PadrÃ£o se nÃ£o encontrar
+            return 0  # Padrão se não encontrar
 
         registrar_log(
             "IO Utils",
-            f"Tipo de arquivo desconhecido para detecÃ§Ã£o de cabeÃ§alho: '{os.path.basename(filepath)}'. Usando linha 0.",
+            f"Tipo de arquivo desconhecido para detecção de cabeçalho: '{os.path.basename(filepath)}'. Usando linha 0.",
             level="WARNING",
         )
         return 0
     except Exception as e:
         registrar_log(
             "IO Utils",
-            f"Erro ao detectar linha de cabeÃ§alho para '{os.path.basename(filepath)}': {e}. Usando linha 0.",
+            f"Erro ao detectar linha de cabeçalho para '{os.path.basename(filepath)}': {e}. Usando linha 0.",
             level="ERROR",
         )
         return 0
@@ -143,12 +143,12 @@ def detectar_linha_cabecalho(filepath: str, sep: str = ",") -> int:
 
 def read_data_with_auto_detection(filepath: str) -> Optional[pd.DataFrame]:
     """
-    LÃª um arquivo de dados (CSV ou Excel) com detecÃ§Ã£o automÃ¡tica de formato,
-    separador (para CSV) e linha de cabeÃ§alho.
+    Lê um arquivo de dados (CSV ou Excel) com detecção automática de formato,
+    separador (para CSV) e linha de cabeçalho.
     Retorna um DataFrame do pandas ou None em caso de falha.
     """
     if not os.path.exists(filepath):
-        registrar_log("IO Utils", f"Arquivo nÃ£o encontrado: {filepath}", level="ERROR")
+        registrar_log("IO Utils", f"Arquivo não encontrado: {filepath}", level="ERROR")
         return None
 
     ext = os.path.splitext(filepath)[-1].lower()
@@ -161,7 +161,7 @@ def read_data_with_auto_detection(filepath: str) -> Optional[pd.DataFrame]:
             level="INFO",
         )
         try:
-            # Tenta detectar a linha de cabeÃ§alho para Excel
+            # Tenta detectar a linha de cabeçalho para Excel
             skip_rows = detectar_linha_cabecalho(filepath)
             df = pd.read_excel(
                 filepath, sheet_name="Results", skiprows=skip_rows, engine="openpyxl"
@@ -192,7 +192,7 @@ def read_data_with_auto_detection(filepath: str) -> Optional[pd.DataFrame]:
             sep = detectar_separador_csv(filepath)
             skip_rows = detectar_linha_cabecalho(filepath, sep=sep)
 
-            # Tenta ler com mÃºltiplas codificaÃ§Ãµes
+            # Tenta ler com múltiplas codificações
             encodings_to_try = [
                 "utf-8-sig",
                 "utf-8",
@@ -211,7 +211,7 @@ def read_data_with_auto_detection(filepath: str) -> Optional[pd.DataFrame]:
                     ]  # Limpa nomes das colunas
                     registrar_log(
                         "IO Utils",
-                        f"Arquivo CSV '{os.path.basename(filepath)}' lido com sucesso com codificaÃ§Ã£o '{enc}'.",
+                        f"Arquivo CSV '{os.path.basename(filepath)}' lido com sucesso com codificação '{enc}'.",
                         level="INFO",
                     )
                     break  # Sai do loop se a leitura for bem-sucedida
@@ -219,21 +219,21 @@ def read_data_with_auto_detection(filepath: str) -> Optional[pd.DataFrame]:
                     last_exception = e
                     registrar_log(
                         "IO Utils",
-                        f"Falha na leitura CSV com codificaÃ§Ã£o '{enc}': {e}",
+                        f"Falha na leitura CSV com codificação '{enc}': {e}",
                         level="DEBUG",
                     )
                 except Exception as e:
                     last_exception = e
                     registrar_log(
                         "IO Utils",
-                        f"Erro inesperado na leitura CSV com codificaÃ§Ã£o '{enc}': {e}",
+                        f"Erro inesperado na leitura CSV com codificação '{enc}': {e}",
                         level="ERROR",
                     )
 
             if df is None:  # Se todas as tentativas falharam
                 registrar_log(
                     "IO Utils",
-                    f"Todas as tentativas de leitura CSV para '{os.path.basename(filepath)}' falharam. Ãšltimo erro: {last_exception}",
+                    f"Todas as tentativas de leitura CSV para '{os.path.basename(filepath)}' falharam. Último erro: {last_exception}",
                     level="ERROR",
                 )
                 return None
@@ -248,12 +248,12 @@ def read_data_with_auto_detection(filepath: str) -> Optional[pd.DataFrame]:
     else:
         registrar_log(
             "IO Utils",
-            f"Tipo de arquivo nÃ£o suportado para leitura: {ext}",
+            f"Tipo de arquivo não suportado para leitura: {ext}",
             level="ERROR",
         )
         return None
 
-    # Padroniza nomes de colunas comuns apÃ³s a leitura
+    # Padroniza nomes de colunas comuns após a leitura
     if df is not None:
         df.columns = [
             (

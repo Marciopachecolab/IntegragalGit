@@ -36,17 +36,17 @@ async def launch_chrome_debug(use_chrome_channel: bool = False, headless: bool =
         workspace = "/workspace" if is_bedrock_env() else "./workspace"
         user_data_dir = os.path.join(workspace, "browser", "user_data")
 
-        # 删除浏览器单例锁文件（如果存在），避免从NAS恢复的旧锁文件导致冲突
-        # 使用 lexists 而不是 exists，因为这些文件可能是指向不存在目标的符号链接
+        # åˆ é™¤æµè§ˆå™¨å•ä¾‹é”æ–‡ä»¶ï¼ˆå¦‚æžœå­˜åœ¨ï¼‰ï¼Œé¿å…ä»ŽNASæ¢å¤çš„æ—§é”æ–‡ä»¶å¯¼è‡´å†²çª
+        # ä½¿ç”¨ lexists è€Œä¸æ˜¯ existsï¼Œå› ä¸ºè¿™äº›æ–‡ä»¶å¯èƒ½æ˜¯æŒ‡å‘ä¸å­˜åœ¨ç›®æ ‡çš„ç¬¦å·é“¾æŽ¥
         singleton_files = ["SingletonLock", "SingletonSocket", "SingletonCookie"]
         for filename in singleton_files:
             file_path = os.path.join(user_data_dir, filename)
             try:
                 if os.path.lexists(file_path):
                     os.remove(file_path)
-                    logger.info(f"已删除浏览器单例文件: {file_path}")
+                    logger.info(f"å·²åˆ é™¤æµè§ˆå™¨å•ä¾‹æ–‡ä»¶: {file_path}")
             except Exception as e:
-                logger.warning(f"删除浏览器单例文件失败 {file_path}: {str(e)}")
+                logger.warning(f"åˆ é™¤æµè§ˆå™¨å•ä¾‹æ–‡ä»¶å¤±è´¥ {file_path}: {str(e)}")
 
         context = await playwright.chromium.launch_persistent_context(
             user_data_dir=user_data_dir,
@@ -79,10 +79,10 @@ async def launch_chrome_debug(use_chrome_channel: bool = False, headless: bool =
         )
         metrics_counter_inc("agent_browser_launch", {"status": "success"})
 
-        # 监听新页面事件
+        # ç›‘å¬æ–°é¡µé¢äº‹ä»¶
         context.on("page", handle_new_page)
 
-        # 处理已经打开的页面
+        # å¤„ç†å·²ç»æ‰“å¼€çš„é¡µé¢
         for page in context.pages:
             await handle_new_page(page)
 

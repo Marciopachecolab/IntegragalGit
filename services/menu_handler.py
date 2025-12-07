@@ -1,6 +1,6 @@
 """
-Gerenciador de Menu para a aplicação IntegraGAL.
-Responsável por criar e gerenciar os botões do menu principal.
+Gerenciador de Menu para a aplica√ß√£o IntegraGAL.
+Respons√°vel por criar e gerenciar os bot√µes do menu principal.
 """
 
 from tkinter import messagebox, simpledialog
@@ -16,35 +16,36 @@ from utils.logger import registrar_log
 
 
 class MenuHandler:
-    """Gerenciador de menu da aplicação"""
+    """Gerenciador de menu da aplica√ß√£o"""
 
     def __init__(self, main_window):
         """
         Inicializa o gerenciador de menu
 
         Args:
-            main_window: Instância da janela principal (App)
+            main_window: Inst√É¬¢ncia da janela principal (App)
         """
         self.main_window = main_window
-        self.analysis_service = AnalysisService()
+        # garante que o AnalysisService receba o app_state global (com dados_extracao carregado)
+        self.analysis_service = AnalysisService(self.main_window.app_state)
         self._criar_botoes_menu()
 
     def _criar_botoes_menu(self):
-        """Cria todos os botões do menu principal"""
+        """Cria todos os bot√µes do menu principal"""
         main_frame = self.main_window.main_frame
         frame_botoes = ctk.CTkFrame(main_frame)
         frame_botoes.pack(expand=True)
 
-        # Lista de botões do menu
+        # Lista de bot√µes do menu
         botoes = [
             ("1. Mapeamento da Placa", self.abrir_busca_extracao),
-            ("2. Realizar Análise", self.realizar_analise),
+            ("2. Realizar An√°lise", self.realizar_analise),
             ("3. Visualizar e Salvar Resultados", self.mostrar_resultados_analise),
             ("4. Enviar para o GAL", self.enviar_para_gal),
-            ("🔧 Administração", self.abrir_administracao),  # NOVO
-            ("👥 Gerenciar Usuários", self.gerenciar_usuarios),  # NOVO
-            ("➕ Incluir Novo Exame", self.incluir_novo_exame),  # NOVO
-            ("📊 Relatórios", self.gerar_relatorios),  # NOVO
+            ("üõ† Administra√ß√£o", self.abrir_administracao),  # NOVO
+            ("üë• Gerenciar Usu√°rios", self.gerenciar_usuarios),  # NOVO
+            ("‚ûï Incluir Novo Exame", self.incluir_novo_exame),  # NOVO
+            ("üìä Relat√≥rios", self.gerar_relatorios),  # NOVO
         ]
 
         for texto, comando in botoes:
@@ -54,7 +55,7 @@ class MenuHandler:
 
     def abrir_busca_extracao(self):
         """Executa o mapeamento da placa/carregamento de dados"""
-        self.main_window.update_status("A carregar extração...")
+        self.main_window.update_status("A carregar extra√ß√£o...")
         self.main_window.app_state.reset_extracao_state()
         resultado = carregar_dados_extracao(self.main_window)
         if resultado:
@@ -63,30 +64,30 @@ class MenuHandler:
                 self.main_window.app_state.parte_placa,
             ) = resultado
             messagebox.showinfo(
-                "Sucesso", "Extração carregada com sucesso!", parent=self.main_window
+                "Sucesso", "Extra√ß√£o carregada com sucesso!", parent=self.main_window
             )
             self.main_window.update_status(
                 f"{len(self.main_window.app_state.dados_extracao)} amostras carregadas."
             )
         else:
-            self.main_window.update_status("Carregamento de extração cancelado.")
+            self.main_window.update_status("Carregamento de extra√ß√£o cancelado.")
 
 
     def _obter_detalhes_analise_via_dialogo(
         self,
     ) -> Tuple[Optional[str], Optional[str]]:
         """
-        Exibe dialog para seleção de exame e lote.
+        Exibe dialog para sele√ß√£o de exame e lote.
 
         Returns
         -------
         Tuple[Optional[str], Optional[str]]
-            (exame_selecionado, lote_kit) ou (None, None) se o usuário cancelar
+            (exame_selecionado, lote_kit) ou (None, None) se o usu√°rio cancelar
             alguma etapa.
         """
-        # Tenta obter a lista de exames disponíveis a partir do serviço.
-        # Primeiro usa, se existir, o atributo de cache; se não existir ou estiver vazio,
-        # chama o método público de listagem.
+        # Tenta obter a lista de exames dispon√≠veis a partir do servi√ßo.
+        # Primeiro usa, se existir, o atributo de cache; se n√£o existir ou estiver vazio,
+        # chama o m√©todo p√∫blico de listagem.
         try:
             exames_disponiveis = getattr(self.analysis_service, "exames_disponiveis", None)
 
@@ -98,16 +99,16 @@ class MenuHandler:
                 lista_exames: list[str] = []
             else:
                 try:
-                    import pandas as _pd  # import local para evitar dependência no topo
+                    import pandas as _pd  # import local para evitar depend√™ncia no topo
 
                     # Caso seja DataFrame com coluna "exame"
                     if isinstance(exames_disponiveis, _pd.DataFrame) and "exame" in exames_disponiveis.columns:
                         lista_exames = exames_disponiveis["exame"].astype(str).tolist()
-                    # Caso seja um dicionário com chave "exame"
+                    # Caso seja um dicion√°rio com chave "exame"
                     elif isinstance(exames_disponiveis, dict) and "exame" in exames_disponiveis:
                         lista_exames = [str(x) for x in exames_disponiveis["exame"]]
                     else:
-                        # Assume que é um iterável de strings (ou convertível para string)
+                        # Assume que √© um iter√°vel de strings (ou convert√≠vel para string)
                         lista_exames = [str(x) for x in exames_disponiveis]
                 except Exception:
                     # Fallback extremamente defensivo
@@ -117,8 +118,8 @@ class MenuHandler:
                         lista_exames = []
         except Exception as exc:  # noqa: BLE001
             messagebox.showerror(
-                "Erro de Configuração",
-                f"Falha ao carregar lista de exames disponíveis: {exc}",
+                "Erro de Configura√ß√£o",
+                f"Falha ao carregar lista de exames dispon√≠veis: {exc}",
                 parent=self.main_window,
             )
             return None, None
@@ -126,20 +127,20 @@ class MenuHandler:
         if not lista_exames:
             messagebox.showwarning(
                 "Aviso",
-                "Não há exames configurados para análise.",
+                "N√£o h√° exames configurados para an√°lise.",
                 parent=self.main_window,
             )
             return None, None
 
         dialog = CTkSelectionDialog(
             self.main_window,
-            title="Seleção de Exame",
-            text="Selecione o exame para análise:",
+            title="Sele√ß√£o de Exame",
+            text="Selecione o exame para an√°lise:",
             values=lista_exames,
         )
         exame_selecionado = dialog.get_selection()
         if not exame_selecionado:
-            registrar_log("Análise", "Seleção de exame cancelada.", "INFO")
+            registrar_log("An√°lise", "Sele√ß√£o de exame cancelada.", "INFO")
             return None, None
 
         lote_kit = simpledialog.askstring(
@@ -148,14 +149,14 @@ class MenuHandler:
             parent=self.main_window,
         )
         if not lote_kit:
-            registrar_log("Análise", "Digitação do lote do kit cancelada.", "INFO")
+            registrar_log("An√°lise", "Digita√ß√£o do lote do kit cancelada.", "INFO")
             return None, None
 
         return exame_selecionado, lote_kit
 
     def _executar_servico_analise(self, exame: str, lote: str):
         """
-        Executa o serviço de análise em background
+        Executa o servi√ßo de an√°lise em background
 
         Args:
             exame: Nome do exame a ser executado
@@ -202,12 +203,12 @@ class MenuHandler:
 
                     # Formatar dados para GAL
                     from main import _formatar_para_gal
-
-                    df_gal = _formatar_para_gal(resultados_df)
-                    df_gal.to_csv(gal_path, index=False)
+                    exam_cfg = getattr(self.main_window.app_state, "exam_cfg", None)
+                    df_gal = _formatar_para_gal(resultados_df, exam_cfg=exam_cfg, exame=exame)
+                    df_gal.to_csv(gal_path, index=False, sep=";")
 
                     gal_last = os.path.join(reports_dir, "gal_last_exame.csv")
-                    df_gal.to_csv(gal_last, index=False)
+                    df_gal.to_csv(gal_last, index=False, sep=";")
 
                     # Notificar salvamento
                     from main import _notificar_gal_saved
@@ -225,14 +226,14 @@ class MenuHandler:
 
         except Exception as e:
             registrar_log(
-                "UI Main", f"Erro ao executar serviço de análise: {e}", "CRITICAL"
+                "UI Main", f"Erro ao executar servi√ßo de an√°lise: {e}", "CRITICAL"
             )
             messagebox.showerror(
-                "Erro", f"Falha ao executar a análise: {e}", parent=self.main_window
+                "Erro", f"Falha ao executar a an√°lise: {e}", parent=self.main_window
             )
 
     def realizar_analise(self):
-        """Executa análise dos dados carregados"""
+        """Executa an√°lise dos dados carregados"""
         if self.main_window.app_state.dados_extracao is None:
             messagebox.showerror(
                 "Erro de Fluxo",
@@ -245,11 +246,11 @@ class MenuHandler:
         if not exame or not lote:
             return
 
-        self.main_window.update_status(f"A executar análise para '{exame}'...")
+        self.main_window.update_status(f"A executar an√°lise para '{exame}'...")
         self.main_window.after(100, self._executar_servico_analise, exame, lote)
 
     def mostrar_resultados_analise(self):
-        """Exibe os resultados da análise em tabela"""
+        """Exibe os resultados da an√°lise em tabela"""
         try:
             df = self.main_window.app_state.resultados_analise
             if df is None or df.empty:
@@ -277,6 +278,9 @@ class MenuHandler:
                 usuario_logado=getattr(
                     self.main_window.app_state, "usuario_logado", "Desconhecido"
                 ),
+                exame=getattr(self.main_window.app_state, "exame_selecionado", ""),
+                lote=getattr(self.main_window.app_state, "lote_kit", ""),
+                arquivo_corrida=getattr(self.main_window.app_state, "caminho_arquivo_corrida", ""),
             )
 
         except Exception as e:
@@ -286,20 +290,20 @@ class MenuHandler:
             )
 
     def enviar_para_gal(self):
-        """Abre o módulo de envio para o GAL"""
-        self.main_window.update_status("Abrindo módulo de envio para o GAL...")
+        """Abre o m√≥dulo de envio para o GAL"""
+        self.main_window.update_status("Abrindo m√≥dulo de envio para o GAL...")
         try:
             abrir_janela_envio_gal(
                 self.main_window, self.main_window.app_state.usuario_logado
             )
         except Exception as e:
-            self.main_window.update_status("Erro ao abrir o módulo de envio.")
+            self.main_window.update_status("Erro ao abrir o m√≥dulo de envio.")
             registrar_log(
                 "UI Main", f"Falha ao abrir a janela de envio ao GAL: {e}", "CRITICAL"
             )
             messagebox.showerror(
-                "Erro Crítico",
-                f"Não foi possível iniciar o módulo de envio ao GAL.\n\nDetalhes: {e}",
+                "Erro Cr√≠tico",
+                f"N√£o foi poss√≠vel iniciar o m√≥dulo de envio ao GAL.\n\nDetalhes: {e}",
                 parent=self.main_window,
             )
 
@@ -310,20 +314,20 @@ class MenuHandler:
         AdminPanel(self.main_window, self.main_window.app_state.usuario_logado)
 
     def gerenciar_usuarios(self):
-        """Abre o painel de gerenciamento de usuários"""
+        """Abre o painel de gerenciamento de usu√°rios"""
         from ui.user_management import UserManagementPanel
 
         UserManagementPanel(self.main_window, self.main_window.app_state.usuario_logado)
 
     def incluir_novo_exame(self):
-        """Abre o módulo de Cadastros Diversos (exames, equipamentos, placas e regras)."""
+        """Abre o m√≥dulo de Cadastros Diversos (exames, equipamentos, placas e regras)."""
         # Import local para evitar problemas de import circular.
         from ui.cadastros_diversos import CadastrosDiversosWindow
 
         CadastrosDiversosWindow(self.main_window)
 
     def gerar_relatorios(self):
-        """Gera relatórios do sistema"""
+        """Gera relat√≥rios do sistema"""
         messagebox.showinfo(
-            "Info", "Módulo de relatórios em desenvolvimento.", parent=self.main_window
+            "Info", "M√≥dulo de relat√≥rios em desenvolvimento.", parent=self.main_window
         )

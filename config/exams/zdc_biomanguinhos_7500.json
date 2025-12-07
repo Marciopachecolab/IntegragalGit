@@ -1,0 +1,39 @@
+{
+  "nome_exame": "ZDC Biomanguinhos 7500",
+  "slug": "zdc_biomanguinhos_7500",
+  "equipamento": "7500 Real-Time",
+  "tipo_placa_analitica": "36",
+  "esquema_agrupamento": "96->36",
+  "kit_codigo": 1832,
+  "alvos": ["DEN1", "DEN2", "DEN3", "DEN4", "ZYK", "CHIK"],
+  "mapa_alvos": {
+    "DEN1": "DEN1",
+    "DEN2": "DEN2",
+    "DEN3": "DEN3",
+    "DEN4": "DEN4",
+    "DENGUE_1": "DEN1",
+    "DENGUE_2": "DEN2",
+    "DENGUE_3": "DEN3",
+    "DENGUE_4": "DEN4",
+    "ZYKA": "ZYK",
+    "ZYK": "ZYK",
+    "CHYKUNGUNIA": "CHIK",
+    "CHIKUNGUNIA": "CHIK",
+    "CHIK": "CHIK"
+  },
+  "faixas_ct": {
+    "detect_max": 38.0,
+    "inconc_min": 38.01,
+    "inconc_max": 40.0,
+    "rp_min": 15.0,
+    "rp_max": 35.0
+  },
+  "rps": ["RP", "RP_1", "RP_2", "RP_3"],
+  "export_fields": ["den1", "den2", "den3", "den4", "zyk", "chik"],
+  "panel_tests_id": "1",
+  "controles": {
+    "cn": ["G10+G11+G12"],
+    "cp": ["H10+H11+H12"]
+  },
+  "comentarios": "Exame arbovírus ZDC; placa 96->36 (trios)"
+}

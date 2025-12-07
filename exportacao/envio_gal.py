@@ -1,4 +1,4 @@
-﻿# exportacao/envio_gal.py
+# exportacao/envio_gal.py
 import os
 import sys
 import threading
@@ -13,6 +13,7 @@ import customtkinter as ctk
 import pandas as pd
 import simplejson as json
 from services.config_service import config_service
+from services.exam_registry import get_exam_cfg
 from utils.io_utils import read_data_with_auto_detection
 from utils.logger import registrar_log
 
@@ -660,17 +661,28 @@ class GalService:
 # 3. CLASSE DE INTERFACE GRÁFICA (UI) - COM FEEDBACK MELHORADO
 # ==============================================================================
 class IntegrationApp(ctk.CTkToplevel):
-    def __init__(self, master, usuario_logado: str):
+    def __init__(self, master, usuario_logado: str, app_state: Optional[Any] = None):
         super().__init__(master)
         self.title("Envio de Resultados para o GAL")
         self.geometry("900x800")
 
         self.usuario_logado = usuario_logado
+        self.app_state = app_state
         self.gal_service = GalService(self.log_to_textbox)
 
         self.current_csv_path: Optional[str] = None
         self.observacao: str = ""
         self.relatorio_filename: str = ""
+        
+        # Carrega config do exame se disponível
+        self.exam_cfg = None
+        if self.app_state:
+            try:
+                exame = getattr(self.app_state, "exame_selecionado", None)
+                if exame:
+                    self.exam_cfg = get_exam_cfg(exame)
+            except Exception:
+                self.exam_cfg = None
 
         self._criar_widgets()
         self.protocol("WM_DELETE_WINDOW", self.destroy)
@@ -929,8 +941,8 @@ class IntegrationApp(ctk.CTkToplevel):
 # ==============================================================================
 # 4. PONTO DE ENTRADA
 # ==============================================================================
-def abrir_janela_envio_gal(master, usuario_logado):
-    janela = IntegrationApp(master, usuario_logado)
+def abrir_janela_envio_gal(master, usuario_logado, app_state: Optional[Any] = None):
+    janela = IntegrationApp(master, usuario_logado, app_state)
     janela.grab_set()
 
 

@@ -1,4 +1,4 @@
-﻿# db/db_utils.py
+# db/db_utils.py
 
 import psycopg2
 

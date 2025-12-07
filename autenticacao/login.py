@@ -1,4 +1,4 @@
-﻿# autenticacao/login.py
+# autenticacao/login.py
 import sys
 from tkinter import messagebox
 from typing import Optional

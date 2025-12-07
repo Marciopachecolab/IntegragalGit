@@ -1,58 +1,161 @@
 """
-Ponto de entrada principal da aplicação IntegraGAL v2.0 - VERSÃO REFATORADA
-Usando arquitetura modular com gerenciadores separados para melhor manutenibilidade.
+Ponto de entrada principal da aplicação IntegraGAL v2.0 - versão refatorada.
+Mantém utilitários globais (_formatar_para_gal) para compatibilidade.
 """
 
 import os
+from datetime import datetime
 
-# Garante BASE_DIR no sys.path
 from services.system_paths import BASE_DIR
-# Importações dos novos módulos refatorados
 from ui.main_window import criar_aplicacao_principal
 from utils.logger import registrar_log
 
 
 # Para compatibilidade - manter funções utilitárias globais
-def _formatar_para_gal(df):
-    """Formatar dados para exportação GAL (função utilitária mantida para compatibilidade)"""
-    df_out = df.copy()
+def _formatar_para_gal(df, exam_cfg=None, exame: str | None = None):
+    """Formata o resultado para layout GAL usando metadados do exame (registry)."""
+    import unicodedata
+    import pandas as pd
+    from services.exam_registry import get_exam_cfg
+
+    cfg = exam_cfg or (get_exam_cfg(exame) if exame else get_exam_cfg(""))
+
+    df_in = df.copy()
     for c in ["Unnamed: 0", "index"]:
-        if c in df_out.columns:
-            df_out.drop(columns=[c], inplace=True)
+        if c in df_in.columns:
+            df_in = df_in.drop(columns=[c])
 
-    def _norm(col):
-        import unicodedata
-
-        col2 = str(col).strip()
-        col2 = (
-            unicodedata.normalize("NFKD", col2)
+    def _strip_accents(txt: str) -> str:
+        return (
+            unicodedata.normalize("NFKD", txt)
             .encode("ASCII", "ignore")
             .decode("ASCII")
         )
+
+    def _norm(col: str) -> str:
+        col2 = str(col).strip()
+        col2 = _strip_accents(col2)
         return col2.replace(" ", "_").lower()
 
-    df_out.columns = [_norm(c) for c in df_out.columns]
+    colmap = {_norm(c): c for c in df_in.columns}
 
-    cols = list(df_out.columns)
-    orden = []
-    for c in ["poco", "well", "amostra", "codigo"]:
-        if c in cols and c not in orden:
-            orden.append(c)
-    resultado_cols = [c for c in cols if c.startswith("resultado_")]
-    orden.extend([c for c in resultado_cols if c not in orden])
-    for t in ["sc2", "hmpv", "inf_a", "inf_b", "adv", "rsv", "hrv"]:
-        if t in cols and t not in orden:
-            orden.append(t)
-    for c in ["rp_1", "rp_2", "rp1", "rp2"]:
-        if c in cols and c not in orden:
-            orden.append(c)
-    for c in cols:
-        if c not in orden:
-            orden.append(c)
-    try:
-        df_out = df_out[orden]
-    except Exception:
-        pass
+    def _get(col_names, default=""):
+        for name in col_names:
+            key = _norm(name)
+            if key in colmap:
+                return df_in[colmap[key]]
+        return pd.Series([default] * len(df_in))
+
+    def _map_result(val):
+        if val is None or (isinstance(val, float) and pd.isna(val)):
+            return ""
+        s = str(val).strip().lower()
+        if "inconcl" in s:
+            return "3"
+        if "nao" in s and "detect" in s:
+            return "2"
+        if "detect" in s:
+            return "1"
+        return ""
+
+    df_out = pd.DataFrame()
+    cod_col = _get(["codigo", "amostra"])
+    df_out["codigoAmostra"] = cod_col
+    df_out["codigo"] = cod_col
+    df_out["requisicao"] = ""
+    df_out["paciente"] = ""
+    df_out["exame"] = cfg.nome_exame or "VRSRT"
+    df_out["metodo"] = "RTTR"
+    df_out["registroInterno"] = cod_col
+    df_out["kit"] = str(cfg.kit_codigo or "427")
+    df_out["reteste"] = ""
+    df_out["loteKit"] = ""
+    df_out["dataProcessamentoFim"] = datetime.now().strftime("%d/%m/%Y")
+    df_out["valorReferencia"] = ""
+    df_out["observacao"] = ""
+    df_out["painel"] = cfg.panel_tests_id or "1"
+    df_out["resultado"] = ""
+
+    export_fields = cfg.export_fields or []
+    if not export_fields:
+        export_fields = [
+            "Influenzaa",
+            "influenzab",
+            "coronavirusncov",
+            "adenovirus",
+            "vsincicialresp",
+            "metapneumovirus",
+            "rinovirus",
+        ]
+
+    def _find_result_col(target_norm: str):
+        """
+        Procura coluna de resultado compatível com o analito exportado,
+        usando alias para mapear nomes de painel (influenzaa, adenovirus, etc.)
+        para os alvos internos (INF A, ADV, ...).
+        """
+        # aliases básicos painel -> alvo interno
+        aliases = {
+            "INFLUENZAA": "INF A",
+            "INFLUENZAB": "INF B",
+            "ADENOVIRUS": "ADV",
+            "ADENOVÃRUS": "ADV",
+            "METAPNEUMOVIRUS": "HMPV",
+            "RINOVIRUS": "HRV",
+            "RINOVÃRUS": "HRV",
+            "SARS-COV-2": "SC2",
+            "SARSCOV2": "SC2",
+            "CORONAVIRUSNCOV": "SC2",
+        }
+        # normaliza alvo exportado
+        tnorm_raw = _strip_accents(target_norm).upper().replace("_", " ").replace("-", " ").strip()
+        if tnorm_raw in aliases:
+            tnorm_raw = aliases[tnorm_raw]
+        # aplica normalize_target do exame (mapeia INFA -> INF A, etc.)
+        tnorm = cfg.normalize_target(tnorm_raw).upper()
+
+        def _clean(s: str) -> str:
+            return (
+                _strip_accents(s)
+                .upper()
+                .replace("RESULTADO", "")
+                .replace("_", "")
+                .replace(" ", "")
+            )
+
+        # tenta bater com colunas existentes
+        for k, v in colmap.items():
+            if _clean(k) == _clean(tnorm):
+                return v
+        # tenta prefácio Resultado_<alvo>
+        cand = f"Resultado_{tnorm}"
+        for k, v in colmap.items():
+            if _clean(k) == _clean(cand):
+                return v
+        return None
+
+    def _exportavel(code: str) -> bool:
+        if not code:
+            return False
+        c = code.upper()
+        if "CN" in c or "CP" in c:
+            return False
+        return c.isdigit()
+
+    export_mask = cod_col.apply(_exportavel)
+    df_out = df_out.loc[export_mask].reset_index(drop=True)
+    df_in = df_in.loc[export_mask].reset_index(drop=True)
+
+    for analito in export_fields:
+        alvo_norm = cfg.normalize_target(analito)
+        res_col = _find_result_col(alvo_norm)
+        if res_col and res_col in df_in.columns:
+            serie_res = df_in[res_col].apply(_map_result)
+        else:
+            serie_res = pd.Series([""] * len(df_in))
+        col_nome = _strip_accents(analito).replace(" ", "").replace("-", "").replace("_", "").lower()
+        df_out[col_nome] = serie_res
+
     return df_out
 
 

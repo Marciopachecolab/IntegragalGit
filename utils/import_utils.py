@@ -1,9 +1,9 @@
-﻿import importlib
+import importlib
 
 
 def importar_funcao(modulo_funcao):
     """
-    Importa e retorna uma funÃ§Ã£o Python a partir de uma string como: 'analise.vr1.analisar_placa_vr1'
+    Importa e retorna uma função Python a partir de uma string como: 'analise.vr1.analisar_placa_vr1'
     """
     try:
         nome_modulo, nome_funcao = modulo_funcao.rsplit(".", 1)

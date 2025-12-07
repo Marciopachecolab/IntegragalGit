@@ -1,6 +1,6 @@
 # 🚀 GUIA DE EXECUÇÃO RÁPIDA - IntegraGAL
 
-## 📦 Após Extrair o Pacote:
+## �“¦ Após Extrair o Pacote:
 
 ### Opção 1: Usar o executar.bat (RECOMENDADO)
 1. **Extrair** o arquivo `IntegraGAL_CorrecaoSegura_20251202_113410.zip`
@@ -17,10 +17,10 @@ Se o .bat não funcionar:
 Se o executar.bat der problemas:
 - Usar o arquivo `executar_simples.bat`
 
-## 🔍 Testando as Correções:
+## �” Testando as Correções:
 
 ### 1. **Base URL GAL**
-- ✅ Abrir → Admin Panel → Sistema
+- ✅ Abrir â†’ Admin Panel â†’ Sistema
 - ✅ Alterar a URL do GAL
 - ✅ Clicar "Salvar"
 - ✅ **Esperado:** Mensagem de sucesso
@@ -28,7 +28,7 @@ Se o executar.bat der problemas:
 - ✅ **Verificar:** A nova URL deve estar mantida
 
 ### 2. **Gerenciamento de Usuários**
-- ✅ Abrir → Ferramentas → Gerenciar Usuários
+- ✅ Abrir â†’ Ferramentas â†’ Gerenciar Usuários
 - ✅ **Esperado:** Deve abrir **SEM erro "senha_hash"**
 - ✅ A janela deve abrir normalmente
 
@@ -41,18 +41,18 @@ Se o executar.bat der problemas:
 - **Usuário:** `marcio`
 - **Senha:** `flafla`
 
-## ⚠️ Problemas Conhecidos Resolvidos:
-1. ❌ ~~Base URL GAL voltava ao valor original~~ → ✅ **CORRIGIDO**
-2. ❌ ~~Erro "senha_hash" no gerenciamento~~ → ✅ **CORRIGIDO**  
-3. ❌ ~~Janela não fechava com 1 clique~~ → ✅ **CORRIGIDO**
-4. ❌ ~~Múltiplas janelas abertas~~ → ✅ **CORRIGIDO**
+## âš ï¸ Problemas Conhecidos Resolvidos:
+1. âŒ ~~Base URL GAL voltava ao valor original~~ â†’ ✅ **CORRIGIDO**
+2. âŒ ~~Erro "senha_hash" no gerenciamento~~ â†’ ✅ **CORRIGIDO**  
+3. âŒ ~~Janela não fechava com 1 clique~~ â†’ ✅ **CORRIGIDO**
+4. âŒ ~~Múltiplas janelas abertas~~ â†’ ✅ **CORRIGIDO**
 
-## 📞 Se ainda tiver problemas:
+## �“ž Se ainda tiver problemas:
 1. Verificar se o Python está instalado
 2. Verificar se as dependências estão instaladas: `pip install customtkinter bcrypt`
 3. Verificar se os arquivos foram extraídos corretamente com estrutura de pastas
 
 ---
 **✅ Pacote:** `IntegraGAL_CorrecaoSegura_20251202_113410.zip`
-**📅 Data:** 02/12/2025 11:34
-**🔧 Status:** Correções Seguras e Conservadoras Aplicadas
+**�“… Data:** 02/12/2025 11:34
+**🛠 Status:** Correções Seguras e Conservadoras Aplicadas

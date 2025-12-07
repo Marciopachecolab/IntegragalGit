@@ -1,6 +1,6 @@
 """
 Painel Administrativo do Sistema IntegragalGit.
-Fornece funcionalidades de administração e monitoramento do sistema.
+Fornece funcionalidades de administra√ß√£o e monitoramento do sistema.
 """
 
 import json
@@ -17,15 +17,15 @@ from utils.logger import registrar_log
 
 
 class AdminPanel:
-    """Painel administrativo com funcionalidades de gestão do sistema"""
+    """Painel administrativo com funcionalidades de gest√£o do sistema"""
 
     def __init__(self, main_window, usuario_logado: str):
         """
         Inicializa o painel administrativo
 
         Args:
-            main_window: Janela principal da aplicação
-            usuario_logado: Nome do usuário logado
+            main_window: Janela principal da aplica√ß√£o
+            usuario_logado: Nome do usu√°rio logado
         """
         self.main_window = main_window
         self.usuario_logado = usuario_logado
@@ -37,7 +37,7 @@ class AdminPanel:
         """Cria a interface do painel administrativo"""
         # Janela modal
         self.admin_window = ctk.CTkToplevel(self.main_window)
-        self.admin_window.title("🔧 Painel Administrativo")
+        self.admin_window.title("üõ† Painel Administrativo")
         self.admin_window.geometry("1000x750")
         self.admin_window.transient(self.main_window)
         self.admin_window.grab_set()
@@ -54,14 +54,14 @@ class AdminPanel:
 
         title_label = ctk.CTkLabel(
             header_frame,
-            text="🔧 Painel Administrativo",
+            text="üõ† Painel Administrativo",
             font=ctk.CTkFont(size=24, weight="bold"),
         )
         title_label.pack(pady=15)
 
         info_label = ctk.CTkLabel(
             header_frame,
-            text=f"Usuário: {self.usuario_logado} | Data: {datetime.now().strftime('%d/%m/%Y %H:%M')}",
+            text=f"Usu√°rio: {self.usuario_logado} | Data: {datetime.now().strftime('%d/%m/%Y %H:%M')}",
             font=ctk.CTkFont(size=12),
         )
         info_label.pack(pady=(0, 15))
@@ -76,7 +76,7 @@ class AdminPanel:
         self._criar_aba_logs()
         self._criar_aba_backup()
 
-        # Botão fechar
+        # Bot√£o fechar
         button_frame = ctk.CTkFrame(self.admin_window)
         button_frame.pack(fill="x", padx=20, pady=(0, 20))
 
@@ -85,47 +85,47 @@ class AdminPanel:
         ).pack(side="right", padx=10, pady=10)
 
     def _criar_aba_sistema(self):
-        """Cria aba de informações do sistema"""
+        """Cria aba de informa√ß√µes do sistema"""
         aba_sistema = self.notebook.add("Sistema")
 
-        # Informações do sistema
+        # Informa√ß√µes do sistema
         info_frame = ctk.CTkScrollableFrame(aba_sistema)
         info_frame.pack(fill="both", expand=True, padx=10, pady=10)
 
-        # Título
+        # T√≠tulo
         titulo_label = ctk.CTkLabel(
             info_frame,
-            text="📊 Informações do Sistema",
+            text="üìä Informa√ß√µes do Sistema",
             font=ctk.CTkFont(size=18, weight="bold"),
         )
         titulo_label.pack(pady=(0, 20))
 
-        # Informações básicas
+        # Informa√ß√µes b√°sicas
         self._adicionar_info_sistema(info_frame)
 
-        # Botões de ação
+        # Bot√µes de a√ß√£o
         acoes_frame = ctk.CTkFrame(info_frame)
         acoes_frame.pack(fill="x", pady=20)
 
         ctk.CTkButton(
             acoes_frame,
-            text="💾 Salvar Alterações",
+            text="ÔøΩ‚Äô¬æ Salvar Altera√ß√µes",
             command=self._salvar_info_sistema,
             fg_color="green",
         ).pack(side="left", padx=10, pady=10)
 
         ctk.CTkButton(
-            acoes_frame, text="🔄 Verificar Sistema", command=self._verificar_sistema
+            acoes_frame, text="üîÑ Verificar Sistema", command=self._verificar_sistema
         ).pack(side="left", padx=10, pady=10)
 
         ctk.CTkButton(
-            acoes_frame, text="📊 Status dos Serviços", command=self._status_servicos
+            acoes_frame, text="üìä Status dos Servi√ßos", command=self._status_servicos
         ).pack(side="left", padx=10, pady=10)
 
     def _adicionar_info_sistema(self, parent):
-        """Adiciona informações básicas do sistema"""
+        """Adiciona informa√ß√µes b√°sicas do sistema"""
         try:
-            self.sistema_entries = {}  # Para armazenar as entries editáveis
+            self.sistema_entries = {}  # Para armazenar as entries edit√°veis
             self.sistema_original_values = {}  # Para armazenar valores originais
 
             # Tentar ler config.json
@@ -136,21 +136,21 @@ class AdminPanel:
             else:
                 self.config_sistema = {}
 
-            # Itens editáveis e informativos (config.json principal)
+            # Itens edit√°veis e informativos (config.json principal)
             info_items = [
                 (
-                    "🌐 URL do GAL",
+                    "ÔøΩ≈í¬ê URL do GAL",
                     self.config_sistema.get("gal_url", "http://localhost:8080"),
                     True,
                 ),
                 (
-                    "⏱️ Timeout (segundos)",
+                    "√¢¬è¬±√Ø¬∏¬è Timeout (segundos)",
                     str(self.config_sistema.get("timeout", "30")),
                     True,
                 ),
-                ("📝 Nível de Log", self.config_sistema.get("log_level", "INFO"), True),
+                ("ÔøΩ‚Äú¬ù N√≠vel de Log", self.config_sistema.get("log_level", "INFO"), True),
                 (
-                    "🗄️ Banco PostgreSQL",
+                    "ÔøΩ‚Äî‚Äû√Ø¬∏¬è Banco PostgreSQL",
                     (
                         "Ativo"
                         if self.config_sistema.get("postgres_enabled", True)
@@ -159,25 +159,25 @@ class AdminPanel:
                     False,
                 ),
                 (
-                    "🐍 Versão Python",
+                    "ÔøΩ¬ê¬ç Vers√£o Python",
                     f"{'.'.join(map(str, __import__('sys').version_info[:3]))}",
                     False,
                 ),
-                ("📅 Data/Hora", datetime.now().strftime("%d/%m/%Y %H:%M:%S"), False),
+                ("ÔøΩ‚Äú‚Ä¶ Data/Hora", datetime.now().strftime("%d/%m/%Y %H:%M:%S"), False),
             ]
 
-            # Adicionar informações detalhadas do config.json
+            # Adicionar informa√ß√µes detalhadas do config.json
             if "paths" in self.config_sistema:
                 paths = self.config_sistema["paths"]
                 info_items.extend(
                     [
                         (
-                            "📄 Arquivo de Log",
+                            "ÔøΩ‚Äú‚Äû Arquivo de Log",
                             os.path.basename(paths.get("log_file", "logs/sistema.log")),
                             False,
                         ),
                         (
-                            "📋 Catálogo de Exames",
+                            "üìã Cat√°logo de Exames",
                             os.path.basename(
                                 paths.get(
                                     "exams_catalog_csv", "banco/exames_config.csv"
@@ -186,7 +186,7 @@ class AdminPanel:
                             False,
                         ),
                         (
-                            "👥 Credenciais",
+                            "üë• Credenciais",
                             os.path.basename(
                                 paths.get("credentials_csv", "banco/credenciais.csv")
                             ),
@@ -200,12 +200,12 @@ class AdminPanel:
                 info_items.extend(
                     [
                         (
-                            "🌐 Base URL GAL",
-                            gal_config.get("base_url", "Não configurada"),
+                            "ÔøΩ≈í¬ê Base URL GAL",
+                            gal_config.get("base_url", "N√£o configurada"),
                             True,
                         ),
                         (
-                            "🔄 Máximo Tentativas",
+                            "üîÑ M√°ximo Tentativas",
                             str(
                                 gal_config.get("retry_settings", {}).get(
                                     "max_retries", 3
@@ -214,7 +214,7 @@ class AdminPanel:
                             False,
                         ),
                         (
-                            "⏳ Fator Backoff",
+                            "√¢¬è¬≥ Fator Backoff",
                             str(
                                 gal_config.get("retry_settings", {}).get(
                                     "backoff_factor", 0.5
@@ -229,9 +229,9 @@ class AdminPanel:
                 postgres = self.config_sistema["postgres"]
                 info_items.extend(
                     [
-                        ("🗄️ Host BD", postgres.get("host", "localhost"), False),
-                        ("🗄️ Porta BD", str(postgres.get("port", 5432)), False),
-                        ("🗄️ Nome BD", postgres.get("dbname", "integragal"), False),
+                        ("ÔøΩ‚Äî‚Äû√Ø¬∏¬è Host BD", postgres.get("host", "localhost"), False),
+                        ("ÔøΩ‚Äî‚Äû√Ø¬∏¬è Porta BD", str(postgres.get("port", 5432)), False),
+                        ("ÔøΩ‚Äî‚Äû√Ø¬∏¬è Nome BD", postgres.get("dbname", "integragal"), False),
                     ]
                 )
 
@@ -249,17 +249,17 @@ class AdminPanel:
                 ).pack(side="left", padx=10, pady=10)
 
                 if editavel:
-                    # Campo editável para itens configuráveis
+                    # Campo edit√°vel para itens configur√°veis
                     entry = ctk.CTkEntry(
                         item_frame, placeholder_text=str(valor), width=250
                     )
                     entry.insert(0, str(valor))
                     entry.pack(side="left", padx=10, pady=10)
 
-                    # Botão para restaurar valor original
+                    # Bot√£o para restaurar valor original
                     ctk.CTkButton(
                         item_frame,
-                        text="↺",
+                        text="√¢‚Ä†¬∫",
                         width=30,
                         command=lambda k=label, v=str(
                             valor
@@ -269,9 +269,9 @@ class AdminPanel:
                     # Armazenar entry
                     key = (
                         label.split(" ")[0]
-                        .replace("🌐", "")
-                        .replace("⏱️", "")
-                        .replace("📝", "")
+                        .replace("ÔøΩ≈í¬ê", "")
+                        .replace("√¢¬è¬±√Ø¬∏¬è", "")
+                        .replace("ÔøΩ‚Äú¬ù", "")
                         .strip()
                     )
                     self.sistema_entries[key] = entry
@@ -279,12 +279,12 @@ class AdminPanel:
 
                 elif "Base URL" in key:
                     # Atualizar gal_integration.base_url
-                    pass  # Linha adicionada para garantir bloco válido após comentários do ruff (elif Base URL).
-                    # Linha comentada devido a alerta do ruff (F821): uso de nome possivelmente não definido 'config_completo'.
+                    pass  # Linha adicionada para garantir bloco v√°lido ap√≥s coment√°rios do ruff (elif Base URL).
+                    # Linha comentada devido a alerta do ruff (F821): uso de nome possivelmente n√£o definido 'config_completo'.
                     # if "gal_integration" not in config_completo:
-                        # Linha comentada devido a alerta do ruff (F821): uso de nome possivelmente não definido 'config_completo'.
+                        # Linha comentada devido a alerta do ruff (F821): uso de nome possivelmente n√£o definido 'config_completo'.
                         # config_completo["gal_integration"] = {}
-                    # Linha comentada devido a alerta do ruff (F821): uso de nomes possivelmente não definidos 'config_completo' e 'novo_valor'.
+                    # Linha comentada devido a alerta do ruff (F821): uso de nomes possivelmente n√£o definidos 'config_completo' e 'novo_valor'.
                     # config_completo["gal_integration"]["base_url"] = novo_valor
                 else:
                     # Campo informativo (apenas leitura)
@@ -294,13 +294,13 @@ class AdminPanel:
 
         except Exception as e:
             ctk.CTkLabel(
-                parent, text=f"Erro ao carregar informações: {e}", text_color="red"
+                parent, text=f"Erro ao carregar informa√ß√µes: {e}", text_color="red"
             ).pack(pady=10)
 
     def _salvar_info_sistema(self):
-        """Salva as informações editadas do sistema usando ConfigService"""
+        """Salva as informa√ß√µes editadas do sistema usando ConfigService"""
         try:
-            # Caminhos dos arquivos de configuração
+            # Caminhos dos arquivos de configura√ß√£o
             configuracao_path = "configuracao/config.json"
 
             # Validar e coletar novos valores
@@ -310,16 +310,16 @@ class AdminPanel:
             for key, entry in self.sistema_entries.items():
                 novo_valor = entry.get().strip()
 
-                # Validações específicas por chave
+                # Valida√ß√µes espec√≠ficas por chave
                 if "Timeout" in key:
                     try:
                         timeout_int = int(novo_valor)
                         if timeout_int <= 0:
-                            erros.append("Timeout deve ser um número positivo")
+                            erros.append("Timeout deve ser um n√∫mero positivo")
                         else:
                             novas_configuracoes["request_timeout"] = timeout_int
                     except ValueError:
-                        erros.append("Timeout deve ser um número inteiro")
+                        erros.append("Timeout deve ser um n√∫mero inteiro")
 
                 elif "URL" in key:
                     if novo_valor.startswith(("http://", "https://")):
@@ -329,17 +329,17 @@ class AdminPanel:
                         ] = novo_valor
                         novas_configuracoes["base_url"] = novo_valor
                     else:
-                        erros.append("URL do GAL deve começar com http:// ou https://")
+                        erros.append("URL do GAL deve come√ßar com http:// ou https://")
 
                 elif "Log" in key:
-                    # ConfigService usa default logging, não precisa desta configuração aqui
-                    print(f"⚠️  Campo Log será ignorado: {key}")
+                    # ConfigService usa default logging, n√£o precisa desta configura√ß√£o aqui
+                    print(f"√¢≈°¬†√Ø¬∏¬è  Campo Log ser√° ignorado: {key}")
                     continue
 
                 else:
                     if novo_valor:
-                        # Mapear para a seção correta
-                        if any(term in key.lower() for term in ["lab", "laboratório"]):
+                        # Mapear para a se√ß√£o correta
+                        if any(term in key.lower() for term in ["lab", "laborat√≥rio"]):
                             self.config_service._config.setdefault("general", {})[
                                 "lab_name"
                             ] = novo_valor
@@ -353,13 +353,13 @@ class AdminPanel:
                                 novo_valor
                             )
                     else:
-                        erros.append(f"Campo '{key}' não pode estar vazio")
+                        erros.append(f"Campo '{key}' n√£o pode estar vazio")
 
             # Exibir erros se houver
             if erros:
                 error_message = "Erros encontrados:\n\n" + "\n".join(erros)
                 messagebox.showerror(
-                    "Erro de Validação", error_message, parent=self.admin_window
+                    "Erro de Valida√ß√£o", error_message, parent=self.admin_window
                 )
                 return
 
@@ -373,18 +373,18 @@ class AdminPanel:
             # Atualizar ConfigService
             try:
                 self.config_service._save_config()
-                print("✅ ConfigService salvo com sucesso")
+                print("‚úÖ ConfigService salvo com sucesso")
             except Exception as e:
-                print(f"❌ Erro ao salvar ConfigService: {e}")
-                erros.append(f"Erro interno ao salvar configurações: {e}")
+                print(f"√¢¬ù≈í Erro ao salvar ConfigService: {e}")
+                erros.append(f"Erro interno ao salvar configura√ß√µes: {e}")
 
             # Sincronizar com configuracao/config.json se existir
             try:
                 if os.path.exists(configuracao_path):
                     # Ler ConfigService atualizado
                     with open("config.json", "r", encoding="utf-8") as f:
-                        # Linha comentada devido a alerta do ruff (F841): variável 'config_atualizado' atribuída mas não utilizada diretamente.
-                        json.load(f)  # Linha adicionada para garantir bloco válido após comentários do ruff (with config.json).
+                        # Linha comentada devido a alerta do ruff (F841): vari√°vel 'config_atualizado' atribu√≠da mas n√£o utilizada diretamente.
+                        json.load(f)  # Linha adicionada para garantir bloco v√°lido ap√≥s coment√°rios do ruff (with config.json).
                         # config_atualizado = json.load(f)
 
                     # Carregar config da subpasta
@@ -397,7 +397,7 @@ class AdminPanel:
                             "base_url"
                         ] = novas_configuracoes["base_url"]
                         print(
-                            f"✅ Sincronizando base_url: {novas_configuracoes['base_url']}"
+                            f"‚úÖ Sincronizando base_url: {novas_configuracoes['base_url']}"
                         )
 
                     if "lab_name" in novas_configuracoes:
@@ -405,14 +405,14 @@ class AdminPanel:
                             novas_configuracoes["lab_name"]
                         )
                         print(
-                            f"✅ Sincronizando lab_name: {novas_configuracoes['lab_name']}"
+                            f"‚úÖ Sincronizando lab_name: {novas_configuracoes['lab_name']}"
                         )
 
                     # Sincronizar outros campos gerais
                     for key, value in novas_configuracoes.items():
                         if key not in ["base_url", "lab_name"]:
                             config_subpasta.setdefault("general", {})[key] = value
-                            print(f"✅ Sincronizando {key}: {value}")
+                            print(f"‚úÖ Sincronizando {key}: {value}")
 
                     # Garantir estrutura completa do arquivo da subpasta
                     config_subpasta.setdefault("gal_integration", {})
@@ -427,7 +427,7 @@ class AdminPanel:
                     with open(configuracao_path, "w", encoding="utf-8") as f:
                         json.dump(config_subpasta, f, indent=4, ensure_ascii=False)
 
-                    # Verificar se a sincronização foi bem-sucedida
+                    # Verificar se a sincroniza√ß√£o foi bem-sucedida
                     with open(configuracao_path, "r", encoding="utf-8") as f:
                         config_verificado = json.load(f)
 
@@ -438,29 +438,29 @@ class AdminPanel:
                         "lab_name", "N/A"
                     )
 
-                    print("✅ Configuracao/config.json sincronizado com sucesso")
-                    print(f"   📌 Base URL sincronizada: {base_url_verificada}")
-                    print(f"   📌 Lab Name sincronizado: {lab_name_verificado}")
-                    print(f"   💾 Backup criado: {backup_subpasta_path}")
+                    print("‚úÖ Configuracao/config.json sincronizado com sucesso")
+                    print(f"   ÔøΩ‚Äú≈í Base URL sincronizada: {base_url_verificada}")
+                    print(f"   ÔøΩ‚Äú≈í Lab Name sincronizado: {lab_name_verificado}")
+                    print(f"   ÔøΩ‚Äô¬æ Backup criado: {backup_subpasta_path}")
 
             except Exception as e:
-                print(f"⚠️  Aviso: Erro ao sincronizar configuracao/config.json: {e}")
+                print(f"√¢≈°¬†√Ø¬∏¬è  Aviso: Erro ao sincronizar configuracao/config.json: {e}")
 
             # Exibir sucesso
-            mensagem_sucesso = "Configurações do sistema salvas com sucesso!\n\n"
+            mensagem_sucesso = "Configura√ß√µes do sistema salvas com sucesso!\n\n"
             mensagem_sucesso += f"Backup criado: {config_backup_path}\n\n"
             mensagem_sucesso += "Novos valores:\n" + "\n".join(
-                [f"• {k}: {v}" for k, v in novas_configuracoes.items()]
+                [f"‚Ä¢ {k}: {v}" for k, v in novas_configuracoes.items()]
             )
 
             messagebox.showinfo("Sucesso", mensagem_sucesso, parent=self.admin_window)
 
-            # Recarregar informações do sistema
+            # Recarregar informa√ß√µes do sistema
             self._recarregar_info_sistema()
 
         except Exception as e:
-            error_msg = f"Erro inesperado ao salvar configurações: {str(e)}"
-            print(f"❌ {error_msg}")
+            error_msg = f"Erro inesperado ao salvar configura√ß√µes: {str(e)}"
+            print(f"√¢¬ù≈í {error_msg}")
             messagebox.showerror("Erro", error_msg, parent=self.admin_window)
 
     def _restaurar_valor_sistema(self, key, original_value):
@@ -468,9 +468,9 @@ class AdminPanel:
         try:
             # Mapear labels para chaves
             key_map = {
-                "🌐 URL do GAL": "gal_url",
-                "⏱️ Timeout (segundos)": "timeout",
-                "📝 Nível de Log": "log_level",
+                "ÔøΩ≈í¬ê URL do GAL": "gal_url",
+                "√¢¬è¬±√Ø¬∏¬è Timeout (segundos)": "timeout",
+                "ÔøΩ‚Äú¬ù N√≠vel de Log": "log_level",
             }
 
             actual_key = key_map.get(key, key.lower().replace(" ", "_"))
@@ -489,7 +489,7 @@ class AdminPanel:
             )
 
     def _recarregar_info_sistema(self):
-        """Recarrega as informações do sistema após salvar"""
+        """Recarrega as informa√ß√µes do sistema ap√≥s salvar"""
         try:
             # Encontrar o scrollable frame da aba Sistema
             for widget in self.admin_window.winfo_children():
@@ -505,14 +505,14 @@ class AdminPanel:
         except Exception as e:
             registrar_log(
                 "AdminPanel",
-                f"Erro ao recarregar informações do sistema: {str(e)}",
+                f"Erro ao recarregar informa√ß√µes do sistema: {str(e)}",
                 "WARNING",
             )
 
     def _fechar_admin_panel(self):
         """Fecha o painel administrativo retornando ao menu principal"""
         try:
-            # Limpar referências para evitar problemas de garbage collection
+            # Limpar refer√™ncias para evitar problemas de garbage collection
             self.sistema_entries = {}
             self.config_entries = {}
 
@@ -522,7 +522,7 @@ class AdminPanel:
                     # Cancelar qualquer processamento pendente
                     self.admin_window.update_idletasks()
 
-                    # Liberação segura dos recursos
+                    # Libera√ß√£o segura dos recursos
                     self.admin_window.grab_release()
 
                     # Destruir apenas a janela administrativa
@@ -537,7 +537,7 @@ class AdminPanel:
                     except Exception:
                         pass
 
-                    # Log do erro mas não impedir o fechamento
+                    # Log do erro mas n√£o impedir o fechamento
                     registrar_log(
                         "AdminPanel", f"Erro durante fechamento: {str(e)}", "WARNING"
                     )
@@ -556,56 +556,56 @@ class AdminPanel:
                     )
 
         except Exception as e:
-            # Log do erro mas não impedir o fechamento
+            # Log do erro mas n√£o impedir o fechamento
             registrar_log("AdminPanel", f"Erro durante fechamento: {str(e)}", "WARNING")
 
     def _verificar_sistema(self):
-        """Executa verificação do sistema"""
+        """Executa verifica√ß√£o do sistema"""
         messagebox.showinfo(
-            "Verificação",
-            "Verificação do sistema executada!\n\n✅ Todos os serviços operacionais\n✅ Conexões ativas\n✅ Arquivos de configuração válidos",
+            "Verifica√ß√£o",
+            "Verifica√ß√£o do sistema executada!\n\n‚úÖ Todos os servi√ßos operacionais\n‚úÖ Conex√µes ativas\n‚úÖ Arquivos de configura√ß√£o v√°lidos",
             parent=self.admin_window,
         )
 
     def _status_servicos(self):
-        """Mostra status dos serviços"""
+        """Mostra status dos servi√ßos"""
         messagebox.showinfo(
-            "Status dos Serviços",
-            "Status Atual:\n\n✅ Banco de Dados: Ativo\n✅ Sistema de Log: Operacional\n✅ Interface Gráfica: Ativa\n✅ Módulos de Análise: Disponíveis",
+            "Status dos Servi√ßos",
+            "Status Atual:\n\n‚úÖ Banco de Dados: Ativo\n‚úÖ Sistema de Log: Operacional\n‚úÖ Interface Gr√°fica: Ativa\n‚úÖ M√≥dulos de An√°lise: Dispon√≠veis",
             parent=self.admin_window,
         )
 
     def _criar_aba_configuracao(self):
-        """Cria aba de configurações"""
-        aba_config = self.notebook.add("Configuração")
+        """Cria aba de configura√ß√µes"""
+        aba_config = self.notebook.add("Configura√ß√£o")
 
         config_frame = ctk.CTkScrollableFrame(aba_config)
         config_frame.pack(fill="both", expand=True, padx=10, pady=10)
 
         titulo_label = ctk.CTkLabel(
             config_frame,
-            text="⚙️ Configurações do Sistema",
+            text="√¢≈°‚Ñ¢√Ø¬∏¬è Configura√ß√µes do Sistema",
             font=ctk.CTkFont(size=18, weight="bold"),
         )
         titulo_label.pack(pady=(0, 20))
 
-        # Informações de configuração
+        # Informa√ß√µes de configura√ß√£o
         self._exibir_configuracao_atual(config_frame)
 
-        # Botões
+        # Bot√µes
         acoes_frame = ctk.CTkFrame(config_frame)
         acoes_frame.pack(fill="x", pady=20)
 
         ctk.CTkButton(
-            acoes_frame, text="📁 Abrir config.json", command=self._abrir_config_file
+            acoes_frame, text="ÔøΩ‚Äú¬Å Abrir config.json", command=self._abrir_config_file
         ).pack(side="left", padx=10, pady=10)
 
         ctk.CTkButton(
-            acoes_frame, text="🔄 Recarregar Config", command=self._recarregar_config
+            acoes_frame, text="üîÑ Recarregar Config", command=self._recarregar_config
         ).pack(side="left", padx=10, pady=10)
 
     def _exibir_configuracao_atual(self, parent):
-        """Exibe e permite editar configuração atual do sistema"""
+        """Exibe e permite editar configura√ß√£o atual do sistema"""
         try:
             self.config_entries = {}  # Para armazenar as entries
 
@@ -617,28 +617,28 @@ class AdminPanel:
                 for key, value in self.config_data.items():
                     self._criar_campo_configuracao(parent, key, value)
 
-                # Botão para salvar alterações
+                # Bot√£o para salvar altera√ß√µes
                 salvar_frame = ctk.CTkFrame(parent)
                 salvar_frame.pack(fill="x", pady=20)
 
                 ctk.CTkButton(
                     salvar_frame,
-                    text="💾 Salvar Configurações",
+                    text="ÔøΩ‚Äô¬æ Salvar Configura√ß√µes",
                     command=self._salvar_configuracoes,
                     width=200,
                 ).pack(pady=10)
             else:
                 ctk.CTkLabel(
-                    parent, text="Arquivo config.json não encontrado", text_color="red"
+                    parent, text="Arquivo config.json n√£o encontrado", text_color="red"
                 ).pack(pady=10)
 
         except Exception as e:
             ctk.CTkLabel(
-                parent, text=f"Erro ao carregar configuração: {e}", text_color="red"
+                parent, text=f"Erro ao carregar configura√ß√£o: {e}", text_color="red"
             ).pack(pady=10)
 
     def _criar_campo_configuracao(self, parent, key, value):
-        """Cria campo editável para configuração"""
+        """Cria campo edit√°vel para configura√ß√£o"""
         item_frame = ctk.CTkFrame(parent)
         item_frame.pack(fill="x", pady=5)
 
@@ -654,18 +654,18 @@ class AdminPanel:
             font=ctk.CTkFont(weight="bold"),
         ).pack(anchor="w")
 
-        # Campo editável
+        # Campo edit√°vel
         entry = ctk.CTkEntry(label_frame, placeholder_text=str(value), width=300)
         entry.insert(0, str(value))  # Inserir valor atual
         entry.pack(fill="x", pady=(5, 0))
 
-        # Botão para restaurar valor original
+        # Bot√£o para restaurar valor original
         btn_frame = ctk.CTkFrame(item_frame, fg_color="transparent")
         btn_frame.pack(side="right", padx=10, pady=10)
 
         ctk.CTkButton(
             btn_frame,
-            text="↺",
+            text="√¢‚Ä†¬∫",
             width=30,
             command=lambda k=key, v=str(value): self._restaurar_valor(k, v),
         ).pack()
@@ -685,7 +685,7 @@ class AdminPanel:
             )
 
     def _salvar_configuracoes(self):
-        """Salva as configurações editadas"""
+        """Salva as configura√ß√µes editadas"""
         try:
             # Validar e coletar novos valores
             novas_configuracoes = {}
@@ -694,22 +694,22 @@ class AdminPanel:
             for key, entry in self.config_entries.items():
                 novo_valor = entry.get().strip()
 
-                # Validações específicas por chave
+                # Valida√ß√µes espec√≠ficas por chave
                 if key == "timeout":
                     try:
                         timeout_int = int(novo_valor)
                         if timeout_int <= 0:
-                            erros.append("Timeout deve ser um número positivo")
+                            erros.append("Timeout deve ser um n√∫mero positivo")
                         else:
                             novas_configuracoes[key] = timeout_int
                     except ValueError:
-                        erros.append("Timeout deve ser um número inteiro")
+                        erros.append("Timeout deve ser um n√∫mero inteiro")
 
                 elif key == "gal_url":
                     if novo_valor.startswith(("http://", "https://")):
                         novas_configuracoes[key] = novo_valor
                     else:
-                        erros.append("GAL URL deve começar com http:// ou https://")
+                        erros.append("GAL URL deve come√ßar com http:// ou https://")
 
                 elif key == "log_level":
                     if novo_valor.upper() in [
@@ -730,12 +730,12 @@ class AdminPanel:
                     if novo_valor:
                         novas_configuracoes[key] = novo_valor
                     else:
-                        erros.append(f"Campo '{key}' não pode estar vazio")
+                        erros.append(f"Campo '{key}' n√£o pode estar vazio")
 
             # Exibir erros se houver
             if erros:
                 messagebox.showerror(
-                    "Erro de Validação",
+                    "Erro de Valida√ß√£o",
                     "Erros encontrados:\n\n" + "\n".join(erros),
                     parent=self.admin_window,
                 )
@@ -753,31 +753,31 @@ class AdminPanel:
 
                 shutil.copy2(config_path, backup_path)
 
-            # Salvar novas configurações
+            # Salvar novas configura√ß√µes
             with open(config_path, "w", encoding="utf-8") as f:
                 json.dump(novas_configuracoes, f, indent=4, ensure_ascii=False)
 
             messagebox.showinfo(
                 "Sucesso",
-                f"Configurações salvas com sucesso!\n\nBackup criado em: {backup_path}\n\nO sistema utilizará as novas configurações.",
+                f"Configura√ß√µes salvas com sucesso!\n\nBackup criado em: {backup_path}\n\nO sistema utilizar√° as novas configura√ß√µes.",
                 parent=self.admin_window,
             )
 
             registrar_log(
                 "AdminPanel",
-                f"Configurações atualizadas por {self.usuario_logado}",
+                f"Configura√ß√µes atualizadas por {self.usuario_logado}",
                 "INFO",
             )
 
         except Exception as e:
             messagebox.showerror(
                 "Erro",
-                f"Erro ao salvar configurações: {str(e)}",
+                f"Erro ao salvar configura√ß√µes: {str(e)}",
                 parent=self.admin_window,
             )
 
     def _abrir_config_file(self):
-        """Abre arquivo de configuração no explorador"""
+        """Abre arquivo de configura√ß√£o no explorador"""
         config_path = os.path.abspath("config.json")
         if os.path.exists(config_path):
             try:
@@ -790,43 +790,43 @@ class AdminPanel:
                 except Exception:
                     messagebox.showinfo(
                         "Arquivo",
-                        f"Configuração localizada em:\n{config_path}",
+                        f"Configura√ß√£o localizada em:\n{config_path}",
                         parent=self.admin_window,
                     )
         else:
             messagebox.showwarning(
-                "Aviso", "Arquivo config.json não encontrado", parent=self.admin_window
+                "Aviso", "Arquivo config.json n√£o encontrado", parent=self.admin_window
             )
 
     def _recarregar_config(self):
-        """Recarrega configurações do sistema"""
+        """Recarrega configura√ß√µes do sistema"""
         try:
             # Limpar campos existentes
             for widget in self.admin_window.winfo_children():
                 if hasattr(widget, "winfo_name") and "tabview" in widget.winfo_name():
-                    # Recriar a aba de configuração
+                    # Recriar a aba de configura√ß√£o
                     for tab_name in widget.tab_names():
-                        if tab_name == "Configuração":
-                            widget.delete("Configuração")
+                        if tab_name == "Configura√ß√£o":
+                            widget.delete("Configura√ß√£o")
                             break
                     self._criar_aba_configuracao()
                     break
 
             messagebox.showinfo(
                 "Recarregar",
-                "Configurações recarregadas com sucesso!\n\nNovos valores foram carregados do arquivo.",
+                "Configura√ß√µes recarregadas com sucesso!\n\nNovos valores foram carregados do arquivo.",
                 parent=self.admin_window,
             )
             registrar_log(
                 "AdminPanel",
-                f"Configurações recarregadas por {self.usuario_logado}",
+                f"Configura√ß√µes recarregadas por {self.usuario_logado}",
                 "INFO",
             )
 
         except Exception as e:
             messagebox.showerror(
                 "Erro",
-                f"Erro ao recarregar configurações: {str(e)}",
+                f"Erro ao recarregar configura√ß√µes: {str(e)}",
                 parent=self.admin_window,
             )
 
@@ -839,29 +839,29 @@ class AdminPanel:
 
         titulo_label = ctk.CTkLabel(
             logs_frame,
-            text="📝 Logs do Sistema",
+            text="ÔøΩ‚Äú¬ù Logs do Sistema",
             font=ctk.CTkFont(size=18, weight="bold"),
         )
         titulo_label.pack(pady=(0, 20))
 
-        # Área de logs (leitura real)
+        # √Årea de logs (leitura real)
         log_text = ctk.CTkTextbox(logs_frame, height=300)
         log_text.pack(fill="both", expand=True, pady=10)
 
         # Tentar ler logs reais
         self._carregar_logs_reais(log_text)
 
-        # Botões
+        # Bot√µes
         acoes_frame = ctk.CTkFrame(logs_frame)
         acoes_frame.pack(fill="x", pady=10)
 
         ctk.CTkButton(
-            acoes_frame, text="🔄 Atualizar Logs", command=self._atualizar_logs
+            acoes_frame, text="üîÑ Atualizar Logs", command=self._atualizar_logs
         ).pack(side="left", padx=10, pady=10)
 
         ctk.CTkButton(
             acoes_frame,
-            text="📁 Abrir Diretório de Logs",
+            text="ÔøΩ‚Äú¬Å Abrir Diret√≥rio de Logs",
             command=self._abrir_diretorio_logs,
         ).pack(side="left", padx=10, pady=10)
 
@@ -882,25 +882,25 @@ class AdminPanel:
                 with open(log_path, "r", encoding="utf-8") as f:
                     linhas = f.readlines()
 
-                    # Mostrar últimas 50 linhas
+                    # Mostrar √∫ltimas 50 linhas
                     for linha in linhas[-50:]:
                         log_text.insert("end", linha.strip() + "\n")
             else:
-                # Se arquivo não existe, mostrar mensagem
+                # Se arquivo n√£o existe, mostrar mensagem
                 log_text.insert(
-                    "end", f"📁 Arquivo de log não encontrado: {log_path}\n"
+                    "end", f"ÔøΩ‚Äú¬Å Arquivo de log n√£o encontrado: {log_path}\n"
                 )
                 log_text.insert(
                     "end",
-                    "📝 Logs serão criados quando o sistema executar operações.\n\n",
+                    "ÔøΩ‚Äú¬ù Logs ser√£o criados quando o sistema executar opera√ß√µes.\n\n",
                 )
 
                 # Logs informativos do sistema atual
                 logs_info = [
-                    f"🕐 Sistema iniciado: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}",
-                    f"👤 Usuário atual: {self.usuario_logado}",
-                    f"🖥️ Plataforma: {os.name}",
-                    f"📁 Diretório atual: {os.getcwd()}",
+                    f"ÔøΩ‚Ä¢¬ê Sistema iniciado: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}",
+                    f"ÔøΩ‚Äò¬§ Usu√°rio atual: {self.usuario_logado}",
+                    f"ÔøΩ‚Äì¬•√Ø¬∏¬è Plataforma: {os.name}",
+                    f"ÔøΩ‚Äú¬Å Diret√≥rio atual: {os.getcwd()}",
                 ]
 
                 for info in logs_info:
@@ -909,14 +909,14 @@ class AdminPanel:
             log_text.configure(state="disabled")
 
         except Exception as e:
-            log_text.insert("end", f"❌ Erro ao carregar logs: {str(e)}\n")
+            log_text.insert("end", f"√¢¬ù≈í Erro ao carregar logs: {str(e)}\n")
             log_text.insert(
-                "end", "📝 Verifique se o arquivo de log existe e é acessível.\n"
+                "end", "ÔøΩ‚Äú¬ù Verifique se o arquivo de log existe e √© acess√≠vel.\n"
             )
             log_text.configure(state="disabled")
 
     def _atualizar_logs(self):
-        """Atualiza exibição de logs"""
+        """Atualiza exibi√ß√£o de logs"""
         try:
             # Limpar texto atual
             for widget in self.admin_window.winfo_children():
@@ -935,7 +935,7 @@ class AdminPanel:
             )
 
     def _abrir_diretorio_logs(self):
-        """Abre diretório de logs"""
+        """Abre diret√≥rio de logs"""
         logs_dir = os.path.abspath("logs")
         if os.path.exists(logs_dir):
             try:
@@ -946,17 +946,17 @@ class AdminPanel:
                 )
             except Exception:
                 messagebox.showinfo(
-                    "Diretório",
+                    "Diret√≥rio",
                     f"Logs localizados em:\n{logs_dir}",
                     parent=self.admin_window,
                 )
         else:
             messagebox.showwarning(
-                "Aviso", "Diretório de logs não encontrado", parent=self.admin_window
+                "Aviso", "Diret√≥rio de logs n√£o encontrado", parent=self.admin_window
             )
 
     def _criar_aba_backup(self):
-        """Cria aba de backup e manutenção"""
+        """Cria aba de backup e manuten√ß√£o"""
         aba_backup = self.notebook.add("Backup")
 
         backup_frame = ctk.CTkScrollableFrame(aba_backup)
@@ -964,36 +964,36 @@ class AdminPanel:
 
         titulo_label = ctk.CTkLabel(
             backup_frame,
-            text="💾 Backup e Manutenção",
+            text="ÔøΩ‚Äô¬æ Backup e Manuten√ß√£o",
             font=ctk.CTkFont(size=18, weight="bold"),
         )
         titulo_label.pack(pady=(0, 20))
 
-        # Informações de backup
+        # Informa√ß√µes de backup
         info_label = ctk.CTkLabel(
             backup_frame,
-            text="Funcionalidades de backup e manutenção do sistema",
+            text="Funcionalidades de backup e manuten√ß√£o do sistema",
             font=ctk.CTkFont(size=14),
         )
         info_label.pack(pady=(0, 20))
 
-        # Botões de backup
+        # Bot√µes de backup
         backup_acoes_frame = ctk.CTkFrame(backup_frame)
         backup_acoes_frame.pack(fill="x", pady=20)
 
         ctk.CTkButton(
-            backup_acoes_frame, text="💾 Criar Backup", command=self._criar_backup
+            backup_acoes_frame, text="ÔøΩ‚Äô¬æ Criar Backup", command=self._criar_backup
         ).pack(side="left", padx=10, pady=10)
 
         ctk.CTkButton(
             backup_acoes_frame,
-            text="📁 Restaurar Backup",
+            text="ÔøΩ‚Äú¬Å Restaurar Backup",
             command=self._restaurar_backup,
         ).pack(side="left", padx=10, pady=10)
 
         ctk.CTkButton(
             backup_acoes_frame,
-            text="🧹 Limpeza do Sistema",
+            text="ÔøΩ¬ß¬π Limpeza do Sistema",
             command=self._limpeza_sistema,
         ).pack(side="left", padx=10, pady=10)
 
@@ -1003,19 +1003,19 @@ class AdminPanel:
 
         ctk.CTkLabel(
             status_frame,
-            text="Status do Último Backup:",
+            text="Status do √öltimo Backup:",
             font=ctk.CTkFont(weight="bold"),
         ).pack(pady=10)
 
         ctk.CTkLabel(
-            status_frame, text="✅ Nenhum backup realizado ainda", text_color="green"
+            status_frame, text="‚úÖ Nenhum backup realizado ainda", text_color="green"
         ).pack(pady=5)
 
     def _criar_backup(self):
         """Cria backup do sistema"""
         messagebox.showinfo(
             "Backup",
-            "Funcionalidade de backup será implementada em versão futura.\n\nPor ora, faça backup manual dos arquivos importantes.",
+            "Funcionalidade de backup ser√° implementada em vers√£o futura.\n\nPor ora, fa√ßa backup manual dos arquivos importantes.",
             parent=self.admin_window,
         )
 
@@ -1023,7 +1023,7 @@ class AdminPanel:
         """Restaura backup do sistema"""
         messagebox.showwarning(
             "Restaurar",
-            "Funcionalidade de restauração será implementada em versão futura.",
+            "Funcionalidade de restaura√ß√£o ser√° implementada em vers√£o futura.",
             parent=self.admin_window,
         )
 
@@ -1031,11 +1031,11 @@ class AdminPanel:
         """Executa limpeza do sistema"""
         if messagebox.askyesno(
             "Limpeza",
-            "Deseja executar limpeza automática do sistema?\n\nIsso removerá arquivos temporários e logs antigos.",
+            "Deseja executar limpeza autom√°tica do sistema?\n\nIsso remover√° arquivos tempor√°rios e logs antigos.",
             parent=self.admin_window,
         ):
             messagebox.showinfo(
                 "Limpeza",
-                "Limpeza executada com sucesso!\n\n✅ Arquivos temporários removidos\n✅ Logs antigos arquivados\n✅ Cache limpo",
+                "Limpeza executada com sucesso!\n\n‚úÖ Arquivos tempor√°rios removidos\n‚úÖ Logs antigos arquivados\n‚úÖ Cache limpo",
                 parent=self.admin_window,
             )

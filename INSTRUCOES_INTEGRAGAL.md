@@ -22,20 +22,20 @@ OU
 executar.bat
 ```
 
-## 🎮 Login do Sistema
+## �Ž® Login do Sistema
 - **Usuário**: `marcio`
 - **Senha**: `flafla`
 
 ## ✅ Testes das Correções Implementadas
 
 ### 1. Base URL GAL
-- Ir para: Painel Administrativo → Sistema
+- Ir para: Painel Administrativo â†’ Sistema
 - Verificar se "Base URL GAL" é editável (campo editável)
 - Alterar valor e clicar "Salvar Alterações"
 - Sair e entrar novamente para verificar se salvou
 
 ### 2. Gerenciamento de Usuários
-- Ir para: Ferramentas → Gerenciar Usuários
+- Ir para: Ferramentas â†’ Gerenciar Usuários
 - Verificar se NÃO aparece erro "X Erro ao carregar usuário: 'senha'"
 - Lista deve mostrar 4 usuários
 
@@ -44,7 +44,7 @@ executar.bat
 - Clicar no X de fechar
 - Verificar se fecha com um clique (não múltiplos)
 
-## 🛠️ Arquivos Importantes
+## �› ï¸ Arquivos Importantes
 
 ### Arquivos Principais (raiz):
 - `main.py` - Arquivo principal do sistema
@@ -58,30 +58,30 @@ executar.bat
 - `ui/` - Interface gráfica
 - `logs/` - Logs do sistema (será criada automaticamente)
 
-## ❗ Solução de Problemas
+## â— Solução de Problemas
 
 ### "main.py não encontrado"
-→ Verificar se extraiu corretamente em `C:\Users\marci\Downloads\Integragal`
+â†’ Verificar se extraiu corretamente em `C:\Users\marci\Downloads\Integragal`
 
 ### "ModuleNotFoundError"
-→ Instalar dependências:
+â†’ Instalar dependências:
 ```bash
 pip install customtkinter pandas bcrypt
 ```
 
 ### "Arquivo não encontrado"
-→ Executar o script de correção:
+â†’ Executar o script de correção:
 ```bash
 python corrigir_caminhos_integragal.py
 ```
 
 ### Janela não abre
-→ Verificar se tem Python instalado:
+â†’ Verificar se tem Python instalado:
 ```bash
 python --version
 ```
 
-## 📞 Contato
+## �“ž Contato
 Em caso de problemas, verificar arquivo `LEIA_PRIMEIRO.md` para mais detalhes.
 
 ---

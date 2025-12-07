@@ -1,4 +1,4 @@
-﻿# utils/after_mixin.py  (novo arquivo)
+# utils/after_mixin.py  (novo arquivo)
 
 
 class AfterManagerMixin:
@@ -17,7 +17,7 @@ class AfterManagerMixin:
     def dispose(self):
         for aid in self._after_ids:
             try:
-                self.after_cancel(aid)  # evita callbacks Ã³rfÃ£os
+                self.after_cancel(aid)  # evita callbacks órfãos
             except Exception:
                 pass
         self._after_ids.clear()

@@ -1,2 +1,5 @@
-﻿exame,modulo_analise,tipo_placa,numero_kit,equipamento
-"VR1e2 Biomanguinhos 7500","analise.vr1e2_biomanguinhos_7500.analisar_placa_vr1e2_7500","96","VR1/VR2 Biomanguinhos","7500 Real-Time"
+exame,modulo_analise,tipo_placa,numero_kit,equipamento
+"VR1","analise.vr1.analisar_placa_vr1","96","123","7500 Real-Time"
+"VR2","analise.vr2.analisar_placa_vr2","96","124","7500 Real-Time"
+"VR1e2 Biomanguinhos 7500","analise.vr1e2_biomanguinhos_7500.analisar_placa_vr1e2_7500","48","1140","7500 Real-Time"
+"ZDC Biomanguinhos 7500","analise.zdc_biomanguinhos_7500.analisar_placa_zdc","36","1832","7500 Real-Time"

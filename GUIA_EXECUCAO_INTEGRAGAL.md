@@ -49,7 +49,7 @@ executar.bat
 - `executar.bat` - Script de execução adaptado
 - Múltiplos backups: `*.backup_YYYYMMDD_HHMMSS`
 
-## 🔍 Verificação Pós-Correção
+## �” Verificação Pós-Correção
 
 ### Check-list:
 - [ ] Script executou sem erros
@@ -63,7 +63,7 @@ executar.bat
 3. **Gerenciamento Usuários**: Verificar se não há erro de campo senha
 4. **Fechamento**: Confirmar que janelas fecham com um clique
 
-## 🛠️ Correção Manual (se necessário)
+## �› ï¸ Correção Manual (se necessário)
 
 ### 1. Verificar config.json
 ```json
@@ -89,7 +89,7 @@ Linha 31 deve estar:
 self.usuarios_path = os.path.join("banco", "usuarios.csv")
 ```
 
-## ❗ Problemas Comuns
+## â— Problemas Comuns
 
 ### "main.py não encontrado"
 **Solução**: Navegar para pasta correta
@@ -107,15 +107,15 @@ pip install customtkinter pandas bcrypt
 **Solução**: Verificar estrutura de pastas
 ```
 Integragal/
-├── main.py
-├── config.json
-├── autenticacao/
-├── ui/
-├── banco/
-└── logs/
+â”œâ”€â”€ main.py
+â”œâ”€â”€ config.json
+â”œâ”€â”€ autenticacao/
+â”œâ”€â”€ ui/
+â”œâ”€â”€ banco/
+â””â”€â”€ logs/
 ```
 
-## 📞 Suporte
+## �“ž Suporte
 
 Se ainda houver problemas:
 1. Executar script de correção novamente

@@ -323,9 +323,9 @@ def inicializar_sistema():
         )
         if sucesso:
             print(f"✅ {msg}")
-            print("🔑 Credenciais padrão: admin / admin123456")
+            print("�”‘ Credenciais padrão: admin / admin123456")
         else:
-            print(f"❌ {msg}")
+            print(f"âŒ {msg}")
     else:
         print("📋 Administrador já existe no sistema")
 

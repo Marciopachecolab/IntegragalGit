@@ -1,4 +1,4 @@
-﻿# extracao/mapeamento_placas.py
+# extracao/mapeamento_placas.py
 from typing import Dict, List
 
 # --- Bloco de Configuração Inicial ---

@@ -1,16 +1,16 @@
-# 🚀 Instruções para Deploy da Versão 3.0
+# üöÄ Instru√ß√µes para Deploy da Vers√£o 3.0
 
 ## Status Atual
 
-✅ **Código preparado**: Versão 3.0 do IntegragalGit está pronta para deploy  
-✅ **README atualizado**: Documentação completa da versão 3.0  
-✅ **Tag criada**: v3.0 com changelog  
-✅ **Script criado**: deploy_v3.sh para automatizar o processo  
-✅ **Limpeza concluída**: 17 arquivos desnecessários removidos  
+‚úÖ **C√≥digo preparado**: Vers√£o 3.0 do IntegragalGit est√° pronta para deploy  
+‚úÖ **README atualizado**: Documenta√ß√£o completa da vers√£o 3.0  
+‚úÖ **Tag criada**: v3.0 com changelog  
+‚úÖ **Script criado**: deploy_v3.sh para automatizar o processo  
+‚úÖ **Limpeza conclu√≠da**: 17 arquivos desnecess√°rios removidos  
 
-## 🔐 Configuração de Autenticação GitHub
+## ÔøΩ‚Äù¬ê Configura√ß√£o de Autentica√ß√£o GitHub
 
-O GitHub agora requer **Token de Acesso Pessoal (PAT)** ao invés de senha. Siga estes passos:
+O GitHub agora requer **Token de Acesso Pessoal (PAT)** ao inv√©s de senha. Siga estes passos:
 
 ### 1. Criar Token de Acesso Pessoal
 
@@ -19,11 +19,11 @@ O GitHub agora requer **Token de Acesso Pessoal (PAT)** ao invés de senha. Siga
 3. Configure:
    - **Note**: "IntegragalGit Deploy v3.0"
    - **Expiration**: Escolha (recomendado: 30 dias)
-   - **Scopes**: Marque apenas `repo` (acesso completo aos repositórios)
+   - **Scopes**: Marque apenas `repo` (acesso completo aos reposit√≥rios)
 
 ### 2. Configurar o Token
 
-**Opção A - Via terminal (recomendado)**:
+**Op√ß√£o A - Via terminal (recomendado)**:
 ```bash
 cd /workspace/IntegragalGit-latest
 
@@ -34,9 +34,9 @@ git remote set-url origin https://SEU_USERNAME:SEU_TOKEN@github.com/Marciopachec
 ./deploy_v3.sh
 ```
 
-**Opção B - Via variáveis de ambiente**:
+**Op√ß√£o B - Via vari√°veis de ambiente**:
 ```bash
-# Exportar token como variável
+# Exportar token como vari√°vel
 export GITHUB_TOKEN="seu_token_aqui"
 
 # Usar token no push
@@ -44,29 +44,29 @@ git push https://$GITHUB_TOKEN@github.com/Marciopachecolab/IntegragalGit.git mas
 git push https://$GITHUB_TOKEN@github.com/Marciopachecolab/IntegragalGit.git v3.0
 ```
 
-## 📋 Resumo do Que Será Enviado
+## üìã Resumo do Que Ser√° Enviado
 
-### ✅ 5 Commits Pendentes
+### ‚úÖ 5 Commits Pendentes
 - Sync commits com melhorias do sistema
-- Todas as mudanças da limpeza já commitadas
+- Todas as mudan√ßas da limpeza j√° commitadas
 
-### ✅ Tag v3.0
+### ‚úÖ Tag v3.0
 - Mensagem: "Release v3.0: Sistema refatorado com arquitetura modular limpa e otimizada"
 - Changelog completo na tag
 
-### ✅ Arquivos Principais Atualizados
-- `README.md` - Documentação completa da v3.0
+### ‚úÖ Arquivos Principais Atualizados
+- `README.md` - Documenta√ß√£o completa da v3.0
 - `main.py` - Refatorado e otimizado
-- `ui/` - Módulos de interface
+- `ui/` - M√≥dulos de interface
 - `deploy_v3.sh` - Script de deploy
 - `INSTRUCOES_DEPLOY.md` - Este arquivo
 
-## 🎯 Comandos Manuais (se preferir)
+## üéØ Comandos Manuais (se preferir)
 
-Se não quiser usar o script automático:
+Se n√£o quiser usar o script autom√°tico:
 
 ```bash
-# 1. Push do código
+# 1. Push do c√≥digo
 git push origin master
 
 # 2. Push da tag
@@ -76,44 +76,44 @@ git push origin v3.0
 git ls-remote --tags origin
 ```
 
-## 🔍 Verificação Pós-Deploy
+## ÔøΩ‚Äù¬ç Verifica√ß√£o P√≥s-Deploy
 
-Após o push, verifique no GitHub:
-1. ✅ Commits aparecendo no repositório
-2. ✅ Tag v3.0 disponível em "Releases"
-3. ✅ README.md atualizado na página principal
-4. ✅ Arquivos organizados corretamente
+Ap√≥s o push, verifique no GitHub:
+1. ‚úÖ Commits aparecendo no reposit√≥rio
+2. ‚úÖ Tag v3.0 dispon√≠vel em "Releases"
+3. ‚úÖ README.md atualizado na p√°gina principal
+4. ‚úÖ Arquivos organizados corretamente
 
-## 📊 Impacto da Versão 3.0
+## üìä Impacto da Vers√£o 3.0
 
-### Reduções
-- **Linhas de código**: 60.6% redução no main.py
-- **Arquivos**: 17 arquivos desnecessários removidos
-- **Espaço**: ~1.5MB de espaço liberado
+### Redu√ß√µes
+- **Linhas de c√≥digo**: 60.6% redu√ß√£o no main.py
+- **Arquivos**: 17 arquivos desnecess√°rios removidos
+- **Espa√ßo**: ~1.5MB de espa√ßo liberado
 
 ### Melhorias
 - **Arquitetura modular**: UI split em 5 componentes
-- **Validação**: Sistema de 5 checks essenciais
-- **Documentação**: README completo e atualizado
-- **Automatização**: Script de deploy criado
+- **Valida√ß√£o**: Sistema de 5 checks essenciais
+- **Documenta√ß√£o**: README completo e atualizado
+- **Automatiza√ß√£o**: Script de deploy criado
 
-## 🆘 Solução de Problemas
+## ÔøΩ‚Ä†Àú Solu√ß√£o de Problemas
 
 ### Erro: "Invalid username or token"
 - Verifique se o token foi criado corretamente
-- Confirme se o token ainda não expirou
-- Certifique-se de que o token tem permissões `repo`
+- Confirme se o token ainda n√£o expirou
+- Certifique-se de que o token tem permiss√µes `repo`
 
 ### Erro: "Authentication failed"
 - Use o formato: `https://username:token@github.com/repo.git`
-- Não use senha, use sempre o token
+- N√£o use senha, use sempre o token
 
 ### Erro: "Repository not found"
-- Confirme se você tem acesso ao repositório
-- Verifique se o nome do repositório está correto
+- Confirme se voc√™ tem acesso ao reposit√≥rio
+- Verifique se o nome do reposit√≥rio est√° correto
 
 ---
 
-**🎉 Após o deploy, o IntegragalGit v3.0 estará disponível no GitHub!**
+**ÔøΩ≈Ω‚Ä∞ Ap√≥s o deploy, o IntegragalGit v3.0 estar√° dispon√≠vel no GitHub!**
 
-**Próximo passo**: TAREFA 2 - Implementar UniversalAnalysisEngine
+**Pr√≥ximo passo**: TAREFA 2 - Implementar UniversalAnalysisEngine

@@ -1,4 +1,4 @@
-﻿# FileName: /Integragal/relatorios/gerar_relatorios.py
+# FileName: /Integragal/relatorios/gerar_relatorios.py
 import os
 from tkinter import filedialog, messagebox
 
@@ -10,113 +10,113 @@ from utils.logger import registrar_log  # Importa o logger centralizado
 
 def gerar_relatorio_csv():
     """
-    Permite ao usuÃ¡rio selecionar um arquivo CSV de resultados e salvÃ¡-lo
-    em um novo local, garantindo a codificaÃ§Ã£o e o separador.
+    Permite ao usuário selecionar um arquivo CSV de resultados e salvá-lo
+    em um novo local, garantindo a codificação e o separador.
     """
     arquivo = filedialog.askopenfilename(
         title="Selecione o CSV de resultados", filetypes=[("CSV", "*.csv")]
     )
     if not arquivo:
         registrar_log(
-            "Gerar RelatÃ³rio CSV", "SeleÃ§Ã£o de arquivo CSV cancelada.", level="INFO"
+            "Gerar Relatório CSV", "Seleção de arquivo CSV cancelada.", level="INFO"
         )
         return
 
     try:
-        # Tenta ler com utf-8-sig e ponto e vÃ­rgula, que Ã© o padrÃ£o de exportaÃ§Ã£o do sistema
+        # Tenta ler com utf-8-sig e ponto e vírgula, que é o padrão de exportação do sistema
         df = pd.read_csv(arquivo, delimiter=";", encoding="utf-8-sig")
         registrar_log(
-            "Gerar RelatÃ³rio CSV",
+            "Gerar Relatório CSV",
             f"Arquivo CSV '{os.path.basename(arquivo)}' lido com sucesso.",
             level="INFO",
         )
     except Exception as e:
         registrar_log(
-            "Gerar RelatÃ³rio CSV",
+            "Gerar Relatório CSV",
             f"Erro ao ler o arquivo CSV '{os.path.basename(arquivo)}': {e}",
             level="ERROR",
         )
         messagebox.showerror(
             "Erro de Leitura",
-            f"NÃ£o foi possÃ­vel ler o arquivo CSV:\n{e}\nVerifique o formato e a codificaÃ§Ã£o.",
+            f"Não foi possível ler o arquivo CSV:\n{e}\nVerifique o formato e a codificação.",
         )
         return
 
     caminho_saida = filedialog.asksaveasfilename(
         defaultextension=".csv",
         filetypes=[("CSV", "*.csv")],
-        title="Salvar RelatÃ³rio CSV Como",
+        title="Salvar Relatório CSV Como",
     )
 
     if caminho_saida:
         try:
             df.to_csv(caminho_saida, sep=";", index=False, encoding="utf-8-sig")
             registrar_log(
-                "Gerar RelatÃ³rio CSV",
-                f"RelatÃ³rio salvo em: {caminho_saida}",
+                "Gerar Relatório CSV",
+                f"Relatório salvo em: {caminho_saida}",
                 level="INFO",
             )
             messagebox.showinfo(
-                "RelatÃ³rio", f"âœ”ï¸ RelatÃ³rio CSV salvo em: {caminho_saida}"
+                "Relatório", f"✅ Relatório CSV salvo em: {caminho_saida}"
             )
         except Exception as e:
             registrar_log(
-                "Gerar RelatÃ³rio CSV",
-                f"Erro ao salvar o relatÃ³rio CSV em '{caminho_saida}': {e}",
+                "Gerar Relatório CSV",
+                f"Erro ao salvar o relatório CSV em '{caminho_saida}': {e}",
                 level="ERROR",
             )
             messagebox.showerror(
-                "Erro ao Salvar", f"NÃ£o foi possÃ­vel salvar o relatÃ³rio CSV:\n{e}"
+                "Erro ao Salvar", f"Não foi possível salvar o relatório CSV:\n{e}"
             )
     else:
         registrar_log(
-            "Gerar RelatÃ³rio CSV",
-            "Salvamento do relatÃ³rio CSV cancelado pelo usuÃ¡rio.",
+            "Gerar Relatório CSV",
+            "Salvamento do relatório CSV cancelado pelo usuário.",
             level="INFO",
         )
 
 
 def gerar_grafico():
     """
-    Permite ao usuÃ¡rio selecionar um arquivo CSV de resultados e gera um
-    grÃ¡fico de barras da quantidade de amostras detectÃ¡veis por agravo.
+    Permite ao usuário selecionar um arquivo CSV de resultados e gera um
+    gráfico de barras da quantidade de amostras detectáveis por agravo.
     """
     arquivo = filedialog.askopenfilename(
-        title="Selecione o CSV de resultados para o grÃ¡fico",
+        title="Selecione o CSV de resultados para o gráfico",
         filetypes=[("CSV", "*.csv")],
     )
     if not arquivo:
         registrar_log(
-            "Gerar GrÃ¡fico",
-            "SeleÃ§Ã£o de arquivo CSV para grÃ¡fico cancelada.",
+            "Gerar Gráfico",
+            "Seleção de arquivo CSV para gráfico cancelada.",
             level="INFO",
         )
         return
 
     try:
-        # Tenta ler com utf-8-sig e ponto e vÃ­rgula
+        # Tenta ler com utf-8-sig e ponto e vírgula
         df = pd.read_csv(arquivo, delimiter=";", encoding="utf-8-sig")
         registrar_log(
-            "Gerar GrÃ¡fico",
-            f"Arquivo CSV '{os.path.basename(arquivo)}' lido para grÃ¡fico com sucesso.",
+            "Gerar Gráfico",
+            f"Arquivo CSV '{os.path.basename(arquivo)}' lido para gráfico com sucesso.",
             level="INFO",
         )
     except Exception as e:
         registrar_log(
-            "Gerar GrÃ¡fico",
-            f"Erro ao ler o arquivo CSV para grÃ¡fico '{os.path.basename(arquivo)}': {e}",
+            "Gerar Gráfico",
+            f"Erro ao ler o arquivo CSV para gráfico '{os.path.basename(arquivo)}': {e}",
             level="ERROR",
         )
         messagebox.showerror(
             "Erro de Leitura",
-            f"NÃ£o foi possÃ­vel ler o arquivo CSV para gerar o grÃ¡fico:\n{e}\nVerifique o formato e a codificaÃ§Ã£o.",
+            f"Não foi possível ler o arquivo CSV para gerar o gráfico:\n{e}\nVerifique o formato e a codificação.",
         )
         return
 
-    # Identifica colunas de agravos. Assume que colunas nÃ£o-meta sÃ£o agravos.
-    # Pode ser necessÃ¡rio um mapeamento mais explÃ­cito se houver muitas colunas nÃ£o-agravo.
-    # Para o contexto do sistema, as colunas de resultado sÃ£o '1', '2', '3' (DetectÃ¡vel, ND, Inconclusivo)
-    # EntÃ£o, 'DetectÃ¡vel' Ã© representado por '1'.
+    # Identifica colunas de agravos. Assume que colunas não-meta são agravos.
+    # Pode ser necessário um mapeamento mais explícito se houver muitas colunas não-agravo.
+    # Para o contexto do sistema, as colunas de resultado são '1', '2', '3' (Detectável, ND, Inconclusivo)
+    # Então, 'Detectável' é representado por '1'.
     colunas_meta = [
         "codigoAmostra",
         "codigo",
@@ -135,7 +135,7 @@ def gerar_grafico():
         "resultado",
     ]
 
-    # Filtra colunas que sÃ£o potenciais agravos (nÃ£o estÃ£o nas colunas meta e contÃªm valores de resultado)
+    # Filtra colunas que são potenciais agravos (não estão nas colunas meta e contêm valores de resultado)
     colunas_agravos = [
         col
         for col in df.columns
@@ -144,31 +144,31 @@ def gerar_grafico():
 
     if not colunas_agravos:
         registrar_log(
-            "Gerar GrÃ¡fico",
-            "Nenhuma coluna de agravo detectÃ¡vel encontrada no CSV para gerar o grÃ¡fico.",
+            "Gerar Gráfico",
+            "Nenhuma coluna de agravo detectável encontrada no CSV para gerar o gráfico.",
             level="WARNING",
         )
         messagebox.showinfo(
-            "GrÃ¡fico de DetecÃ§Ã£o",
-            "Nenhuma coluna de agravo detectÃ¡vel encontrada no arquivo para gerar o grÃ¡fico.",
+            "Gráfico de Detecção",
+            "Nenhuma coluna de agravo detectável encontrada no arquivo para gerar o gráfico.",
         )
         return
 
-    # Contagem de 'DetectÃ¡vel' (valor '1') para cada agravo
+    # Contagem de 'Detectável' (valor '1') para cada agravo
     contagem = {agravo: (df[agravo] == "1").sum() for agravo in colunas_agravos}
 
-    # Filtra agravos com contagem zero para nÃ£o aparecerem no grÃ¡fico
+    # Filtra agravos com contagem zero para não aparecerem no gráfico
     plot_data = {k: v for k, v in contagem.items() if v > 0}
 
     if not plot_data:
         registrar_log(
-            "Gerar GrÃ¡fico",
-            "Nenhum alvo detectÃ¡vel com contagem maior que zero para gerar o grÃ¡fico.",
+            "Gerar Gráfico",
+            "Nenhum alvo detectável com contagem maior que zero para gerar o gráfico.",
             level="INFO",
         )
         messagebox.showinfo(
-            "GrÃ¡fico de DetecÃ§Ã£o",
-            "Nenhum alvo detectÃ¡vel com contagem maior que zero para gerar o grÃ¡fico.",
+            "Gráfico de Detecção",
+            "Nenhum alvo detectável com contagem maior que zero para gerar o gráfico.",
         )
         return
 
@@ -177,17 +177,17 @@ def gerar_grafico():
 
     plt.figure(figsize=(10, 6))
     plt.bar(labels, values, color="skyblue")
-    plt.title("Quantidade de Amostras DetectÃ¡veis por Agravo")
+    plt.title("Quantidade de Amostras Detectáveis por Agravo")
     plt.xlabel("Agravo")
     plt.ylabel("Quantidade")
     plt.xticks(
         rotation=45, ha="right"
-    )  # RotaÃ§Ã£o para melhor visualizaÃ§Ã£o de nomes longos
-    plt.tight_layout()  # Ajusta o layout para evitar sobreposiÃ§Ã£o
+    )  # Rotação para melhor visualização de nomes longos
+    plt.tight_layout()  # Ajusta o layout para evitar sobreposição
     plt.show()
 
     registrar_log(
-        "Gerar GrÃ¡fico", f"GrÃ¡fico gerado para arquivo: {arquivo}", level="INFO"
+        "Gerar Gráfico", f"Gráfico gerado para arquivo: {arquivo}", level="INFO"
     )
 
 
