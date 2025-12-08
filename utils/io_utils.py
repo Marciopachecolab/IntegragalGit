@@ -69,6 +69,14 @@ def detectar_linha_cabecalho(filepath: str, sep: str = ",") -> int:
     Retorna o índice da linha (0-based).
     """
     try:
+        # Garantir que filepath seja string
+        filepath = str(filepath)
+        registrar_log(
+            "IO Utils",
+            f"Detectando linha de cabeçalho em: {os.path.basename(filepath)}",
+            level="DEBUG",
+        )
+        
         # Para CSV
         if filepath.lower().endswith(".csv"):
             with open(filepath, "r", encoding="utf-8-sig") as f:

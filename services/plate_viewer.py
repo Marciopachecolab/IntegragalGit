@@ -32,7 +32,7 @@ EMPTY = "EMPTY"
 STATUS_COLORS = {
     NEGATIVE: "#d4f4d4",  # verde claro
     POSITIVE: "#ffb3b3",  # vermelho claro
-    INCONCLUSIVE: "#ffe89a",  # amarelo
+    INCONCLUSIVE: "#ffcc99",  # laranja claro
     INVALID: "#f0f0f0",  # cinza
     CONTROL_CN: "#b3d9ff",  # azul claro
     CONTROL_CP: "#b3d9ff",  # azul claro (mesma cor CN)
@@ -83,6 +83,7 @@ class PlateModel:
     def __init__(self) -> None:
         self.wells: Dict[str, WellData] = {}
         self.group_dict: Dict[str, List[str]] = {}  # Novo: dicionário de grupos
+        self.pair_groups: Dict[str, List[str]] = {}  # Legado: compatibilidade
         self.exam_type: str = "96"  # Tipo de exame: 96, 48, 32, 24 testes
         self.requires_group_frames: bool = False
         self.group_size: int = 1  # Mantido para compatibilidade
@@ -191,6 +192,47 @@ class PlateModel:
                 base = cu.replace(" - R", "").replace("- R", "").strip()
                 if base and base not in targets:
                     targets.append(base)
+        
+        # DEBUG temporário
+        print(f"DEBUG CSV: Colunas disponíveis: {list(df_use.columns[:20])}")
+        print(f"DEBUG CSV: Targets descobertos: {targets}")
+        print(f"DEBUG CSV: Total de linhas no DataFrame: {len(df_use)}")
+        
+        # Análise de valores CT disponíveis no DataFrame
+        ct_analysis = {}
+        for alvo in targets:
+            ct_col = None
+            for c in df_use.columns:
+                cu = str(c).upper()
+                if " - CT" in cu or "- CT" in cu:
+                    base = cu.split(" - CT")[0].split("- CT")[0]
+                    if base == alvo.upper():
+                        ct_col = c
+                        break
+                elif cu.startswith("CT_"):
+                    base = cu[3:]
+                    if base == alvo.upper().replace(" ", ""):
+                        ct_col = c
+                        break
+            
+            if ct_col:
+                # Contar valores não vazios de CT
+                non_null = df_use[ct_col].notna().sum()
+                ct_analysis[alvo] = {"coluna": ct_col, "valores_disponiveis": non_null}
+            else:
+                ct_analysis[alvo] = {"coluna": None, "valores_disponiveis": 0}
+        
+        print(f"DEBUG CSV: Análise de CT disponíveis:")
+        for alvo, info in ct_analysis.items():
+            print(f"  {alvo}: coluna='{info['coluna']}', valores={info['valores_disponiveis']}")
+        
+        if len(df_use) > 0:
+            print(f"\nDEBUG CSV: Primeira linha - poco_col='{poco_col}', valor='{df_use.iloc[0].get(poco_col, 'N/A')}'")
+            if sample_col:
+                print(f"DEBUG CSV: Primeira linha - sample_col='{sample_col}', valor='{df_use.iloc[0].get(sample_col, 'N/A')}'")
+            if code_col:
+                print(f"DEBUG CSV: Primeira linha - code_col='{code_col}', valor='{df_use.iloc[0].get(code_col, 'N/A')}'")
+            print()
 
         # Função de normalização para matching alvo vs coluna de CT
         def _norm_key(txt: str) -> str:
@@ -223,7 +265,7 @@ class PlateModel:
         model.group_size = group_size or cls._infer_group_size(df_use)
 
         # ------------------ construção dos poços ------------------ #
-        for _, row in df_use.iterrows():
+        for idx, row in df_use.iterrows():
             poco_raw = str(
                 row.get("Poco", "")
                 or row.get("POCO", "")
@@ -285,12 +327,26 @@ class PlateModel:
 
             # Depois, alvos analíticos principais
             for alvo in targets:
-                # resultado qualitativo
+                # resultado qualitativo - tentar múltiplos formatos
+                res_val = ""
+                
+                # Formato 1: "Resultado_SC2"
                 res_col = f"Resultado_{alvo}"
-                res_val = row.get(res_col, "")
+                if res_col in row:
+                    res_val = row.get(res_col, "")
+                
+                # Formato 2: "SC2 - R"
                 if not res_val:
                     alt_col = f"{alvo} - R"
-                    res_val = row.get(alt_col, "")
+                    if alt_col in row:
+                        res_val = row.get(alt_col, "")
+                
+                # Formato 3: Coluna com nome do alvo contendo resultado completo
+                # (ex: coluna "SC2" com valor "SC2 - 2")
+                if not res_val:
+                    if alvo in row:
+                        res_val = row.get(alvo, "")
+                
                 norm_res = normalize_result(str(res_val))
 
                 # CT associado
@@ -307,22 +363,27 @@ class PlateModel:
                 target_data[alvo] = TargetResult(norm_res, ct_val)
 
             # Preenche wells (poços) e grupos
-            for idx_poco, poco in enumerate(pocos):
+            normalized_pocos = []
+            for poco in pocos:
                 if len(poco) < 2:
                     continue
                 row_label = poco[0].upper()
                 col_label = poco[1:]
                 try:
                     col_idx = int(col_label)
+                    normalized_well = f"{row_label}{col_idx:02d}"
+                    normalized_pocos.append(normalized_well)
                 except Exception:
                     continue
-                well_id = f"{row_label}{col_idx:02d}"
+            
+            for idx_poco, well_id in enumerate(normalized_pocos):
+                row_label = well_id[0]
+                col_label = well_id[1:]
 
-                wd = model.wells.get(
-                    well_id,
-                    WellData(
+                if well_id not in model.wells:
+                    wd = WellData(
                         row_label=row_label,
-                        col_label=str(col_idx),
+                        col_label=col_label,
                         well_id=well_id,
                         sample_id=sample or "",
                         code=code or "",
@@ -335,8 +396,15 @@ class PlateModel:
                         group_id=None,
                         group_size=1,
                         group_position=0,
-                    ),
-                )
+                    )
+                    model.wells[well_id] = wd
+                else:
+                    wd = model.wells[well_id]
+                    # Atualiza sample_id e code se ainda não tiverem sido definidos
+                    if not wd.sample_id and sample:
+                        wd.sample_id = sample
+                    if not wd.code and code:
+                        wd.code = code
 
                 # merges targets (caso haja múltiplas linhas para o mesmo poço)
                 for alvo, tr in target_data.items():
@@ -348,14 +416,14 @@ class PlateModel:
                         wd.targets[alvo] = tr
 
                 # grupos (pares/trios/quartetos) - sistema completo
-                if len(pocos) > 1:
-                    sorted_pocos = sorted(pocos)
+                if len(normalized_pocos) > 1:
+                    sorted_pocos = sorted(normalized_pocos)
                     group_id = "+".join(sorted_pocos)
                     wd.is_grouped = True
                     wd.group_id = group_id
-                    wd.group_size = len(pocos)
+                    wd.group_size = len(normalized_pocos)
                     wd.group_position = idx_poco
-                    wd.paired_wells = [p for p in pocos if p != poco]
+                    wd.paired_wells = [p for p in normalized_pocos if p != well_id]
                     # Adiciona ao group_dict
                     if group_id not in model.group_dict:
                         model.group_dict[group_id] = []
@@ -502,6 +570,7 @@ class PlateModel:
         return None
 
     def _recompute_status(self, well: WellData) -> None:
+        """Determina o status do poço baseado APENAS nos resultados textuais dos alvos."""
         if well.is_control:
             ctype = well.metadata.get("control_type", "")
             well.status = CONTROL_CN if ctype == "CN" else CONTROL_CP
@@ -510,48 +579,23 @@ class PlateModel:
         has_pos = False
         has_inc = False
         has_nd = False
-        rp_ok = False
         
-        # Valida CT de RP contra faixas do registry se disponível
-        faixas_ct = None
-        if self.exam_cfg:
-            try:
-                faixas_ct = self.exam_cfg.faixas_ct or {}
-            except Exception:
-                faixas_ct = None
-        
+        # Analisar cada alvo (exceto RP)
         for alvo, tr in well.targets.items():
             if alvo.upper().startswith("RP"):
-                # Se há registry e CT de RP, valida contra faixas
-                if faixas_ct and tr.ct is not None:
-                    try:
-                        detect_max = float(faixas_ct.get("detect_max", 40.0))
-                        inconc_min = float(faixas_ct.get("inconc_min", 38.01))
-                        inconc_max = float(faixas_ct.get("inconc_max", 45.0))
-                        
-                        if tr.ct <= detect_max:
-                            # RP validação é ok
-                            rp_ok = True
-                        elif inconc_min <= tr.ct <= inconc_max:
-                            # RP inconclusivo
-                            has_inc = True
-                        elif tr.ct > inconc_max:
-                            # RP inválido
-                            well.status = INVALID
-                            return
-                    except Exception:
-                        # Fallback se config inválida
-                        pass
                 continue
             
-            u = tr.result.upper()
+            # Analisar APENAS resultado textual
+            u = tr.result.upper() if tr.result else ""
+            
             if "DET" in u or "POS" in u:
                 has_pos = True
             elif "INC" in u:
                 has_inc = True
-            elif "ND" in u or "NAO" in u or "NÃO" in u:
+            elif "ND" in u:
                 has_nd = True
         
+        # Determinar status final
         if has_pos:
             well.status = POSITIVE
         elif has_inc:
@@ -559,11 +603,7 @@ class PlateModel:
         elif has_nd:
             well.status = NEGATIVE
         else:
-            # Se nenhum resultado analítico mas RP estava ok, considera NEGATIVE
-            if rp_ok:
-                well.status = NEGATIVE
-            else:
-                well.status = INVALID
+            well.status = INVALID
 
     # utilidades
     def get_well(self, well_id: str) -> Optional[WellData]:
@@ -633,27 +673,37 @@ class PlateModel:
 
 
 def normalize_result(value: str) -> str:
+    """Normaliza textos de resultado do CSV (ex: 'SC2 - 1', 'HMPV - 2')."""
     if not value:
         return ""
-    txt = str(value).strip().upper()
+    
+    txt = value.strip().upper()
+    
+    # Formato específico do CSV: "ALVO - NÚMERO" (ex: "SC2 - 1", "HMPV - 2")
     if " - " in txt:
+        # Extrair o número após o hífen
         parts = txt.split(" - ")
         if len(parts) >= 2:
             num = parts[-1].strip()
+            # Mapear números para resultados
             if num == "1":
-                return "Det"
-            if num == "2":
-                return "ND"
-            if num == "3":
-                return "Inc"
-    if any(k in txt for k in ["DET", "POS", "REAG", "1"]):
-        return "Det"
-    if any(k in txt for k in ["NAO", "NÃO", "NEG", "ND", "2"]):
-        return "ND"
-    if "INC" in txt or "INCON" in txt or "3" == txt:
+                return "Det"      # Detectado
+            elif num == "2":
+                return "ND"       # Não Detectado
+            else:
+                return "Inc"      # Inconclusivo para outros números
+    
+    # Fallback para outras formatações
+    # IMPORTANTE: Verificar termos mais específicos primeiro para evitar matches incorretos
+    if any(k in txt for k in ["INC", "3"]):
         return "Inc"
-    if "INV" in txt:
-        return "Inv"
+    if any(k in txt for k in ["NAO DETECTADO", "NÃO DETECTADO", "NAO DETECTAVEL", "NÃO DETECTÁVEL"]):
+        return "ND"
+    if any(k in txt for k in ["DETECTADO", "DETECTAVEL", "DETECTÁVEL", "POSITIVO", "REAGENTE", "1"]):
+        return "Det"
+    if any(k in txt for k in ["NAO", "NÃO", "NEGATIVO", "ND", "2"]):
+        return "ND"
+    
     return txt
 
 
@@ -672,7 +722,7 @@ class WellButton(ctk.CTkButton):
             height=70,
             fg_color=color,
             text_color="black",
-            font=ctk.CTkFont(family="Segoe UI", size=12, weight="bold"),
+            font=ctk.CTkFont(family="Segoe UI", size=10, weight="bold"),
             corner_radius=5,
             border_width=2,
             border_color="#888888",
@@ -724,21 +774,25 @@ class WellButton(ctk.CTkButton):
 class GroupFrame(ctk.CTkFrame):
     """Frame que agrupa múltiplos poços para contorná-los juntos."""
     
-    def __init__(self, master, group_id: str, wells: List[str], group_size: int, **kwargs):
-        super().__init__(master, **kwargs)
-        self.group_id = group_id
-        self.wells = wells
+    def __init__(self, master, group_size: int, border_color: str, corner_radius: int = 15):
+        # Configurar o frame com borda de 10px
+        super().__init__(
+            master,
+            fg_color="transparent",
+            border_width=10,
+            border_color=border_color,
+            corner_radius=corner_radius
+        )
         self.group_size = group_size
-        self.configure(fg_color="transparent", border_width=0)
         
         # Ajustar o layout baseado no tamanho do grupo
         if group_size == 2:
-            # Para pares, organizar horizontalmente
+            # Para pares, organizar horizontalmente (1x2)
             self.grid_columnconfigure(0, weight=1)
             self.grid_columnconfigure(1, weight=1)
             self.grid_rowconfigure(0, weight=1)
         elif group_size == 3:
-            # Para trios, organizar em linha
+            # Para trios, organizar em linha (1x3)
             for i in range(3):
                 self.grid_columnconfigure(i, weight=1)
             self.grid_rowconfigure(0, weight=1)
@@ -747,28 +801,19 @@ class GroupFrame(ctk.CTkFrame):
             for i in range(2):
                 self.grid_columnconfigure(i, weight=1)
                 self.grid_rowconfigure(i, weight=1)
-        
-        # Aplicar contorno com ESPESSURA 10
-        self._apply_group_border()
     
-    def _apply_group_border(self):
-        """Aplica contorno ao grupo com ESPESSURA 10."""
-        if self.group_size == 1:
-            return
-        
-        # Definir cor baseada no tamanho do grupo
-        group_color = GROUP_COLORS.get(self.group_size, "#0000FF")
-        
-        # Configurar contorno com ESPESSURA 10
-        self.configure(border_color=group_color, border_width=10)
-        
-        # Ajustar cantos baseado na disposição
+    def get_position_in_group(self, position: int) -> tuple:
+        """Retorna (row, col) dentro do GroupFrame baseado na posição do poço no grupo."""
         if self.group_size == 2:
-            self.configure(corner_radius=12)
+            # Par: posição 0 -> (0, 0), posição 1 -> (0, 1)
+            return (0, position)
         elif self.group_size == 3:
-            self.configure(corner_radius=15)
+            # Trio: posição 0 -> (0, 0), posição 1 -> (0, 1), posição 2 -> (0, 2)
+            return (0, position)
         elif self.group_size == 4:
-            self.configure(corner_radius=18)
+            # Quarteto 2x2: posição 0 -> (0, 0), posição 1 -> (0, 1), posição 2 -> (1, 0), posição 3 -> (1, 1)
+            return (position // 2, position % 2)
+        return (0, 0)
 
 
 class PlateView(ctk.CTkFrame):
@@ -790,11 +835,11 @@ class PlateView(ctk.CTkFrame):
     def _build_ui(self):
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=3)
-        self.grid_columnconfigure(1, weight=1)
+        self.grid_columnconfigure(1, weight=0)
 
-        # Cabeçalho
+        # Cabeçalho (compacto) - espaçamento mínimo superior
         header = ctk.CTkFrame(self)
-        header.grid(row=0, column=0, columnspan=2, sticky="ew", pady=(5, 10), padx=10)
+        header.grid(row=0, column=0, columnspan=2, sticky="ew", pady=(0, 1), padx=5)
         header.grid_columnconfigure(4, weight=1)
         infos = [
             f"Data: {self.meta.get('data', '')}",
@@ -804,11 +849,11 @@ class PlateView(ctk.CTkFrame):
             f"Tamanho bloco: {self.plate_model.group_size} (tot amostras: {self._calc_total_samples()})",
         ]
         for i, txt in enumerate(infos):
-            ctk.CTkLabel(header, text=txt, font=("", 12, "bold")).grid(row=0, column=i, padx=8, sticky="w")
+            ctk.CTkLabel(header, text=txt, font=("", 10, "bold")).grid(row=0, column=i, padx=3, pady=1, sticky="w")
 
-        # Container placa
+        # Container placa - espaçamento reduzido para aumentar área visível
         plate_container = ctk.CTkFrame(self)
-        plate_container.grid(row=1, column=0, padx=10, pady=10, sticky="nsew")
+        plate_container.grid(row=1, column=0, padx=5, pady=(1, 3), sticky="nsew")
         plate_container.grid_rowconfigure(0, weight=1)
         plate_container.grid_columnconfigure(0, weight=1)
 
@@ -835,15 +880,19 @@ class PlateView(ctk.CTkFrame):
                 text=row_lbl,
                 font=font_labels,
                 width=30,
-                height=70
+                height=50
             )
             label.grid(row=i, column=0, padx=1, pady=1)
 
         # Criar frames de grupo se necessário
         if self.plate_model.requires_group_frames:
+            print(f"DEBUG: Criando group frames. group_dict={len(self.plate_model.group_dict)} grupos")
             self._create_group_frames()
+        else:
+            print(f"DEBUG: requires_group_frames=False. exam_type={self.plate_model.exam_type}")
         
         # Criar botões de poços
+        print(f"DEBUG: Total wells={len(self.plate_model.wells)}")
         self._create_well_buttons()
 
     def _create_group_frames(self):
@@ -861,7 +910,8 @@ class PlateView(ctk.CTkFrame):
             
             # Calcular posição mínima e máxima do grupo
             rows = [ROW_LABELS.index(w[0]) for w in wells]
-            cols = [COL_LABELS.index(w[1:]) for w in wells]
+            # Remover zeros à esquerda da coluna (A01 -> 1, A12 -> 12)
+            cols = [COL_LABELS.index(str(int(w[1:]))) for w in wells]
             min_row = min(rows)
             max_row = max(rows)
             min_col = min(cols)
@@ -896,7 +946,8 @@ class PlateView(ctk.CTkFrame):
         """Cria todos os botões de poços, usando frames de grupo quando necessário."""
         for i, row_lbl in enumerate(ROW_LABELS):
             for j, col_lbl in enumerate(COL_LABELS):
-                well_id = f"{row_lbl}{col_lbl}"
+                # Criar well_id com zero à esquerda (A01, A02, etc)
+                well_id = f"{row_lbl}{int(col_lbl):02d}"
                 well = self.plate_model.get_well(well_id)
                 
                 # Preparar texto do botão
@@ -931,9 +982,9 @@ class PlateView(ctk.CTkFrame):
                 btn.grid(padx=1, pady=1, sticky="nsew", **grid_kwargs)
                 self.well_widgets[well_id] = btn
 
-        # Painel lateral
-        self.detail_frame = ctk.CTkFrame(self, width=360)
-        self.detail_frame.grid(row=1, column=1, padx=(0, 10), pady=10, sticky="nsew")
+        # Painel lateral - aumentado para 340px para acomodar melhor as colunas do TreeView
+        self.detail_frame = ctk.CTkFrame(self, width=340)
+        self.detail_frame.grid(row=1, column=1, padx=(0, 20), pady=(1, 3), sticky="nsew")
         self.detail_frame.grid_propagate(False)
 
         for i in range(10):
@@ -942,42 +993,42 @@ class PlateView(ctk.CTkFrame):
 
         title_font = ctk.CTkFont(family="Segoe UI", size=16, weight="bold")
         ctk.CTkLabel(self.detail_frame, text="Poço selecionado:", font=title_font).grid(
-            row=0, column=0, columnspan=2, pady=(15, 10), padx=15, sticky="w"
+            row=0, column=0, columnspan=2, pady=(4, 1), padx=5, sticky="w"
         )
 
         f_label = ctk.CTkFont(family="Segoe UI", size=12, weight="bold")
         f_val = ctk.CTkFont(family="Segoe UI", size=12)
 
-        ctk.CTkLabel(self.detail_frame, text="Poço:", font=f_label).grid(row=1, column=0, padx=(15, 5), pady=8, sticky="e")
+        ctk.CTkLabel(self.detail_frame, text="Poço:", font=f_label).grid(row=1, column=0, padx=(5, 3), pady=1, sticky="e")
         self.lbl_well = ctk.CTkLabel(self.detail_frame, text="-", font=f_val)
-        self.lbl_well.grid(row=1, column=1, padx=(5, 15), pady=8, sticky="w")
+        self.lbl_well.grid(row=1, column=1, padx=(3, 5), pady=1, sticky="w")
 
-        ctk.CTkLabel(self.detail_frame, text="Amostra:", font=f_label).grid(row=2, column=0, padx=(15, 5), pady=8, sticky="e")
+        ctk.CTkLabel(self.detail_frame, text="Amostra:", font=f_label).grid(row=2, column=0, padx=(5, 3), pady=1, sticky="e")
         self.lbl_sample = ctk.CTkLabel(self.detail_frame, text="-", font=f_val)
-        self.lbl_sample.grid(row=2, column=1, padx=(5, 15), pady=8, sticky="w")
+        self.lbl_sample.grid(row=2, column=1, padx=(3, 5), pady=1, sticky="w")
 
-        ctk.CTkLabel(self.detail_frame, text="Código:", font=f_label).grid(row=3, column=0, padx=(15, 5), pady=8, sticky="e")
+        ctk.CTkLabel(self.detail_frame, text="Código:", font=f_label).grid(row=3, column=0, padx=(5, 3), pady=1, sticky="e")
         code_frame = ctk.CTkFrame(self.detail_frame, fg_color="transparent")
-        code_frame.grid(row=3, column=1, padx=(5, 15), pady=8, sticky="ew")
+        code_frame.grid(row=3, column=1, padx=(3, 5), pady=1, sticky="ew")
         code_frame.grid_columnconfigure(0, weight=1)
         self.entry_code = ctk.CTkEntry(code_frame, font=f_val, height=35)
-        self.entry_code.grid(row=0, column=0, sticky="ew", padx=(0, 5))
+        self.entry_code.grid(row=0, column=0, sticky="ew", padx=(0, 3))
         ctk.CTkButton(code_frame, text="✓", width=40, height=35, font=f_val, command=self.apply_code_change).grid(
             row=0, column=1
         )
 
         ctk.CTkLabel(self.detail_frame, text="Poços agrupados:", font=f_label).grid(
-            row=4, column=0, padx=(15, 5), pady=8, sticky="e"
+            row=4, column=0, padx=(5, 3), pady=1, sticky="e"
         )
         self.lbl_group = ctk.CTkLabel(self.detail_frame, text="-", font=f_val)
-        self.lbl_group.grid(row=4, column=1, padx=(5, 15), pady=8, sticky="w")
+        self.lbl_group.grid(row=4, column=1, padx=(3, 5), pady=1, sticky="w")
 
         ctk.CTkLabel(self.detail_frame, text="Resultados:", font=f_label).grid(
-            row=5, column=0, columnspan=2, padx=15, pady=(5, 5), sticky="w"
+            row=5, column=0, columnspan=2, padx=5, pady=(1, 1), sticky="w"
         )
 
         tree_frame = ctk.CTkFrame(self.detail_frame)
-        tree_frame.grid(row=6, column=0, columnspan=2, padx=15, pady=(0, 10), sticky="nsew")
+        tree_frame.grid(row=6, column=0, columnspan=2, padx=5, pady=(0, 5), sticky="nsew")
         tree_frame.grid_rowconfigure(0, weight=1)
         tree_frame.grid_columnconfigure(0, weight=1)
 
@@ -988,17 +1039,17 @@ class PlateView(ctk.CTkFrame):
             foreground="black",
             background="white",
             fieldbackground="white",
-            font=("Segoe UI", 13),
-            rowheight=32,
+            font=("Segoe UI", 15),
+            rowheight=42,
         )
-        style.configure("Treeview.Heading", foreground="black", background="#f0f0f0", font=("Segoe UI", 13, "bold"))
-        self.tree = ttk.Treeview(tree_frame, columns=("alvo", "resultado", "ct"), show="headings", selectmode="browse", height=10)
+        style.configure("Treeview.Heading", foreground="black", background="#f0f0f0", font=("Segoe UI", 15, "bold"))
+        self.tree = ttk.Treeview(tree_frame, columns=("alvo", "resultado", "ct"), show="headings", selectmode="browse", height=28)
         self.tree.heading("alvo", text="Alvo")
         self.tree.heading("resultado", text="Resultado")
         self.tree.heading("ct", text="CT")
-        self.tree.column("alvo", width=80, anchor="w")
-        self.tree.column("resultado", width=90, anchor="center")
-        self.tree.column("ct", width=80, anchor="center")
+        self.tree.column("alvo", width=65, anchor="w")
+        self.tree.column("resultado", width=95, anchor="center")
+        self.tree.column("ct", width=70, anchor="center")
         vsb = ttk.Scrollbar(tree_frame, orient="vertical", command=self.tree.yview)
         self.tree.configure(yscrollcommand=vsb.set)
         self.tree.grid(row=0, column=0, sticky="nsew")
@@ -1006,28 +1057,28 @@ class PlateView(ctk.CTkFrame):
         self.tree.bind("<<TreeviewSelect>>", self.on_tree_select)
 
         edit_frame = ctk.CTkFrame(self.detail_frame)
-        edit_frame.grid(row=7, column=0, columnspan=2, padx=15, pady=(5, 10), sticky="ew")
+        edit_frame.grid(row=7, column=0, columnspan=2, padx=5, pady=(1, 3), sticky="ew")
         edit_frame.grid_columnconfigure(1, weight=1)
         edit_frame.grid_columnconfigure(3, weight=1)
         
         # Campo de Alvo (editável)
-        ctk.CTkLabel(edit_frame, text="Alvo:", font=f_label).grid(row=0, column=0, padx=5, pady=5, sticky="e")
+        ctk.CTkLabel(edit_frame, text="Alvo:", font=f_label).grid(row=0, column=0, padx=3, pady=3, sticky="e")
         self.entry_target = ctk.CTkEntry(edit_frame, width=120, font=f_val, height=35)
-        self.entry_target.grid(row=0, column=1, padx=5, pady=5, sticky="ew")
+        self.entry_target.grid(row=0, column=1, padx=3, pady=3, sticky="ew")
         
         # Campo de Resultado
-        ctk.CTkLabel(edit_frame, text="Resultado:", font=f_label).grid(row=1, column=0, padx=5, pady=5, sticky="e")
+        ctk.CTkLabel(edit_frame, text="Resultado:", font=f_label).grid(row=1, column=0, padx=3, pady=3, sticky="e")
         self.entry_res = ctk.CTkEntry(edit_frame, width=90, font=f_val, height=35)
-        self.entry_res.grid(row=1, column=1, padx=5, pady=5, sticky="ew")
+        self.entry_res.grid(row=1, column=1, padx=3, pady=3, sticky="ew")
         
         # Campo de CT
-        ctk.CTkLabel(edit_frame, text="CT:", font=f_label).grid(row=1, column=2, padx=(10, 5), pady=5, sticky="e")
+        ctk.CTkLabel(edit_frame, text="CT:", font=f_label).grid(row=1, column=2, padx=(5, 3), pady=3, sticky="e")
         self.entry_ct = ctk.CTkEntry(edit_frame, width=90, font=f_val, height=35)
-        self.entry_ct.grid(row=1, column=3, padx=5, pady=5, sticky="ew")
+        self.entry_ct.grid(row=1, column=3, padx=3, pady=3, sticky="ew")
         
         ctk.CTkButton(
             edit_frame, text="Aplicar", font=ctk.CTkFont(family="Segoe UI", size=12, weight="bold"), height=38, command=self.apply_target_changes
-        ).grid(row=2, column=0, columnspan=4, pady=(10, 5))
+        ).grid(row=2, column=0, columnspan=4, pady=(5, 3))
 
         ctk.CTkButton(
             self.detail_frame,
@@ -1035,7 +1086,7 @@ class PlateView(ctk.CTkFrame):
             font=ctk.CTkFont(family="Segoe UI", size=12, weight="bold"),
             height=40,
             command=self._on_save_clicked,
-        ).grid(row=8, column=0, columnspan=2, padx=15, pady=(0, 15))
+        ).grid(row=8, column=0, columnspan=2, padx=5, pady=(0, 4))
 
     def _calc_total_samples(self) -> int:
         # total de grupos = total_wells / group_size
@@ -1151,21 +1202,21 @@ class PlateView(ctk.CTkFrame):
             well.is_control = False
             well.metadata.pop("control_type", None)
         # se code mudou, propaga para wells do mesmo grupo (mesma amostra)
-        if well.pair_group_id:
-            for wid in self.plate_model.pair_groups.get(well.pair_group_id, []):
-                if wid == well.well_id:
-                    continue
-                w2 = self.plate_model.get_well(wid)
-                if w2:
-                    w2.code = well.code
-                    w2.sample_id = well.sample_id
-                    if ctrl:
-                        w2.is_control = True
-                        w2.metadata["control_type"] = ctrl
-                    else:
-                        w2.is_control = False
-                        w2.metadata.pop("control_type", None)
-                    self.plate_model._recompute_status(w2)
+        group_wells = self.plate_model.get_group_wells_including_self(well.well_id)
+        for wid in group_wells:
+            if wid == well.well_id:
+                continue
+            w2 = self.plate_model.get_well(wid)
+            if w2:
+                w2.code = well.code
+                w2.sample_id = well.sample_id
+                if ctrl:
+                    w2.is_control = True
+                    w2.metadata["control_type"] = ctrl
+                else:
+                    w2.is_control = False
+                    w2.metadata.pop("control_type", None)
+                self.plate_model._recompute_status(w2)
 
         self.plate_model._recompute_status(well)
         self.render_plate()
@@ -1176,6 +1227,11 @@ class PlateView(ctk.CTkFrame):
         well = self.plate_model.get_well(self.selected_well_id)
         if not well:
             return
+        
+        # Obter valores originais para comparação
+        original_target = well.targets.get(self.current_target)
+        original_res = original_target.result if original_target else ""
+        original_ct = original_target.ct if original_target else None
         
         # Obter novos valores
         new_target_name = self.entry_target.get().strip()
@@ -1188,6 +1244,15 @@ class PlateView(ctk.CTkFrame):
                 new_ct = float(ct_text.replace(",", "."))
             except Exception:
                 new_ct = None
+        
+        # Se apenas o CT foi alterado (resultado não mudou), reavaliar o resultado baseado no CT
+        if new_res == normalize_result(original_res) and new_ct != original_ct and new_ct is not None:
+            # Reanalisar resultado baseado no novo CT
+            # Regras básicas: CT < 35 = Detectado, CT >= 35 = Inconclusivo, sem CT = não detectado
+            if new_ct < 35:
+                new_res = "Det"
+            elif new_ct >= 35:
+                new_res = "Inc"
         
         # Se o nome do alvo mudou, remover o antigo
         if new_target_name and new_target_name != self.current_target:
@@ -1209,13 +1274,26 @@ class PlateView(ctk.CTkFrame):
                     continue  # Já atualizamos o poço atual
                 w2 = self.plate_model.get_well(well_id)
                 if w2:
+                    # Obter valores originais do poço do grupo
+                    original_target_w2 = w2.targets.get(self.current_target)
+                    original_res_w2 = original_target_w2.result if original_target_w2 else ""
+                    original_ct_w2 = original_target_w2.ct if original_target_w2 else None
+                    
+                    # Aplicar a mesma lógica de reanálise se apenas CT mudou
+                    new_res_w2 = new_res
+                    if normalize_result(original_res_w2) == normalize_result(original_res) and new_ct != original_ct_w2 and new_ct is not None:
+                        if new_ct < 35:
+                            new_res_w2 = "Det"
+                        elif new_ct >= 35:
+                            new_res_w2 = "Inc"
+                    
                     # Se o nome do alvo mudou, remover o antigo
                     if new_target_name and new_target_name != self.current_target:
                         if self.current_target in w2.targets:
                             del w2.targets[self.current_target]
                     
                     # Atualizar o alvo no poço do grupo
-                    w2.targets[target_key] = TargetResult(new_res, new_ct)
+                    w2.targets[target_key] = TargetResult(new_res_w2, new_ct)
                     
                     # Reanalisar este poço também
                     self.plate_model._recompute_status(w2)
@@ -1237,9 +1315,32 @@ class PlateWindow(ctk.CTkToplevel):
     def __init__(self, root, plate_model: PlateModel, meta: Dict[str, str]):
         super().__init__(master=root)
         self.title("Visualização da Placa")
-        self.state("zoomed")
+        
+        # Definir tamanho inicial (90% da tela para maximizar área da placa)
+        screen_width = self.winfo_screenwidth()
+        screen_height = self.winfo_screenheight()
+        window_width = int(screen_width * 0.9)
+        window_height = int(screen_height * 0.9)
+        x = (screen_width - window_width) // 2
+        y = (screen_height - window_height) // 2
+        self.geometry(f"{window_width}x{window_height}+{x}+{y}")
+        
+        # Proteção contra TclError ao fechar
+        self._is_closing = False
+        self.protocol("WM_DELETE_WINDOW", self._on_close_window)
+        
         view = PlateView(self, plate_model, meta)
-        view.pack(fill="both", expand=True, padx=10, pady=10)
+        view.pack(fill="both", expand=True, padx=5, pady=3)
+    
+    def _on_close_window(self):
+        """Fecha a janela com segurança."""
+        if not self._is_closing:
+            self._is_closing = True
+            try:
+                self.grab_release()
+                self.destroy()
+            except Exception:
+                pass
 
 
 # ---------------------------------------------------------------------------
@@ -1252,20 +1353,41 @@ def abrir_placa_ctk(df_final: pd.DataFrame, meta_extra: Optional[Dict[str, Any]]
     Abre a janela CTk para visualização/edição da placa usando df_final em memória.
     meta_extra pode conter data, extracao/arquivo, exame, usuario.
     """
-    if df_final is None or df_final.empty:
-        return
-    meta = meta_extra or {}
-    # garantir chaves esperadas
-    meta.setdefault("data", meta.get("data_placa", ""))
-    meta.setdefault("extracao", meta.get("arquivo_corrida", meta.get("extracao", "")))
-    meta.setdefault("exame", meta.get("exame", ""))
-    meta.setdefault("usuario", meta.get("usuario", ""))
-    # Passa exame para PlateModel.from_df para carregação do registry
-    exame = meta.get("exame", "")
-    plate_model = PlateModel.from_df(df_final, group_size=group_size, exame=exame)
-    win = PlateWindow(parent or ctk.CTk(), plate_model, meta)
-    win.focus_force()
-    return win
+    try:
+        print(f"DEBUG abrir_placa_ctk: DataFrame shape={df_final.shape if df_final is not None else 'None'}")
+        
+        if df_final is None or df_final.empty:
+            print("DEBUG abrir_placa_ctk: DataFrame vazio ou None")
+            return
+        
+        meta = meta_extra or {}
+        # garantir chaves esperadas
+        meta.setdefault("data", meta.get("data_placa", ""))
+        meta.setdefault("extracao", meta.get("arquivo_corrida", meta.get("extracao", "")))
+        meta.setdefault("exame", meta.get("exame", ""))
+        meta.setdefault("usuario", meta.get("usuario", ""))
+        
+        print(f"DEBUG abrir_placa_ctk: meta={meta}, group_size={group_size}")
+        
+        # Passa exame para PlateModel.from_df para carregação do registry
+        exame = meta.get("exame", "")
+        
+        print(f"DEBUG abrir_placa_ctk: Criando PlateModel.from_df...")
+        plate_model = PlateModel.from_df(df_final, group_size=group_size, exame=exame)
+        
+        print(f"DEBUG abrir_placa_ctk: PlateModel criado, wells={len(plate_model.wells)}")
+        
+        print(f"DEBUG abrir_placa_ctk: Criando PlateWindow...")
+        win = PlateWindow(parent or ctk.CTk(), plate_model, meta)
+        win.focus_force()
+        
+        print(f"DEBUG abrir_placa_ctk: PlateWindow criada com sucesso")
+        return win
+    except Exception as e:
+        print(f"DEBUG abrir_placa_ctk: ERRO - {type(e).__name__}: {e}")
+        import traceback
+        traceback.print_exc()
+        raise
 
 
 # Compatibilidade legada: funções vazias (Excel removido nesta fase)

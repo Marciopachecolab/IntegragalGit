@@ -517,36 +517,33 @@ class TabelaComSelecaoSimulada(AfterManagerMixin, ctk.CTkToplevel):
 
             )
 
+    def _preparar_df_para_historico(self, df):
+        """
+        Garante colunas chave antes de salvar:
+        - arquivo_corrida preenchido com nome do arquivo, se conhecido
+        - Resultado_RP_1/Resultado_RP_2 se houver CT de RP
+        """
+        df_out = df.copy()
 
+        arq = getattr(self, "arquivo_corrida", "") or ""
+        if arq:
+            try:
+                from pathlib import Path as _Path
+                arq_nome = _Path(arq).name
+            except Exception:
+                arq_nome = str(arq)
+            df_out["arquivo_corrida"] = arq_nome
+        elif "arquivo_corrida" not in df_out.columns:
+            df_out["arquivo_corrida"] = ""
 
+        for rp_col in ("RP_1", "RP_2", "RP1", "RP2"):
+            ct_col = f"{rp_col} - CT"
+            res_col = f"Resultado_{rp_col}"
+            if ct_col in df_out.columns and res_col not in df_out.columns:
+                df_out[res_col] = ""
 
+        return df_out
 
-def _preparar_df_para_historico(self, df):
-    """
-    Garante colunas chave antes de salvar:
-    - arquivo_corrida preenchido com nome do arquivo, se conhecido
-    - Resultado_RP_1/Resultado_RP_2 se houver CT de RP
-    """
-    df_out = df.copy()
-
-    arq = getattr(self, "arquivo_corrida", "") or ""
-    if arq:
-        try:
-            from pathlib import Path as _Path
-            arq_nome = _Path(arq).name
-        except Exception:
-            arq_nome = str(arq)
-        df_out["arquivo_corrida"] = arq_nome
-    elif "arquivo_corrida" not in df_out.columns:
-        df_out["arquivo_corrida"] = ""
-
-    for rp_col in ("RP_1", "RP_2", "RP1", "RP2"):
-        ct_col = f"{rp_col} - CT"
-        res_col = f"Resultado_{rp_col}"
-        if ct_col in df_out.columns and res_col not in df_out.columns:
-            df_out[res_col] = ""
-
-    return df_out
     def _mostrar_relatorio(self):
 
         # Linha comentada devido a alerta do ruff (E712): comparação direta com True.
