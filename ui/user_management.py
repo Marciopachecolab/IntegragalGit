@@ -1,6 +1,6 @@
 """
-Painel de Gerenciamento de Usu√°rios do Sistema IntegragalGit.
-Fornece funcionalidades para gerenciar usu√°rios do sistema.
+Painel de Gerenciamento de Usurios do Sistema IntegragalGit.
+Fornece funcionalidades para gerenciar usurios do sistema.
 """
 
 import os
@@ -17,15 +17,15 @@ from utils.logger import registrar_log
 
 
 class UserManagementPanel:
-    """Painel de gerenciamento de usu√°rios"""
+    """Painel de gerenciamento de usurios"""
 
     def __init__(self, main_window, usuario_logado: str):
         """
-        Inicializa o painel de gerenciamento de usu√°rios
+        Inicializa o painel de gerenciamento de usurios
 
         Args:
-            main_window: Janela principal da aplica√ß√£o
-            usuario_logado: Nome do usu√°rio logado
+            main_window: Janela principal da aplicao
+            usuario_logado: Nome do usurio logado
         """
         self.main_window = main_window
         self.usuario_logado = usuario_logado
@@ -36,10 +36,10 @@ class UserManagementPanel:
     def _criar_interface(self):
         """Cria a interface do painel de gerenciamento"""
         # Janela modal
-        # Linha comentada devido a problemas recorrentes de fechamento com CTkToplevel em algumas vers√µes do customtkinter.
+        # Linha comentada devido a problemas recorrentes de fechamento com CTkToplevel em algumas verses do customtkinter.
         # self.user_window = ctk.CTkToplevel(self.main_window)
         self.user_window = tk.Toplevel(self.main_window)
-        self.user_window.title("üë• Gerenciamento de Usu√°rios")
+        self.user_window.title(" Gerenciamento de Usurios")
         self.user_window.geometry("1100x800")
         self.user_window.transient(self.main_window)
         self.user_window.grab_set()
@@ -59,7 +59,7 @@ class UserManagementPanel:
 
         title_label = ctk.CTkLabel(
             header_frame,
-            text="üë• Gerenciamento de Usu√°rios",
+            text=" Gerenciamento de Usurios",
             font=ctk.CTkFont(size=24, weight="bold"),
         )
         title_label.pack(pady=15)
@@ -74,11 +74,11 @@ class UserManagementPanel:
         # Toolbar
         self._criar_toolbar()
 
-        # √Årea principal com scroll
+        # rea principal com scroll
         main_scroll_frame = ctk.CTkScrollableFrame(self.user_window)
         main_scroll_frame.pack(fill="both", expand=True, padx=20, pady=(0, 20))
 
-        # Lista de usu√°rios
+        # Lista de usurios
         self._carregar_usuarios(main_scroll_frame)
 
     def _criar_toolbar(self):
@@ -86,39 +86,39 @@ class UserManagementPanel:
         toolbar_frame = ctk.CTkFrame(self.user_window)
         toolbar_frame.pack(fill="x", padx=20, pady=(0, 10))
 
-        # Bot√µes de a√ß√£o
+        # Botes de ao
         ctk.CTkButton(
             toolbar_frame,
-            text="‚ûï Adicionar Usu√°rio",
+            text=" Adicionar Usurio",
             command=self._adicionar_usuario,
             width=150,
         ).pack(side="left", padx=5, pady=10)
 
         ctk.CTkButton(
             toolbar_frame,
-            text="√¢≈ì¬è√Ø¬∏¬è Editar Usu√°rio",
+            text="ج Editar Usurio",
             command=self._editar_usuario,
             width=150,
         ).pack(side="left", padx=5, pady=10)
 
         ctk.CTkButton(
             toolbar_frame,
-            text="üîÑ Alterar Senha",
+            text=" Alterar Senha",
             command=self._alterar_senha,
             width=150,
         ).pack(side="left", padx=5, pady=10)
 
         ctk.CTkButton(
             toolbar_frame,
-            text="üóëÔ∏è¬è Remover Usu√°rio",
+            text=" Remover Usurio",
             command=self._remover_usuario,
             width=150,
         ).pack(side="left", padx=5, pady=10)
 
-        # Bot√£o para voltar ao menu principal
+        # Boto para voltar ao menu principal
         ctk.CTkButton(
             toolbar_frame,
-            text="ÔøΩ≈°¬™ SAIR PARA O MENU INICIAL",
+            text=" SAIR PARA O MENU INICIAL",
             command=self._sair_para_menu_principal,
             width=200,
             fg_color="#d32f2f",
@@ -126,52 +126,52 @@ class UserManagementPanel:
         ).pack(side="left", padx=(20, 5), pady=10)
 
         ctk.CTkButton(
-            toolbar_frame, text="ÔøΩ‚Äù¬ç Buscar", command=self._buscar_usuario, width=100
+            toolbar_frame, text=" Buscar", command=self._buscar_usuario, width=100
         ).pack(side="right", padx=5, pady=10)
 
         ctk.CTkButton(
-            toolbar_frame, text="üîÑ Atualizar", command=self._atualizar_lista, width=100
+            toolbar_frame, text=" Atualizar", command=self._atualizar_lista, width=100
         ).pack(side="right", padx=5, pady=10)
 
     def _carregar_usuarios(self, parent):
-        """Carrega e exibe lista de usu√°rios"""
+        """Carrega e exibe lista de usurios"""
         try:
             if not os.path.exists(self.usuarios_path):
                 self._mostrar_mensagem_erro(
-                    parent, "Arquivo de credenciais n√£o encontrado"
+                    parent, "Arquivo de credenciais no encontrado"
                 )
                 return
 
             # Ler arquivo CSV com separador correto
             try:
                 df = pd.read_csv(self.usuarios_path, sep=";", encoding="utf-8")
-                print(f"‚úÖ CSV lido com separador ';' - {len(df)} usu√°rios carregados")
+                print(f" CSV lido com separador ';' - {len(df)} usurios carregados")
             except Exception:
                 print(
-                    "√¢≈°¬†√Ø¬∏¬è  Erro ao ler CSV com separador ';' - Tentando separador ','..."
+                    "Ⱜج  Erro ao ler CSV com separador ';' - Tentando separador ','..."
                 )
                 try:
                     df = pd.read_csv(self.usuarios_path, sep=",", encoding="utf-8")
                     print(
-                        f"‚úÖ CSV lido com separador ',' - {len(df)} usu√°rios carregados"
+                        f" CSV lido com separador ',' - {len(df)} usurios carregados"
                     )
                 except Exception as e2:
-                    print(f"√¢¬ù≈í Erro ao ler arquivo de usu√°rios: {str(e2)}")
+                    print(f" Erro ao ler arquivo de usurios: {str(e2)}")
                     self._mostrar_mensagem_erro(
-                        parent, f"Erro ao carregar usu√°rios: {str(e2)}"
+                        parent, f"Erro ao carregar usurios: {str(e2)}"
                     )
                     return
 
             if df.empty:
                 self._mostrar_mensagem_info(
-                    parent, "Nenhum usu√°rio cadastrado no sistema"
+                    parent, "Nenhum usurio cadastrado no sistema"
                 )
                 return
 
 
-            # Contador de usu√°rios
+            # Contador de usurios
             total_usuarios = len(df)
-            # Linha comentada devido a corre√ß√£o de compatibilidade: alguns arquivos CSV legados podem n√£o possuir a coluna 'senha_hash'.
+            # Linha comentada devido a correo de compatibilidade: alguns arquivos CSV legados podem no possuir a coluna 'senha_hash'.
             # usuarios_ativos = len(
             #     df[df["senha_hash"].notna() & (df["senha_hash"] != "")]
             # )
@@ -180,46 +180,46 @@ class UserManagementPanel:
                     df[df["senha_hash"].notna() & (df["senha_hash"] != "")]
                 )
             else:
-                # Caso de arquivo legado sem coluna de hash: considera-se 0 usu√°rios com senha configurada.
+                # Caso de arquivo legado sem coluna de hash: considera-se 0 usurios com senha configurada.
                 usuarios_ativos = 0
-            # Header com estat√≠sticas
+            # Header com estatsticas
             stats_frame = ctk.CTkFrame(parent)
             stats_frame.pack(fill="x", pady=(0, 20))
 
             ctk.CTkLabel(
                 stats_frame,
-                text=f"üìä Total de Usu√°rios: {total_usuarios} | ÔøΩ‚Äò¬§ Ativos: {usuarios_ativos}",
+                text=f" Total de Usurios: {total_usuarios} |  Ativos: {usuarios_ativos}",
                 font=ctk.CTkFont(size=14, weight="bold"),
             ).pack(pady=10)
 
-            # Lista de usu√°rios
+            # Lista de usurios
             for idx, usuario in df.iterrows():
                 self._criar_card_usuario(parent, usuario)
 
         except Exception as e:
-            self._mostrar_mensagem_erro(parent, f"Erro ao carregar usu√°rios: {str(e)}")
+            self._mostrar_mensagem_erro(parent, f"Erro ao carregar usurios: {str(e)}")
 
     def _criar_card_usuario(self, parent, usuario):
-        """Cria card individual para cada usu√°rio"""
+        """Cria card individual para cada usurio"""
         card_frame = ctk.CTkFrame(parent)
         card_frame.pack(fill="x", pady=5)
 
-        # Informa√ß√µes principais
+        # Informaߵes principais
         info_frame = ctk.CTkFrame(card_frame)
         info_frame.pack(side="left", fill="both", expand=True, padx=10, pady=10)
 
-        # Nome do usu√°rio
+        # Nome do usurio
         nome_label = ctk.CTkLabel(
             info_frame,
-            text=f"ÔøΩ‚Äò¬§ {usuario['usuario']}",
+            text=f" {usuario['usuario']}",
             font=ctk.CTkFont(size=16, weight="bold"),
         )
         nome_label.pack(anchor="w")
 
-        # N√≠vel de acesso
+        # Nvel de acesso
         nivel_label = ctk.CTkLabel(
             info_frame,
-            text=f"ÔøΩ‚Äù‚Äò N√≠vel: {usuario['nivel_acesso']}",
+            text=f" Nvel: {usuario['nivel_acesso']}",
             font=ctk.CTkFont(size=12),
         )
         nivel_label.pack(anchor="w", pady=(2, 0))
@@ -227,10 +227,10 @@ class UserManagementPanel:
         # Status
         senha_hash = usuario.get("senha_hash", "")
         if pd.notna(senha_hash) and senha_hash != "":
-            status_text = "‚úÖ Ativo"
+            status_text = " Ativo"
             status_color = "green"
         else:
-            status_text = "√¢¬ù≈í Inativo"
+            status_text = " Inativo"
             status_color = "red"
 
         status_label = ctk.CTkLabel(
@@ -241,47 +241,47 @@ class UserManagementPanel:
         )
         status_label.pack(anchor="w", pady=(2, 0))
 
-        # Informa√ß√µes de hash (parcial)
+        # Informaߵes de hash (parcial)
         if pd.notna(senha_hash) and senha_hash != "":
             hash_preview = (
                 senha_hash[:20] + "..." if len(senha_hash) > 20 else senha_hash
             )
             hash_label = ctk.CTkLabel(
                 info_frame,
-                text=f"ÔøΩ‚Äù‚Äô Hash: {hash_preview}",
+                text=f" Hash: {hash_preview}",
                 font=ctk.CTkFont(size=10),
                 text_color="gray",
             )
             hash_label.pack(anchor="w", pady=(2, 0))
 
-        # Bot√µes de a√ß√£o r√°pida
+        # Botes de ao rpida
         acoes_frame = ctk.CTkFrame(card_frame)
         acoes_frame.pack(side="right", padx=10, pady=10)
 
         ctk.CTkButton(
             acoes_frame,
-            text="√¢≈ì¬è√Ø¬∏¬è",
+            text="ج",
             width=30,
             command=lambda u=usuario: self._editar_usuario_rapido(u),
         ).pack(pady=2)
 
         ctk.CTkButton(
             acoes_frame,
-            text="ÔøΩ‚Äù‚Äò",
+            text="",
             width=30,
             command=lambda u=usuario: self._alterar_senha_rapido(u),
         ).pack(pady=2)
 
-        if usuario["usuario"] != self.usuario_logado:  # N√£o permitir remover a si mesmo
+        if usuario["usuario"] != self.usuario_logado:  # No permitir remover a si mesmo
             ctk.CTkButton(
                 acoes_frame,
-                text="üóëÔ∏è¬è",
+                text="",
                 width=30,
                 command=lambda u=usuario: self._remover_usuario_rapido(u),
             ).pack(pady=2)
 
     def _adicionar_usuario(self):
-        """Abre di√°logo para adicionar novo usu√°rio"""
+        """Abre dilogo para adicionar novo usurio"""
         try:
             dialog = AdicionarUsuarioDialog(self.user_window)
             if dialog.result:
@@ -290,35 +290,35 @@ class UserManagementPanel:
                 self._atualizar_lista()
         except Exception as e:
             messagebox.showerror(
-                "Erro", f"Erro ao abrir di√°logo: {str(e)}", parent=self.user_window
+                "Erro", f"Erro ao abrir dilogo: {str(e)}", parent=self.user_window
             )
-            # Fallback para m√©todo simples
+            # Fallback para mtodo simples
             self._adicionar_usuario_simples()
 
     def _editar_usuario(self):
-        """Abre di√°logo para editar usu√°rio existente"""
+        """Abre dilogo para editar usurio existente"""
         usuario = self._selecionar_usuario()
         if usuario is not None:
             self._editar_usuario_completo(usuario)
 
     def _editar_usuario_rapido(self, usuario):
-        """Edita usu√°rio rapidamente"""
+        """Edita usurio rapidamente"""
         self._editar_usuario_completo(usuario)
 
     def _editar_usuario_completo(self, usuario):
-        """Edita usu√°rio com di√°logo completo e melhor valida√ß√£o"""
+        """Edita usurio com dilogo completo e melhor validao"""
         try:
-            # Extrair informa√ß√µes do usu√°rio de forma segura
+            # Extrair informaߵes do usurio de forma segura
             if isinstance(usuario, dict):
-                usuario_nome = usuario.get("usuario", "usu√°rio")
+                usuario_nome = usuario.get("usuario", "usurio")
                 usuario_nivel = usuario.get("nivel_acesso", "USER")
             else:
-                usuario_nome = getattr(usuario, "usuario", "usu√°rio")
+                usuario_nome = getattr(usuario, "usuario", "usurio")
                 usuario_nivel = getattr(usuario, "nivel_acesso", "USER")
 
             novo_nivel = simpledialog.askstring(
-                "Editar Usu√°rio",
-                f"Novo n√≠vel de acesso para {usuario_nome}:\n(ADMIN, MASTER, DIAGNOSTICO, USER)",
+                "Editar Usurio",
+                f"Novo nvel de acesso para {usuario_nome}:\n(ADMIN, MASTER, DIAGNOSTICO, USER)",
                 initialvalue=usuario_nivel,
                 parent=self.user_window,
             )
@@ -331,9 +331,9 @@ class UserManagementPanel:
                     # Carregar arquivo
                     df = pd.read_csv(self.usuarios_path, sep=";")
 
-                    # Verificar se o usu√°rio existe
+                    # Verificar se o usurio existe
                     if usuario_nome in df["usuario"].values:
-                        # Atualizar n√≠vel
+                        # Atualizar nvel
                         df.loc[df["usuario"] == usuario_nome, "nivel_acesso"] = (
                             novo_nivel
                         )
@@ -343,14 +343,14 @@ class UserManagementPanel:
 
                         messagebox.showinfo(
                             "Sucesso",
-                            f"N√≠vel de {usuario_nome} alterado para {novo_nivel}",
+                            f"Nvel de {usuario_nome} alterado para {novo_nivel}",
                             parent=self.user_window,
                         )
 
                         if "registrar_log" in globals():
                             registrar_log(
                                 "UserManagement",
-                                f"Usu√°rio {usuario_nome} editado por {self.usuario_logado}",
+                                f"Usurio {usuario_nome} editado por {self.usuario_logado}",
                                 "INFO",
                             )
 
@@ -358,22 +358,22 @@ class UserManagementPanel:
                     else:
                         messagebox.showerror(
                             "Erro",
-                            f"Usu√°rio {usuario_nome} n√£o encontrado no arquivo!",
+                            f"Usurio {usuario_nome} no encontrado no arquivo!",
                             parent=self.user_window,
                         )
                 else:
                     messagebox.showerror(
                         "Erro",
-                        f"N√≠vel '{novo_nivel}' n√£o √© v√°lido!\nUse: {', '.join(niveis_validos)}",
+                        f"Nvel '{novo_nivel}' no  vlido!\nUse: {', '.join(niveis_validos)}",
                         parent=self.user_window,
                     )
         except Exception as e:
             messagebox.showerror(
-                "Erro", f"Erro ao editar usu√°rio: {str(e)}", parent=self.user_window
+                "Erro", f"Erro ao editar usurio: {str(e)}", parent=self.user_window
             )
 
     def _alterar_senha(self):
-        """Abre di√°logo para alterar senha"""
+        """Abre dilogo para alterar senha"""
         usuario = self._selecionar_usuario()
         if usuario is not None:
             self._alterar_senha_usuario(usuario)
@@ -383,13 +383,13 @@ class UserManagementPanel:
         self._alterar_senha_usuario(usuario)
 
     def _alterar_senha_usuario(self, usuario):
-        """Altera senha de usu√°rio espec√≠fico com melhor tratamento de erros"""
+        """Altera senha de usurio especfico com melhor tratamento de erros"""
         try:
-            # Extrair nome do usu√°rio de forma segura
+            # Extrair nome do usurio de forma segura
             if isinstance(usuario, dict):
-                usuario_nome = usuario.get("usuario", "usu√°rio")
+                usuario_nome = usuario.get("usuario", "usurio")
             else:
-                usuario_nome = getattr(usuario, "usuario", "usu√°rio")
+                usuario_nome = getattr(usuario, "usuario", "usurio")
 
             nova_senha = simpledialog.askstring(
                 "Alterar Senha",
@@ -429,7 +429,7 @@ class UserManagementPanel:
                         except ImportError:
                             messagebox.showerror(
                                 "Erro",
-                                "Biblioteca bcrypt n√£o dispon√≠vel!",
+                                "Biblioteca bcrypt no disponvel!",
                                 parent=self.user_window,
                             )
                             return
@@ -437,9 +437,9 @@ class UserManagementPanel:
                         # Carregar arquivo
                         df = pd.read_csv(self.usuarios_path, sep=";")
 
-                        # Verificar se o usu√°rio existe
+                        # Verificar se o usurio existe
                         if usuario_nome in df["usuario"].values:
-                            # Atualizar senha (campo correto √© senha_hash)
+                            # Atualizar senha (campo correto  senha_hash)
                             df.loc[df["usuario"] == usuario_nome, "senha_hash"] = (
                                 hash_senha
                             )
@@ -449,14 +449,14 @@ class UserManagementPanel:
 
                             messagebox.showinfo(
                                 "Sucesso",
-                                f"Senha do usu√°rio {usuario_nome} alterada com sucesso!",
+                                f"Senha do usurio {usuario_nome} alterada com sucesso!",
                                 parent=self.user_window,
                             )
 
                             if "registrar_log" in globals():
                                 registrar_log(
                                     "UserManagement",
-                                    f"Senha do usu√°rio {usuario_nome} alterada por {self.usuario_logado}",
+                                    f"Senha do usurio {usuario_nome} alterada por {self.usuario_logado}",
                                     "INFO",
                                 )
 
@@ -464,7 +464,7 @@ class UserManagementPanel:
                         else:
                             messagebox.showerror(
                                 "Erro",
-                                f"Usu√°rio {usuario_nome} n√£o encontrado!",
+                                f"Usurio {usuario_nome} no encontrado!",
                                 parent=self.user_window,
                             )
 
@@ -476,11 +476,11 @@ class UserManagementPanel:
                         )
                 else:
                     messagebox.showwarning(
-                        "Aviso", "As senhas n√£o coincidem!", parent=self.user_window
+                        "Aviso", "As senhas no coincidem!", parent=self.user_window
                     )
             else:
                 messagebox.showwarning(
-                    "Aviso", "Senha n√£o pode estar vazia!", parent=self.user_window
+                    "Aviso", "Senha no pode estar vazia!", parent=self.user_window
                 )
         except Exception as e:
             messagebox.showerror(
@@ -488,33 +488,33 @@ class UserManagementPanel:
             )
 
     def _remover_usuario(self):
-        """Remove usu√°rio do sistema"""
+        """Remove usurio do sistema"""
         usuario = self._selecionar_usuario()
         if usuario is not None:
             self._remover_usuario_confirmado(usuario)
 
     def _remover_usuario_rapido(self, usuario):
-        """Remove usu√°rio rapidamente com confirma√ß√£o"""
+        """Remove usurio rapidamente com confirmao"""
         self._remover_usuario_confirmado(usuario)
 
     def _remover_usuario_confirmado(self, usuario):
-        """Remove usu√°rio com confirma√ß√£o"""
+        """Remove usurio com confirmao"""
         if usuario["usuario"] == self.usuario_logado:
             messagebox.showwarning(
-                "Aviso", "Voc√™ n√£o pode remover a si mesmo!", parent=self.user_window
+                "Aviso", "Voc no pode remover a si mesmo!", parent=self.user_window
             )
             return
 
         if messagebox.askyesno(
-            "Confirmar Remo√ß√£o",
-            f"Tem certeza que deseja remover o usu√°rio '{usuario['usuario']}'?\n\nEsta a√ß√£o n√£o pode ser desfeita!",
+            "Confirmar Remoo",
+            f"Tem certeza que deseja remover o usurio '{usuario['usuario']}'?\n\nEsta ao no pode ser desfeita!",
             parent=self.user_window,
         ):
             try:
                 # Carregar arquivo
                 df = pd.read_csv(self.usuarios_path)
 
-                # Remover usu√°rio
+                # Remover usurio
                 df = df[df["usuario"] != usuario["usuario"]]
 
                 # Salvar
@@ -522,12 +522,12 @@ class UserManagementPanel:
 
                 messagebox.showinfo(
                     "Sucesso",
-                    f"Usu√°rio {usuario['usuario']} removido com sucesso!",
+                    f"Usurio {usuario['usuario']} removido com sucesso!",
                     parent=self.user_window,
                 )
                 registrar_log(
                     "UserManagement",
-                    f"Usu√°rio {usuario['usuario']} removido por {self.usuario_logado}",
+                    f"Usurio {usuario['usuario']} removido por {self.usuario_logado}",
                     "WARNING",
                 )
                 self._atualizar_lista()
@@ -535,15 +535,15 @@ class UserManagementPanel:
             except Exception as e:
                 messagebox.showerror(
                     "Erro",
-                    f"Erro ao remover usu√°rio: {str(e)}",
+                    f"Erro ao remover usurio: {str(e)}",
                     parent=self.user_window,
                 )
 
     def _buscar_usuario(self):
-        """Busca usu√°rio por nome"""
+        """Busca usurio por nome"""
         nome_busca = simpledialog.askstring(
-            "Buscar Usu√°rio",
-            "Digite o nome do usu√°rio para buscar:",
+            "Buscar Usurio",
+            "Digite o nome do usurio para buscar:",
             parent=self.user_window,
         )
 
@@ -552,7 +552,7 @@ class UserManagementPanel:
                 if not os.path.exists(self.usuarios_path):
                     messagebox.showerror(
                         "Erro",
-                        "Arquivo de credenciais n√£o encontrado!",
+                        "Arquivo de credenciais no encontrado!",
                         parent=self.user_window,
                     )
                     return
@@ -566,18 +566,18 @@ class UserManagementPanel:
                 # Normalizar nome para busca (case-insensitive)
                 nome_busca = nome_busca.strip().lower()
 
-                # Buscar usu√°rios que contenham o nome
+                # Buscar usurios que contenham o nome
                 usuarios_encontrados = df[
                     df["usuario"].str.lower().str.contains(nome_busca, na=False)
                 ]
 
                 if not usuarios_encontrados.empty:
                     # Mostrar resultados da busca
-                    resultado = f"ÔøΩ‚Äù¬ç Resultados da busca por '{nome_busca}':\n\n"
+                    resultado = f" Resultados da busca por '{nome_busca}':\n\n"
 
                     for _, usuario in usuarios_encontrados.iterrows():
                         nivel = usuario.get("nivel_acesso", "USER")
-                        resultado += f"ÔøΩ‚Äò¬§ {usuario['usuario']} | ÔøΩ‚Äù‚Äò {nivel}\n"
+                        resultado += f" {usuario['usuario']} |  {nivel}\n"
 
                     # Criar janela de resultados
                     resultado_window = ctk.CTkToplevel(self.user_window)
@@ -592,7 +592,7 @@ class UserManagementPanel:
                     texto_resultado.insert("1.0", resultado)
                     texto_resultado.configure(state="disabled")
 
-                    # Bot√£o fechar
+                    # Boto fechar
                     ctk.CTkButton(
                         resultado_window,
                         text="Fechar",
@@ -602,7 +602,7 @@ class UserManagementPanel:
                 else:
                     messagebox.showinfo(
                         "Busca",
-                        f"Nenhum usu√°rio encontrado com o nome '{nome_busca}'.",
+                        f"Nenhum usurio encontrado com o nome '{nome_busca}'.",
                         parent=self.user_window,
                     )
 
@@ -612,31 +612,31 @@ class UserManagementPanel:
                 )
 
     def _sair_para_menu_principal(self):
-        """Fecha a janela de gerenciamento de usu√°rios e volta ao menu principal"""
+        """Fecha a janela de gerenciamento de usurios e volta ao menu principal"""
         self.user_window.destroy()
         self.main_window.deiconify()  # Volta a mostrar a janela principal
 
     def _atualizar_lista(self):
-        """Atualiza lista de usu√°rios"""
+        """Atualiza lista de usurios"""
         try:
             # Encontrar o scrollable frame principal e recarregar apenas ele
             for widget in self.user_window.winfo_children():
                 if hasattr(widget, "winfo_name") and "scrollable_frame" in str(
                     widget.__class__
                 ):
-                    # Limpar apenas o conte√∫do do scrollable frame
+                    # Limpar apenas o contedo do scrollable frame
                     for child in widget.winfo_children():
                         child.destroy()
 
-                    # Recarregar usu√°rios
+                    # Recarregar usurios
                     self._carregar_usuarios(widget)
                     break
             else:
-                # Se n√£o encontrou scrollable frame, recriar interface completa
+                # Se no encontrou scrollable frame, recriar interface completa
                 self._criar_interface()
 
             messagebox.showinfo(
-                "Atualizar", "Lista de usu√°rios atualizada!", parent=self.user_window
+                "Atualizar", "Lista de usurios atualizada!", parent=self.user_window
             )
 
         except Exception as e:
@@ -645,13 +645,13 @@ class UserManagementPanel:
             )
 
     def _selecionar_usuario(self, parent):
-        """Permite selecionar um usu√°rio do arquivo de credenciais para edi√ß√£o/remo√ß√£o."""
+        """Permite selecionar um usurio do arquivo de credenciais para edio/remoo."""
         try:
             # Verifica se o arquivo existe
             if not os.path.exists(self.usuarios_path):
                 messagebox.showerror(
                     "Erro",
-                    f"Arquivo de credenciais n√£o encontrado em:\n{self.usuarios_path}",
+                    f"Arquivo de credenciais no encontrado em:\n{self.usuarios_path}",
                     parent=self.user_window,
                 )
                 return None
@@ -673,19 +673,19 @@ class UserManagementPanel:
             if df.empty:
                 messagebox.showwarning(
                     "Aviso",
-                    "Nenhum usu√°rio cadastrado!",
+                    "Nenhum usurio cadastrado!",
                     parent=self.user_window,
                 )
                 return None
 
-            # Normaliza nomes de colunas (remove BOM, espa√ßos e coloca em min√∫sculas)
+            # Normaliza nomes de colunas (remove BOM, espaos e coloca em minsculas)
             # original_columns = list(df.columns)
-            # Comentado devido ao aviso F841 do Ruff (vari√°vel n√£o utilizada, mantido apenas para hist√≥rico).
+            # Comentado devido ao aviso F841 do Ruff (varivel no utilizada, mantido apenas para histrico).
             df.columns = [
                 str(c).replace("\ufeff", "").strip().lower() for c in df.columns
             ]
 
-            # Identifica a coluna que representa o "usu√°rio" (login)
+            # Identifica a coluna que representa o "usurio" (login)
             candidatos = ["usuario", "user", "login", "nome_usuario", "username", "nome"]
             col_usuario = None
             for nome in candidatos:
@@ -694,38 +694,38 @@ class UserManagementPanel:
                     break
 
             if col_usuario is None:
-                # Linha comentada devido √É¬† rigidez anterior que exigia exatamente 'usuario'.
+                # Linha comentada devido ɬ rigidez anterior que exigia exatamente 'usuario'.
                 # messagebox.showerror(
                 #     "Erro",
-                #     "Coluna 'usuario' n√£o encontrada no arquivo de credenciais (mesmo ap√≥s normaliza√ß√£o de headers).",
+                #     "Coluna 'usuario' no encontrada no arquivo de credenciais (mesmo aps normalizao de headers).",
                 #     parent=self.user_window,
                 # )
                 # return None
 
-                # Fallback: usa a primeira coluna como identificador para n√£o quebrar a interface.
+                # Fallback: usa a primeira coluna como identificador para no quebrar a interface.
                 col_usuario = df.columns[0]
 
-            # Monta lista de op√ß√µes de usu√°rio
+            # Monta lista de opߵes de usurio
             usuarios_opcoes = df[col_usuario].dropna().astype(str).tolist()
             if not usuarios_opcoes:
                 messagebox.showwarning(
                     "Aviso",
-                    "Nenhum usu√°rio encontrado na coluna de identifica√ß√£o.",
+                    "Nenhum usurio encontrado na coluna de identificao.",
                     parent=self.user_window,
                 )
                 return None
 
-            # Caixa de di√°logo simples para confirmar / digitar o usu√°rio
+            # Caixa de dilogo simples para confirmar / digitar o usurio
             usuario_selecionado = simpledialog.askstring(
-                "Selecionar usu√°rio",
-                "Digite ou confirme o usu√°rio a ser editado:",
+                "Selecionar usurio",
+                "Digite ou confirme o usurio a ser editado:",
                 initialvalue=usuarios_opcoes[0],
                 parent=self.user_window,
             )
             if not usuario_selecionado:
                 return None
 
-            # Filtro case-insensitive, ignorando espa√ßos
+            # Filtro case-insensitive, ignorando espaos
             filtro = (
                 df[col_usuario]
                 .astype(str)
@@ -738,33 +738,33 @@ class UserManagementPanel:
             if df_filtrado.empty:
                 messagebox.showerror(
                     "Erro",
-                    f"Usu√°rio '{usuario_selecionado}' n√£o encontrado.",
+                    f"Usurio '{usuario_selecionado}' no encontrado.",
                     parent=self.user_window,
                 )
                 return None
 
-            # Retorna a linha como dict para uso nos outros m√©todos
+            # Retorna a linha como dict para uso nos outros mtodos
             return df_filtrado.iloc[0].to_dict()
 
         except Exception as e:
             messagebox.showerror(
                 "Erro",
-                f"Erro ao selecionar usu√°rio: {str(e)}",
+                f"Erro ao selecionar usurio: {str(e)}",
                 parent=self.user_window,
             )
             return None
 
     def _adicionar_usuario_simples(self):
-        """M√©todo simplificado para adicionar usu√°rio (fallback)"""
+        """Mtodo simplificado para adicionar usurio (fallback)"""
         try:
             username = simpledialog.askstring(
-                "Adicionar Usu√°rio", "Nome do usu√°rio:", parent=self.user_window
+                "Adicionar Usurio", "Nome do usurio:", parent=self.user_window
             )
             if not username or not username.strip():
                 return
 
             password = simpledialog.askstring(
-                "Adicionar Usu√°rio", "Senha:", show="*", parent=self.user_window
+                "Adicionar Usurio", "Senha:", show="*", parent=self.user_window
             )
             if not password or len(password.strip()) < 6:
                 messagebox.showwarning(
@@ -775,8 +775,8 @@ class UserManagementPanel:
                 return
 
             nivel = simpledialog.askstring(
-                "Adicionar Usu√°rio",
-                "N√≠vel (USER/ADMIN/OPERATOR):",
+                "Adicionar Usurio",
+                "Nvel (USER/ADMIN/OPERATOR):",
                 initialvalue="USER",
                 parent=self.user_window,
             )
@@ -788,16 +788,16 @@ class UserManagementPanel:
 
         except Exception as e:
             messagebox.showerror(
-                "Erro", f"Erro ao adicionar usu√°rio: {str(e)}", parent=self.user_window
+                "Erro", f"Erro ao adicionar usurio: {str(e)}", parent=self.user_window
             )
 
     def _salvar_usuario(self, username: str, password: str, nivel: str):
-        """Salva novo usu√°rio no sistema"""
+        """Salva novo usurio no sistema"""
         try:
-            # Valida√ß√µes
+            # Validaߵes
             if not username or not password or not nivel:
                 messagebox.showerror(
-                    "Erro", "Todos os campos s√£o obrigat√≥rios!", parent=self.user_window
+                    "Erro", "Todos os campos so obrigatrios!", parent=self.user_window
                 )
                 return
 
@@ -822,7 +822,7 @@ class UserManagementPanel:
                 )
                 return
 
-            # Criar diret√≥rio banco se n√£o existir
+            # Criar diretrio banco se no existir
             banco_dir = os.path.dirname(self.usuarios_path)
             if banco_dir and not os.path.exists(banco_dir):
                 os.makedirs(banco_dir, exist_ok=True)
@@ -834,7 +834,7 @@ class UserManagementPanel:
                     try:
                         df = pd.read_csv(self.usuarios_path, sep=";")
                     except Exception:
-                        # Se falhar, tentar com v√≠rgula
+                        # Se falhar, tentar com vrgula
                         try:
                             df = pd.read_csv(self.usuarios_path, sep=",")
                         except Exception:
@@ -847,16 +847,16 @@ class UserManagementPanel:
                     colunas_esperadas = ["usuario", "senha_hash", "nivel_acesso"]
                     colunas_encontradas = df.columns.tolist()
 
-                    # Mapear colunas existentes para o padr√£o esperado
+                    # Mapear colunas existentes para o padro esperado
                     if (
                         "senha_hash" in colunas_encontradas
                         and "senha" not in colunas_encontradas
                     ):
                         df = df.rename(columns={"senha_hash": "senha"})
 
-                    # Adicionar coluna nivel_acesso se n√£o existir
+                    # Adicionar coluna nivel_acesso se no existir
                     if "nivel_acesso" not in colunas_encontradas:
-                        df["nivel_acesso"] = "USER"  # Padr√£o
+                        df["nivel_acesso"] = "USER"  # Padro
 
                     # Garantir que todas as colunas existem
                     for col in colunas_esperadas:
@@ -880,23 +880,23 @@ class UserManagementPanel:
                 )
                 return
 
-            # Verificar se usu√°rio j√° existe
+            # Verificar se usurio j existe
             if username in df["usuario"].values:
                 messagebox.showwarning(
-                    "Aviso", f"Usu√°rio '{username}' j√° existe!", parent=self.user_window
+                    "Aviso", f"Usurio '{username}' j existe!", parent=self.user_window
                 )
                 return
 
-            # Adicionar novo usu√°rio
+            # Adicionar novo usurio
             novo_usuario = {
                 "usuario": username,
                 "senha_hash": hash_senha,
-                "nivel_acesso": nivel.upper(),  # Padronizar para mai√∫sculo
+                "nivel_acesso": nivel.upper(),  # Padronizar para maisculo
             }
 
             try:
                 df = pd.concat([df, pd.DataFrame([novo_usuario])], ignore_index=True)
-                # Salvar com separador ponto-e-v√≠rgula para compatibilidade
+                # Salvar com separador ponto-e-vrgula para compatibilidade
                 df.to_csv(self.usuarios_path, sep=";", index=False)
             except Exception as save_error:
                 messagebox.showerror(
@@ -908,32 +908,32 @@ class UserManagementPanel:
 
             messagebox.showinfo(
                 "Sucesso",
-                f"Usu√°rio '{username}' criado com sucesso!\n\nN√≠vel: {nivel.upper()}",
+                f"Usurio '{username}' criado com sucesso!\n\nNvel: {nivel.upper()}",
                 parent=self.user_window,
             )
             registrar_log(
                 "UserManagement",
-                f"Usu√°rio {username} criado por {self.usuario_logado}",
+                f"Usurio {username} criado por {self.usuario_logado}",
                 "INFO",
             )
 
         except Exception as e:
             messagebox.showerror(
                 "Erro",
-                f"Erro inesperado ao salvar usu√°rio: {str(e)}",
+                f"Erro inesperado ao salvar usurio: {str(e)}",
                 parent=self.user_window,
             )
 
     def _mostrar_mensagem_erro(self, parent, mensagem: str):
         """Exibe mensagem de erro"""
         ctk.CTkLabel(
-            parent, text=f"√¢¬ù≈í {mensagem}", text_color="red", font=ctk.CTkFont(size=14)
+            parent, text=f" {mensagem}", text_color="red", font=ctk.CTkFont(size=14)
         ).pack(pady=20)
 
     def _mostrar_mensagem_info(self, parent, mensagem: str):
         """Exibe mensagem informativa"""
         ctk.CTkLabel(
-            parent, text=f"√¢‚Äû¬π√Ø¬∏¬è {mensagem}", text_color="blue", font=ctk.CTkFont(size=14)
+            parent, text=f"ج {mensagem}", text_color="blue", font=ctk.CTkFont(size=14)
         ).pack(pady=20)
 
     def _fechar_janela(self):
@@ -943,7 +943,7 @@ class UserManagementPanel:
             if hasattr(self, "user_window") and self.user_window.winfo_exists():
                 try:
                     self.user_window.grab_release()
-                    # For√ßar o release de qualquer grab ativo
+                    # Forar o release de qualquer grab ativo
                     if (
                         hasattr(self.user_window, "tk")
                         and self.user_window.tk.call("grab", "status", self.user_window)
@@ -974,16 +974,16 @@ class UserManagementPanel:
 
 
 class AdicionarUsuarioDialog:
-    """Di√°logo para adicionar novo usu√°rio"""
+    """Dilogo para adicionar novo usurio"""
 
     def __init__(self, parent):
         self.result = None
 
-        # Janela de di√°logo
-        # Linha comentada devido a problemas recorrentes de fechamento com CTkToplevel em algumas vers√µes do customtkinter.
+        # Janela de dilogo
+        # Linha comentada devido a problemas recorrentes de fechamento com CTkToplevel em algumas verses do customtkinter.
         # self.dialog = ctk.CTkToplevel(parent)
         self.dialog = tk.Toplevel(parent)
-        self.dialog.title("‚ûï Adicionar Novo Usu√°rio")
+        self.dialog.title(" Adicionar Novo Usurio")
         self.dialog.geometry("400x300")
         self.dialog.transient(parent)
         self.dialog.grab_set()
@@ -998,28 +998,28 @@ class AdicionarUsuarioDialog:
         self.dialog.wait_window()
 
     def _criar_interface(self):
-        """Cria interface do di√°logo"""
+        """Cria interface do dilogo"""
         # Frame principal
         main_frame = ctk.CTkFrame(self.dialog)
         main_frame.pack(fill="both", expand=True, padx=20, pady=20)
 
-        # T√≠tulo
+        # Ttulo
         title_label = ctk.CTkLabel(
             main_frame,
-            text="‚ûï Adicionar Novo Usu√°rio",
+            text=" Adicionar Novo Usurio",
             font=ctk.CTkFont(size=18, weight="bold"),
         )
         title_label.pack(pady=(20, 30))
 
-        # Campo nome de usu√°rio
+        # Campo nome de usurio
         username_frame = ctk.CTkFrame(main_frame)
         username_frame.pack(fill="x", padx=20, pady=10)
 
-        ctk.CTkLabel(username_frame, text="Nome de Usu√°rio:").pack(
+        ctk.CTkLabel(username_frame, text="Nome de Usurio:").pack(
             anchor="w", padx=10, pady=(10, 5)
         )
         self.username_entry = ctk.CTkEntry(
-            username_frame, placeholder_text="Digite o nome do usu√°rio"
+            username_frame, placeholder_text="Digite o nome do usurio"
         )
         self.username_entry.pack(fill="x", padx=10, pady=(0, 10))
 
@@ -1047,11 +1047,11 @@ class AdicionarUsuarioDialog:
         )
         self.confirm_password_entry.pack(fill="x", padx=10, pady=(0, 10))
 
-        # Campo n√≠vel de acesso
+        # Campo nvel de acesso
         level_frame = ctk.CTkFrame(main_frame)
         level_frame.pack(fill="x", padx=20, pady=10)
 
-        ctk.CTkLabel(level_frame, text="N√≠vel de Acesso:").pack(
+        ctk.CTkLabel(level_frame, text="Nvel de Acesso:").pack(
             anchor="w", padx=10, pady=(10, 5)
         )
         self.level_combo = ctk.CTkComboBox(
@@ -1060,7 +1060,7 @@ class AdicionarUsuarioDialog:
         self.level_combo.set("USER")
         self.level_combo.pack(fill="x", padx=10, pady=(0, 10))
 
-        # Bot√µes
+        # Botes
         button_frame = ctk.CTkFrame(main_frame)
         button_frame.pack(fill="x", padx=20, pady=20)
 
@@ -1069,30 +1069,30 @@ class AdicionarUsuarioDialog:
         ).pack(side="right", padx=(10, 0))
 
         ctk.CTkButton(
-            button_frame, text="Criar Usu√°rio", command=self._criar_usuario, width=100
+            button_frame, text="Criar Usurio", command=self._criar_usuario, width=100
         ).pack(side="right")
 
     def _criar_usuario(self):
-        """Valida e cria o usu√°rio"""
+        """Valida e cria o usurio"""
         username = self.username_entry.get().strip()
         password = self.password_entry.get()
         confirm_password = self.confirm_password_entry.get()
         level = self.level_combo.get()
 
-        # Valida√ß√µes
+        # Validaߵes
         if not username:
             messagebox.showwarning(
-                "Aviso", "Nome de usu√°rio √© obrigat√≥rio!", parent=self.dialog
+                "Aviso", "Nome de usurio  obrigatrio!", parent=self.dialog
             )
             return
 
         if not password:
-            messagebox.showwarning("Aviso", "Senha √© obrigat√≥ria!", parent=self.dialog)
+            messagebox.showwarning("Aviso", "Senha  obrigatria!", parent=self.dialog)
             return
 
         if password != confirm_password:
             messagebox.showwarning(
-                "Aviso", "As senhas n√£o coincidem!", parent=self.dialog
+                "Aviso", "As senhas no coincidem!", parent=self.dialog
             )
             return
 
@@ -1107,5 +1107,5 @@ class AdicionarUsuarioDialog:
         self.dialog.destroy()
 
     def _cancelar(self):
-        """Cancela a opera√ß√£o"""
+        """Cancela a operao"""
         self.dialog.destroy()

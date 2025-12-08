@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Verifica√ß√£o Final de Encoding - Garantir UTF-8 sem BOM em todo o projeto
+Verifica√ßão Final de Encoding - Garantir UTF-8 sem BOM em todo o projeto
 """
 
 import os
@@ -30,7 +30,7 @@ def check_file_encoding(filepath):
 
 def main():
     print("\n" + "=" * 80)
-    print("üîç VERIFICA√á√ÉO FINAL DE ENCODING UTF-8 SEM BOM")
+    print("üîç VERIFICA√áÉO FINAL DE ENCODING UTF-8 SEM BOM")
     print("=" * 80 + "\n")
     
     # Arquivos cr√≠ticos para verificar
@@ -46,7 +46,7 @@ def main():
         'corrigir_codificacao.py',
     ]
     
-    print("üìã ARQUIVOS CR√çTICOS:")
+    print("üìã ARQUIVOS CRçTICOS:")
     print("-" * 80)
     
     all_ok = True
@@ -65,7 +65,7 @@ def main():
                 if has_bom:
                     issues.append(f"‚ùå {fpath}: UTF-8 COM BOM (deve remover)")
                 elif not is_utf8:
-                    issues.append(f"‚ùå {fpath}: Encoding √© {result['encoding']} (deve ser UTF-8)")
+                    issues.append(f"‚ùå {fpath}: Encoding é {result['encoding']} (deve ser UTF-8)")
             else:
                 status = "‚úÖ OK"
             
@@ -73,7 +73,7 @@ def main():
             bom_display = "BOM" if has_bom else "Sem BOM"
             print(f"{status} | {fpath:50} | {enc_display:12} | {bom_display}")
         else:
-            print(f"‚ö†Ô∏è  SKIP | {fpath:50} | (arquivo n√£o existe)")
+            print(f"‚ö†Ô∏è  SKIP | {fpath:50} | (arquivo não existe)")
     
     print("\n" + "-" * 80)
     
@@ -129,11 +129,11 @@ def main():
     bom_files = [f for f in all_files if f['has_bom']]
     
     print(f"\n‚úÖ UTF-8:        {len(utf8_files)} arquivos")
-    print(f"‚ùå N√£o-UTF-8:    {len(non_utf8_files)} arquivos")
+    print(f"‚ùå Não-UTF-8:    {len(non_utf8_files)} arquivos")
     print(f"‚ö†Ô∏è  Com BOM:      {len(bom_files)} arquivos")
     
     if non_utf8_files:
-        print("\n‚ùå ARQUIVOS N√ÉO-UTF-8 ENCONTRADOS:")
+        print("\n‚ùå ARQUIVOS NÉO-UTF-8 ENCONTRADOS:")
         for f in non_utf8_files[:10]:  # Mostrar primeiros 10
             print(f"   - {f['path']}: {f['encoding']}")
         if len(non_utf8_files) > 10:
@@ -146,7 +146,7 @@ def main():
         if len(bom_files) > 10:
             print(f"   ... e {len(bom_files) - 10} mais")
     
-    # Conclus√£o
+    # Conclusão
     print("\n" + "=" * 80)
     if all_ok and len(non_utf8_files) == 0 and len(bom_files) == 0:
         print("‚úÖ ‚úÖ ‚úÖ SUCESSO! TUDO UTF-8 SEM BOM! ‚úÖ ‚úÖ ‚úÖ")

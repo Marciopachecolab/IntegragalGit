@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-CorreÃ§Ã£o Final - Converter TODOS os arquivos para UTF-8 sem BOM
+Correção Final - Converter TODOS os arquivos para UTF-8 sem BOM
 Incluindo os que chardet detectou incorretamente como Windows-1254, MacRoman, etc
 """
 
@@ -11,7 +11,7 @@ import chardet
 def fix_all_files():
     """Converter todos os arquivos para UTF-8 sem BOM"""
     print("\n" + "=" * 80)
-    print("ðŸ”§ CORREÃ‡ÃƒO FINAL - CONVERTER TUDO PARA UTF-8 SEM BOM")
+    print("ðŸ”§ CORREÇÃO FINAL - CONVERTER TUDO PARA UTF-8 SEM BOM")
     print("=" * 80 + "\n")
     
     root_dir = '.'
@@ -27,7 +27,7 @@ def fix_all_files():
     problems = []
     
     for root, dirs, files in os.walk(root_dir):
-        # Ignorar diretÃ³rios especÃ­ficos
+        # Ignorar diretórios específicos
         dirs[:] = [d for d in dirs if d not in ['__pycache__', '.git', '.venv', 'venv', 'node_modules']]
         
         for file in files:
@@ -40,7 +40,7 @@ def fix_all_files():
             stats['total'] += 1
             
             try:
-                # Ler arquivo como binÃ¡rio
+                # Ler arquivo como binário
                 with open(fpath, 'rb') as f:
                     raw_data = f.read()
                 
@@ -65,7 +65,7 @@ def fix_all_files():
                         print(f"[{stats['fixed']+1:3}] âœ… {fpath:50} | {current_encoding:15} â†’ UTF-8")
                         stats['fixed'] += 1
                     else:
-                        # JÃ¡ estÃ¡ UTF-8, apenas garante que estÃ¡ correto
+                        # Já está UTF-8, apenas garante que está correto
                         text = raw_data.decode('utf-8', errors='replace')
                         utf8_bytes = text.encode('utf-8')
                         with open(fpath, 'wb') as f:
@@ -80,21 +80,21 @@ def fix_all_files():
                 problems.append(f"   â�Œ {fpath}: {str(e)}")
     
     print("\n" + "-" * 80)
-    print("\nðŸ“Š RESULTADO:")
+    print("\nðŸ"Š RESULTADO:")
     print(f"   Total analisado:    {stats['total']}")
     print(f"   Corrigidos:         {stats['fixed']}")
     print(f"   Erros:              {stats['errors']}")
     print()
     
     if problems:
-        print("âš ï¸�  PROBLEMAS:")
+        print("™ ï¸�  PROBLEMAS:")
         for p in problems[:10]:
             print(p)
         if len(problems) > 10:
             print(f"   ... e {len(problems) - 10} mais")
     
     print("\n" + "=" * 80)
-    print("âœ… CONVERSÃƒO COMPLETA - TODOS OS ARQUIVOS AGORA UTF-8 SEM BOM!")
+    print("âœ… CONVERSÃO COMPLETA - TODOS OS ARQUIVOS AGORA UTF-8 SEM BOM!")
     print("=" * 80 + "\n")
 
 if __name__ == '__main__':

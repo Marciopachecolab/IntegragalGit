@@ -35,8 +35,15 @@ STATUS_COLORS = {
     INCONCLUSIVE: "#ffe89a",  # amarelo
     INVALID: "#f0f0f0",  # cinza
     CONTROL_CN: "#b3d9ff",  # azul claro
-    CONTROL_CP: "#ffd1b3",
+    CONTROL_CP: "#b3d9ff",  # azul claro (mesma cor CN)
     EMPTY: "#ffffff",  # branco
+}
+
+# Cores para diferentes tamanhos de grupos (exames de 48, 32, 24 testes)
+GROUP_COLORS = {
+    2: "#0000FF",  # Azul para pares (48 testes)
+    3: "#00FF00",  # Verde para trios (32 testes)
+    4: "#FF00FF",  # Magenta para quartetos (24 testes)
 }
 
 ROW_LABELS = ["A", "B", "C", "D", "E", "F", "G", "H"]
@@ -64,15 +71,21 @@ class WellData:
     is_control: bool = False
     targets: Dict[str, TargetResult] = field(default_factory=dict)
     metadata: Dict[str, Any] = field(default_factory=dict)
+    # Campos para grupos de poços
     paired_wells: List[str] = field(default_factory=list)
-    pair_group_id: Optional[str] = None
+    is_grouped: bool = False
+    group_id: Optional[str] = None
+    group_size: int = 1
+    group_position: int = 0
 
 
 class PlateModel:
     def __init__(self) -> None:
         self.wells: Dict[str, WellData] = {}
-        self.pair_groups: Dict[str, List[str]] = {}
-        self.group_size: int = 1
+        self.group_dict: Dict[str, List[str]] = {}  # Novo: dicionário de grupos
+        self.exam_type: str = "96"  # Tipo de exame: 96, 48, 32, 24 testes
+        self.requires_group_frames: bool = False
+        self.group_size: int = 1  # Mantido para compatibilidade
         self.exam_cfg: Optional[Any] = None
 
     # ------------------ construção a partir de df ------------------ #
@@ -294,7 +307,7 @@ class PlateModel:
                 target_data[alvo] = TargetResult(norm_res, ct_val)
 
             # Preenche wells (poços) e grupos
-            for poco in pocos:
+            for idx_poco, poco in enumerate(pocos):
                 if len(poco) < 2:
                     continue
                 row_label = poco[0].upper()
@@ -318,7 +331,10 @@ class PlateModel:
                         targets={},
                         metadata={},
                         paired_wells=[],
-                        pair_group_id=None,
+                        is_grouped=False,
+                        group_id=None,
+                        group_size=1,
+                        group_position=0,
                     ),
                 )
 
@@ -331,10 +347,21 @@ class PlateModel:
                     else:
                         wd.targets[alvo] = tr
 
-                # grupos (pares/trios/quartetos)
+                # grupos (pares/trios/quartetos) - sistema completo
                 if len(pocos) > 1:
-                    group_id = "+".join(sorted(pocos))
+                    sorted_pocos = sorted(pocos)
+                    group_id = "+".join(sorted_pocos)
+                    wd.is_grouped = True
+                    wd.group_id = group_id
+                    wd.group_size = len(pocos)
+                    wd.group_position = idx_poco
                     wd.paired_wells = [p for p in pocos if p != poco]
+                    # Adiciona ao group_dict
+                    if group_id not in model.group_dict:
+                        model.group_dict[group_id] = []
+                    if well_id not in model.group_dict[group_id]:
+                        model.group_dict[group_id].append(well_id)
+                    # Mantém compatibilidade com sistema legado
                     wd.pair_group_id = group_id
                     model.pair_groups.setdefault(group_id, []).append(well_id)
 
@@ -366,6 +393,10 @@ class PlateModel:
         
         # Armazena config para uso em _recompute_status
         model.exam_cfg = exam_cfg
+        
+        # Determina tipo de exame e se requer frames de grupo
+        model._determine_exam_type()
+        model._determine_group_frame_requirement()
         
         return model
     @staticmethod
@@ -539,14 +570,61 @@ class PlateModel:
         return self.wells.get(well_id)
 
     def get_group(self, well_id: str) -> List[str]:
+        """Retorna lista de poços no mesmo grupo (exceto o próprio well_id)"""
         w = self.get_well(well_id)
-        if not w or not w.pair_group_id:
+        if not w:
             return []
-        return [x for x in self.pair_groups.get(w.pair_group_id, []) if x != well_id]
+        # Suporta ambos os sistemas: novo (group_id) e legado (pair_group_id)
+        if w.group_id:
+            return [x for x in self.group_dict.get(w.group_id, []) if x != well_id]
+        elif w.pair_group_id:
+            return [x for x in self.pair_groups.get(w.pair_group_id, []) if x != well_id]
+        return []
+    
+    def get_group_wells_including_self(self, well_id: str) -> List[str]:
+        """Retorna todos os poços do grupo incluindo o próprio well_id"""
+        w = self.get_well(well_id)
+        if not w:
+            return []
+        if w.group_id:
+            return self.group_dict.get(w.group_id, [])
+        elif w.pair_group_id:
+            return self.pair_groups.get(w.pair_group_id, [])
+        return [well_id]
 
     def recompute_all(self) -> None:
         for w in self.wells.values():
             self._recompute_status(w)
+    
+    def _determine_exam_type(self) -> None:
+        """Determina o tipo de exame (96, 48, 32, 24 testes) baseado nos tamanhos de grupo"""
+        if not self.group_dict:
+            self.exam_type = "96"
+            return
+        
+        group_sizes = {}
+        for wells in self.group_dict.values():
+            size = len(wells)
+            group_sizes[size] = group_sizes.get(size, 0) + 1
+        
+        if not group_sizes:
+            self.exam_type = "96"
+            return
+        
+        most_common_size = max(group_sizes, key=group_sizes.get)
+        
+        if most_common_size == 2:
+            self.exam_type = "48"
+        elif most_common_size == 3:
+            self.exam_type = "32"
+        elif most_common_size == 4:
+            self.exam_type = "24"
+        else:
+            self.exam_type = "96"
+    
+    def _determine_group_frame_requirement(self) -> None:
+        """Determina se é necessário criar frames de grupo com contorno"""
+        self.requires_group_frames = self.exam_type in ["48", "32", "24"]
 
 
 # ---------------------------------------------------------------------------
@@ -580,38 +658,117 @@ def normalize_result(value: str) -> str:
 
 
 class WellButton(ctk.CTkButton):
-    def __init__(self, master, well_id: str, text: str, color: str, on_click=None):
-        super().__init__(
-            master,
-            width=80,
-            height=80,
+    def __init__(self, master, well_id: str, text: str, color: str, on_click=None, **kwargs):
+        super().__init__(master, **kwargs)
+        self.well_id = well_id
+        self.on_click_callback = on_click
+        self.group_size = 1
+        self.group_position = 0
+        self.is_group_highlight = False
+        
+        # Configuração do botão
+        self.configure(
+            width=90,
+            height=70,
             fg_color=color,
             text_color="black",
-            font=ctk.CTkFont(family="Segoe UI", size=14, weight="bold"),
-            corner_radius=6,
+            font=ctk.CTkFont(family="Segoe UI", size=12, weight="bold"),
+            corner_radius=5,
             border_width=2,
             border_color="#888888",
-            text=self._truncate(text),
-            command=lambda: on_click(well_id) if on_click else None,
+            text=self._truncate(text, 10),
+            command=self._on_click
         )
-        self.well_id = well_id
-        self.is_selected = False
-        self.is_group_highlight = False
+    
+    def _truncate(self, text: str, max_length: int) -> str:
+        """Trunca texto se muito longo."""
+        if len(text) > max_length:
+            return text[:max_length-2] + ".."
+        return text
+    
+    def _on_click(self):
+        """Manipula clique no botão."""
+        if self.on_click_callback:
+            self.on_click_callback(self.well_id)
 
-    @staticmethod
-    def _truncate(text: str, max_len: int = 12) -> str:
-        return text if len(text) <= max_len else text[: max_len - 2] + ".."
-
-    def update_appearance(self, text: str, color: str, selected: bool, highlight: bool, border_color_override: Optional[str] = None):
-        self.configure(fg_color=color, text=self._truncate(text))
-        if selected:
-            self.configure(border_color="#FF0000", border_width=3)
-        elif highlight:
-            self.configure(border_color="#00AA00", border_width=2)
-        elif border_color_override:
-            self.configure(border_color=border_color_override, border_width=2)
+    def update_appearance(self, text: str, color: str, is_selected: bool, 
+                         is_group_highlight: bool = False, group_size: int = 1,
+                         group_position: int = 0):
+        """Atualiza a aparência do botão."""
+        # Atualizar cor de fundo e texto
+        self.configure(
+            fg_color=color,
+            text=self._truncate(text, 10)
+        )
+        
+        # Atualizar propriedades do grupo
+        self.group_size = group_size
+        self.group_position = group_position
+        self.is_group_highlight = is_group_highlight
+        
+        # Definir borda com prioridades: selecionado > destaque de grupo > normal
+        if is_selected:
+            self.configure(border_color="#FF0000", border_width=3)  # Vermelho para selecionado
+        elif is_group_highlight:
+            # Cor específica para o tamanho do grupo
+            group_color = GROUP_COLORS.get(group_size, "#00AA00")
+            self.configure(border_color=group_color, border_width=2)
         else:
-            self.configure(border_color="#888888", border_width=2)
+            # Para poços em grupos, manter borda normal
+            if group_size > 1:
+                self.configure(border_color="#888888", border_width=1)
+            else:
+                self.configure(border_color="#888888", border_width=2)
+
+
+class GroupFrame(ctk.CTkFrame):
+    """Frame que agrupa múltiplos poços para contorná-los juntos."""
+    
+    def __init__(self, master, group_id: str, wells: List[str], group_size: int, **kwargs):
+        super().__init__(master, **kwargs)
+        self.group_id = group_id
+        self.wells = wells
+        self.group_size = group_size
+        self.configure(fg_color="transparent", border_width=0)
+        
+        # Ajustar o layout baseado no tamanho do grupo
+        if group_size == 2:
+            # Para pares, organizar horizontalmente
+            self.grid_columnconfigure(0, weight=1)
+            self.grid_columnconfigure(1, weight=1)
+            self.grid_rowconfigure(0, weight=1)
+        elif group_size == 3:
+            # Para trios, organizar em linha
+            for i in range(3):
+                self.grid_columnconfigure(i, weight=1)
+            self.grid_rowconfigure(0, weight=1)
+        elif group_size == 4:
+            # Para quartetos, organizar em 2x2
+            for i in range(2):
+                self.grid_columnconfigure(i, weight=1)
+                self.grid_rowconfigure(i, weight=1)
+        
+        # Aplicar contorno com ESPESSURA 10
+        self._apply_group_border()
+    
+    def _apply_group_border(self):
+        """Aplica contorno ao grupo com ESPESSURA 10."""
+        if self.group_size == 1:
+            return
+        
+        # Definir cor baseada no tamanho do grupo
+        group_color = GROUP_COLORS.get(self.group_size, "#0000FF")
+        
+        # Configurar contorno com ESPESSURA 10
+        self.configure(border_color=group_color, border_width=10)
+        
+        # Ajustar cantos baseado na disposição
+        if self.group_size == 2:
+            self.configure(corner_radius=12)
+        elif self.group_size == 3:
+            self.configure(corner_radius=15)
+        elif self.group_size == 4:
+            self.configure(corner_radius=18)
 
 
 class PlateView(ctk.CTkFrame):
@@ -622,7 +779,10 @@ class PlateView(ctk.CTkFrame):
         self.selected_well_id: Optional[str] = None
         self.current_target: Optional[str] = None
         self.highlight_group: List[str] = []
+        self.group_wells_highlight: List[str] = []  # Lista para destacar grupo
+        self.group_size_highlight: int = 1
         self.well_widgets: Dict[str, WellButton] = {}
+        self.group_frames: Dict[str, GroupFrame] = {}
 
         self._build_ui()
         self.render_plate()
@@ -656,21 +816,90 @@ class PlateView(ctk.CTkFrame):
         self.plate_frame.grid(row=0, column=0, sticky="nsew")
 
         # Títulos colunas
-        font_labels = ctk.CTkFont(family="Segoe UI", size=12, weight="bold")
-        ctk.CTkLabel(self.plate_frame, text="", width=35, height=35).grid(row=0, column=0, padx=1, pady=1)
+        font_labels = ctk.CTkFont(family="Segoe UI", size=11, weight="bold")
+        ctk.CTkLabel(self.plate_frame, text="", width=30, height=30).grid(row=0, column=0, padx=1, pady=1)
         for j, col in enumerate(COL_LABELS, start=1):
-            ctk.CTkLabel(self.plate_frame, text=col, font=font_labels, width=1, height=1).grid(
-                row=0, column=j, padx=1, pady=1
+            label = ctk.CTkLabel(
+                self.plate_frame, 
+                text=col, 
+                font=font_labels,
+                width=90,
+                height=30
             )
-
-        # Grelha de poços
+            label.grid(row=0, column=j, padx=1, pady=1)
+        
+        # Rótulos de linha
         for i, row_lbl in enumerate(ROW_LABELS, start=1):
-            ctk.CTkLabel(self.plate_frame, text=row_lbl, font=font_labels, width=35, height=50).grid(
-                row=i, column=0, padx=1, pady=1
+            label = ctk.CTkLabel(
+                self.plate_frame,
+                text=row_lbl,
+                font=font_labels,
+                width=30,
+                height=70
             )
-            for j, col_lbl in enumerate(COL_LABELS, start=1):
+            label.grid(row=i, column=0, padx=1, pady=1)
+
+        # Criar frames de grupo se necessário
+        if self.plate_model.requires_group_frames:
+            self._create_group_frames()
+        
+        # Criar botões de poços
+        self._create_well_buttons()
+
+    def _create_group_frames(self):
+        """Cria frames com bordas coloridas para agrupar poços."""
+        for group_id, wells in self.plate_model.group_dict.items():
+            if not wells:
+                continue
+            
+            # Determinar tamanho do grupo
+            group_size = len(wells)
+            if group_size not in GROUP_COLORS:
+                continue
+            
+            color = GROUP_COLORS[group_size]
+            
+            # Calcular posição mínima e máxima do grupo
+            rows = [ROW_LABELS.index(w[0]) for w in wells]
+            cols = [COL_LABELS.index(w[1:]) for w in wells]
+            min_row = min(rows)
+            max_row = max(rows)
+            min_col = min(cols)
+            max_col = max(cols)
+            
+            # Determinar corner_radius baseado no tamanho do grupo
+            corner_radius_map = {2: 12, 3: 15, 4: 18}
+            corner_radius = corner_radius_map.get(group_size, 15)
+            
+            # Criar o GroupFrame
+            group_frame = GroupFrame(
+                self.plate_frame,
+                group_size=group_size,
+                border_color=color,
+                corner_radius=corner_radius
+            )
+            
+            # Posicionar no grid (+1 para compensar os labels)
+            group_frame.grid(
+                row=min_row + 1,
+                column=min_col + 1,
+                rowspan=max_row - min_row + 1,
+                columnspan=max_col - min_col + 1,
+                padx=1,
+                pady=1,
+                sticky="nsew"
+            )
+            
+            self.group_frames[group_id] = group_frame
+
+    def _create_well_buttons(self):
+        """Cria todos os botões de poços, usando frames de grupo quando necessário."""
+        for i, row_lbl in enumerate(ROW_LABELS):
+            for j, col_lbl in enumerate(COL_LABELS):
                 well_id = f"{row_lbl}{col_lbl}"
                 well = self.plate_model.get_well(well_id)
+                
+                # Preparar texto do botão
                 text = ""
                 if well:
                     text = well.code or well.sample_id or ""
@@ -678,9 +907,28 @@ class PlateView(ctk.CTkFrame):
                         ct_type = well.metadata.get("control_type", "")
                         if ct_type:
                             text = f"{ct_type}:{text}"
+                
+                # Determinar cor baseada no status
                 color = STATUS_COLORS.get(well.status if well else EMPTY, "#ffffff")
-                btn = WellButton(self.plate_frame, well_id, text, color, on_click=self.on_well_click)
-                btn.grid(row=i, column=j, padx=1, pady=1)
+                
+                # Determinar frame pai e posição no grid
+                if well and well.is_grouped and self.plate_model.requires_group_frames:
+                    parent_frame = self.group_frames.get(well.group_id)
+                    if parent_frame:
+                        # Calcular posição dentro do grupo
+                        grid_row, grid_col = parent_frame.get_position_in_group(well.group_position)
+                        grid_kwargs = {"row": grid_row, "column": grid_col}
+                    else:
+                        # Fallback se não encontrar o frame
+                        parent_frame = self.plate_frame
+                        grid_kwargs = {"row": i + 1, "column": j + 1}
+                else:
+                    parent_frame = self.plate_frame
+                    grid_kwargs = {"row": i + 1, "column": j + 1}
+                
+                # Criar botão
+                btn = WellButton(parent_frame, well_id, text, color, on_click=self.on_well_click)
+                btn.grid(padx=1, pady=1, sticky="nsew", **grid_kwargs)
                 self.well_widgets[well_id] = btn
 
         # Painel lateral
@@ -759,15 +1007,27 @@ class PlateView(ctk.CTkFrame):
 
         edit_frame = ctk.CTkFrame(self.detail_frame)
         edit_frame.grid(row=7, column=0, columnspan=2, padx=15, pady=(5, 10), sticky="ew")
-        ctk.CTkLabel(edit_frame, text="Resultado:", font=f_label).grid(row=0, column=0, padx=5, pady=5, sticky="e")
+        edit_frame.grid_columnconfigure(1, weight=1)
+        edit_frame.grid_columnconfigure(3, weight=1)
+        
+        # Campo de Alvo (editável)
+        ctk.CTkLabel(edit_frame, text="Alvo:", font=f_label).grid(row=0, column=0, padx=5, pady=5, sticky="e")
+        self.entry_target = ctk.CTkEntry(edit_frame, width=120, font=f_val, height=35)
+        self.entry_target.grid(row=0, column=1, padx=5, pady=5, sticky="ew")
+        
+        # Campo de Resultado
+        ctk.CTkLabel(edit_frame, text="Resultado:", font=f_label).grid(row=1, column=0, padx=5, pady=5, sticky="e")
         self.entry_res = ctk.CTkEntry(edit_frame, width=90, font=f_val, height=35)
-        self.entry_res.grid(row=0, column=1, padx=5, pady=5)
-        ctk.CTkLabel(edit_frame, text="CT:", font=f_label).grid(row=0, column=2, padx=(10, 5), pady=5, sticky="e")
+        self.entry_res.grid(row=1, column=1, padx=5, pady=5, sticky="ew")
+        
+        # Campo de CT
+        ctk.CTkLabel(edit_frame, text="CT:", font=f_label).grid(row=1, column=2, padx=(10, 5), pady=5, sticky="e")
         self.entry_ct = ctk.CTkEntry(edit_frame, width=90, font=f_val, height=35)
-        self.entry_ct.grid(row=0, column=3, padx=5, pady=5)
+        self.entry_ct.grid(row=1, column=3, padx=5, pady=5, sticky="ew")
+        
         ctk.CTkButton(
             edit_frame, text="Aplicar", font=ctk.CTkFont(family="Segoe UI", size=12, weight="bold"), height=38, command=self.apply_target_changes
-        ).grid(row=1, column=0, columnspan=4, pady=(10, 5))
+        ).grid(row=2, column=0, columnspan=4, pady=(10, 5))
 
         ctk.CTkButton(
             self.detail_frame,
@@ -789,9 +1049,18 @@ class PlateView(ctk.CTkFrame):
     # ------------------ interação ------------------ #
     def on_well_click(self, well_id: str) -> None:
         self.selected_well_id = well_id
-        self.highlight_group = self.plate_model.get_group(well_id)
-        self.render_plate()
+        
+        # Obter informações do grupo
         well = self.plate_model.get_well(well_id)
+        if well and well.is_grouped:
+            group_wells = self.plate_model.get_group_wells_including_self(well_id)
+            self.group_wells_highlight = set(group_wells)
+            self.group_size_highlight = well.group_size
+        else:
+            self.group_wells_highlight = set()
+            self.group_size_highlight = 0
+        
+        self.render_plate()
         if well:
             self._fill_details(well)
 
@@ -805,16 +1074,19 @@ class PlateView(ctk.CTkFrame):
                     ctype = well.metadata.get("control_type", "")
                     if ctype:
                         text = f"{ctype}:{text}"
+            
             color = self._status_color(well.status if well else EMPTY)
-            # define contorno específico para controles CN vs CP
-            border_override = None
-            if well and well.is_control:
-                ctype = well.metadata.get("control_type", "")
-                if ctype == "CP":
-                    border_override = "#AA5500"
-                elif ctype == "CN":
-                    border_override = "#0044AA"
-            btn.update_appearance(text, color, well_id == self.selected_well_id, well_id in self.highlight_group, border_override)
+            is_selected = (well_id == self.selected_well_id)
+            is_group_highlight = (well_id in self.group_wells_highlight)
+            
+            # Passar informações de grupo para o botão
+            group_size = 0
+            group_position = 0
+            if well and well.is_grouped:
+                group_size = well.group_size
+                group_position = well.group_position
+            
+            btn.update_appearance(text, color, is_selected, is_group_highlight, group_size, group_position)
 
     def _fill_details(self, well: WellData):
         self.lbl_well.configure(text=well.well_id)
@@ -832,9 +1104,11 @@ class PlateView(ctk.CTkFrame):
             return (1 if is_rp else 0, name)
 
         for alvo, tr in sorted(well.targets.items(), key=_sort_key):
-            ct_txt = "" if tr.ct is None else f"{tr.ct:.3f}"
+            # Usar vírgula como separador decimal
+            ct_txt = "" if tr.ct is None else f"{tr.ct:.3f}".replace(".", ",")
             item_id = self.tree.insert("", "end", values=(alvo, tr.result, ct_txt))
             self.tree.item(item_id, tags=(alvo,))
+        self.entry_target.delete(0, tk.END)
         self.entry_res.delete(0, tk.END)
         self.entry_ct.delete(0, tk.END)
         self.current_target = None
@@ -848,8 +1122,16 @@ class PlateView(ctk.CTkFrame):
         if not vals:
             return
         self.current_target = vals[0]
+        
+        # Popular campo de alvo
+        self.entry_target.delete(0, tk.END)
+        self.entry_target.insert(0, vals[0])
+        
+        # Popular campo de resultado
         self.entry_res.delete(0, tk.END)
         self.entry_res.insert(0, vals[1])
+        
+        # Popular campo de CT (já está com vírgula)
         self.entry_ct.delete(0, tk.END)
         self.entry_ct.insert(0, vals[2])
 
@@ -894,16 +1176,54 @@ class PlateView(ctk.CTkFrame):
         well = self.plate_model.get_well(self.selected_well_id)
         if not well:
             return
+        
+        # Obter novos valores
+        new_target_name = self.entry_target.get().strip()
         new_res = normalize_result(self.entry_res.get())
         ct_text = self.entry_ct.get().strip()
         new_ct = None
         if ct_text:
             try:
+                # Aceitar tanto vírgula quanto ponto como separador decimal
                 new_ct = float(ct_text.replace(",", "."))
             except Exception:
                 new_ct = None
-        well.targets[self.current_target] = TargetResult(new_res, new_ct)
+        
+        # Se o nome do alvo mudou, remover o antigo
+        if new_target_name and new_target_name != self.current_target:
+            if self.current_target in well.targets:
+                del well.targets[self.current_target]
+        
+        # Atualizar o alvo (novo ou existente)
+        target_key = new_target_name if new_target_name else self.current_target
+        well.targets[target_key] = TargetResult(new_res, new_ct)
+        
+        # Reanalisar este poço pelas regras
         self.plate_model._recompute_status(well)
+        
+        # Propagar mudanças para todos os poços do grupo
+        if well.is_grouped:
+            group_wells = self.plate_model.get_group_wells_including_self(self.selected_well_id)
+            for well_id in group_wells:
+                if well_id == self.selected_well_id:
+                    continue  # Já atualizamos o poço atual
+                w2 = self.plate_model.get_well(well_id)
+                if w2:
+                    # Se o nome do alvo mudou, remover o antigo
+                    if new_target_name and new_target_name != self.current_target:
+                        if self.current_target in w2.targets:
+                            del w2.targets[self.current_target]
+                    
+                    # Atualizar o alvo no poço do grupo
+                    w2.targets[target_key] = TargetResult(new_res, new_ct)
+                    
+                    # Reanalisar este poço também
+                    self.plate_model._recompute_status(w2)
+        
+        # Atualizar o current_target para o novo nome
+        self.current_target = target_key
+        
+        # Atualizar interface
         self._fill_details(well)
         self.render_plate()
 

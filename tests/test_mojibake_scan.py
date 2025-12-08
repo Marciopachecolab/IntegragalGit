@@ -52,39 +52,40 @@ EXCLUDED_FILE_NAMES = {
 # incluindo prefixos de emojis quebrados.
 MOJIBAKE_SEQUENCES = [
     # Acentos quebrados em português
-    "Ã¡",
-    "Ã©",
-    "Ãª",
-    "Ã¨",
-    "Ã­",
-    "Ã³",
-    "Ã´",
-    "Ã²",
-    "Ãº",
-    "Ã£",
-    "Ãµ",
-    "Ã§",
-    "Ã",
-    "Ã‰",
-    "ÃŠ",
+    "á",
+    "é",
+    "ê",
+    "è",
+    "í",
+    "ó",
+    "ô",
+    "ò",
+    "ú",
+    "ã",
+    "õ",
+    "ç",
+    "Á",
+    "É",
+    "Ê",
     "Ãˆ",
-    "Ã“",
-    "Ã”",
+    "Ó",
+    "Ô",
     "Ã’",
-    "Ãš",
-    "Ãƒ",
-    "Ã•",
-    "Ã‡",
+    "Ú",
+    "Ã",
+    "Õ",
+    "Ç",
 
     # Aspas, traços e símbolos tipográficos quebrados
-    "â€“",  # en dash / hífen
-    "â€”",  # em dash
-    "â€œ",  # aspas de abertura
-    "â€",  # aspas de fechamento (forma comum)
-    "â€˜",  # aspas simples de abertura
-    "â€™",  # aspas simples de fechamento
-    "â€¢",  # bullet quebrado
-    "â€¦",  # reticências
+    "–",  # en dash / hífen
+    "—",  # em dash
+    """,  # aspas de abertura
+    "”",  # aspas de fechamento (forma comum)
+    ",
+    '’': ",  # aspas simples de abertura
+    "’",  # aspas simples de fechamento
+    "™¢",  # bullet quebrado
+    "…",  # reticências
 
     # Prefixos genéricos de emojis quebrados
     "âœ",   # pedaço de check / símbolo

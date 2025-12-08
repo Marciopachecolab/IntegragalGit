@@ -44,11 +44,29 @@ def _normalize_col_key(name: str) -> str:
 
         return ""
 
-    translation = str.maketrans({"Ñ": "c", "Ð¡": "c", "Ñ‚": "t", "Ð¢": "t"})
+    try:
 
-    s = str(name).strip().translate(translation)
+        # normaliza variantes cirílicas para evitar comparação falha de cabeçalhos
 
-    return s.casefold().replace(" ", "").replace("_", "")
+        translation = str.maketrans({ord("с"): "c", ord("С"): "c", ord("т"): "t", ord("Т"): "t"})
+
+        s = str(name).strip().translate(translation)
+
+        return s.casefold().replace(" ", "").replace("_", "")
+
+    except Exception as exc:
+
+        registrar_log(
+
+            "UniversalEngine",
+
+            f"Falha ao normalizar coluna '{name}': {exc}",
+
+            "ERROR",
+
+        )
+
+        return str(name).strip().casefold().replace(" ", "").replace("_", "")
 
 
 
@@ -2055,7 +2073,7 @@ class UniversalEngine:
 
         df_final, meta = _determinar_status_corrida(df_interpretado, ctx, df_norm=df_norm)
 
-        # anexa informaçÕÂ§es de agrupamento/bloco derivadas do exam_cfg
+        # anexa informaçÕ§es de agrupamento/bloco derivadas do exam_cfg
 
         bloco_tamanho = _inferir_bloco(cfg)
 

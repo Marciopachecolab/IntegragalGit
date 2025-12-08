@@ -2,7 +2,7 @@
 """
 Corrigir 5 arquivos espec√≠ficos que ainda t√™m mojibake
 
-Estrat√©gia: Ler como Latin-1 (que √© como foram salvos com acentos errados)
+Estratégia: Ler como Latin-1 (que é como foram salvos com acentos errados)
 e reescrever como UTF-8 puro.
 """
 
@@ -24,7 +24,7 @@ for file_rel in files_to_fix:
     filepath = Path(file_rel)
     
     if not filepath.exists():
-        print(f"‚ùå {file_rel}: N√£o encontrado")
+        print(f"‚ùå {file_rel}: Não encontrado")
         continue
     
     try:

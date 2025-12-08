@@ -61,11 +61,11 @@ O sistema **IntegralGal** está **100% UTF-8 compliant**, com todos os problemas
 **Mojibake (21 arquivos):**
 ```
 Corrupção de texto Latin-1 salvo como UTF-8:
-  "√°" → "á" (E TODOS FOI CORRIGIDO)
-  "√©" → "é"
+  "á" → "á" (E TODOS FOI CORRIGIDO)
+  "é" → "é"
   "√ß" → "ç"
   "√±" → "ñ"
-  "Par√°metros" → "Parâmetros"
+  "Parámetros" → "Parâmetros"
 ```
 
 **BOM (1 arquivo):**
