@@ -76,4 +76,11 @@ Os demais pacotes Python devem estar listados em `requirements.txt`.
 2. **Criar um ambiente virtual**
 
    ```bash
-   python -m venv venv
+python -m venv venv
+
+# Componentes oficiais (implementação atual)
+
+- services/universal_engine.py + services/analysis_service.py: pipeline de análise universal.
+- services/history_report.py: histórico oficial (reports/historico_analises.csv).
+- services/plate_viewer.py: visualizador oficial de placa usando df_final em memória.
+- fix_encoding_safe.py: utilitário recomendado para correções de encoding/mojibake.

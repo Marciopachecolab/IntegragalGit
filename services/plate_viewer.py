@@ -15,7 +15,11 @@ import pandas as pd
 import tkinter as tk
 from tkinter import ttk
 
-from services.exam_registry import get_exam_cfg
+# Tenta importar a configuração de exame, se falhar usa None
+try:
+    from services.exam_registry import get_exam_cfg
+except ImportError:
+    get_exam_cfg = None
 
 # ---------------------------------------------------------------------------
 # Aparência / Cores
@@ -40,10 +44,11 @@ STATUS_COLORS = {
 }
 
 # Cores para diferentes tamanhos de grupos (exames de 48, 32, 24 testes)
+# Cores atualizadas conforme o prompt
 GROUP_COLORS = {
-    2: "#0000FF",  # Azul para pares (48 testes)
-    3: "#00FF00",  # Verde para trios (32 testes)
-    4: "#FF00FF",  # Magenta para quartetos (24 testes)
+    2: "#3498db",  # Azul para pares (48 testes)
+    3: "#e74c3c",  # Vermelho para trios (32 testes)
+    4: "#f39c12",  # Laranja para quartetos (24 testes)
 }
 
 ROW_LABELS = ["A", "B", "C", "D", "E", "F", "G", "H"]
@@ -100,21 +105,10 @@ class PlateModel:
     ) -> "PlateModel":
         """
         Constrói o modelo de placa a partir dos dados da corrida.
-
-        Aceita dois formatos:
-        - df_final consolidado, com colunas Poço/Poco, Amostra, Código e Resultado_<ALVO>,
-          mais colunas de CT por alvo (ex.: SC2, HMPV, INF A, INF B, ADV, RSV, HRV, RP_1, RP_2).
-        - df_norm (linha por poço/alvo), com colunas WELL/well, SampleName, Target/target_name,
-          CT/ct e possivelmente Resultado/resultado.
-        
-        Parâmetros:
-            df_final: DataFrame com dados consolidados por poço
-            group_size: Tamanho de grupo manual (sobrescreve inferência)
-            exame: Nome do exame (para buscar config do registry)
         """
         model = cls()
         # se foi passado nome do exame, carregue a configuração correspondente
-        if exame:
+        if exame and get_exam_cfg:
             try:
                 model.exam_cfg = get_exam_cfg(exame)
             except Exception:
@@ -127,16 +121,12 @@ class PlateModel:
             except Exception:
                 group_size = None
         model.group_size = group_size or 1
+        
         if df_final is None or df_final.empty:
             return model
         
         # Carrega config do registry se exame foi fornecido
-        exam_cfg = None
-        if exame:
-            try:
-                exam_cfg = get_exam_cfg(exame)
-            except Exception:
-                exam_cfg = None
+        exam_cfg = model.exam_cfg
 
         df_use = df_final.copy()
 
@@ -193,57 +183,15 @@ class PlateModel:
                 if base and base not in targets:
                     targets.append(base)
         
-        # DEBUG temporário
-        print(f"DEBUG CSV: Colunas disponíveis: {list(df_use.columns[:20])}")
-        print(f"DEBUG CSV: Targets descobertos: {targets}")
-        print(f"DEBUG CSV: Total de linhas no DataFrame: {len(df_use)}")
-        
-        # Análise de valores CT disponíveis no DataFrame
-        ct_analysis = {}
-        for alvo in targets:
-            ct_col = None
-            for c in df_use.columns:
-                cu = str(c).upper()
-                if " - CT" in cu or "- CT" in cu:
-                    base = cu.split(" - CT")[0].split("- CT")[0]
-                    if base == alvo.upper():
-                        ct_col = c
-                        break
-                elif cu.startswith("CT_"):
-                    base = cu[3:]
-                    if base == alvo.upper().replace(" ", ""):
-                        ct_col = c
-                        break
-            
-            if ct_col:
-                # Contar valores não vazios de CT
-                non_null = df_use[ct_col].notna().sum()
-                ct_analysis[alvo] = {"coluna": ct_col, "valores_disponiveis": non_null}
-            else:
-                ct_analysis[alvo] = {"coluna": None, "valores_disponiveis": 0}
-        
-        print(f"DEBUG CSV: Análise de CT disponíveis:")
-        for alvo, info in ct_analysis.items():
-            print(f"  {alvo}: coluna='{info['coluna']}', valores={info['valores_disponiveis']}")
-        
-        if len(df_use) > 0:
-            print(f"\nDEBUG CSV: Primeira linha - poco_col='{poco_col}', valor='{df_use.iloc[0].get(poco_col, 'N/A')}'")
-            if sample_col:
-                print(f"DEBUG CSV: Primeira linha - sample_col='{sample_col}', valor='{df_use.iloc[0].get(sample_col, 'N/A')}'")
-            if code_col:
-                print(f"DEBUG CSV: Primeira linha - code_col='{code_col}', valor='{df_use.iloc[0].get(code_col, 'N/A')}'")
-            print()
-
         # Função de normalização para matching alvo vs coluna de CT
         def _norm_key(txt: str) -> str:
-            return "".join(ch for ch in str(txt).upper() if ch.isalnum())
+            # Remove parênteses antes de filtrar (para suportar C(t))
+            txt_clean = str(txt).replace("(", "").replace(")", "")
+            return "".join(ch for ch in txt_clean.upper() if ch.isalnum())
 
         def _find_ct_column_for_target(alvo: str) -> Optional[str]:
             """
-            Procura coluna de CT compatível com o alvo, aceitando formatos:
-            - Nome do alvo em si (ex.: SC2, HMPV, "INF A")
-            - <ALVO> - CT (ex.: SC2 - CT)
-            - CT_<ALVO> (ex.: CT_SC2, CT_INFA)
+            Procura coluna de CT compatível com o alvo.
             """
             target_key = _norm_key(alvo)
             for c in df_use.columns:
@@ -310,11 +258,9 @@ class PlateModel:
             target_data: Dict[str, TargetResult] = {}
 
             # Primeiro, CTs de RP (RP, RP_1, RP_2, ...)
-            expected_rps = 0
             for c in df_use.columns:
                 cu = cols_upper[c]
                 if cu == "RP" or cu.startswith("RP_"):
-                    expected_rps += 1
                     try:
                         ct_val = row.get(c, None)
                         if ct_val is not None and str(ct_val).strip() != "":
@@ -342,7 +288,6 @@ class PlateModel:
                         res_val = row.get(alt_col, "")
                 
                 # Formato 3: Coluna com nome do alvo contendo resultado completo
-                # (ex: coluna "SC2" com valor "SC2 - 2")
                 if not res_val:
                     if alvo in row:
                         res_val = row.get(alvo, "")
@@ -474,7 +419,8 @@ class PlateModel:
         criando colunas Resultado_<ALVO> e CT_<ALVO>.
         """
         # normaliza nomes esperados (aliases)
-        cols = {c.lower(): c for c in df_norm.columns}
+        # Remove parênteses dos nomes de colunas para normalização (C(t) -> ct)
+        cols = {c.lower().replace("(", "").replace(")", ""): c for c in df_norm.columns}
         well_col = cols.get("well", cols.get("well_id", cols.get("poco", cols.get("poço", ""))))
         sample_col = cols.get("samplename", cols.get("sample_name", cols.get("amostra", cols.get("sample", ""))))
         code_col = cols.get("codigo", cols.get("code", sample_col))
@@ -719,11 +665,11 @@ class WellButton(ctk.CTkButton):
         # Configuração do botão
         self.configure(
             width=90,
-            height=70,
+            height=80,
             fg_color=color,
             text_color="black",
             font=ctk.CTkFont(family="Segoe UI", size=10, weight="bold"),
-            corner_radius=5,
+            corner_radius=8,
             border_width=2,
             border_color="#888888",
             text=self._truncate(text, 10),
@@ -775,11 +721,11 @@ class GroupFrame(ctk.CTkFrame):
     """Frame que agrupa múltiplos poços para contorná-los juntos."""
     
     def __init__(self, master, group_size: int, border_color: str, corner_radius: int = 15):
-        # Configurar o frame com borda de 10px
+        # Configurar o frame com borda de 3px
         super().__init__(
             master,
             fg_color="transparent",
-            border_width=10,
+            border_width=3,
             border_color=border_color,
             corner_radius=corner_radius
         )
@@ -833,34 +779,34 @@ class PlateView(ctk.CTkFrame):
         self.render_plate()
 
     def _build_ui(self):
-        self.grid_rowconfigure(0, weight=1)
+        self.grid_rowconfigure(1, weight=1)
         self.grid_columnconfigure(0, weight=3)
         self.grid_columnconfigure(1, weight=0)
 
-        # Cabeçalho (compacto) - espaçamento mínimo superior
+        # Cabeçalho compacto - 2 linhas no topo
         header = ctk.CTkFrame(self)
-        header.grid(row=0, column=0, columnspan=2, sticky="ew", pady=(0, 1), padx=5)
-        header.grid_columnconfigure(4, weight=1)
-        infos = [
-            f"Data: {self.meta.get('data', '')}",
-            f"Extração: {self.meta.get('extracao', self.meta.get('arquivo', ''))}",
-            f"Exame: {self.meta.get('exame', '')}",
-            f"Usuário: {self.meta.get('usuario', '')}",
-            f"Tamanho bloco: {self.plate_model.group_size} (tot amostras: {self._calc_total_samples()})",
-        ]
-        for i, txt in enumerate(infos):
-            ctk.CTkLabel(header, text=txt, font=("", 10, "bold")).grid(row=0, column=i, padx=3, pady=1, sticky="w")
+        header.grid(row=0, column=0, columnspan=2, sticky="ew", padx=(5,500), pady=2)
+        
+        # Linha 1: Data, Extração, Exame
+        linha1 = f"Data: {self.meta.get('data', '')} | Extração: {self.meta.get('extracao', self.meta.get('arquivo', ''))} | Exame: {self.meta.get('exame', '')}"
+        ctk.CTkLabel(header, text=linha1, font=("Segoe UI", 15), anchor="w").grid(row=0, column=0, sticky="ew", padx=5)
+        
+        # Linha 2: Usuário, Tamanho do bloco
+        linha2 = f"Usuário: {self.meta.get('usuario', '')} | Tamanho bloco: {self.plate_model.group_size} (Total amostras: {self._calc_total_samples()})"
+        ctk.CTkLabel(header, text=linha2, font=("Segoe UI", 15, "bold"), anchor="w").grid(row=1, column=0, sticky="ew", padx=5)
+        
+        header.grid_columnconfigure(0, weight=0)
 
-        # Container placa - espaçamento reduzido para aumentar área visível
+        # Container da Placa
         plate_container = ctk.CTkFrame(self)
-        plate_container.grid(row=1, column=0, padx=5, pady=(1, 3), sticky="nsew")
+        plate_container.grid(row=1, column=0, padx=(1,10), pady=(1, 1), sticky="nsew")
         plate_container.grid_rowconfigure(0, weight=1)
         plate_container.grid_columnconfigure(0, weight=1)
 
         self.plate_frame = ctk.CTkFrame(plate_container)
         self.plate_frame.grid(row=0, column=0, sticky="nsew")
 
-        # Títulos colunas
+        # Títulos colunas (1-12)
         font_labels = ctk.CTkFont(family="Segoe UI", size=11, weight="bold")
         ctk.CTkLabel(self.plate_frame, text="", width=30, height=30).grid(row=0, column=0, padx=1, pady=1)
         for j, col in enumerate(COL_LABELS, start=1):
@@ -873,7 +819,7 @@ class PlateView(ctk.CTkFrame):
             )
             label.grid(row=0, column=j, padx=1, pady=1)
         
-        # Rótulos de linha
+        # Rótulos de linha (A-H)
         for i, row_lbl in enumerate(ROW_LABELS, start=1):
             label = ctk.CTkLabel(
                 self.plate_frame,
@@ -886,13 +832,9 @@ class PlateView(ctk.CTkFrame):
 
         # Criar frames de grupo se necessário
         if self.plate_model.requires_group_frames:
-            print(f"DEBUG: Criando group frames. group_dict={len(self.plate_model.group_dict)} grupos")
             self._create_group_frames()
-        else:
-            print(f"DEBUG: requires_group_frames=False. exam_type={self.plate_model.exam_type}")
         
         # Criar botões de poços
-        print(f"DEBUG: Total wells={len(self.plate_model.wells)}")
         self._create_well_buttons()
 
     def _create_group_frames(self):
@@ -977,58 +919,62 @@ class PlateView(ctk.CTkFrame):
                     parent_frame = self.plate_frame
                     grid_kwargs = {"row": i + 1, "column": j + 1}
                 
-                # Criar botão
+                # Criar botão com espaçamento entre eles
                 btn = WellButton(parent_frame, well_id, text, color, on_click=self.on_well_click)
                 btn.grid(padx=1, pady=1, sticky="nsew", **grid_kwargs)
                 self.well_widgets[well_id] = btn
 
-        # Painel lateral - aumentado para 340px para acomodar melhor as colunas do TreeView
-        self.detail_frame = ctk.CTkFrame(self, width=340)
-        self.detail_frame.grid(row=1, column=1, padx=(0, 20), pady=(1, 3), sticky="nsew")
+        # Painel de Detalhes (Detail Panel)
+        self.detail_frame = ctk.CTkFrame(self, width=370)
+        self.detail_frame.grid(row=1, column=1, padx=(0, 11), pady=(0, 2), sticky="nsew")
         self.detail_frame.grid_propagate(False)
 
-        for i in range(10):
+        # Configuração das linhas do painel de detalhes
+        for i in range(9):
             self.detail_frame.grid_rowconfigure(i, weight=0)
-        self.detail_frame.grid_rowconfigure(6, weight=1)
+        self.detail_frame.grid_rowconfigure(6, weight=1) # TreeView expande
 
+        # Seção de Informações
         title_font = ctk.CTkFont(family="Segoe UI", size=16, weight="bold")
         ctk.CTkLabel(self.detail_frame, text="Poço selecionado:", font=title_font).grid(
-            row=0, column=0, columnspan=2, pady=(4, 1), padx=5, sticky="w"
+            row=0, column=0, columnspan=2, pady=(2, 1), padx=15, sticky="w"
         )
 
         f_label = ctk.CTkFont(family="Segoe UI", size=12, weight="bold")
         f_val = ctk.CTkFont(family="Segoe UI", size=12)
 
-        ctk.CTkLabel(self.detail_frame, text="Poço:", font=f_label).grid(row=1, column=0, padx=(5, 3), pady=1, sticky="e")
+        # Campos info: pady=1px, padx=(15, 5)px e (5, 15)px
+        ctk.CTkLabel(self.detail_frame, text="Poço:", font=f_label).grid(row=1, column=0, padx=(15, 5), pady=1, sticky="e")
         self.lbl_well = ctk.CTkLabel(self.detail_frame, text="-", font=f_val)
-        self.lbl_well.grid(row=1, column=1, padx=(3, 5), pady=1, sticky="w")
+        self.lbl_well.grid(row=1, column=1, padx=(5, 15), pady=1, sticky="w")
 
-        ctk.CTkLabel(self.detail_frame, text="Amostra:", font=f_label).grid(row=2, column=0, padx=(5, 3), pady=1, sticky="e")
+        ctk.CTkLabel(self.detail_frame, text="Amostra:", font=f_label).grid(row=2, column=0, padx=(15, 5), pady=1, sticky="e")
         self.lbl_sample = ctk.CTkLabel(self.detail_frame, text="-", font=f_val)
-        self.lbl_sample.grid(row=2, column=1, padx=(3, 5), pady=1, sticky="w")
+        self.lbl_sample.grid(row=2, column=1, padx=(5, 15), pady=1, sticky="w")
 
-        ctk.CTkLabel(self.detail_frame, text="Código:", font=f_label).grid(row=3, column=0, padx=(5, 3), pady=1, sticky="e")
+        ctk.CTkLabel(self.detail_frame, text="Código:", font=f_label).grid(row=3, column=0, padx=(15, 5), pady=1, sticky="e")
         code_frame = ctk.CTkFrame(self.detail_frame, fg_color="transparent")
-        code_frame.grid(row=3, column=1, padx=(3, 5), pady=1, sticky="ew")
+        code_frame.grid(row=3, column=1, padx=(5, 15), pady=3, sticky="ew")
         code_frame.grid_columnconfigure(0, weight=1)
-        self.entry_code = ctk.CTkEntry(code_frame, font=f_val, height=35)
-        self.entry_code.grid(row=0, column=0, sticky="ew", padx=(0, 3))
+        self.entry_code = ctk.CTkEntry(code_frame, font=f_val, height=35) # Entry código: height=35px
+        self.entry_code.grid(row=0, column=0, sticky="ew", padx=(0, 5))
         ctk.CTkButton(code_frame, text="✓", width=40, height=35, font=f_val, command=self.apply_code_change).grid(
             row=0, column=1
         )
 
         ctk.CTkLabel(self.detail_frame, text="Poços agrupados:", font=f_label).grid(
-            row=4, column=0, padx=(5, 3), pady=1, sticky="e"
+            row=4, column=0, padx=(15, 5), pady=1, sticky="e"
         )
         self.lbl_group = ctk.CTkLabel(self.detail_frame, text="-", font=f_val)
-        self.lbl_group.grid(row=4, column=1, padx=(3, 5), pady=1, sticky="w")
+        self.lbl_group.grid(row=4, column=1, padx=(5, 15), pady=1, sticky="w")
 
         ctk.CTkLabel(self.detail_frame, text="Resultados:", font=f_label).grid(
-            row=5, column=0, columnspan=2, padx=5, pady=(1, 1), sticky="w"
+            row=5, column=0, columnspan=2, padx=15, pady=(1, 1), sticky="w"
         )
 
+        # TreeView (Tabela de Resultados)
         tree_frame = ctk.CTkFrame(self.detail_frame)
-        tree_frame.grid(row=6, column=0, columnspan=2, padx=5, pady=(0, 5), sticky="nsew")
+        tree_frame.grid(row=6, column=0, columnspan=2, padx=15, pady=(0, 5), sticky="nsew")
         tree_frame.grid_rowconfigure(0, weight=1)
         tree_frame.grid_columnconfigure(0, weight=1)
 
@@ -1039,14 +985,16 @@ class PlateView(ctk.CTkFrame):
             foreground="black",
             background="white",
             fieldbackground="white",
-            font=("Segoe UI", 15),
-            rowheight=42,
+            font=("Segoe UI", 15), # Fonte: 15px
+            rowheight=42, # Rowheight: 42px
         )
         style.configure("Treeview.Heading", foreground="black", background="#f0f0f0", font=("Segoe UI", 15, "bold"))
-        self.tree = ttk.Treeview(tree_frame, columns=("alvo", "resultado", "ct"), show="headings", selectmode="browse", height=28)
+        # Altura: 48 linhas
+        self.tree = ttk.Treeview(tree_frame, columns=("alvo", "resultado", "ct"), show="headings", selectmode="browse", height=88)
         self.tree.heading("alvo", text="Alvo")
         self.tree.heading("resultado", text="Resultado")
         self.tree.heading("ct", text="CT")
+        # Colunas: 65px / 95px / 70px
         self.tree.column("alvo", width=65, anchor="w")
         self.tree.column("resultado", width=95, anchor="center")
         self.tree.column("ct", width=70, anchor="center")
@@ -1056,37 +1004,40 @@ class PlateView(ctk.CTkFrame):
         vsb.grid(row=0, column=1, sticky="ns")
         self.tree.bind("<<TreeviewSelect>>", self.on_tree_select)
 
+        # Edit Frame
         edit_frame = ctk.CTkFrame(self.detail_frame)
-        edit_frame.grid(row=7, column=0, columnspan=2, padx=5, pady=(1, 3), sticky="ew")
+        edit_frame.grid(row=7, column=0, columnspan=2, padx=15, pady=(2, 2), sticky="ew")
         edit_frame.grid_columnconfigure(1, weight=1)
         edit_frame.grid_columnconfigure(3, weight=1)
         
         # Campo de Alvo (editável)
-        ctk.CTkLabel(edit_frame, text="Alvo:", font=f_label).grid(row=0, column=0, padx=3, pady=3, sticky="e")
-        self.entry_target = ctk.CTkEntry(edit_frame, width=120, font=f_val, height=35)
-        self.entry_target.grid(row=0, column=1, padx=3, pady=3, sticky="ew")
+        ctk.CTkLabel(edit_frame, text="Alvo:", font=f_label).grid(row=0, column=0, padx=5, pady=2, sticky="e")
+        self.entry_target = ctk.CTkEntry(edit_frame, width=120, font=f_val, height=35) # Entries: height=35px
+        self.entry_target.grid(row=0, column=1, padx=5, pady=2, sticky="ew")
         
         # Campo de Resultado
-        ctk.CTkLabel(edit_frame, text="Resultado:", font=f_label).grid(row=1, column=0, padx=3, pady=3, sticky="e")
-        self.entry_res = ctk.CTkEntry(edit_frame, width=90, font=f_val, height=35)
-        self.entry_res.grid(row=1, column=1, padx=3, pady=3, sticky="ew")
+        ctk.CTkLabel(edit_frame, text="Resultado:", font=f_label).grid(row=1, column=0, padx=5, pady=2, sticky="e")
+        self.entry_res = ctk.CTkEntry(edit_frame, width=90, font=f_val, height=35) # Entries: height=35px
+        self.entry_res.grid(row=1, column=1, padx=5, pady=2, sticky="ew")
         
         # Campo de CT
-        ctk.CTkLabel(edit_frame, text="CT:", font=f_label).grid(row=1, column=2, padx=(5, 3), pady=3, sticky="e")
-        self.entry_ct = ctk.CTkEntry(edit_frame, width=90, font=f_val, height=35)
-        self.entry_ct.grid(row=1, column=3, padx=3, pady=3, sticky="ew")
+        ctk.CTkLabel(edit_frame, text="CT:", font=f_label).grid(row=1, column=2, padx=(10, 5), pady=2, sticky="e")
+        self.entry_ct = ctk.CTkEntry(edit_frame, width=90, font=f_val, height=35) # Entries: height=35px
+        self.entry_ct.grid(row=1, column=3, padx=5, pady=2, sticky="ew")
         
+        # Botão Aplicar
         ctk.CTkButton(
             edit_frame, text="Aplicar", font=ctk.CTkFont(family="Segoe UI", size=12, weight="bold"), height=38, command=self.apply_target_changes
-        ).grid(row=2, column=0, columnspan=4, pady=(5, 3))
+        ).grid(row=2, column=0, columnspan=4, pady=(5, 2))
 
+        # Botão Salvar edições
         ctk.CTkButton(
             self.detail_frame,
             text="Salvar edições (apenas memória)",
             font=ctk.CTkFont(family="Segoe UI", size=12, weight="bold"),
             height=40,
             command=self._on_save_clicked,
-        ).grid(row=8, column=0, columnspan=2, padx=5, pady=(0, 4))
+        ).grid(row=8, column=0, columnspan=2, padx=15, pady=(0, 4))
 
     def _calc_total_samples(self) -> int:
         # total de grupos = total_wells / group_size
@@ -1329,8 +1280,9 @@ class PlateWindow(ctk.CTkToplevel):
         self._is_closing = False
         self.protocol("WM_DELETE_WINDOW", self._on_close_window)
         
+        # Estrutura Geral da Janela: Padding externo: padx=10px, pady=2px
         view = PlateView(self, plate_model, meta)
-        view.pack(fill="both", expand=True, padx=5, pady=3)
+        view.pack(fill="both", expand=True, padx=10, pady=2)
     
     def _on_close_window(self):
         """Fecha a janela com segurança."""

@@ -42,6 +42,10 @@ from services.universal_engine import UniversalEngine
 
 from services.system_paths import BASE_DIR
 
+from services.equipment_detector import detectar_equipamento
+
+from services.equipment_registry import EquipmentRegistry
+
 from utils.io_utils import read_data_with_auto_detection
 
 from utils.logger import registrar_log
@@ -266,7 +270,11 @@ class AnalysisService:
 
         # 1. Carregar dados brutos dos arquivos
 
-        df_resultados = self._carregar_arquivo_resultados(arquivo_resultados)
+        # 1.1. Usar extrator específico se tipo de placa foi detectado (Fase 1.5)
+
+        df_resultados = self._carregar_arquivo_resultados_com_extrator(arquivo_resultados)
+
+        
 
         df_extracao = (
 
@@ -302,7 +310,35 @@ class AnalysisService:
 
 
 
-        # 3. Montar objeto AnaliseResultado
+        # 3. Montar objeto AnaliseResultado com metadados de equipamento (Fase 1.5)
+
+        metadados_completos = resultado_engine.metadados.copy()
+
+        
+
+        # Injetar informações de equipamento detectado nos metadados
+
+        if self.app_state.tipo_de_placa_detectado:
+
+            metadados_completos['equipamento_detectado'] = self.app_state.tipo_de_placa_detectado
+
+            metadados_completos['equipamento_selecionado'] = self.app_state.tipo_de_placa_selecionado
+
+            
+
+            if self.app_state.tipo_de_placa_config:
+
+                config = self.app_state.tipo_de_placa_config
+
+                metadados_completos['equipamento_modelo'] = config.modelo
+
+                metadados_completos['equipamento_fabricante'] = config.fabricante
+
+                metadados_completos['equipamento_tipo_placa'] = config.tipo_placa
+
+                metadados_completos['equipamento_extrator'] = config.extrator_nome
+
+        
 
         analise_resultado = AnaliseResultado(
 
@@ -310,7 +346,7 @@ class AnalysisService:
 
             resumo=resultado_engine.resumo,
 
-            metadados=resultado_engine.metadados,
+            metadados=metadados_completos,
 
             caminho_entrada_resultados=arquivo_resultados,
 
@@ -470,6 +506,40 @@ class AnalysisService:
 
 
 
+        # 3.1. Detectar tipo de placa PCR automaticamente
+
+        tipo_placa_selecionado = self._detectar_e_confirmar_tipo_placa(
+
+            arquivo_resultados=arquivo_resultados,
+
+            parent_window=parent_window,
+
+        )
+
+
+
+        if tipo_placa_selecionado:
+
+            registrar_log(
+
+                "info",
+
+                f"[AnalysisService] Prosseguindo com tipo de placa: {tipo_placa_selecionado}",
+
+            )
+
+        else:
+
+            registrar_log(
+
+                "info",
+
+                "[AnalysisService] Prosseguindo sem detecção de tipo de placa (fallback genérico)",
+
+            )
+
+
+
         # 4. Delegar para o novo fluxo de análise
 
         analise = self.analisar_corrida(
@@ -543,6 +613,334 @@ class AnalysisService:
         )
 
         return df
+
+    
+
+    def _carregar_arquivo_resultados_com_extrator(self, caminho: Path) -> pd.DataFrame:
+
+        """
+
+        Carrega arquivo de resultados usando extrator específico quando disponível (Fase 1.5).
+
+        
+
+        Se app_state.tipo_de_placa_config existir, usa o extrator específico do equipamento
+
+        para normalizar dados para formato padrão ['bem', 'amostra', 'alvo', 'ct'].
+
+        
+
+        Caso contrário, faz fallback para leitura genérica com read_data_with_auto_detection.
+
+        
+
+        Args:
+
+            caminho: Path para arquivo de resultados
+
+            
+
+        Returns:
+
+            DataFrame normalizado (com extrator específico) ou DataFrame bruto (fallback)
+
+        """
+
+        registrar_log(
+
+            "info",
+
+            f"[AnalysisService] Carregando arquivo de resultados: '{caminho}'",
+
+        )
+
+
+
+        if not caminho.exists():
+
+            msg = f"Arquivo de resultados não encontrado: {caminho}"
+
+            registrar_log("erro", f"[AnalysisService] {msg}")
+
+            raise FileNotFoundError(msg)
+
+        
+
+        # Fase 1.5: Verificar se há tipo de placa detectado
+
+        if (
+
+            hasattr(self.app_state, 'tipo_de_placa_config') 
+
+            and self.app_state.tipo_de_placa_config is not None
+
+        ):
+
+            try:
+
+                from services.equipment_extractors import extrair_dados_equipamento
+
+                
+
+                config = self.app_state.tipo_de_placa_config
+
+                equipamento = self.app_state.tipo_de_placa_selecionado
+
+                
+
+                registrar_log(
+
+                    "info",
+
+                    f"[AnalysisService] Usando extrator específico para: {equipamento}",
+
+                )
+
+                
+
+                # Usar extrator específico
+
+                df_normalizado = extrair_dados_equipamento(str(caminho), config)
+
+                
+
+                registrar_log(
+
+                    "info",
+
+                    f"[AnalysisService] Extração específica concluída: {len(df_normalizado)} linhas, "
+
+                    f"colunas={list(df_normalizado.columns)}",
+
+                )
+
+                
+
+                return df_normalizado
+
+                
+
+            except Exception as exc:
+
+                registrar_log(
+
+                    "aviso",
+
+                    f"[AnalysisService] Falha no extrator específico: {exc}. "
+
+                    "Fazendo fallback para leitura genérica.",
+
+                )
+
+                # Continua para fallback
+
+        
+
+        # Fallback: leitura genérica
+
+        registrar_log(
+
+            "info",
+
+            "[AnalysisService] Usando leitura genérica (sem extrator específico)",
+
+        )
+
+        
+
+        df = read_data_with_auto_detection(caminho)
+
+        
+
+        registrar_log(
+
+            "debug",
+
+            f"[AnalysisService] Arquivo de resultados carregado com shape={df.shape}",
+
+        )
+
+        
+
+        return df
+
+
+
+    def _detectar_e_confirmar_tipo_placa(
+
+        self,
+
+        arquivo_resultados: Path,
+
+        parent_window: Any,
+
+    ) -> Optional[str]:
+
+        """
+
+        Detecta automaticamente o tipo de placa PCR e solicita confirmação do usuário.
+
+
+
+        Fluxo:
+
+        1. Chama detectar_equipamento() no arquivo
+
+        2. Exibe dialog com detecção + alternativas
+
+        3. Permite escolha manual se necessário
+
+        4. Salva no app_state: tipo_de_placa_detectado, tipo_de_placa_config, tipo_de_placa_selecionado
+
+
+
+        Returns:
+
+            Nome do equipamento selecionado ou None se cancelado/falhou
+
+        """
+
+        try:
+
+            registrar_log(
+
+                "info",
+
+                f"[AnalysisService] Detectando tipo de placa em: {arquivo_resultados.name}",
+
+            )
+
+
+
+            # 1. Executar detecção automática
+
+            resultado_deteccao = detectar_equipamento(str(arquivo_resultados))
+
+
+
+            if not resultado_deteccao or not resultado_deteccao.get('equipamento'):
+
+                registrar_log(
+
+                    "aviso",
+
+                    "[AnalysisService] Detecção de tipo de placa falhou ou não encontrou match",
+
+                )
+
+                return None
+
+
+
+            # 2. Carregar registry para obter lista de equipamentos disponíveis
+
+            registry = EquipmentRegistry()
+
+            registry.load()
+
+            equipamentos_disponiveis = registry.listar_equipamentos()
+
+
+
+            # 3. Exibir dialog de confirmação
+
+            from ui.equipment_detection_dialog import EquipmentDetectionDialog
+
+
+
+            dialog = EquipmentDetectionDialog(
+
+                master=parent_window,
+
+                deteccao_resultado=resultado_deteccao,
+
+                equipamentos_disponiveis=equipamentos_disponiveis,
+
+                arquivo_nome=arquivo_resultados.name,
+
+            )
+
+
+
+            equipamento_selecionado = dialog.get_selecao()
+
+
+
+            if not equipamento_selecionado:
+
+                registrar_log(
+
+                    "info",
+
+                    "[AnalysisService] Usuário cancelou seleção de tipo de placa",
+
+                )
+
+                return None
+
+
+
+            # 4. Carregar configuração do equipamento selecionado
+
+            equipment_config = registry.get(equipamento_selecionado)
+
+
+
+            if not equipment_config:
+
+                registrar_log(
+
+                    "erro",
+
+                    f"[AnalysisService] Configuração não encontrada para: {equipamento_selecionado}",
+
+                )
+
+                return None
+
+
+
+            # 5. Salvar no app_state
+
+            self.app_state.tipo_de_placa_detectado = resultado_deteccao.get('equipamento')
+
+            self.app_state.tipo_de_placa_config = equipment_config
+
+            self.app_state.tipo_de_placa_selecionado = equipamento_selecionado
+
+
+
+            registrar_log(
+
+                "info",
+
+                f"[AnalysisService] Tipo de placa confirmado: {equipamento_selecionado} "
+
+                f"(detectado: {resultado_deteccao.get('equipamento')}, "
+
+                f"confiança: {resultado_deteccao.get('confianca', 0)*100:.1f}%)",
+
+            )
+
+
+
+            return equipamento_selecionado
+
+
+
+        except Exception as exc:
+
+            registrar_log(
+
+                "erro",
+
+                f"[AnalysisService] Erro na detecção de tipo de placa: {exc}",
+
+            )
+
+            # Não propaga erro - continua sem detecção
+
+            return None
 
 
 

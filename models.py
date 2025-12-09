@@ -21,12 +21,19 @@ class AppState:
         # Optional overrides for control wells (lists of well names)
         self.control_cn_wells: Optional[list[str]] = None
         self.control_cp_wells: Optional[list[str]] = None
+        # Equipment/Plate type detection (Fase 1.4)
+        self.tipo_de_placa_detectado: Optional[str] = None  # Nome detectado automaticamente
+        self.tipo_de_placa_config: Optional[object] = None  # EquipmentConfig object
+        self.tipo_de_placa_selecionado: Optional[str] = None  # Nome confirmado pelo usuário
 
     def reset_analise_state(self):
         """Reseta o estado relacionado a uma análise específica."""
         self.resultados_analise = None
         self.lote_kit = None
         self.exame_selecionado = None
+        self.tipo_de_placa_detectado = None
+        self.tipo_de_placa_config = None
+        self.tipo_de_placa_selecionado = None
 
     def reset_extracao_state(self):
         """Reseta o estado da extração e da análise."""

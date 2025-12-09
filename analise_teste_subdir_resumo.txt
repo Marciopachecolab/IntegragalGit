@@ -1,0 +1,50 @@
+================================================================================
+RESUMO ANÁLISE SUBDIRETÓRIO TESTE
+================================================================================
+
+Total arquivos: 23
+Sucesso: 23
+Erros validação: 0
+Erros fatais: 0
+
+EQUIPAMENTOS DETECTADOS:
+
+7500: 15 arquivo(s)
+  Confiança média: 15.0%
+  - placa_20251205T205948.xlsx: 15.0%
+  - placa_20251205T210539.xlsx: 15.0%
+  - placa_20251206T151531.xlsx: 15.0%
+  - placa_20251206T154456.xlsx: 15.0%
+  - placa_20251206T161711.xlsx: 15.0%
+  - placa_20251206T162323.xlsx: 15.0%
+  - placa_20251206T163259.xlsx: 15.0%
+  - placa_20251206T163746.xlsx: 15.0%
+  - placa_20251206T164639.xlsx: 15.0%
+  - placa_20251206T165838.xlsx: 15.0%
+  - placa_20251206T173133.xlsx: 15.0%
+  - placa_20251206T174029.xlsx: 15.0%
+  - placa_20251206T174831.xlsx: 15.0%
+  - placa_20251206T180239.xlsx: 15.0%
+  - placa_teste.xlsx: 15.0%
+
+7500_Extended: 3 arquivo(s)
+  Confiança média: 100.0%
+  - 20250718 VR1-VR2 BIOM PLACA 5.xls: 100.0%
+  - ext 72 placa 624 teste.xls: 100.0%
+  - ext 72 placa 624.xls: 100.0%
+
+QuantStudio: 2 arquivo(s)
+  Confiança média: 100.0%
+  - 20210809 COVID BIO M PLACA 8_Copy_20210809_182622_Results_20210809 202116.xls: 100.0%
+  - 20210809 COVID BIO M PLACA 8_Copy_20210809_182622_Resytryrtyrtyreytults_20210809 2021adadfadasdasd16.xls: 100.0%
+
+CFX96: 2 arquivo(s)
+  Confiança média: 100.0%
+  - SC2 20200729-MANAGER.xls: 100.0%
+  - SC2 20200729-MANAGER.xlsx: 100.0%
+
+CFX96_Export: 1 arquivo(s)
+  Confiança média: 77.5%
+  - exemploseegene.xlsx: 77.5%
+
+================================================================================

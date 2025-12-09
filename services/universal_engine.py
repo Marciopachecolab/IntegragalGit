@@ -28,6 +28,10 @@ from services.config_loader import (
 
 from services.exam_registry import get_exam_cfg
 
+from services.formula_parser import avaliar_formula, validar_formula
+
+from services.rules_engine import aplicar_regras, RulesResult
+
 from utils.logger import registrar_log
 
 # ================================================================
@@ -51,6 +55,9 @@ def _normalize_col_key(name: str) -> str:
         translation = str.maketrans({ord("с"): "c", ord("С"): "c", ord("т"): "t", ord("Т"): "t"})
 
         s = str(name).strip().translate(translation)
+        
+        # Remove parênteses de C(t) -> Ct para normalização uniforme
+        s = s.replace("(", "").replace(")", "")
 
         return s.casefold().replace(" ", "").replace("_", "")
 
@@ -1677,6 +1684,108 @@ def _legacy_montar_df(
 
 # =====================================================================
 
+# Helpers para integração com Rules Engine
+
+# =====================================================================
+
+
+def _preparar_dados_para_regras(df_final: pd.DataFrame, meta: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Prepara dados do resultado da análise para aplicação de regras.
+    
+    Args:
+        df_final: DataFrame com resultados finais
+        meta: Dict com metadados
+        
+    Returns:
+        Dict estruturado com alvos e controles
+    """
+    resultados = {
+        'alvos': {},
+        'controles': {},
+        'metadados': meta
+    }
+    
+    try:
+        # Processar cada linha do DataFrame
+        for _, row in df_final.iterrows():
+            tipo_alvo = str(row.get('Alvo', '')).strip()
+            ct_valor = row.get('Ct', None)
+            resultado = str(row.get('Resultado', '')).strip()
+            
+            # Tentar converter CT para float
+            try:
+                if ct_valor is not None and str(ct_valor).strip():
+                    ct_float = float(ct_valor)
+                else:
+                    ct_float = None
+            except (ValueError, TypeError):
+                ct_float = None
+            
+            # Classificar como alvo ou controle
+            tipo_lower = tipo_alvo.lower()
+            is_controle = any(palavra in tipo_lower for palavra in ['controle', 'control', 'ic', 'pc', 'nc'])
+            
+            dados_alvo = {
+                'ct': ct_float,
+                'resultado': resultado,
+                'tipo': tipo_alvo
+            }
+            
+            if is_controle:
+                resultados['controles'][tipo_alvo] = {
+                    'ct': ct_float,
+                    'status': resultado,
+                    'tipo': tipo_alvo
+                }
+            else:
+                resultados['alvos'][tipo_alvo] = dados_alvo
+        
+        registrar_log(
+            "UniversalEngine",
+            f"Dados preparados: {len(resultados['alvos'])} alvos, {len(resultados['controles'])} controles",
+            "INFO"
+        )
+        
+    except Exception as e:
+        registrar_log(
+            "UniversalEngine",
+            f"Erro preparando dados para regras: {e}",
+            "ERROR"
+        )
+    
+    return resultados
+
+
+def _obter_regras_exame(exame: str, cfg: Any) -> Optional[Dict[str, Any]]:
+    """
+    Obtém regras configuradas para um exame.
+    
+    Args:
+        exame: Nome do exame
+        cfg: Configuração do exame
+        
+    Returns:
+        Dict com regras ou None se não houver regras
+    """
+    # Por enquanto retorna None, mas poderia carregar de um arquivo de configuração
+    # Isso seria expandido futuramente para ler regras de exames_metadata
+    try:
+        regras = getattr(cfg, 'regras_validacao', None)
+        if regras:
+            return regras
+    except Exception as e:
+        registrar_log(
+            "UniversalEngine",
+            f"Erro obtendo regras para {exame}: {e}",
+            "DEBUG"
+        )
+    
+    return None
+
+
+# =====================================================================
+
 # Classe principal
 
 # =====================================================================
@@ -2094,8 +2203,60 @@ class UniversalEngine:
             pass
 
         resumo = {"status_corrida": meta.get("status_corrida", ""), "lote": lote or ""}
+        
+        # ================================================================
+        # INTEGRAÇÃO FASE 2: Aplicar Rules Engine
+        # ================================================================
+        regras_resultado = None
+        try:
+            # Obter regras configuradas para o exame
+            regras_dict = _obter_regras_exame(exame, cfg)
+            
+            if regras_dict:
+                # Preparar dados para aplicação de regras
+                dados_regras = _preparar_dados_para_regras(df_final, meta)
+                
+                # Aplicar regras
+                regras_resultado = aplicar_regras(regras_dict, dados_regras)
+                
+                # Adicionar resultado das regras aos metadados
+                meta["regras_status"] = regras_resultado.status
+                meta["regras_validacoes"] = len(regras_resultado.validacoes)
+                meta["regras_tempo_ms"] = regras_resultado.tempo_execucao_ms
+                
+                if regras_resultado.mensagens_erro:
+                    meta["regras_erros"] = regras_resultado.mensagens_erro
+                if regras_resultado.mensagens_aviso:
+                    meta["regras_avisos"] = regras_resultado.mensagens_aviso
+                
+                registrar_log(
+                    "UniversalEngine",
+                    f"Regras aplicadas: {regras_resultado.status} ({regras_resultado.detalhes})",
+                    "INFO"
+                )
+            else:
+                registrar_log(
+                    "UniversalEngine",
+                    f"Nenhuma regra configurada para exame {exame}",
+                    "DEBUG"
+                )
+                
+        except Exception as e:
+            registrar_log(
+                "UniversalEngine",
+                f"Erro aplicando regras: {e}",
+                "WARNING"
+            )
+            meta["regras_erro"] = str(e)
+        
+        # ================================================================
 
-        return SimpleNamespace(df_final=df_final, resumo=resumo, metadados=meta)
+        return SimpleNamespace(
+            df_final=df_final, 
+            resumo=resumo, 
+            metadados=meta,
+            regras_resultado=regras_resultado
+        )
 
 
 
