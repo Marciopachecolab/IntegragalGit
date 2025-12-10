@@ -895,3 +895,10 @@
 # uploads/
 # downloads/
 
+# Config backups
+config/backups/*.json
+config_backup_*.json
+
+# Other backups
+*_backup.py
+*_backup.json
