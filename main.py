@@ -10,6 +10,11 @@ from services.system_paths import BASE_DIR
 from ui.main_window import criar_aplicacao_principal
 from utils.logger import registrar_log
 
+# Aplicar filtro para suprimir erros cosméticos do CustomTkinter
+# Esses erros não afetam a funcionalidade mas poluem o console
+from utils.suppress_ctk_errors import aplicar_filtro_global
+aplicar_filtro_global()
+
 
 # Backward compatibility - redireciona para módulos específicos
 def _formatar_para_gal(df, exam_cfg=None, exame: str | None = None):

@@ -89,14 +89,11 @@ class TabelaComSelecaoSimulada(AfterManagerMixin, ctk.CTkToplevel):
         arquivo_corrida: str = "",
 
     ):
-
         super().__init__(master=root)
-
         self.title("RT-PCR - Análise com Seleção Simulada")
-
-        self.state("zoomed")
-
-
+        
+        # Armazenar referência ao parent para limpeza posterior
+        self._parent = root
 
         self.df = dataframe.copy()
 
@@ -142,20 +139,25 @@ class TabelaComSelecaoSimulada(AfterManagerMixin, ctk.CTkToplevel):
 
         self.arquivo_corrida = arquivo_corrida
 
-
-
-        self.transient(root)
-
-        self.grab_set()
-
-
-
+        # Criar interface primeiro
         self._criar_widgets()
-
         self._popular_tabela()
-
-
-
+        
+        # Configurar comportamento da janela DEPOIS de criar widgets
+        self.transient(root)
+        self.grab_set()
+        
+        # Maximizar por último para evitar problemas com transient/grab
+        # Proteger contra "invalid command name" se janela for destruída antes do callback
+        def maximizar_seguro():
+            try:
+                if self.winfo_exists():
+                    self.state("zoomed")
+            except Exception:
+                pass
+        
+        self.after(100, maximizar_seguro)
+        
         self.protocol("WM_DELETE_WINDOW", self._on_close)
 
 
@@ -301,32 +303,53 @@ class TabelaComSelecaoSimulada(AfterManagerMixin, ctk.CTkToplevel):
 
 
     def _popular_tabela(self):
-
         for col in self.df.columns:
-
             self.tree.heading(
-
                 col,
-
                 text=col,
-
                 command=lambda _col=col: self._ordenar_coluna(_col, False),
-
             )
-
             self.tree.column(col, width=100, anchor="center")
 
-
-
         for index, row in self.df.iterrows():
-
             row_values = list(row)
-
             if isinstance(row_values[0], bool):
-
                 row_values[0] = "V" if row_values[0] else ""
-
             self.tree.insert("", "end", values=row_values, iid=str(index))
+    
+    def recarregar_dados(self, novo_df):
+        """Recarrega a tabela com novos dados sem fechar a janela."""
+        try:
+            # Limpar tabela existente
+            for item in self.tree.get_children():
+                self.tree.delete(item)
+            
+            # Atualizar DataFrame
+            self.df = novo_df.copy()
+            
+            # Adicionar coluna de seleção se não existir
+            if "Selecionado" not in self.df.columns:
+                result_cols = [
+                    c for c in self.df.columns if str(c).startswith("Resultado_")
+                ]
+                selecoes = []
+                for _, r in self.df.iterrows():
+                    inval = any(
+                        _norm_res_label(r.get(c, "")) == "invalido" for c in result_cols
+                    )
+                    selecoes.append(False if inval else True)
+                self.df.insert(0, "Selecionado", selecoes)
+            
+            # Repopular tabela
+            self._popular_tabela()
+            
+            # Atualizar título com timestamp
+            from datetime import datetime
+            timestamp = datetime.now().strftime("%H:%M:%S")
+            self.title(f"RT-PCR - Análise com Seleção Simulada (Atualizado: {timestamp})")
+            
+        except Exception as e:
+            registrar_log("TabelaComSelecaoSimulada", f"Erro ao recarregar dados: {e}", "ERROR")
 
 
 
@@ -788,7 +811,24 @@ class TabelaComSelecaoSimulada(AfterManagerMixin, ctk.CTkToplevel):
                 except Exception as e:
                     registrar_log("Mapa Placa", f"Erro ao sincronizar alterações: {e}", "ERROR")
             
-            abrir_placa_ctk(df_to_use, meta_extra=meta, group_size=bloco_tam, parent=self, on_save_callback=on_plate_save)
+            # CRÍTICO: Liberar grab antes de abrir janela filha para evitar conflito modal
+            # Solução baseada na análise de problemas comuns do Tkinter com grab_set
+            self.grab_release()
+            
+            # Função segura para restaurar grab sem causar "invalid command name"
+            def restaurar_grab_seguro():
+                try:
+                    if self.winfo_exists():
+                        self.grab_set()
+                except Exception:
+                    pass  # Janela foi destruída, ignorar silenciosamente
+            
+            try:
+                abrir_placa_ctk(df_to_use, meta_extra=meta, group_size=bloco_tam, parent=self, on_save_callback=on_plate_save)
+            finally:
+                # Restaurar grab após PlateWindow ser criada
+                # Usar after() para garantir que a janela filho foi completamente inicializada
+                self.after(100, restaurar_grab_seguro)
 
             registrar_log("Mapa Placa", "Mapa exibido na janela CTk", "INFO")
 
@@ -805,14 +845,50 @@ class TabelaComSelecaoSimulada(AfterManagerMixin, ctk.CTkToplevel):
 
 
     def _on_close(self):
-
+        # Cancelar callbacks pendentes do AfterManagerMixin
         self.dispose()
-
-        self.grab_release()
-
-        if self.winfo_exists():
-
-            self.destroy()
+        
+        # Limpar referência e flag no MenuHandler se aplicável
+        if hasattr(self._parent, 'menu_handler'):
+            try:
+                if hasattr(self._parent.menu_handler, '_resultado_window'):
+                    if self._parent.menu_handler._resultado_window is self:
+                        self._parent.menu_handler._resultado_window = None
+                # Limpar flag de criação também
+                if hasattr(self._parent.menu_handler, '_criando_janela_resultado'):
+                    self._parent.menu_handler._criando_janela_resultado = False
+            except Exception:
+                pass
+        
+        # Liberar grab antes de ocultar
+        try:
+            self.grab_release()
+        except Exception:
+            pass
+        
+        # SOLUÇÃO: Ocultar janela imediatamente (usuário vê como "fechou")
+        # Isso previne interação mas mantém widget Tcl vivo para callbacks terminarem
+        try:
+            self.withdraw()
+        except Exception:
+            pass
+        
+        # Destruir após delay para permitir callbacks internos do CustomTkinter terminarem
+        # CustomTkinter agenda update() a cada 30ms e check_dpi_scaling() a cada 100ms
+        # 300ms garante que callbacks pendentes terminem antes do destroy()
+        def destruir_seguro():
+            try:
+                if self.winfo_exists():
+                    self.destroy()
+            except Exception:
+                pass
+        
+        # Usar after() com delay explícito (after_idle não é suficiente)
+        try:
+            self.after(300, destruir_seguro)
+        except Exception:
+            # Se after() falhar, destruir imediatamente
+            destruir_seguro()
 
 
 

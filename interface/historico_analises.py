@@ -104,6 +104,33 @@ class HistoricoAnalises(ctk.CTkToplevel):
         )
         btn_fechar.grid(row=0, column=3, padx=(10, 30))
     
+    def dispose(self):
+        """Cancela todos os callbacks agendados."""
+        for aid in self._after_ids:
+            try:
+                self.after_cancel(aid)
+            except Exception:
+                pass
+        self._after_ids.clear()
+    
+    def schedule(self, delay_ms: int, callback, *args, **kwargs):
+        """Agendar callback e registrar para cancelamento posterior."""
+        aid = self.after(delay_ms, callback, *args, **kwargs)
+        self._after_ids.add(aid)
+        return aid
+    
+    def _on_close(self):
+        """Fecha a janela com segurança."""
+        try:
+            # Cancelar callbacks pendentes
+            self.dispose()
+            
+            # Destruir janela
+            if self.winfo_exists():
+                self.destroy()
+        except Exception:
+            pass
+    
     def _criar_filtros(self):
         """Cria seção de filtros"""
         frame_filtros = ctk.CTkFrame(

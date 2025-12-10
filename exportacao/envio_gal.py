@@ -692,6 +692,13 @@ class GalService:
 # ==============================================================================
 class IntegrationApp(ctk.CTkToplevel):
     def __init__(self, master, usuario_logado: str, app_state: Optional[Any] = None):
+        # Importar AfterManagerMixin dinamicamente para evitar circular imports
+        from utils.after_mixin import AfterManagerMixin
+        
+        # Atualizar a herança com AfterManagerMixin no __init__
+        # Como não podemos alterar a lista de herança aqui, vamos usar composição
+        self._after_ids = set()
+        
         super().__init__(master)
         self.title("Envio de Resultados para o GAL")
         self.geometry("900x800")
@@ -704,6 +711,10 @@ class IntegrationApp(ctk.CTkToplevel):
         self.observacao: str = ""
         self.relatorio_filename: str = ""
         
+        # Flag para controle de thread em execução
+        self._processing = False
+        self._thread = None
+        
         # Carrega config do exame se disponível
         self.exam_cfg = None
         if self.app_state:
@@ -715,7 +726,7 @@ class IntegrationApp(ctk.CTkToplevel):
                 self.exam_cfg = None
 
         self._criar_widgets()
-        self.protocol("WM_DELETE_WINDOW", self.destroy)
+        self.protocol("WM_DELETE_WINDOW", self._on_close)
 
     def _criar_widgets(self):
         self.grid_columnconfigure(0, weight=1)
@@ -852,6 +863,51 @@ class IntegrationApp(ctk.CTkToplevel):
             f"Arquivo '{os.path.basename(path)}' pronto para envio.", "info"
         )
 
+    def _on_close(self):
+        """Fecha a janela com segurança, cancelando callbacks e threads."""
+        try:
+            # Cancelar todos os callbacks agendados (via AfterManagerMixin pattern)
+            for aid in self._after_ids:
+                try:
+                    self.after_cancel(aid)
+                except Exception:
+                    pass
+            self._after_ids.clear()
+            
+            # Avisar se há processamento em andamento
+            if self._processing:
+                resposta = messagebox.askyesno(
+                    "Processamento em Andamento",
+                    "Há um envio em andamento. Deseja realmente fechar?\n\n"
+                    "Nota: O processamento continuará em segundo plano.",
+                    parent=self
+                )
+                if not resposta:
+                    return
+            
+            # Liberar grab se estiver ativo
+            try:
+                self.grab_release()
+            except Exception:
+                pass
+            
+            # Destruir janela
+            if self.winfo_exists():
+                self.destroy()
+        except Exception as e:
+            registrar_log("IntegrationApp", f"Erro ao fechar janela: {e}", "ERROR")
+            # Forçar destruição em caso de erro
+            try:
+                self.destroy()
+            except Exception:
+                pass
+    
+    def schedule(self, delay_ms: int, callback, *args, **kwargs):
+        """Agendar callback e registrar para cancelamento posterior."""
+        aid = self.after(delay_ms, callback, *args, **kwargs)
+        self._after_ids.add(aid)
+        return aid
+    
     def iniciar_processamento(self):
         usuario = self.usuario_entry.get().strip()
         senha = self.senha_entry.get().strip()
@@ -863,6 +919,7 @@ class IntegrationApp(ctk.CTkToplevel):
             )
             return
 
+        self._processing = True
         self._update_progress("A iniciar...", 0.0)
         self.start_button.configure(state="disabled")
         self.csv_button.configure(state="disabled")
@@ -870,10 +927,10 @@ class IntegrationApp(ctk.CTkToplevel):
         self.log_text.delete("1.0", "end")
         self.log_text.configure(state="disabled")
 
-        thread = threading.Thread(
+        self._thread = threading.Thread(
             target=self._processar_em_background, args=(usuario, senha), daemon=True
         )
-        thread.start()
+        self._thread.start()
 
     def _processar_em_background(self, usuario: str, senha: str):
         driver = None
@@ -960,6 +1017,7 @@ class IntegrationApp(ctk.CTkToplevel):
             self._update_progress(f"ERRO CRÍTICO: {error_message}", 1.0, "red")
             self.log_to_textbox(f"ERRO CRÍTICO NO PROCESSAMENTO: {e}", "critical")
         finally:
+            self._processing = False
             if driver:
                 driver.quit()
             self.after(0, lambda: self.usuario_entry.delete(0, "end"))
@@ -974,6 +1032,7 @@ class IntegrationApp(ctk.CTkToplevel):
 def abrir_janela_envio_gal(master, usuario_logado, app_state: Optional[Any] = None):
     janela = IntegrationApp(master, usuario_logado, app_state)
     janela.grab_set()
+    return janela
 
 
 if __name__ == "__main__":

@@ -29,6 +29,15 @@ class MenuHandler:
         # AnalysisService agora requer o AppState para operar corretamente.
         # Passamos o estado atual da aplicação (main_window.app_state).
         self.analysis_service = AnalysisService(self.main_window.app_state)
+        
+        # Controle de instâncias únicas de janelas
+        self._resultado_window = None
+        self._gal_window = None
+        
+        # Flags para prevenir race condition
+        self._criando_janela_resultado = False
+        self._criando_janela_gal = False
+        
         self._criar_botoes_menu()
 
     def _criar_botoes_menu(self):
@@ -205,7 +214,35 @@ class MenuHandler:
                     "INFO",
                 )
 
-                self.mostrar_resultados_analise()
+                # Só abrir janela se não houver uma já aberta OU em criação
+                if self._criando_janela_resultado:
+                    # Janela já está sendo criada, ignorar
+                    registrar_log("UI Main", "Janela de resultados já está sendo criada, aguardando...", "INFO")
+                    return
+                
+                if self._resultado_window and self._resultado_window.winfo_exists():
+                    # Recarregar dados na janela existente
+                    try:
+                        self._resultado_window.recarregar_dados(resultados_df)
+                        self._resultado_window.focus()
+                        self._resultado_window.lift()
+                        messagebox.showinfo(
+                            "Análise Concluída",
+                            "Nova análise concluída. Os resultados foram atualizados na janela existente.",
+                            parent=self.main_window
+                        )
+                    except Exception as e:
+                        registrar_log("UI Main", f"Erro ao recarregar dados: {e}", "ERROR")
+                        # Se falhar ao recarregar, fechar janela antiga e abrir nova
+                        try:
+                            self._resultado_window.destroy()
+                        except Exception:
+                            pass
+                        self._resultado_window = None
+                        self.mostrar_resultados_analise()
+                else:
+                    # Criar nova janela
+                    self.mostrar_resultados_analise()
             else:
                 messagebox.showwarning(
                     "Aviso", "Nenhum resultado a exibir.", parent=self.main_window
@@ -249,24 +286,38 @@ class MenuHandler:
 
     def mostrar_resultados_analise(self):
         """Exibe os resultados da análise em tabela"""
+        # Verificar se já está criando janela (proteção contra race condition)
+        if self._criando_janela_resultado:
+            registrar_log("UI Main", "Janela de resultados já está sendo criada, ignorando chamada duplicada.", "INFO")
+            return
+        
+        # Verificar se janela de resultados já existe
+        if self._resultado_window and self._resultado_window.winfo_exists():
+            self._resultado_window.focus()
+            self._resultado_window.lift()
+            return
+        
+        df = self.main_window.app_state.resultados_analise
+        if df is None or df.empty:
+            messagebox.showwarning(
+                "Aviso", "Sem resultados para exibir.", parent=self.main_window
+            )
+            return
+
+        agravos = ["SC2", "HMPV", "INF A", "INF B", "ADV", "RSV", "HRV"]
+        status_corrida = "N/A"
+        num_placa = "N/A"
+        from datetime import datetime
+
+        data_placa_formatada = datetime.now().strftime("%d/%m/%Y")
+
+        from utils.gui_utils import TabelaComSelecaoSimulada
+
+        # Setar flag ANTES de criar janela (proteção contra race condition)
+        self._criando_janela_resultado = True
+        
         try:
-            df = self.main_window.app_state.resultados_analise
-            if df is None or df.empty:
-                messagebox.showwarning(
-                    "Aviso", "Sem resultados para exibir.", parent=self.main_window
-                )
-                return
-
-            agravos = ["SC2", "HMPV", "INF A", "INF B", "ADV", "RSV", "HRV"]
-            status_corrida = "N/A"
-            num_placa = "N/A"
-            from datetime import datetime
-
-            data_placa_formatada = datetime.now().strftime("%d/%m/%Y")
-
-            from utils.gui_utils import TabelaComSelecaoSimulada
-
-            TabelaComSelecaoSimulada(
+            self._resultado_window = TabelaComSelecaoSimulada(
                 self.main_window,
                 df,
                 status_corrida,
@@ -280,22 +331,40 @@ class MenuHandler:
                 lote=getattr(self.main_window.app_state, "lote", ""),
                 arquivo_corrida=getattr(self.main_window.app_state, "caminho_arquivo_corrida", ""),
             )
-
         except Exception as e:
             registrar_log("UI Main", f"Erro ao exibir resultados: {e}", "ERROR")
             messagebox.showerror(
                 "Erro", f"Falha ao exibir resultados: {e}", parent=self.main_window
             )
+        finally:
+            # Limpar flag após janela ser criada (sucesso ou falha)
+            self._criando_janela_resultado = False
 
     def enviar_para_gal(self):
         """Abre o módulo de envio para o GAL"""
+        # Verificar se já está criando janela (proteção contra race condition)
+        if self._criando_janela_gal:
+            registrar_log("UI Main", "Janela GAL já está sendo criada, ignorando chamada duplicada.", "INFO")
+            return
+        
+        # Verificar se janela GAL já existe
+        if self._gal_window and self._gal_window.winfo_exists():
+            self._gal_window.focus()
+            self._gal_window.lift()
+            return
+        
         self.main_window.update_status("Abrindo módulo de envio para o GAL...")
+        
+        # Setar flag ANTES de criar janela
+        self._criando_janela_gal = True
+        
         try:
-            abrir_janela_envio_gal(
+            self._gal_window = abrir_janela_envio_gal(
                 self.main_window, self.main_window.app_state.usuario_logado, 
                 app_state=self.main_window.app_state
             )
         except Exception as e:
+            # Garantir que flag seja limpa em caso de erro
             self.main_window.update_status("Erro ao abrir o módulo de envio.")
             registrar_log(
                 "UI Main", f"Falha ao abrir a janela de envio ao GAL: {e}", "CRITICAL"
@@ -305,6 +374,9 @@ class MenuHandler:
                 f"Não foi possível iniciar o módulo de envio ao GAL.\n\nDetalhes: {e}",
                 parent=self.main_window,
             )
+        finally:
+            # Limpar flag após janela ser criada (sucesso ou falha)
+            self._criando_janela_gal = False
 
     def abrir_administracao(self):
         """Abre o painel administrativo"""

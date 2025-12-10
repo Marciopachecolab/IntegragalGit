@@ -1310,28 +1310,42 @@ class PlateView(ctk.CTkFrame):
             # Recomputar todos os status antes de salvar
             self.plate_model.recompute_all()
             
-            # Executar callback se fornecido
+            # Executar callback se fornecido (antes de destruir)
             if self.on_save_callback:
                 self.on_save_callback(self.plate_model)
-            
-            # Fechar a janela (fecha PlateWindow)
-            self.master.destroy()
-            
+                
         except Exception as e:
             from utils.logger import registrar_log
-            registrar_log("PlateView", f"Erro ao salvar e voltar: {e}", "ERROR")
+            registrar_log("PlateView", f"Erro ao salvar: {e}", "ERROR")
             from tkinter import messagebox
             messagebox.showerror(
                 "Erro",
                 f"Falha ao salvar alterações:\n{str(e)}",
                 parent=self
             )
+            return  # NÃO destruir se houve erro no processamento
+        
+        # Destruir janela APENAS se tudo deu certo (libera GUI imediatamente)
+        try:
+            self.master.destroy()
+        except Exception as e:
+            from utils.logger import registrar_log
+            registrar_log("PlateView", f"Erro ao destruir janela: {e}", "ERROR")
 
 
 class PlateWindow(ctk.CTkToplevel):
     def __init__(self, root, plate_model: PlateModel, meta: Dict[str, str], on_save_callback=None):
+        # Importar AfterManagerMixin para gerenciar callbacks
+        from utils.after_mixin import AfterManagerMixin
+        
+        # Adicionar suporte ao AfterManagerMixin via composição
+        self._after_ids = set()
+        
         super().__init__(master=root)
         self.title("Visualização da Placa")
+        
+        # Vincular ao parent (mantém janela acima do parent)
+        self.transient(root)
         
         # Definir tamanho inicial (90% da tela para maximizar área da placa)
         screen_width = self.winfo_screenwidth()
@@ -1350,13 +1364,32 @@ class PlateWindow(ctk.CTkToplevel):
         view = PlateView(self, plate_model, meta, on_save_callback=on_save_callback)
         view.pack(fill="both", expand=True, padx=10, pady=2)
     
+    def dispose(self):
+        """Cancela todos os callbacks agendados."""
+        for aid in self._after_ids:
+            try:
+                self.after_cancel(aid)
+            except Exception:
+                pass
+        self._after_ids.clear()
+    
+    def schedule(self, delay_ms: int, callback, *args, **kwargs):
+        """Agendar callback e registrar para cancelamento posterior."""
+        aid = self.after(delay_ms, callback, *args, **kwargs)
+        self._after_ids.add(aid)
+        return aid
+    
     def _on_close_window(self):
         """Fecha a janela com segurança."""
         if not self._is_closing:
             self._is_closing = True
             try:
-                self.grab_release()
-                self.destroy()
+                # Cancelar callbacks pendentes
+                self.dispose()
+                
+                # Destruir janela
+                if self.winfo_exists():
+                    self.destroy()
             except Exception:
                 pass
 
