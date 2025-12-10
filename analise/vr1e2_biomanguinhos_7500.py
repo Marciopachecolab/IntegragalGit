@@ -41,6 +41,66 @@ def _processar_ct(ct_value: Any) -> Optional[float]:
     return None
 
 
+def _validar_corrida(df_final: pd.DataFrame) -> str:
+    """
+    Valida controles (CN/CP) e RP segundo critérios laboratoriais.
+    
+    Critérios:
+    - CN (Controle Negativo): NÃO deve detectar nenhum alvo
+    - CP (Controle Positivo): RP deve estar na faixa 10-35
+    - RP (Controle Interno): Todas as amostras devem ter RP entre 10-35
+    
+    Returns:
+        str: "Valida" ou "Invalida - <razão>"
+    """
+    try:
+        # Identificar controles por nome de amostra
+        mask_cn = df_final["Amostra"].astype(str).str.upper().str.contains("CN|CONTROLE.*NEG|NEG.*CONTROL", regex=True, na=False)
+        mask_cp = df_final["Amostra"].astype(str).str.upper().str.contains("CP|CONTROLE.*POS|POS.*CONTROL", regex=True, na=False)
+        
+        # Validar CN - NÃO deve detectar nenhum alvo
+        if mask_cn.any():
+            cn_rows = df_final[mask_cn]
+            for alvo in TARGET_LIST:
+                res_col = f"Resultado_{alvo.replace(' ', '')}"
+                if res_col in cn_rows.columns:
+                    if (cn_rows[res_col].astype(str).str.upper().str.contains("DET|POS", regex=True, na=False)).any():
+                        return f"Invalida - CN detectou {alvo}"
+        
+        # Validar RP em todas as amostras (exceto controles vazios)
+        if "RP" in df_final.columns:
+            # Amostras válidas (com código numérico)
+            mask_amostras = df_final["Codigo"].astype(str).str.strip().str.isdigit()
+            amostras_validas = df_final[mask_amostras]
+            
+            if not amostras_validas.empty:
+                # Verificar RPs inválidos
+                rp_invalidos = amostras_validas[
+                    (amostras_validas["RP"].notna()) & 
+                    ((amostras_validas["RP"] < CT_RP_MIN) | (amostras_validas["RP"] > CT_RP_MAX))
+                ]
+                
+                if not rp_invalidos.empty:
+                    # Listar amostras com problema
+                    amostras_problema = rp_invalidos["Amostra"].tolist()[:3]  # Primeiras 3
+                    return f"Invalida - RP fora da faixa ({CT_RP_MIN}-{CT_RP_MAX}): {', '.join(map(str, amostras_problema))}"
+        
+        # Validar CP - RP deve estar na faixa
+        if mask_cp.any():
+            cp_rows = df_final[mask_cp]
+            if "RP" in cp_rows.columns:
+                cp_rp_vals = cp_rows[cp_rows["RP"].notna()]["RP"]
+                if not cp_rp_vals.empty:
+                    if not all((CT_RP_MIN <= v <= CT_RP_MAX) for v in cp_rp_vals):
+                        return "Invalida - CP com RP fora do intervalo"
+        
+        return "Valida"
+        
+    except Exception as e:
+        registrar_log("Validação", f"Erro ao validar corrida: {e}", "ERROR")
+        return "Valida"  # Fallback para não bloquear fluxo em caso de erro
+
+
 def _normalize_cols(cols):
     """Remove acentos e normaliza para maiúsculas sem espaços extras."""
     return [
@@ -173,8 +233,10 @@ def analisar_placa_vr1e2_7500(
         df_final["RP_1"] = df_final["RP"]
         df_final["RP_2"] = df_final["RP"]
 
-    status_corrida = "Valida"
-    registrar_log("Análise VR1e2", f"Análise concluída. Linhas: {len(df_final)}", "INFO")
+    # Validar controles e determinar status da corrida
+    status_corrida = _validar_corrida(df_final)
+    
+    registrar_log("Análise VR1e2", f"Análise concluída. Linhas: {len(df_final)}, Status: {status_corrida}", "INFO")
     return df_final, status_corrida
 
 

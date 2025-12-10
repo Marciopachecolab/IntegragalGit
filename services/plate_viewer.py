@@ -584,33 +584,74 @@ class PlateModel:
     
     def to_dataframe(self) -> pd.DataFrame:
         """
-        Converte o PlateModel de volta para um DataFrame no formato df_final.
+        Converte o PlateModel de volta para um DataFrame no formato df_final AGRUPADO.
+        
+        CRÍTICO: Para exames de 48/32/24 testes, cada linha representa um GRUPO de poços
+        (ex: "A01+A02" ao invés de linhas separadas para A01 e A02).
+        
         Retorna DataFrame com colunas: Poco, Amostra, Codigo, Resultado_<ALVO>, CT_<ALVO>...
-        CRÍTICO: Usa 'Poco' (não 'Poço') para compatibilidade com sistema.
+        Usa 'Poco' (não 'Poço') para compatibilidade com sistema.
         """
         records = []
+        processed_groups = set()
         
-        for well_id, well in self.wells.items():
-            # Pular poços vazios se necessário
-            if well.status == EMPTY and not well.sample_id:
+        # Processar grupos primeiro (para exames de 48/32/24 testes)
+        for group_id, well_ids in self.group_dict.items():
+            if group_id in processed_groups:
                 continue
             
-            # Criar registro base - USAR NOMES SEM ACENTOS
+            # Pegar primeiro poço do grupo como representante
+            if not well_ids:
+                continue
+            
+            first_well_id = well_ids[0]
+            first_well = self.wells.get(first_well_id)
+            if not first_well:
+                continue
+            
+            # Criar registro para o GRUPO
             record = {
-                "Poco": well_id,  # SEM acento!
-                "Amostra": well.sample_id or "",
-                "Codigo": well.code or "",  # SEM acento!
+                "Poco": group_id,  # "A01+A02" para pares, "A01+A02+A03" para trios
+                "Amostra": first_well.sample_id or "",
+                "Codigo": first_well.code or "",
             }
             
             # Adicionar resultados e CTs de cada alvo
-            for target_name, target_result in well.targets.items():
-                # Normalizar nome do alvo (remover espaços e caracteres especiais)
+            # Usar dados do primeiro poço (todos no grupo têm os mesmos resultados)
+            for target_name, target_result in first_well.targets.items():
                 target_clean = target_name.strip()
-                
-                # Adicionar coluna de resultado
                 record[f"Resultado_{target_clean}"] = target_result.result or ""
                 
-                # Adicionar coluna de CT
+                if target_result.ct is not None:
+                    record[f"CT_{target_clean}"] = target_result.ct
+                else:
+                    record[f"CT_{target_clean}"] = ""
+            
+            records.append(record)
+            processed_groups.add(group_id)
+        
+        # Processar poços individuais (não agrupados) - para exames de 96 testes
+        for well_id, well in self.wells.items():
+            # Pular se já foi processado como parte de um grupo
+            if well.is_grouped and well.group_id in processed_groups:
+                continue
+            
+            # Pular poços vazios
+            if well.status == EMPTY and not well.sample_id:
+                continue
+            
+            # Criar registro para poço individual
+            record = {
+                "Poco": well_id,
+                "Amostra": well.sample_id or "",
+                "Codigo": well.code or "",
+            }
+            
+            # Adicionar resultados e CTs
+            for target_name, target_result in well.targets.items():
+                target_clean = target_name.strip()
+                record[f"Resultado_{target_clean}"] = target_result.result or ""
+                
                 if target_result.ct is not None:
                     record[f"CT_{target_clean}"] = target_result.ct
                 else:

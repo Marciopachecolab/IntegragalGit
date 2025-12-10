@@ -183,44 +183,73 @@ class JanelaAnaliseCompleta(AfterManagerMixin, ctk.CTkToplevel):
         ).grid(row=0, column=2, padx=5)
         
         # Frame da tabela
-        table_frame = ctk.CTkFrame(main_frame)
-        table_frame.grid(row=1, column=0, sticky="nsew")
-        table_frame.grid_columnconfigure(0, weight=1)
-        table_frame.grid_rowconfigure(0, weight=1)
+        self.table_frame = ctk.CTkFrame(main_frame)
+        self.table_frame.grid(row=1, column=0, sticky="nsew")
+        self.table_frame.grid_columnconfigure(0, weight=1)
+        self.table_frame.grid_rowconfigure(0, weight=1)
         
-        # Treeview
-        self.tree = ttk.Treeview(
-            table_frame,
-            columns=list(self.df_analise.columns),
-            show="headings"
-        )
-        
-        # Scrollbars
-        vsb = ttk.Scrollbar(table_frame, orient="vertical", command=self.tree.yview)
-        vsb.grid(row=0, column=1, sticky="ns")
-        hsb = ttk.Scrollbar(table_frame, orient="horizontal", command=self.tree.xview)
-        hsb.grid(row=1, column=0, sticky="ew")
-        self.tree.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
-        
-        self.tree.grid(row=0, column=0, sticky="nsew")
-        self.tree.bind("<Double-1>", self._on_double_click)
+        # Criar TreeView inicial
+        self._criar_treeview()
         
         # Popular tabela
         self._popular_tabela()
     
+    def _criar_treeview(self):
+        """Cria ou recria o TreeView com as colunas atuais do DataFrame."""
+        # Destruir TreeView antigo se existir
+        if hasattr(self, 'tree') and self.tree:
+            try:
+                self.tree.destroy()
+            except:
+                pass
+        
+        # Destruir scrollbars antigas se existirem
+        if hasattr(self, '_vsb') and self._vsb:
+            try:
+                self._vsb.destroy()
+            except:
+                pass
+        if hasattr(self, '_hsb') and self._hsb:
+            try:
+                self._hsb.destroy()
+            except:
+                pass
+        
+        # Criar novo TreeView com colunas atuais
+        colunas_atuais = list(self.df_analise.columns)
+        self.tree = ttk.Treeview(
+            self.table_frame,
+            columns=colunas_atuais,
+            show="headings"
+        )
+        
+        # Criar scrollbars
+        self._vsb = ttk.Scrollbar(self.table_frame, orient="vertical", command=self.tree.yview)
+        self._vsb.grid(row=0, column=1, sticky="ns")
+        self._hsb = ttk.Scrollbar(self.table_frame, orient="horizontal", command=self.tree.xview)
+        self._hsb.grid(row=1, column=0, sticky="ew")
+        self.tree.configure(yscrollcommand=self._vsb.set, xscrollcommand=self._hsb.set)
+        
+        self.tree.grid(row=0, column=0, sticky="nsew")
+        self.tree.bind("<Double-1>", self._on_double_click)
+    
     def _popular_tabela(self):
         """Popula treeview com dados do DataFrame."""
-        # Limpar existente
+        # Verificar se colunas do TreeView correspondem ao DataFrame
+        colunas_atuais = list(self.df_analise.columns)
+        colunas_tree = list(self.tree["columns"])
+        
+        # Se colunas mudaram, RECRIAR TreeView completamente
+        if colunas_tree != colunas_atuais:
+            self._criar_treeview()
+            colunas_tree = colunas_atuais
+        
+        # Limpar dados existentes
         for item in self.tree.get_children():
             self.tree.delete(item)
         
-        # CRÍTICO: Reconfigurar colunas do TreeView para match com DataFrame atual
-        colunas_atuais = list(self.df_analise.columns)
-        self.tree.config(columns=colunas_atuais)
-        self.tree["displaycolumns"] = colunas_atuais
-        
         # Configurar cada coluna
-        for col in colunas_atuais:
+        for col in colunas_tree:
             self.tree.heading(
                 col,
                 text=col,
@@ -379,6 +408,20 @@ class JanelaAnaliseCompleta(AfterManagerMixin, ctk.CTkToplevel):
                 messagebox.showwarning("Aviso", "Mapa retornou dados vazios", parent=self)
                 return
             
+            # DEBUG: Log de estrutura ANTES do merge
+            cols_resultado_antes = [c for c in self.df_analise.columns if c.startswith("Resultado_")]
+            registrar_log("Sync", f"ANTES - df_analise: {len(self.df_analise)} linhas, {len(self.df_analise.columns)} colunas", "DEBUG")
+            registrar_log("Sync", f"ANTES - Colunas Resultado_*: {cols_resultado_antes}", "DEBUG")
+            if cols_resultado_antes:
+                amostra = self.df_analise[cols_resultado_antes].head(2).to_dict('records')
+                registrar_log("Sync", f"ANTES - Amostra resultados: {amostra}", "DEBUG")
+            
+            registrar_log("Sync", f"df_updated: {len(df_updated)} linhas, {len(df_updated.columns)} colunas", "DEBUG")
+            cols_resultado_updated = [c for c in df_updated.columns if c.startswith("Resultado_")]
+            if cols_resultado_updated:
+                amostra_updated = df_updated[cols_resultado_updated].head(2).to_dict('records')
+                registrar_log("Sync", f"df_updated - Amostra resultados: {amostra_updated}", "DEBUG")
+            
             # PASSO 2: Fazer merge inteligente preservando TODAS as colunas originais
             colunas_originais = list(self.df_analise.columns)
             
@@ -390,24 +433,50 @@ class JanelaAnaliseCompleta(AfterManagerMixin, ctk.CTkToplevel):
                 chave_merge = "Poço"
             
             if chave_merge:
-                # MERGE INTELIGENTE: Atualizar apenas colunas que existem no updated
-                # Preservar colunas que não existem no mapa
-                selecoes_backup = self.df_analise[[chave_merge, "Selecionado"]].copy()
+                # ATUALIZAÇÃO DIRETA: Substituir self.df_analise mantendo apenas Selecionado
+                # Normalizar chaves para garantir match perfeito
+                df_updated[chave_merge] = df_updated[chave_merge].astype(str).str.strip()
+                self.df_analise[chave_merge] = self.df_analise[chave_merge].astype(str).str.strip()
                 
-                # Manter colunas que NÃO vieram do mapa
-                colunas_do_mapa = set(df_updated.columns)
-                colunas_preservar = [c for c in colunas_originais if c not in colunas_do_mapa and c != "Selecionado"]
-                
-                if colunas_preservar:
-                    df_preservado = self.df_analise[[chave_merge] + colunas_preservar].copy()
-                    # Merge: atualizar do mapa + adicionar colunas preservadas
-                    self.df_analise = df_updated.merge(df_preservado, on=chave_merge, how="left")
+                # BACKUP APENAS de Selecionado (única coluna que não vem do mapa)
+                if "Selecionado" in self.df_analise.columns:
+                    df_selecoes = self.df_analise[[chave_merge, "Selecionado"]].copy()
+                    
+                    # Merge: Dados atualizados do mapa + Selecionado preservado
+                    self.df_analise = df_updated.merge(
+                        df_selecoes,
+                        on=chave_merge,
+                        how="left"
+                    )
                 else:
+                    # Primeira vez: sem coluna Selecionado
                     self.df_analise = df_updated.copy()
                 
-                # Restaurar seleções
-                self.df_analise = self.df_analise.merge(selecoes_backup, on=chave_merge, how="left")
-                self.df_analise["Selecionado"] = self.df_analise["Selecionado"].fillna(False)
+                # Garantir que Selecionado existe e não tem NaN
+                if "Selecionado" not in self.df_analise.columns:
+                    self.df_analise["Selecionado"] = False
+                else:
+                    self.df_analise["Selecionado"] = self.df_analise["Selecionado"].fillna(False)
+                
+                # VALIDAÇÃO: Verificar integridade do merge
+                colunas_resultado = [c for c in self.df_analise.columns if c.startswith("Resultado_")]
+                total_nan = 0
+                for col in colunas_resultado:
+                    nan_count = self.df_analise[col].isna().sum()
+                    total_nan += nan_count
+                    if nan_count > 0:
+                        registrar_log("Sync", f"AVISO: {nan_count} NaN detectados em {col}", "WARNING")
+                
+                if total_nan > 0:
+                    registrar_log("Sync", f"ERRO CRÍTICO: {total_nan} valores NaN no total - MERGE CORROMPIDO", "ERROR")
+                
+                # Log detalhado DEPOIS do merge
+                registrar_log("Sync", f"DEPOIS - Merge concluído: {len(self.df_analise)} linhas, {len(self.df_analise.columns)} colunas", "DEBUG")
+                if colunas_resultado:
+                    dtypes = {c: str(self.df_analise[c].dtype) for c in colunas_resultado}
+                    registrar_log("Sync", f"DEPOIS - Tipos de dados: {dtypes}", "DEBUG")
+                    amostra_depois = self.df_analise[colunas_resultado].head(2).to_dict('records')
+                    registrar_log("Sync", f"DEPOIS - Amostra resultados: {amostra_depois}", "DEBUG")
                 
             else:
                 # FALLBACK: Substituição direta se não houver chave

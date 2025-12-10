@@ -1,72 +1,194 @@
-Lista de variáveis e campos utilizados no exame "VR1e2 Biomanguinhos 7500"
-
-Fonte: configuracao/config.json (exams/configs)
-- kit_codigo: 1140
-- export_fields (targets/agravos): Sars-Cov-2; Influenzaa; influenzab; RSV; adenovírus; metapneumovirus; rinovírus
-- exams.active_exams inclui: "VR1e2 Biomanguinhos 7500"
-- gal_integration.panel_tests["1"] (painel respiratório de exportação): influenzaa, influenzab, coronavirusncov, coronavirus229e, coronavirusnl63, coronavirushku1, coronavirusoc43, adenovirus, vsincicialresp, metapneumovirus, rinovirus, bocavirus, enterovirus, parainflu_1, parainflu_2, parainflu_3, parainflu_4, coronavirus, influenzaahn, metapneumovirua, metapneumovirub, mycoplasma, parechovírus, vsincicialrespa, vsincicialrespb, influenzaah_3, influenzaah_5, influenzaah_7.
-- Exportação GAL (modelo vr2.csv): colunas fixas em ordem:
-  codigoAmostra; codigo; requisicao; paciente; exame; metodo; registroInterno; kit; reteste; loteKit; dataProcessamentoFim; valorReferencia; observacao; painel; resultado;
-  influenzaa; influenzab; coronavirusncov; coronavirus229e; coronavirusnl63; coronavirushku1; coronavirusoc43; adenovirus; vsincicialresp; metapneumovirus; rinovirus; bocavirus; enterovirus; parainflu_1; parainflu_2; parainflu_3; parainflu_4; coronavirus; influenzaahn; metapneumovirua; metapneumovirub; mycoplasma; parechovírus; vsincicialrespa; vsincicialrespb; influenzaah_3; influenzaah_5; influenzaah_7.
-- Mapeamento de resultado para exportação: !1! (Detectado); !2! (Não detectado); !3! (Inconclusivo); vazio se sem informação.
-
-Processo de extração/mapeamento (extracao/mapeamento_placas.py e busca_extracao.py)
-- Geração de mapeamento 1-para-2 (48 poços, parte 1 ou 2) para placa 96->48 (pares A1+A2, B1+B2, ...).
-- Colunas do gabarito de extração: Poco (poço original), Amostra, Codigo (geralmente igual à amostra).
-- Gabarito armazenado em app_state.dados_extracao / df_gabarito_extracao.
-- Parte da placa (parte_placa) 1 ou 2, definida na UI de mapeamento.
-- Controles: CN (controle negativo), CP (controle positivo) mapeados nos poços de acordo com o gabarito (ex.: G11+G12, H11+H12).
-
-Processo de leitura/análise (services/universal_engine.py)
-- Exame VR1e2 Biomanguinhos 7500 tratado no fluxo legado.
-- Arquivo de corrida esperado com colunas: WELL; SAMPLE NAME; TARGET NAME; TASK; REPORTER; QUENCHER; CT; CT MEAN; CT SD; QUANTITY; QUANTITY MEAN; QUANTITY SD; AUTOMATIC CT THRESHOLD; CT THRESHOLD; AUTOMATIC BASELINE; BASELINE START; BASELINE END; COMMENTS; HIGHSD; EXPFAIL.
-- Targets analisados (TARGETS_LEGACY): SC2, HMPV, INF A, INF B, ADV, RSV, HRV.
-- RP (controle interno) avaliado em dois poços combinados (RP_1 e RP_2); faixa válida: 20 a 30.
-- Montagem de poço combinado: para cada Amostra, usa primeiro Poco do gabarito e combina com coluna seguinte (ex.: A1 -> A1+A2).
-- Interpretação: Detectado se CT <= 38 (legado); Inconclusivo CT entre 38.01 e 40; Nao Detectado acima; inválido se RP fora da faixa ou ausente.
-- Status da corrida: Valida se todos RP_1 e RP_2 dentro de 20-30; caso contrário Invalida (RP fora do intervalo ou Controles Ausentes).
-- Fallbacks de gabarito: none (erro) – deve vir do app_state.dados_extracao ou df_extracao.
-
-Exportação GAL (services/menu_handler.py + main._formatar_para_gal)
-- Formatação para vr2.csv usando separador ';'.
-- Campos preenchidos:
-  codigoAmostra/codigo/registroInterno: derivados de coluna "codigo" (ou "amostra" se não houver).
-  exame = VRSRT; metodo = RTTR; kit = 427; painel = 1; reteste/loteKit/observacao/valorReferencia vazios; dataProcessamentoFim = data atual (dd/MM/YYYY).
-Resultado global e per-analito mapeados para "1", "2", "3", "".
-
-Outras variáveis relevantes
-- Caminhos: reports/ (gal_last_exame.csv, gal_timestamp_exame.csv), logs/sistema.log.
-- AppState: dados_extracao, parte_placa, resultados_analise, df_gabarito_extracao, control_cn_wells, control_cp_wells.
-- Configurações de equipamento/placa/regras: carregadas via services.config_loader (metadados externos exames_config.csv etc.).
-
-Tabela de histórico (a gerar após o usuário aceitar a análise)
-- Caminho sugerido: logs/historico_analises.csv (append, separador ';').
-- Deve conter todas as amostras, incluindo CN, CP e códigos não numéricos (não excluir nada do histórico).
-- Colunas mínimas:
-  data_hora_analise; usuario_analise; exame; lote; arquivo_corrida; poco; amostra; codigo;
-  resultados qualitativos por alvo (SC2, HMPV, INF A, INF B, ADV, RSV, HRV) em "1"/"2"/"3"/"";
-  CTs (opcional): sc2, hmpv, inf_a, inf_b, adv, rsv, hrv, rp_1, rp_2;
-  status_corrida;
-  status_gal (analizado e não enviado | enviado com sucesso | tipo não enviável);
-  mensagem_gal (motivo de não envio/erro ou vazio).
-- Regras de envio para o GAL: não enviar (mas registrar no histórico) CN, CP ou qualquer código com caracteres não numéricos; esses entram como status_gal="tipo não enviável". Os demais, ao exportar, mudam status_gal conforme sucesso ou pendência.
-
-Módulo/rotina sugerida para geração da tabela de histórico (flexível por exame)
-- Função central: `gerar_historico(exame, df_final, usuario, lote, arquivo_corrida)`:
-  * Normaliza df_final conforme exame (targets e CTs específicos).
-  * Usa mapping resultado->"1"/"2"/"3"/"" por alvo.
-  * Preenche colunas padrão do histórico (data_hora_analise, usuario_analise, exame, lote, arquivo_corrida, poco, amostra, codigo, status_corrida, status_gal, mensagem_gal, CTs opcionais).
-  * status_gal inicial: "analizado e não enviado".
-  * Se codigo contém letras ou é CN/CP, marcar status_gal="tipo não enviável".
-  * Salvar em append: logs/historico_analises.csv (sep=';', header apenas na primeira vez).
-
-- Para VR1e2 Biomanguinhos 7500:
-  * Targets qualitativos: SC2, HMPV, INF A, INF B, ADV, RSV, HRV -> colunas resultado_SC2/… em "1"/"2"/"3"/"".
-  * CTs opcionais: sc2, hmpv, inf_a, inf_b, adv, rsv, hrv, rp_1, rp_2.
-
-- Para ZDC Biomanguinhos 7500:
-  * kit_codigo: 1832; export_fields: Dengue_1, Dengue_2, Dengue_3, Dengue_4, Zyka, Chykungunia.
-  * Targets qualitativos: DEN1, DEN2, DEN3, DEN4, ZYK, CHIK -> resultados em "1"/"2"/"3"/"".
-  * CTs opcionais: den1, den2, den3, den4, zyk, chik; RPs combinados: rp_1, rp_2, rp_3.
-  * Mapeamento de poço: 1-para-3 (ex.: A1 -> A1+A2+A3).
-  * Controles: CN/CP em G10+G11+G12, H10+H11+H12 (exemplo).
+Lista de variáveis e campos utilizados no exame "VR1e2 Biomanguinhos 7500"
+
+
+
+Fonte: configuracao/config.json (exams/configs)
+
+- kit_codigo: 1140
+
+- export_fields (targets/agravos): Sars-Cov-2; Influenzaa; influenzab; RSV; adenovírus; metapneumovirus; rinovírus
+
+- exams.active_exams inclui: "VR1e2 Biomanguinhos 7500"
+
+- gal_integration.panel_tests["1"] (painel respiratório de exportação): influenzaa, influenzab, coronavirusncov, coronavirus229e, coronavirusnl63, coronavirushku1, coronavirusoc43, adenovirus, vsincicialresp, metapneumovirus, rinovirus, bocavirus, enterovirus, parainflu_1, parainflu_2, parainflu_3, parainflu_4, coronavirus, influenzaahn, metapneumovirua, metapneumovirub, mycoplasma, parechovírus, vsincicialrespa, vsincicialrespb, influenzaah_3, influenzaah_5, influenzaah_7.
+
+- Exportação GAL (modelo vr2.csv): colunas fixas em ordem:
+
+  codigoAmostra; codigo; requisicao; paciente; exame; metodo; registroInterno; kit; reteste; loteKit; dataProcessamentoFim; valorReferencia; observacao; painel; resultado;
+
+  influenzaa; influenzab; coronavirusncov; coronavirus229e; coronavirusnl63; coronavirushku1; coronavirusoc43; adenovirus; vsincicialresp; metapneumovirus; rinovirus; bocavirus; enterovirus; parainflu_1; parainflu_2; parainflu_3; parainflu_4; coronavirus; influenzaahn; metapneumovirua; metapneumovirub; mycoplasma; parechovírus; vsincicialrespa; vsincicialrespb; influenzaah_3; influenzaah_5; influenzaah_7.
+
+- Mapeamento de resultado para exportação: !1! (Detectado); !2! (Não detectado); !3! (Inconclusivo); vazio se sem informação.
+
+
+
+Processo de extração/mapeamento (extracao/mapeamento_placas.py e busca_extracao.py)
+
+- Geração de mapeamento 1-para-2 (48 poços, parte 1 ou 2) para placa 96->48 (pares A1+A2, B1+B2, ...).
+
+- Colunas do gabarito de extração: Poco (poço original), Amostra, Codigo (geralmente igual à amostra).
+
+- Gabarito armazenado em app_state.dados_extracao / df_gabarito_extracao.
+
+- Parte da placa (parte_placa) 1 ou 2, definida na UI de mapeamento.
+
+- Controles: CN (controle negativo), CP (controle positivo) mapeados nos poços de acordo com o gabarito (ex.: G11+G12, H11+H12).
+
+
+
+Processo de leitura/análise (services/universal_engine.py)
+
+- Exame VR1e2 Biomanguinhos 7500 tratado no fluxo legado.
+
+- Arquivo de corrida esperado com colunas: WELL; SAMPLE NAME; TARGET NAME; TASK; REPORTER; QUENCHER; CT; CT MEAN; CT SD; QUANTITY; QUANTITY MEAN; QUANTITY SD; AUTOMATIC CT THRESHOLD; CT THRESHOLD; AUTOMATIC BASELINE; BASELINE START; BASELINE END; COMMENTS; HIGHSD; EXPFAIL.
+
+- Targets analisados (TARGETS_LEGACY): SC2, HMPV, INF A, INF B, ADV, RSV, HRV.
+
+- RP (controle interno) avaliado em dois poços combinados (RP_1 e RP_2); faixa válida: 20 a 30.
+
+- Montagem de poço combinado: para cada Amostra, usa primeiro Poco do gabarito e combina com coluna seguinte (ex.: A1 -> A1+A2).
+
+- Interpretação: Detectado se CT <= 38 (legado); Inconclusivo CT entre 38.01 e 40; Nao Detectado acima; inválido se RP fora da faixa ou ausente.
+
+- Status da corrida: Valida se todos RP_1 e RP_2 dentro de 20-30; caso contrário Invalida (RP fora do intervalo ou Controles Ausentes).
+
+- Fallbacks de gabarito: none (erro) – deve vir do app_state.dados_extracao ou df_extracao.
+
+
+
+Exportação GAL (services/menu_handler.py + main._formatar_para_gal)
+
+- Formatação para vr2.csv usando separador ';'.
+
+- Campos preenchidos:
+
+  codigoAmostra/codigo/registroInterno: derivados de coluna "codigo" (ou "amostra" se não houver).
+
+  exame = VRSRT; metodo = RTTR; kit = 427; painel = 1; reteste/loteKit/observacao/valorReferencia vazios; dataProcessamentoFim = data atual (dd/MM/YYYY).
+
+Resultado global e per-analito mapeados para "1", "2", "3", "".
+
+
+
+Outras variáveis relevantes
+
+- Caminhos: reports/ (gal_last_exame.csv, gal_timestamp_exame.csv), logs/sistema.log.
+
+- AppState: dados_extracao, parte_placa, resultados_analise, df_gabarito_extracao, control_cn_wells, control_cp_wells.
+
+- Configurações de equipamento/placa/regras: carregadas via services.config_loader (metadados externos exames_config.csv etc.).
+
+
+
+Tabela de histórico (a gerar após o usuário aceitar a análise)
+
+- Caminho sugerido: logs/historico_analises.csv (append, separador ';').
+
+- Deve conter todas as amostras, incluindo CN, CP e códigos não numéricos (não excluir nada do histórico).
+
+- Colunas mínimas:
+
+  data_hora_analise; usuario_analise; exame; lote; arquivo_corrida; poco; amostra; codigo;
+
+  resultados qualitativos por alvo (SC2, HMPV, INF A, INF B, ADV, RSV, HRV) em "1"/"2"/"3"/"";
+
+  CTs (opcional): sc2, hmpv, inf_a, inf_b, adv, rsv, hrv, rp_1, rp_2;
+
+  status_corrida;
+
+  status_gal (analizado e não enviado | enviado com sucesso | tipo não enviável);
+
+  mensagem_gal (motivo de não envio/erro ou vazio).
+
+- Regras de envio para o GAL: não enviar (mas registrar no histórico) CN, CP ou qualquer código com caracteres não numéricos; esses entram como status_gal="tipo não enviável". Os demais, ao exportar, mudam status_gal conforme sucesso ou pendência.
+
+
+
+Módulo/rotina sugerida para geração da tabela de histórico (flexível por exame)
+
+- Função central: `gerar_historico(exame, df_final, usuario, lote, arquivo_corrida)`:
+
+  * Normaliza df_final conforme exame (targets e CTs específicos).
+
+  * Usa mapping resultado->"1"/"2"/"3"/"" por alvo.
+
+  * Preenche colunas padrão do histórico (data_hora_analise, usuario_analise, exame, lote, arquivo_corrida, poco, amostra, codigo, status_corrida, status_gal, mensagem_gal, CTs opcionais).
+
+  * status_gal inicial: "analizado e não enviado".
+
+  * Se codigo contém letras ou é CN/CP, marcar status_gal="tipo não enviável".
+
+  * Salvar em append: logs/historico_analises.csv (sep=';', header apenas na primeira vez).
+
+
+
+- Para VR1e2 Biomanguinhos 7500:
+
+  * Targets qualitativos: SC2, HMPV, INF A, INF B, ADV, RSV, HRV -> colunas resultado_SC2/… em "1"/"2"/"3"/"".
+
+  * CTs opcionais: sc2, hmpv, inf_a, inf_b, adv, rsv, hrv, rp_1, rp_2.
+
+
+
+- Para ZDC Biomanguinhos 7500:
+
+  * kit_codigo: 1832; export_fields: Dengue_1, Dengue_2, Dengue_3, Dengue_4, Zyka, Chykungunia.
+
+  * Targets qualitativos: DEN1, DEN2, DEN3, DEN4, ZYK, CHIK -> resultados em "1"/"2"/"3"/"".
+
+  * CTs opcionais: den1, den2, den3, den4, zyk, chik; RPs combinados: rp_1, rp_2, rp_3.
+
+  * Mapeamento de poço: 1-para-3 (ex.: A1 -> A1+A2+A3).
+
+  * Controles: CN/CP em G10+G11+G12, H10+H11+H12 (exemplo).
+
+Mapeamento para testes:
+Poco    Amostra     Codigo
+  A1 422386149R 422386149R
+  B1 422386266R 422386266R
+  C1 422386156R 422386156R
+  D1  422386625  422386625
+  E1  422386851  422386851
+  F1  422386866  422386866
+  G1  422386883  422386883
+  H1  422386268  422386268
+  A3  422386273  422386273
+  B3  422387254  422387254
+  C3  422386806  422386806
+  D3  422386980  422386980
+  E3  422385450  422385450
+  F3  422386322  422386322
+  G3  422386324  422386324
+  H3  422386282  422386282
+  A5  422386293  422386293
+  B5  422386816  422386816
+  C5  422386798  422386798
+  D5  422387130  422387130
+  E5  422386593  422386593
+  F5  422386852  422386852
+  G5  422386928  422386928
+  H5  422387004  422387004
+  A7  422387159  422387159
+  B7  422387129  422387129
+  C7  422387065  422387065
+  D7  422387062  422387062
+  E7  422387059  422387059
+  F7  422387047  422387047
+  G7  422387071  422387071
+  H7  422387075  422387075
+  A9  422386742  422386742
+  B9  422385147  422385147
+  C9          X          X
+  D9          X          X
+  E9          X          X
+  F9          X          X
+  G9          X          X
+  H9          X          X
+ A11          X          X
+ B11          X          X
+ C11          X          X
+ D11          X          X
+ E11          X          X
+ F11          X          X
+ G11         CN         CN
+ H11         CP         CP
