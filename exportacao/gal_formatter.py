@@ -1,10 +1,28 @@
 """
-MÓDULO OFICIAL para formatação GAL.
-Toda lógica de conversão de dados para padrão GAL deve estar aqui.
+MÓDULO OFICIAL para formatação GAL - ÚNICA FONTE DE VERDADE
+======================================================================
+
+⚠️ IMPORTANTE: Este é o ÚNICO módulo responsável por formatação GAL.
+   NUNCA implemente lógica de formatação GAL em outros lugares.
+
+RESPONSABILIDADES:
+------------------
+✅ Formatar DataFrames de resultados para padrão GAL
+✅ Aplicar metadados de exames (exam_cfg) para mapeamento
+✅ Gerar painéis CSV para envio GAL
+✅ Validar formato de saída conforme especificação GAL
+
+ARQUITETURA (FASE 2 - R8):
+--------------------------
+- Fonte: Movido de main.py para centralizar lógica GAL
+- Usado por: ui/menu_handler.py, exportacao/envio_gal.py
+- Depende de: services/exam_registry.py (metadados)
 
 Este módulo centraliza a formatação de DataFrames de resultados para o padrão GAL,
 utilizando metadados do exame (exam_cfg) para determinar mapeamento de colunas,
 painéis, e alvos exportáveis.
+
+Ver: RELATORIO_REDUNDANCIA_CONFLITOS.md (FASE 2, Etapa 2.1)
 """
 
 import os

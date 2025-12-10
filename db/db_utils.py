@@ -46,6 +46,12 @@ def salvar_historico_processamento(
 ):
     """
     Salva um registo na tabela 'historico_processos' do PostgreSQL.
+    
+    ⚠️ FONTE DE VERDADE: Esta função salva no PostgreSQL que é a ÚNICA fonte oficial.
+    O arquivo logs/historico_analises.csv é apenas uma visão auxiliar gerada do banco.
+    Sempre use esta função para salvar histórico, NUNCA escreva diretamente no CSV.
+    
+    Ver: scripts/consolidate_history.py para exportar CSV do banco.
     """
     conn = get_postgres_connection()
     if conn is None:

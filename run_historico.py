@@ -1,8 +1,16 @@
 """
 Script para testar Histórico de Análises
+
+⚠️ DEPRECATED: Use 'python main.py historico'
 """
 
 import customtkinter as ctk
+import warnings
+
+warnings.warn(
+    "run_historico.py está deprecated. Use 'python main.py historico'.",
+    DeprecationWarning
+)
 from interface.historico_analises import HistoricoAnalises
 
 

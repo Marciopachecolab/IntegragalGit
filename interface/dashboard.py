@@ -377,7 +377,13 @@ class Dashboard(ctk.CTk):
             caminho_historico = Path("logs/historico_analises.csv")
             
             if caminho_historico.exists():
-                self.df_historico = pd.read_csv(caminho_historico)
+                # Usar separador ; e encoding utf-8 conforme formato do arquivo
+                self.df_historico = pd.read_csv(
+                    caminho_historico, 
+                    sep=';', 
+                    encoding='utf-8',
+                    low_memory=False
+                )
                 self._atualizar_interface_com_dados()
             else:
                 # Criar dados de exemplo

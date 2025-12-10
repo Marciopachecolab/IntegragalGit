@@ -1,3 +1,33 @@
+"""
+MÓDULO DE ENVIO GAL - Automação de Envio de Resultados
+======================================================================
+
+RESPONSABILIDADES:
+------------------
+✅ Automação de envio de resultados para sistema GAL via Selenium
+✅ Gerenciamento de sessão e autenticação no GAL
+✅ Preenchimento de formulários de resultados
+✅ Validação e retry de envios
+✅ Interface gráfica para seleção e envio de amostras
+
+ARQUITETURA:
+-----------
+- Usa: exportacao/gal_formatter.py para formatar dados
+- Depende de: browser/global_browser.py para gerenciar navegador
+- Configuração: services/config_service.py (credenciais e endpoints)
+
+FLUXO DE ENVIO:
+--------------
+1. Carregar resultados formatados (via gal_formatter)
+2. Autenticar no sistema GAL
+3. Navegar para formulário de entrada
+4. Preencher campos com resultados
+5. Submeter e validar resposta
+6. Registrar histórico de envio
+
+Ver: ANALISE_TECNICA_FUNCIONAMENTO.md (Seção 4 - Exportação GAL)
+"""
+
 # exportacao/envio_gal.py
 import os
 import sys

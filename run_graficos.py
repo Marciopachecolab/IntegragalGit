@@ -1,8 +1,16 @@
 """
 Script para testar Gráficos de Qualidade
+
+⚠️ DEPRECATED: Use 'python main.py graficos'
 """
 
 import customtkinter as ctk
+import warnings
+
+warnings.warn(
+    "run_graficos.py está deprecated. Use 'python main.py graficos'.",
+    DeprecationWarning
+)
 from interface.graficos_qualidade import GraficosQualidade
 
 

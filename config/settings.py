@@ -1,12 +1,20 @@
 """
 Sistema de Gerenciamento de Configurações do IntegRAGal
 
-Este módulo gerencia todas as configurações do sistema, incluindo:
-- Carregamento de configurações padrão
-- Persistência de preferências do usuário
-- Validação de valores de configuração
-- Aplicação de configurações em tempo real
-- Reset para valores padrão
+⚠️ DEPRECATED: Este módulo está sendo migrado para usar ConfigService.
+   Para novo código, use diretamente:
+   
+   from services.config_service import config_service
+   
+Este módulo agora atua como um ADAPTER para compatibilidade com código existente.
+Todas as operações são redirecionadas para ConfigService.
+
+ARQUITETURA (FASE 3 - R9):
+  ✅ Fonte de verdade: services/config_service.py
+  🔄 Adapter (compatibilidade): config/settings.py (este arquivo)
+  ❌ Deprecado: Leituras diretas de config.json
+
+Ver: RELATORIO_REDUNDANCIA_CONFLITOS.md (FASE 3, Etapa 3.3)
 """
 
 import json
@@ -15,10 +23,14 @@ from pathlib import Path
 from typing import Any, Dict, Optional
 from datetime import datetime
 import shutil
+import warnings
 
 from utils.logger import registrar_log
 from utils.validator import Validator
 from utils.error_handler import ErrorHandler, safe_operation
+
+# Import do ConfigService (fonte de verdade única)
+from services.config_service import config_service as _config_service
 
 
 class ConfigurationManager:
@@ -420,22 +432,68 @@ class ConfigurationManager:
 configuracao = ConfigurationManager()
 
 
-# Funções de conveniência
+# Funções de conveniência (DEPRECATED - usar ConfigService)
 def get_config(chave: str, padrao: Any = None) -> Any:
-    """Função de conveniência para obter configuração"""
-    return configuracao.get(chave, padrao)
+    """
+    Função de conveniência para obter configuração
+    
+    ⚠️ DEPRECATED: Use config_service.get() diretamente:
+        from services.config_service import config_service
+        valor = config_service.get('chave')
+    """
+    warnings.warn(
+        "get_config() está deprecated. Use 'from services.config_service import config_service; config_service.get()'",
+        DeprecationWarning,
+        stacklevel=2
+    )
+    # Redireciona para ConfigService
+    return _config_service.get(chave, padrao)
 
 
 def set_config(chave: str, valor: Any, salvar: bool = True):
-    """Função de conveniência para definir configuração"""
-    configuracao.set(chave, valor, salvar)
+    """
+    Função de conveniência para definir configuração
+    
+    ⚠️ DEPRECATED: Use config_service.set() diretamente:
+        from services.config_service import config_service
+        config_service.set('chave', valor)
+    """
+    warnings.warn(
+        "set_config() está deprecated. Use 'from services.config_service import config_service; config_service.set()'",
+        DeprecationWarning,
+        stacklevel=2
+    )
+    # Redireciona para ConfigService
+    _config_service.set(chave, valor)
+    if salvar:
+        _config_service.save()
 
 
 def reset_config(secao: Optional[str] = None):
-    """Função de conveniência para resetar configurações"""
+    """
+    Função de conveniência para resetar configurações
+    
+    ⚠️ DEPRECATED: Funcionalidade será movida para ConfigService
+    """
+    warnings.warn(
+        "reset_config() está deprecated.",
+        DeprecationWarning,
+        stacklevel=2
+    )
     configuracao.reset(secao)
 
 
 def salvar_config() -> bool:
-    """Função de conveniência para salvar configurações"""
-    return configuracao.salvar()
+    """
+    Função de conveniência para salvar configurações
+    
+    ⚠️ DEPRECATED: Use config_service.save():
+        from services.config_service import config_service
+        config_service.save()
+    """
+    warnings.warn(
+        "salvar_config() está deprecated. Use 'config_service.save()'",
+        DeprecationWarning,
+        stacklevel=2
+    )
+    return _config_service.save()

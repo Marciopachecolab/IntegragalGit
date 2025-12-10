@@ -201,10 +201,85 @@ def _notificar_gal_saved(path, parent=None, timeout=5000):
     return notificar_gal_saved(path, parent=parent, timeout=timeout)
 
 
+def main_cli():
+    """
+    Interface de linha de comando (CLI) para executar módulos específicos.
+    
+    Uso:
+        python main.py              # Abre GUI principal (padrão)
+        python main.py dashboard    # Abre Dashboard
+        python main.py historico    # Abre Histórico
+        python main.py alertas      # Abre Sistema de Alertas
+        python main.py graficos     # Abre Gráficos
+        python main.py visualizador # Abre Visualizador de Placas
+    """
+    import argparse
+    
+    parser = argparse.ArgumentParser(
+        description="IntegRAGal - Sistema Integrado de Análises Laboratoriais",
+        epilog="Se nenhum comando for especificado, abre a interface gráfica principal."
+    )
+    
+    subparsers = parser.add_subparsers(dest='command', help='Comandos disponíveis')
+    
+    # Subcomandos
+    subparsers.add_parser('dashboard', help='Abrir Dashboard de Análises')
+    subparsers.add_parser('historico', help='Abrir Visualizador de Histórico')
+    subparsers.add_parser('alertas', help='Abrir Sistema de Alertas')
+    subparsers.add_parser('graficos', help='Abrir Gráficos e Estatísticas')
+    subparsers.add_parser('visualizador', help='Abrir Visualizador de Placas')
+    
+    args = parser.parse_args()
+    
+    if args.command == 'dashboard':
+        registrar_log("Main", "Iniciando Dashboard via CLI", "INFO")
+        from interface.dashboard import Dashboard
+        app = Dashboard()
+        app.mainloop()
+        
+    elif args.command == 'historico':
+        registrar_log("Main", "Iniciando Histórico via CLI", "INFO")
+        from interface.historico_viewer import HistoricoViewer
+        app = HistoricoViewer()
+        app.mainloop()
+        
+    elif args.command == 'alertas':
+        registrar_log("Main", "Iniciando Sistema de Alertas via CLI", "INFO")
+        from interface.sistema_alertas import CentroNotificacoes
+        app = CentroNotificacoes()
+        app.mainloop()
+        
+    elif args.command == 'graficos':
+        registrar_log("Main", "Iniciando Gráficos via CLI", "INFO")
+        from interface.graficos import GraficosWindow
+        app = GraficosWindow()
+        app.mainloop()
+        
+    elif args.command == 'visualizador':
+        registrar_log("Main", "Iniciando Visualizador via CLI", "INFO")
+        from interface.visualizador_placa import VisualizadorPlaca
+        import sys
+        # Passar argumentos para o visualizador se houver
+        VisualizadorPlaca.main(sys.argv[2:] if len(sys.argv) > 2 else [])
+        
+    else:
+        # Modo GUI padrão
+        app = criar_aplicacao_principal()
+        if app:
+            app.mainloop()
+
+
 if __name__ == "__main__":
     """Ponto de entrada principal da aplicação"""
+    import sys
+    
     os.chdir(BASE_DIR)
-
-    app = criar_aplicacao_principal()
-    if app:
-        app.mainloop()
+    
+    # Se houver argumentos de linha de comando, usar CLI
+    # Caso contrário, abrir GUI principal
+    if len(sys.argv) > 1:
+        main_cli()
+    else:
+        app = criar_aplicacao_principal()
+        if app:
+            app.mainloop()

@@ -468,7 +468,7 @@ class TabelaComSelecaoSimulada(AfterManagerMixin, ctk.CTkToplevel):
                 usuario=self.usuario_logado or "Desconhecido",
                 lote=getattr(self, "lote", ""),
                 arquivo_corrida=getattr(self, "arquivo_corrida", ""),
-                caminho_csv="reports/historico_analises.csv",
+                caminho_csv="logs/historico_analises.csv",
             )
 
             detalhes = f"Placa: {self.num_placa}; {total_selecionados} amostras salvas."

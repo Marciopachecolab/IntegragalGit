@@ -1,8 +1,16 @@
 """
 Script para testar o Visualizador de Exame
+
+⚠️ DEPRECATED: Use 'python main.py visualizador'
 """
 
 import customtkinter as ctk
+import warnings
+
+warnings.warn(
+    "run_visualizador.py está deprecated. Use 'python main.py visualizador'.",
+    DeprecationWarning
+)
 from interface.visualizador_exame import VisualizadorExame, criar_dados_exame_exemplo
 
 

@@ -181,12 +181,13 @@ try:
 except ImportError:
 
 
-    # Fallback se não conseguir importar
-
-
+    # FALLBACK: Implementação mínima se utils.logger não estiver disponível
+    # Esta é uma função de fallback, NÃO uma duplicação intencional.
+    # Em operação normal, usa-se utils.logger.registrar_log
+    # Ver: RELATORIO_REDUNDANCIA_CONFLITOS.md (R11)
+    
     def registrar_log(modulo, mensagem, nivel="INFO"):
-
-
+        """Fallback logger quando utils.logger não está disponível"""
         print(f"[{nivel}] {modulo}: {mensagem}")
 
 

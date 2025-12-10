@@ -1,8 +1,16 @@
 """
 Script para testar Sistema de Alertas
+
+⚠️ DEPRECATED: Use 'python main.py alertas'
 """
 
 import customtkinter as ctk
+import warnings
+
+warnings.warn(
+    "run_alertas.py está deprecated. Use 'python main.py alertas'.",
+    DeprecationWarning
+)
 from interface.sistema_alertas import GerenciadorAlertas, CentroNotificacoes, gerar_alertas_exemplo
 
 
