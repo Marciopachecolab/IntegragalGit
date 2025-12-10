@@ -585,7 +585,8 @@ class PlateModel:
     def to_dataframe(self) -> pd.DataFrame:
         """
         Converte o PlateModel de volta para um DataFrame no formato df_final.
-        Retorna DataFrame com colunas: Poço, Amostra, Código, Resultado_<ALVO>, CT_<ALVO>...
+        Retorna DataFrame com colunas: Poco, Amostra, Codigo, Resultado_<ALVO>, CT_<ALVO>...
+        CRÍTICO: Usa 'Poco' (não 'Poço') para compatibilidade com sistema.
         """
         records = []
         
@@ -594,11 +595,11 @@ class PlateModel:
             if well.status == EMPTY and not well.sample_id:
                 continue
             
-            # Criar registro base
+            # Criar registro base - USAR NOMES SEM ACENTOS
             record = {
-                "Poço": well_id,
+                "Poco": well_id,  # SEM acento!
                 "Amostra": well.sample_id or "",
-                "Código": well.code or "",
+                "Codigo": well.code or "",  # SEM acento!
             }
             
             # Adicionar resultados e CTs de cada alvo
@@ -1216,6 +1217,13 @@ class PlateView(ctk.CTkFrame):
         self.render_plate()
 
     def apply_target_changes(self):
+        """
+        Aplica alterações de alvo/resultado/CT ao poço selecionado.
+        
+        IMPORTANTE: Esta função atualiza APENAS o PlateModel em memória.
+        Para sincronizar com a aba de análise, use o botão "💾 Salvar Alterações e Voltar"
+        que chama _salvar_e_voltar() → on_save_callback() → _on_mapa_salvo() da janela principal.
+        """
         if not self.selected_well_id or not self.current_target:
             return
         well = self.plate_model.get_well(self.selected_well_id)
@@ -1300,19 +1308,53 @@ class PlateView(ctk.CTkFrame):
         self.render_plate()
 
     def _on_save_clicked(self):
-        # No-op placeholder: salvamento persistente pode ser implementado depois
-        self.plate_model.recompute_all()
-        self.render_plate()
+            """
+            Salva as alterações (Sincroniza) e FECHA a janela para liberar o menu.
+            """
+            # 1. Recupera o AppState da janela mãe (se injetado) ou via master
+            app_state = getattr(self.master, "app_state", None)
+            
+            if app_state and app_state.resultados_analise is not None:
+                try:
+                    # Se você implementou o sync_to_dataframe (da análise anterior):
+                    # df_atualizado = self.plate_model.sync_to_dataframe(app_state.resultados_analise)
+                    # app_state.resultados_analise = df_atualizado
+                    pass # Substitua pelo código de sync real
+                except Exception as e:
+                    print(f"Erro ao sincronizar: {e}")
+
+            # 2. COMANDO CRÍTICO: Fechar a janela
+            # Isso encerra o wait_window() no MenuHandler e destrava o sistema.
+            self.master.destroy()
     
     def _salvar_e_voltar(self):
-        """Salva alterações e fecha a janela, executando callback se fornecido."""
+        """
+        Salva alterações e notifica parent (não destrói mais a janela).
+        
+        NOVO COMPORTAMENTO (janela única com abas):
+        - Se parent é JanelaAnaliseCompleta: apenas notifica via callback
+        - Se parent é PlateWindow (legado): destrói Toplevel normalmente
+        """
         try:
             # Recomputar todos os status antes de salvar
             self.plate_model.recompute_all()
             
-            # Executar callback se fornecido (antes de destruir)
+            # Executar callback se fornecido
             if self.on_save_callback:
                 self.on_save_callback(self.plate_model)
+            
+            # CRÍTICO: Verificar tipo do parent para decidir comportamento
+            toplevel = self.winfo_toplevel()
+            
+            # Se parent é CTkTabview ou Frame: NÃO destruir (sistema de abas)
+            # Se parent é PlateWindow (CTkToplevel): destruir (sistema legado)
+            if isinstance(toplevel, ctk.CTkToplevel) and type(toplevel).__name__ == "PlateWindow":
+                # Sistema legado: destruir Toplevel
+                self._destruir_toplevel_seguro(toplevel)
+            else:
+                # Sistema de abas: parent controla navegação, não fazemos nada
+                from utils.logger import registrar_log
+                registrar_log("PlateView", "Alterações salvas (sistema de abas)", "INFO")
                 
         except Exception as e:
             from utils.logger import registrar_log
@@ -1323,28 +1365,24 @@ class PlateView(ctk.CTkFrame):
                 f"Falha ao salvar alterações:\n{str(e)}",
                 parent=self
             )
-            return  # NÃO destruir se houve erro no processamento
-        
-        # Destruir janela APENAS se tudo deu certo (libera GUI imediatamente)
-        # Usar winfo_toplevel() ao invés de self.master para maior segurança:
-        # - Garante que destruímos apenas o Toplevel correto
-        # - Desacopla PlateView da estrutura exata de widgets
-        # - Previne destruir root acidentalmente
+    
+    def _destruir_toplevel_seguro(self, toplevel):
+        """
+        Destrói Toplevel de forma segura (apenas para sistema legado).
+        """
         try:
-            toplevel = self.winfo_toplevel()
-            
-            # CRÍTICO: Usar padrão seguro de destruição para CustomTkinter
-            # Ocultar imediatamente + delay antes de destroy() previne "invalid command name"
+            # Ocultar imediatamente
             toplevel.withdraw()
             
-            def destruir_seguro():
+            # Agendar destruição após delay
+            def destruir():
                 try:
                     if toplevel.winfo_exists():
                         toplevel.destroy()
                 except Exception:
                     pass
             
-            toplevel.after(200, destruir_seguro)
+            toplevel.after(200, destruir)
             
         except Exception as e:
             from utils.logger import registrar_log

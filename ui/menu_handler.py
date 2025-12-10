@@ -311,13 +311,14 @@ class MenuHandler:
 
         data_placa_formatada = datetime.now().strftime("%d/%m/%Y")
 
-        from utils.gui_utils import TabelaComSelecaoSimulada
+        # NOVO: Usar janela única com abas (elimina problemas de CTkToplevel aninhados)
+        from ui.janela_analise_completa import JanelaAnaliseCompleta
 
         # Setar flag ANTES de criar janela (proteção contra race condition)
         self._criando_janela_resultado = True
         
         try:
-            self._resultado_window = TabelaComSelecaoSimulada(
+            self._resultado_window = JanelaAnaliseCompleta(
                 self.main_window,
                 df,
                 status_corrida,
@@ -330,6 +331,7 @@ class MenuHandler:
                 exame=getattr(self.main_window.app_state, "exame_selecionado", ""),
                 lote=getattr(self.main_window.app_state, "lote", ""),
                 arquivo_corrida=getattr(self.main_window.app_state, "caminho_arquivo_corrida", ""),
+                bloco_tamanho=getattr(self.main_window.app_state, "bloco_tamanho", 2),
             )
         except Exception as e:
             registrar_log("UI Main", f"Erro ao exibir resultados: {e}", "ERROR")
