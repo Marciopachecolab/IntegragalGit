@@ -79,12 +79,11 @@ MOJIBAKE_SEQUENCES = [
     # Aspas, traços e símbolos tipográficos quebrados
     "–",  # en dash / hífen
     "—",  # em dash
-    """,  # aspas de abertura
-    "”",  # aspas de fechamento (forma comum)
-    ",
-    '’': ",  # aspas simples de abertura
-    "’",  # aspas simples de fechamento
-    "™¢",  # bullet quebrado
+    "\u201c",  # aspas de abertura
+    "\u201d",  # aspas de fechamento (forma comum)
+    "\u2018",  # aspas simples de abertura
+    "\u2019",  # aspas simples de fechamento
+    "•",  # bullet
     "…",  # reticências
 
     # Prefixos genéricos de emojis quebrados

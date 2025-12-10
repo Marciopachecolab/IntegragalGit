@@ -199,7 +199,7 @@ def formatar_para_gal(df, exam_cfg=None, exame: str | None = None):
             serie_res = df_in[res_col].apply(_map_result)
         else:
             serie_res = pd.Series([""] * len(df_in))
-        col_nome = _strip_accents(analito).replace(" ", "", "").replace("-", "").replace("_", "").lower()
+        col_nome = _strip_accents(analito).replace(" ", "").replace("-", "").replace("_", "").lower()
         df_out[col_nome] = serie_res
 
     return df_out

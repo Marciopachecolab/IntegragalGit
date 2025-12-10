@@ -239,8 +239,12 @@ def main_cli():
         
     elif args.command == 'historico':
         registrar_log("Main", "Iniciando Histórico via CLI", "INFO")
-        from interface.historico_viewer import HistoricoViewer
-        app = HistoricoViewer()
+        from interface.historico_analises import HistoricoAnalises
+        # HistoricoAnalises requer um master window
+        import customtkinter as ctk
+        root = ctk.CTk()
+        root.withdraw()  # Esconder janela principal
+        app = HistoricoAnalises(root)
         app.mainloop()
         
     elif args.command == 'alertas':
@@ -251,16 +255,19 @@ def main_cli():
         
     elif args.command == 'graficos':
         registrar_log("Main", "Iniciando Gráficos via CLI", "INFO")
-        from interface.graficos import GraficosWindow
-        app = GraficosWindow()
+        from interface.graficos_qualidade import GraficosQualidade
+        # GraficosQualidade requer um master window
+        import customtkinter as ctk
+        root = ctk.CTk()
+        root.withdraw()  # Esconder janela principal
+        app = GraficosQualidade(root)
         app.mainloop()
         
     elif args.command == 'visualizador':
         registrar_log("Main", "Iniciando Visualizador via CLI", "INFO")
-        from interface.visualizador_placa import VisualizadorPlaca
-        import sys
-        # Passar argumentos para o visualizador se houver
-        VisualizadorPlaca.main(sys.argv[2:] if len(sys.argv) > 2 else [])
+        # Executar script standalone de visualização
+        import subprocess
+        subprocess.run([sys.executable, "visualizar_placa_csv.py"])
         
     else:
         # Modo GUI padrão
