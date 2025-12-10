@@ -582,6 +582,46 @@ class PlateModel:
         for w in self.wells.values():
             self._recompute_status(w)
     
+    def to_dataframe(self) -> pd.DataFrame:
+        """
+        Converte o PlateModel de volta para um DataFrame no formato df_final.
+        Retorna DataFrame com colunas: Poço, Amostra, Código, Resultado_<ALVO>, CT_<ALVO>...
+        """
+        records = []
+        
+        for well_id, well in self.wells.items():
+            # Pular poços vazios se necessário
+            if well.status == EMPTY and not well.sample_id:
+                continue
+            
+            # Criar registro base
+            record = {
+                "Poço": well_id,
+                "Amostra": well.sample_id or "",
+                "Código": well.code or "",
+            }
+            
+            # Adicionar resultados e CTs de cada alvo
+            for target_name, target_result in well.targets.items():
+                # Normalizar nome do alvo (remover espaços e caracteres especiais)
+                target_clean = target_name.strip()
+                
+                # Adicionar coluna de resultado
+                record[f"Resultado_{target_clean}"] = target_result.result or ""
+                
+                # Adicionar coluna de CT
+                if target_result.ct is not None:
+                    record[f"CT_{target_clean}"] = target_result.ct
+                else:
+                    record[f"CT_{target_clean}"] = ""
+            
+            records.append(record)
+        
+        if not records:
+            return pd.DataFrame()
+        
+        return pd.DataFrame(records)
+    
     def _determine_exam_type(self) -> None:
         """Determina o tipo de exame (96, 48, 32, 24 testes) baseado nos tamanhos de grupo"""
         if not self.group_dict:
@@ -763,10 +803,11 @@ class GroupFrame(ctk.CTkFrame):
 
 
 class PlateView(ctk.CTkFrame):
-    def __init__(self, master, plate_model: PlateModel, meta: Dict[str, str]):
+    def __init__(self, master, plate_model: PlateModel, meta: Dict[str, str], on_save_callback=None):
         super().__init__(master)
         self.plate_model = plate_model
         self.meta = meta or {}
+        self.on_save_callback = on_save_callback
         self.selected_well_id: Optional[str] = None
         self.current_target: Optional[str] = None
         self.highlight_group: List[str] = []
@@ -1033,10 +1074,12 @@ class PlateView(ctk.CTkFrame):
         # Botão Salvar edições
         ctk.CTkButton(
             self.detail_frame,
-            text="Salvar edições (apenas memória)",
+            text="💾 Salvar Alterações e Voltar",
             font=ctk.CTkFont(family="Segoe UI", size=12, weight="bold"),
             height=40,
-            command=self._on_save_clicked,
+            fg_color="#27AE60",
+            hover_color="#229954",
+            command=self._salvar_e_voltar,
         ).grid(row=8, column=0, columnspan=2, padx=15, pady=(0, 4))
 
     def _calc_total_samples(self) -> int:
@@ -1260,10 +1303,33 @@ class PlateView(ctk.CTkFrame):
         # No-op placeholder: salvamento persistente pode ser implementado depois
         self.plate_model.recompute_all()
         self.render_plate()
+    
+    def _salvar_e_voltar(self):
+        """Salva alterações e fecha a janela, executando callback se fornecido."""
+        try:
+            # Recomputar todos os status antes de salvar
+            self.plate_model.recompute_all()
+            
+            # Executar callback se fornecido
+            if self.on_save_callback:
+                self.on_save_callback(self.plate_model)
+            
+            # Fechar a janela (fecha PlateWindow)
+            self.master.destroy()
+            
+        except Exception as e:
+            from utils.logger import registrar_log
+            registrar_log("PlateView", f"Erro ao salvar e voltar: {e}", "ERROR")
+            from tkinter import messagebox
+            messagebox.showerror(
+                "Erro",
+                f"Falha ao salvar alterações:\n{str(e)}",
+                parent=self
+            )
 
 
 class PlateWindow(ctk.CTkToplevel):
-    def __init__(self, root, plate_model: PlateModel, meta: Dict[str, str]):
+    def __init__(self, root, plate_model: PlateModel, meta: Dict[str, str], on_save_callback=None):
         super().__init__(master=root)
         self.title("Visualização da Placa")
         
@@ -1281,7 +1347,7 @@ class PlateWindow(ctk.CTkToplevel):
         self.protocol("WM_DELETE_WINDOW", self._on_close_window)
         
         # Estrutura Geral da Janela: Padding externo: padx=10px, pady=2px
-        view = PlateView(self, plate_model, meta)
+        view = PlateView(self, plate_model, meta, on_save_callback=on_save_callback)
         view.pack(fill="both", expand=True, padx=10, pady=2)
     
     def _on_close_window(self):
@@ -1300,10 +1366,11 @@ class PlateWindow(ctk.CTkToplevel):
 # ---------------------------------------------------------------------------
 
 
-def abrir_placa_ctk(df_final: pd.DataFrame, meta_extra: Optional[Dict[str, Any]] = None, group_size: Optional[int] = None, parent=None):
+def abrir_placa_ctk(df_final: pd.DataFrame, meta_extra: Optional[Dict[str, Any]] = None, group_size: Optional[int] = None, parent=None, on_save_callback=None):
     """
     Abre a janela CTk para visualização/edição da placa usando df_final em memória.
     meta_extra pode conter data, extracao/arquivo, exame, usuario.
+    on_save_callback: função a ser chamada ao salvar alterações (recebe PlateModel).
     """
     try:
         print(f"DEBUG abrir_placa_ctk: DataFrame shape={df_final.shape if df_final is not None else 'None'}")
@@ -1330,7 +1397,7 @@ def abrir_placa_ctk(df_final: pd.DataFrame, meta_extra: Optional[Dict[str, Any]]
         print(f"DEBUG abrir_placa_ctk: PlateModel criado, wells={len(plate_model.wells)}")
         
         print(f"DEBUG abrir_placa_ctk: Criando PlateWindow...")
-        win = PlateWindow(parent or ctk.CTk(), plate_model, meta)
+        win = PlateWindow(parent or ctk.CTk(), plate_model, meta, on_save_callback=on_save_callback)
         win.focus_force()
         
         print(f"DEBUG abrir_placa_ctk: PlateWindow criada com sucesso")

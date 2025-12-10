@@ -508,13 +508,19 @@ class AnalysisService:
 
         # 3.1. Detectar tipo de placa PCR automaticamente
 
-        tipo_placa_selecionado = self._detectar_e_confirmar_tipo_placa(
+        # DESABILITADO: Todos os exames usam o mesmo equipamento (7500)
 
-            arquivo_resultados=arquivo_resultados,
+        # Para reabilitar, descomente o bloco abaixo
 
-            parent_window=parent_window,
+        tipo_placa_selecionado = None
 
-        )
+        # tipo_placa_selecionado = self._detectar_e_confirmar_tipo_placa(
+
+        #     arquivo_resultados=arquivo_resultados,
+
+        #     parent_window=parent_window,
+
+        # )
 
 
 

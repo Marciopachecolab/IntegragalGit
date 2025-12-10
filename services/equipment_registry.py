@@ -10,7 +10,7 @@ import json
 import logging
 from dataclasses import dataclass, field, asdict
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional
 import unicodedata
 
 
@@ -37,16 +37,22 @@ class EquipmentConfig:
         if not isinstance(self.xlsx_estrutura, dict):
             raise ValueError("xlsx_estrutura deve ser um dicionário")
         
-        # Validar campos obrigatórios em xlsx_estrutura
-        campos_obrigatorios = ['coluna_well', 'coluna_target', 'coluna_ct', 'linha_inicio']
-        for campo in campos_obrigatorios:
-            if campo not in self.xlsx_estrutura:
-                raise ValueError(f"xlsx_estrutura deve conter o campo '{campo}'")
+        # Validar apenas campos essenciais (linha_inicio é obrigatório)
+        if 'linha_inicio' not in self.xlsx_estrutura:
+            raise ValueError("xlsx_estrutura deve conter o campo 'linha_inicio'")
         
         # Validar linha_inicio
         linha_inicio = self.xlsx_estrutura.get('linha_inicio')
         if not isinstance(linha_inicio, int) or linha_inicio < 1:
             raise ValueError(f"linha_inicio deve ser int >= 1, recebido: {linha_inicio}")
+        
+        # Validar que ao menos uma coluna de dados existe
+        tem_coluna_dados = any(
+            self.xlsx_estrutura.get(campo) is not None
+            for campo in ['coluna_well', 'coluna_target', 'coluna_ct']
+        )
+        if not tem_coluna_dados:
+            raise ValueError("xlsx_estrutura deve ter pelo menos uma coluna de dados (well/target/ct)")
 
 
 class EquipmentRegistry:
@@ -94,7 +100,7 @@ class EquipmentRegistry:
                         modelo = row.get('modelo', '').strip()
                         fabricante = row.get('fabricante', '').strip()
                         tipo_placa = row.get('tipo_placa', '96').strip()
-                        xlsx_config_str = row.get('xlsx_config', '{}').strip()
+                        xlsx_config_str = row.get('xlsx_config', '').strip()
                         extrator_nome = row.get('extrator_nome', 'generico').strip()
                         formatador_nome = row.get('formatador_nome', 'padrao').strip()
                         
@@ -103,13 +109,17 @@ class EquipmentRegistry:
                             linhas_invalidas += 1
                             continue
                         
-                        # Parsear JSON da configuração XLSX
-                        try:
-                            xlsx_estrutura = json.loads(xlsx_config_str)
-                        except json.JSONDecodeError as e:
-                            logger.warning(f"Linha {i}: JSON inválido em xlsx_config: {e}")
-                            linhas_invalidas += 1
-                            continue
+                        # Parsear JSON da configuração XLSX ou usar estrutura padrão
+                        if xlsx_config_str:
+                            try:
+                                xlsx_estrutura = json.loads(xlsx_config_str)
+                            except json.JSONDecodeError as e:
+                                logger.warning(f"Linha {i}: JSON inválido em xlsx_config: {e}, usando padrão")
+                                xlsx_estrutura = self._estrutura_padrao()
+                        else:
+                            # CSV antigo sem xlsx_config: usar estrutura padrão
+                            logger.info(f"Linha {i}: xlsx_config ausente para '{nome}', usando estrutura padrão")
+                            xlsx_estrutura = self._estrutura_padrao()
                         
                         # Criar configuração
                         config = EquipmentConfig(
@@ -142,6 +152,22 @@ class EquipmentRegistry:
         self._carregar_padroes_builtin()
         
         self._carregado = True
+    
+    def _estrutura_padrao(self) -> dict:
+        """
+        Retorna estrutura XLSX padrão para equipamentos sem configuração.
+        
+        Returns:
+            Dicionário com estrutura padrão (compatível com Applied Biosystems 7500)
+        """
+        return {
+            "coluna_well": 0,
+            "coluna_sample": 1,
+            "coluna_target": 2,
+            "coluna_ct": 3,
+            "linha_inicio": 5,
+            "headers_esperados": ["Well", "Sample Name", "Target", "Cq"]
+        }
     
     def _carregar_padroes_builtin(self) -> None:
         """Carrega padrões built-in (hardcoded)."""

@@ -85,10 +85,10 @@ class Dashboard(ctk.CTk):
         self.main_container.grid(row=1, column=0, sticky="nsew", padx=0, pady=0)
         self.main_container.grid_columnconfigure(0, weight=1)
         
-        # Seções do dashboard
-        self._criar_secao_cards()
-        self._criar_secao_grafico()
-        self._criar_secao_tabela()
+        # Seções do dashboard (row 0 reservado para banner)
+        self._criar_secao_cards()  # row 1
+        self._criar_secao_grafico()  # row 2
+        self._criar_secao_tabela()  # row 3
     
     def _criar_header(self):
         """Cria header com logo e navegação"""
@@ -98,6 +98,9 @@ class Dashboard(ctk.CTk):
             corner_radius=0,
             height=70
         )
+        
+        # Banner de aviso (será atualizado em carregar_dados)
+        self.banner_dados = None
         header.grid(row=0, column=0, sticky="ew")
         header.grid_columnconfigure(1, weight=1)
         
@@ -223,7 +226,7 @@ class Dashboard(ctk.CTk):
             self.main_container,
             fg_color="transparent"
         )
-        frame_cards.grid(row=0, column=0, sticky="ew", padx=20, pady=20)
+        frame_cards.grid(row=1, column=0, sticky="ew", padx=20, pady=20)
         frame_cards.grid_columnconfigure((0, 1, 2, 3), weight=1)
         
         # Criar 4 cards
@@ -269,7 +272,7 @@ class Dashboard(ctk.CTk):
             border_width=1,
             border_color=CORES['borda']
         )
-        frame_grafico.grid(row=1, column=0, sticky="ew", padx=20, pady=(0, 20))
+        frame_grafico.grid(row=2, column=0, sticky="ew", padx=20, pady=(0, 20))
         frame_grafico.grid_columnconfigure(0, weight=1)
         
         # Título
@@ -301,7 +304,7 @@ class Dashboard(ctk.CTk):
             border_width=1,
             border_color=CORES['borda']
         )
-        frame_tabela.grid(row=2, column=0, sticky="ew", padx=20, pady=(0, 20))
+        frame_tabela.grid(row=3, column=0, sticky="ew", padx=20, pady=(0, 20))
         frame_tabela.grid_columnconfigure(0, weight=1)
         
         # Título
@@ -373,6 +376,12 @@ class Dashboard(ctk.CTk):
     def carregar_dados(self):
         """Carrega dados do histórico de análises"""
         try:
+            # TODO: DADOS REAIS - Integrar com banco PostgreSQL
+            # Atualmente carrega de logs/historico_analises.csv
+            # Para dados em tempo real, conectar com:
+            # - services/history_report.py (gerar_historico_csv)
+            # - db/db_utils.py (consultas PostgreSQL)
+            
             # Tentar carregar histórico
             caminho_historico = Path("logs/historico_analises.csv")
             
@@ -384,16 +393,74 @@ class Dashboard(ctk.CTk):
                     encoding='utf-8',
                     low_memory=False
                 )
+                
+                # Ajustar colunas para compatibilidade com interface
+                if 'data_hora_analise' in self.df_historico.columns:
+                    self.df_historico['data_hora'] = self.df_historico['data_hora_analise']
+                
+                # Adicionar coluna 'equipamento' se não existir (extrair do nome do exame)
+                if 'equipamento' not in self.df_historico.columns:
+                    # Tentar deduzir do exame ou usar valor padrão
+                    self.df_historico['equipamento'] = self.df_historico.get('exame', 'N/A')
+                
+                print(f"✅ Dashboard carregado com {len(self.df_historico)} registros REAIS")
+                self._mostrar_banner_dados_reais()
                 self._atualizar_interface_com_dados()
             else:
+                print("⚠️ AVISO: Arquivo historico_analises.csv não encontrado.")
+                print("   Dashboard exibindo dados de EXEMPLO.")
+                print("   Execute análises primeiro para ver dados reais.")
                 # Criar dados de exemplo
                 self._criar_dados_exemplo()
+                self._mostrar_banner_dados_exemplo()
                 self._atualizar_interface_com_dados()
         
         except Exception as e:
-            print(f"Erro ao carregar dados: {e}")
+            print(f"❌ Erro ao carregar dados: {e}")
+            print("   Dashboard exibindo dados de EXEMPLO.")
             self._criar_dados_exemplo()
+            self._mostrar_banner_dados_exemplo()
             self._atualizar_interface_com_dados()
+    
+    def _mostrar_banner_dados_reais(self):
+        """Mostra banner indicando que está usando dados reais"""
+        if self.banner_dados:
+            self.banner_dados.destroy()
+        
+        self.banner_dados = ctk.CTkFrame(
+            self.main_container,
+            fg_color="#28a745",  # Verde
+            corner_radius=8,
+            height=40
+        )
+        self.banner_dados.grid(row=0, column=0, sticky="ew", padx=20, pady=(10, 10))
+        
+        ctk.CTkLabel(
+            self.banner_dados,
+            text=f"✅ Dashboard com DADOS REAIS ({len(self.df_historico)} análises do histórico)",
+            font=("", 12, "bold"),
+            text_color="white"
+        ).pack(pady=10)
+    
+    def _mostrar_banner_dados_exemplo(self):
+        """Mostra banner indicando que está usando dados de exemplo"""
+        if self.banner_dados:
+            self.banner_dados.destroy()
+        
+        self.banner_dados = ctk.CTkFrame(
+            self.main_container,
+            fg_color="#ff9800",  # Laranja
+            corner_radius=8,
+            height=40
+        )
+        self.banner_dados.grid(row=0, column=0, sticky="ew", padx=20, pady=(10, 10))
+        
+        ctk.CTkLabel(
+            self.banner_dados,
+            text="⚠️ DADOS DE EXEMPLO - Execute análises para ver dados reais",
+            font=("", 12, "bold"),
+            text_color="white"
+        ).pack(pady=10)
     
     def _criar_dados_exemplo(self):
         """Cria dados de exemplo para demonstração"""
@@ -401,7 +468,7 @@ class Dashboard(ctk.CTk):
         dados = []
         equipamentos = ["ABI 7500", "Biomanguinhos", "QuantStudio"]
         exames = ["VR1e2 Biomanguinhos", "Dengue PCR", "Zika RT-PCR", "Chikungunya"]
-        status = ["valida", "valida", "invalida", "aviso"]
+        status = ["Valida", "Valida", "Invalida", "Aviso"]
         
         for i in range(30):
             data = datetime.now() - timedelta(days=29-i)
@@ -409,7 +476,7 @@ class Dashboard(ctk.CTk):
                 'data_hora': data.strftime("%Y-%m-%d %H:%M:%S"),
                 'exame': exames[i % len(exames)],
                 'equipamento': equipamentos[i % len(equipamentos)],
-                'status': status[i % len(status)],
+                'status_corrida': status[i % len(status)],
                 'analista': 'Usuario Teste'
             })
         
@@ -439,11 +506,11 @@ class Dashboard(ctk.CTk):
         self.cards['total'].atualizar_valor(str(total))
         
         # Válidas
-        validas = len(self.df_historico[self.df_historico['status'] == 'valida'])
+        validas = len(self.df_historico[self.df_historico['status_corrida'] == 'Valida'])
         self.cards['validas'].atualizar_valor(str(validas))
         
         # Alertas (avisos + inválidas)
-        alertas = len(self.df_historico[self.df_historico['status'].isin(['aviso', 'invalida'])])
+        alertas = len(self.df_historico[self.df_historico['status_corrida'].isin(['Aviso', 'Invalida'])])
         self.cards['alertas'].atualizar_valor(str(alertas))
         
         # Última análise
@@ -521,11 +588,11 @@ class Dashboard(ctk.CTk):
             
             # Formatar status
             status_map = {
-                'valida': '✅ Válida',
-                'invalida': '❌ Inválida',
-                'aviso': '⚠️ Aviso'
+                'Valida': '✅ Válida',
+                'Invalida': '❌ Inválida',
+                'Aviso': '⚠️ Aviso'
             }
-            status_fmt = status_map.get(row['status'], row['status'])
+            status_fmt = status_map.get(row['status_corrida'], row.get('status_corrida', 'N/A'))
             
             # Inserir na tabela
             self.tree.insert(
@@ -653,3 +720,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+

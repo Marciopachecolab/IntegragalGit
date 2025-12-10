@@ -373,7 +373,7 @@ class BuscaExtracaoApp(AfterManagerMixin, ctk.CTkToplevel):
             preview_win = ctk.CTkToplevel(self)
             df_map["Codigo"] = df_map["Amostra"]
             preview_win.title("Confirme o Mapeamento")
-            preview_win.geometry("700x500")
+            preview_win.geometry("800x750")  # Aumentado para acomodar visualização gráfica
             try:
                 preview_win.attributes("-topmost", True)
                 preview_win.lift()
@@ -388,12 +388,8 @@ class BuscaExtracaoApp(AfterManagerMixin, ctk.CTkToplevel):
             lbl.pack(fill="x", padx=10, pady=(10, 0))
             # Use column-major only (coluna-major) as required
             current_flat = flat_col
-
-            txt = ctk.CTkTextbox(preview_win, wrap="none")
-            txt.pack(expand=True, fill="both", padx=10, pady=10)
-
-            # apply column-major order
-            # apply column-major order
+            
+            # Atualizar df_map com ordem de coluna ANTES de criar visualizações
             seq = list(range(1, len(df_map) + 1))
             df_map["Amostra"] = [
                 (
@@ -404,13 +400,75 @@ class BuscaExtracaoApp(AfterManagerMixin, ctk.CTkToplevel):
                 for i in seq
             ]
             df_map["Codigo"] = df_map["Amostra"]
+            
+            # ======================================================================
+            # VISUALIZAÇÃO GRÁFICA DO MAPEAMENTO (tipo mapa da placa)
+            # ======================================================================
+            visual_frame = ctk.CTkFrame(preview_win)
+            visual_frame.pack(fill="x", padx=10, pady=5)
+            
+            # Criar grid visual (8 linhas x 12 colunas para placa 96)
+            grid_frame = ctk.CTkFrame(visual_frame, fg_color="transparent")
+            grid_frame.pack(padx=5, pady=5)
+            
+            # Cabeçalho com números das colunas
+            ctk.CTkLabel(grid_frame, text="", width=30).grid(row=0, column=0, padx=1, pady=1)
+            for col in range(1, 13):
+                ctk.CTkLabel(
+                    grid_frame, 
+                    text=str(col), 
+                    width=45, 
+                    font=("", 10, "bold")
+                ).grid(row=0, column=col, padx=1, pady=1)
+            
+            # Criar células do mapeamento
+            rows_labels = ["A", "B", "C", "D", "E", "F", "G", "H"]
+            for row_idx, row_label in enumerate(rows_labels, 1):
+                # Label da linha
+                ctk.CTkLabel(
+                    grid_frame, 
+                    text=row_label, 
+                    width=30, 
+                    font=("", 10, "bold")
+                ).grid(row=row_idx, column=0, padx=1, pady=1)
+                
+                # Células com amostras
+                for col_idx in range(1, 13):
+                    poco = f"{row_label}{col_idx}"
+                    # Procurar amostra correspondente
+                    amostra_val = ""
+                    try:
+                        matches = df_map[df_map["Poco"] == poco]
+                        if not matches.empty:
+                            amostra_val = str(matches.iloc[0]["Amostra"])[:8]  # Limitar a 8 chars
+                    except Exception:
+                        pass
+                    
+                    # Criar célula
+                    cor_celula = "#2ecc71" if amostra_val else "#95a5a6"
+                    celula = ctk.CTkLabel(
+                        grid_frame,
+                        text=amostra_val if amostra_val else poco,
+                        width=45,
+                        height=25,
+                        fg_color=cor_celula,
+                        text_color="black",  # Texto preto
+                        corner_radius=4,
+                        font=("", 8)
+                    )
+                    celula.grid(row=row_idx, column=col_idx, padx=1, pady=1)
+            # ======================================================================
+
+            txt = ctk.CTkTextbox(preview_win, wrap="none")
+            txt.pack(expand=True, fill="both", padx=10, pady=10)
+
+            # Inserir texto descritivo do mapeamento (já atualizado com flat_col acima)
             txt.insert(
                 "0.0",
                 df_map[
                     [c for c in ["Poco", "Amostra", "Codigo"] if c in df_map.columns]
                 ].to_string(index=False),
             )
-            df_map["Codigo"] = df_map["Amostra"]
             txt.configure(state="disabled")
 
             def _open_edit_window():
@@ -418,6 +476,16 @@ class BuscaExtracaoApp(AfterManagerMixin, ctk.CTkToplevel):
                 edit_win = ctk.CTkToplevel(preview_win)
                 edit_win.title("Editar Mapeamento")
                 edit_win.geometry("600x400")
+                
+                # Tornar modal para evitar travamento
+                edit_win.transient(preview_win)
+                edit_win.grab_set()
+                
+                # Centralizar na tela
+                edit_win.update_idletasks()
+                x = (edit_win.winfo_screenwidth() // 2) - (edit_win.winfo_width() // 2)
+                y = (edit_win.winfo_screenheight() // 2) - (edit_win.winfo_height() // 2)
+                edit_win.geometry(f"+{x}+{y}")
 
                 # Scrollable area using a Canvas and a frame
                 canvas = tk.Canvas(edit_win)
@@ -473,10 +541,12 @@ class BuscaExtracaoApp(AfterManagerMixin, ctk.CTkToplevel):
                 btnf.pack(fill="x", padx=10, pady=5)
 
                 def _save_edits():
+                    # Atualizar DataFrame com edições
                     for i in range(len(entries_amostra)):
                         df_map.at[i, "Amostra"] = entries_amostra[i].get()
                         df_map.at[i, "Codigo"] = entries_codigo[i].get()
-                    # update preview textbox
+                    
+                    # Atualizar textbox de preview
                     txt.configure(state="normal")
                     txt.delete("0.0", "end")
                     txt.insert(
@@ -484,10 +554,48 @@ class BuscaExtracaoApp(AfterManagerMixin, ctk.CTkToplevel):
                         df_map[["Poco", "Amostra", "Codigo"]].to_string(index=False),
                     )
                     txt.configure(state="disabled")
+                    
+                    # Atualizar grid visual
+                    for row_idx, row_label in enumerate(["A", "B", "C", "D", "E", "F", "G", "H"], 1):
+                        for col_idx in range(1, 13):
+                            poco = f"{row_label}{col_idx}"
+                            # Procurar nova amostra
+                            amostra_val = ""
+                            try:
+                                matches = df_map[df_map["Poco"] == poco]
+                                if not matches.empty:
+                                    amostra_val = str(matches.iloc[0]["Amostra"])[:8]
+                            except Exception:
+                                pass
+                            
+                            # Atualizar célula existente no grid
+                            for widget in grid_frame.grid_slaves(row=row_idx, column=col_idx):
+                                if isinstance(widget, ctk.CTkLabel):
+                                    widget.configure(
+                                        text=amostra_val if amostra_val else poco,
+                                        fg_color="#2ecc71" if amostra_val else "#95a5a6"
+                                    )
+                    
+                    # Liberar grab e fechar janela de edição
+                    try:
+                        edit_win.grab_release()
+                    except Exception:
+                        pass
                     edit_win.destroy()
+                    
+                    # Voltar foco para preview sem travar
+                    preview_win.after(50, lambda: preview_win.focus_force())
 
                 def _cancel_edits():
+                    # Liberar grab e fechar janela de edição
+                    try:
+                        edit_win.grab_release()
+                    except Exception:
+                        pass
                     edit_win.destroy()
+                    
+                    # Voltar foco para preview sem travar
+                    preview_win.after(50, lambda: preview_win.focus_force())
 
                 save_btn = ctk.CTkButton(
                     btnf, text="Salvar", command=_save_edits, fg_color="#2ecc71"
@@ -503,6 +611,16 @@ class BuscaExtracaoApp(AfterManagerMixin, ctk.CTkToplevel):
                 det_win = ctk.CTkToplevel(preview_win)
                 det_win.title("Detalhes do Mapeamento")
                 det_win.geometry("700x500")
+                
+                # Tornar modal
+                det_win.transient(preview_win)
+                det_win.grab_set()
+                
+                # Centralizar na tela
+                det_win.update_idletasks()
+                x = (det_win.winfo_screenwidth() // 2) - (det_win.winfo_width() // 2)
+                y = (det_win.winfo_screenheight() // 2) - (det_win.winfo_height() // 2)
+                det_win.geometry(f"+{x}+{y}")
 
                 # Build a DataFrame for details
                 try:
@@ -535,6 +653,23 @@ class BuscaExtracaoApp(AfterManagerMixin, ctk.CTkToplevel):
                     txtd.pack(expand=True, fill="both", padx=10, pady=10)
                     txtd.insert("0.0", df_det.to_string(index=False))
                     txtd.configure(state="disabled")
+                    
+                    # Botão para fechar
+                    def _close_detalhes():
+                        try:
+                            det_win.grab_release()
+                        except Exception:
+                            pass
+                        det_win.destroy()
+                        preview_win.after(50, lambda: preview_win.focus_force())
+                    
+                    btn_close = ctk.CTkButton(
+                        det_win, 
+                        text="Fechar", 
+                        command=_close_detalhes
+                    )
+                    btn_close.pack(pady=10)
+                    
                 except Exception as e:
                     registrar_log(
                         "Mapeamento", f"Erro ao construir detalhes: {e}", "ERROR"
@@ -561,10 +696,13 @@ class BuscaExtracaoApp(AfterManagerMixin, ctk.CTkToplevel):
                 ]
                 self.resultado = (df_map[cols], int(parte))
                 preview_win.destroy()
+                # Fechar janela de mapeamento de forma segura para retornar ao menu
                 self._safe_destroy()
 
             def _cancel():
                 preview_win.destroy()
+                # Cancelar também precisa fechar de forma segura
+                self.cancelar()
 
             btn_frame = ctk.CTkFrame(preview_win)
             btn_frame.pack(fill="x", padx=10, pady=(0, 10))
@@ -611,4 +749,12 @@ class BuscaExtracaoApp(AfterManagerMixin, ctk.CTkToplevel):
 def carregar_dados_extracao(parent) -> Optional[Tuple[pd.DataFrame, int]]:
     dialog = BuscaExtracaoApp(parent)
     parent.wait_window(dialog)
+    
+    # Garantir que o parent recupere o foco após fechar o dialog
+    try:
+        parent.focus_force()
+        parent.lift()
+    except Exception:
+        pass
+    
     return dialog.resultado

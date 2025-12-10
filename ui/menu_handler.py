@@ -43,10 +43,11 @@ class MenuHandler:
             ("2. Realizar Análise", self.realizar_analise),
             ("3. Visualizar e Salvar Resultados", self.mostrar_resultados_analise),
             ("4. Enviar para o GAL", self.enviar_para_gal),
-            ("5. Administração", self.abrir_administracao),  # NOVO
-            ("6. Gerenciar Usuários", self.gerenciar_usuarios),  # NOVO
-            ("7. Incluir Novo Exame", self.incluir_novo_exame),  # NOVO
-            ("8. Relatórios", self.gerar_relatorios),  # NOVO
+            ("5. Administração", self.abrir_administracao),
+            ("6. Gerenciar Usuários", self.gerenciar_usuarios),
+            ("7. Incluir Novo Exame", self.incluir_novo_exame),
+            ("8. Relatórios", self.gerar_relatorios),
+            ("9. 📊 Dashboards", self.abrir_dashboard),  # NOVO
         ]
 
         for texto, comando in botoes:
@@ -59,6 +60,10 @@ class MenuHandler:
         self.main_window.update_status("A carregar extração...")
         self.main_window.app_state.reset_extracao_state()
         resultado = carregar_dados_extracao(self.main_window)
+        
+        # Processar eventos pendentes após fechar janela modal
+        self.main_window.update_idletasks()
+        
         if resultado:
             (
                 self.main_window.app_state.dados_extracao,
@@ -187,37 +192,18 @@ class MenuHandler:
                 and not resultados_df.empty
             ):
                 self.main_window.app_state.resultados_analise = resultados_df
-
-                # Salvar resultado em arquivo
-                try:
-                    import os
-                    from datetime import datetime, timezone
-
-                    base_dir = os.path.dirname(
-                        os.path.dirname(os.path.abspath(__file__))
-                    )
-                    reports_dir = os.path.join(base_dir, "reports")
-                    os.makedirs(reports_dir, exist_ok=True)
-
-                    ts = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
-                    gal_path = os.path.join(reports_dir, f"gal_{ts}_exame.csv")
-
-                    # Formatar dados para GAL
-                    from exportacao.gal_formatter import formatar_para_gal
-                    exam_cfg = getattr(self.main_window.app_state, "exam_cfg", None)
-                    df_gal = formatar_para_gal(resultados_df, exam_cfg=exam_cfg, exame=exame)
-                    df_gal.to_csv(gal_path, index=False)
-
-                    gal_last = os.path.join(reports_dir, "gal_last_exame.csv")
-                    df_gal.to_csv(gal_last, index=False)
-
-                    # Notificar salvamento
-                    from utils.notifications import notificar_gal_saved
-
-                    notificar_gal_saved(gal_last, parent=self.main_window)
-
-                except Exception as e:
-                    registrar_log("Export GAL", f"Falha ao gerar CSV GAL: {e}", "ERROR")
+                
+                # Armazenar configuração do exame para uso posterior no GAL export
+                exam_cfg = getattr(self.main_window.app_state, "exam_cfg", None)
+                if exam_cfg:
+                    self.main_window.app_state.exam_cfg_for_gal = exam_cfg
+                
+                # CSV GAL será gerado APÓS o histórico, na janela de confirmação
+                registrar_log(
+                    "Análise Completa",
+                    "Análise concluída. CSV GAL será gerado após salvamento do histórico.",
+                    "INFO",
+                )
 
                 self.mostrar_resultados_analise()
             else:
@@ -243,12 +229,23 @@ class MenuHandler:
             )
             return
 
-        exame, lote = self._obter_detalhes_analise_via_dialogo()
-        if not exame or not lote:
+        # Escolher EXAME (não equipamento, pois todos usam 7500)
+        exame_escolhido = self._escolher_exame()
+        if not exame_escolhido:
+            return  # Usuário cancelou
+        
+        # Obter lote
+        lote = simpledialog.askstring(
+            "Número do Lote/Kit",
+            "Informe o número do lote/kit:",
+            parent=self.main_window,
+        )
+        
+        if not lote:
             return
 
-        self.main_window.update_status(f"A executar análise para '{exame}'...")
-        self.main_window.after(100, self._executar_servico_analise, exame, lote)
+        self.main_window.update_status(f"A executar análise para '{exame_escolhido}'...")
+        self.main_window.after(100, self._executar_servico_analise, exame_escolhido, lote)
 
     def mostrar_resultados_analise(self):
         """Exibe os resultados da análise em tabela"""
@@ -279,6 +276,9 @@ class MenuHandler:
                 usuario_logado=getattr(
                     self.main_window.app_state, "usuario_logado", "Desconhecido"
                 ),
+                exame=getattr(self.main_window.app_state, "exame_selecionado", ""),
+                lote=getattr(self.main_window.app_state, "lote", ""),
+                arquivo_corrida=getattr(self.main_window.app_state, "caminho_arquivo_corrida", ""),
             )
 
         except Exception as e:
@@ -337,3 +337,200 @@ class MenuHandler:
                 f"Falha ao abrir o módulo de relatórios:\n{e}",
                 parent=self.main_window,
             )
+    
+    def abrir_dashboard(self):
+        """Abre o Dashboard de Análises"""
+        try:
+            from interface.dashboard import Dashboard
+            
+            registrar_log("UI Main", "Abrindo Dashboard...", "INFO")
+            
+            # Abrir dashboard em janela separada
+            dashboard = Dashboard()
+            dashboard.mainloop()
+            
+        except Exception as e:
+            registrar_log("UI Main", f"Erro ao abrir Dashboard: {e}", "ERROR")
+            messagebox.showerror(
+                "Erro",
+                f"Falha ao abrir Dashboard:\n{str(e)}",
+                parent=self.main_window
+            )
+    
+    def _detectar_e_confirmar_equipamento(self) -> Optional[str]:
+        """
+        Detecta equipamento automaticamente e pede confirmação do usuário.
+        
+        NOTA: Atualmente usando seleção manual (OPÇÃO B).
+        Para ativar detecção automática (OPÇÃO A), descomente o bloco abaixo
+        e certifique-se de que app_state.arquivo_xlsx_path está sendo salvo
+        durante o mapeamento da placa.
+        
+        Returns:
+            Nome do equipamento escolhido ou None se cancelado
+        """
+        # ========================================================================
+        # OPÇÃO B (ATIVA): Sempre usa seleção manual
+        # ========================================================================
+        return self._escolher_equipamento_manual()
+        
+        # ========================================================================
+        # OPÇÃO A (DESATIVADA): Detecção automática por arquivo XLSX
+        # ========================================================================
+        # PARA ATIVAR OPÇÃO A:
+        # 1. Comente a linha "return self._escolher_equipamento_manual()" acima
+        # 2. Descomente o bloco abaixo
+        # 3. Modifique busca_extracao.py para salvar o caminho do arquivo XLSX:
+        #    - Adicionar self.arquivo_xlsx_path no BuscaExtracaoApp
+        #    - Salvar path quando arquivo é carregado
+        #    - Retornar tupla (df, parte, path) em carregar_dados_extracao()
+        # 4. Modifique menu_handler.py abrir_busca_extracao() para capturar:
+        #    - app_state.arquivo_xlsx_path = resultado[2]
+        # ========================================================================
+        
+        # # Obter arquivo XLSX da extração
+        # arquivo_xlsx = getattr(self.main_window.app_state, 'arquivo_xlsx_path', None)
+        # 
+        # # Verificação: se não tiver o caminho do arquivo, usar seleção manual
+        # if not arquivo_xlsx or not os.path.exists(arquivo_xlsx):
+        #     messagebox.showwarning(
+        #         "Detecção Automática",
+        #         "Arquivo XLSX não encontrado. Por favor, selecione o equipamento manualmente.",
+        #         parent=self.main_window
+        #     )
+        #     return self._escolher_equipamento_manual()
+        # 
+        # try:
+        #     # Detectar equipamento
+        #     from services.equipment_detector import EquipmentDetector
+        #     from services.equipment_registry import EquipmentRegistry
+        #     from ui.equipment_confirmation_dialog import EquipmentConfirmationDialog
+        #     
+        #     self.main_window.update_status("Detectando equipamento...")
+        #     
+        #     detector = EquipmentDetector()
+        #     resultado = detector.detectar_equipamento(arquivo_xlsx)
+        #     
+        #     # Carregar lista de equipamentos disponíveis
+        #     registry = EquipmentRegistry()
+        #     registry.load()
+        #     equipamentos_disponiveis = [config.nome for config in registry.listar_todos()]
+        #     
+        #     # Abrir dialog de confirmação
+        #     dialog = EquipmentConfirmationDialog(
+        #         self.main_window,
+        #         resultado,
+        #         equipamentos_disponiveis
+        #     )
+        #     
+        #     escolha = dialog.obter_escolha()
+        #     
+        #     if escolha:
+        #         self.main_window.update_status(f"Equipamento selecionado: {escolha}")
+        #         registrar_log("UI Main", f"Equipamento confirmado: {escolha}", "INFO")
+        #     
+        #     return escolha
+        #     
+        # except Exception as e:
+        #     registrar_log("UI Main", f"Erro na detecção de equipamento: {e}", "ERROR")
+        #     messagebox.showerror(
+        #         "Erro na Detecção",
+        #         f"Falha ao detectar equipamento:\n{str(e)}\n\nPor favor, selecione manualmente.",
+        #         parent=self.main_window
+        #     )
+        #     return self._escolher_equipamento_manual()
+    
+    def _escolher_exame(self) -> Optional[str]:
+        """
+        Permite ao usuário escolher o exame para análise.
+        
+        Returns:
+            Nome do exame ou None se cancelado
+        """
+        try:
+            import pandas as pd
+            import os
+            
+            # Carregar lista de exames do CSV
+            base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            csv_path = os.path.join(base_dir, "banco", "exames_config.csv")
+            
+            if not os.path.exists(csv_path):
+                messagebox.showerror(
+                    "Erro",
+                    "Arquivo de configuração de exames não encontrado.",
+                    parent=self.main_window
+                )
+                return None
+            
+            df_exames = pd.read_csv(csv_path)
+            lista_exames = df_exames["exame"].tolist()
+            
+            if not lista_exames:
+                messagebox.showerror(
+                    "Erro",
+                    "Nenhum exame cadastrado no sistema.",
+                    parent=self.main_window
+                )
+                return None
+            
+            # Usar CTkSelectionDialog para escolha
+            escolha = CTkSelectionDialog(
+                self.main_window,
+                title="Seleção de Exame",
+                text="Selecione o exame para análise:",
+                values=lista_exames
+            ).get_selection()
+            
+            return escolha
+            
+        except Exception as e:
+            registrar_log("UI Main", f"Erro ao escolher exame: {e}", "ERROR")
+            messagebox.showerror(
+                "Erro",
+                f"Falha ao carregar lista de exames:\n{str(e)}",
+                parent=self.main_window
+            )
+            return None
+    
+    def _escolher_equipamento_manual(self) -> Optional[str]:
+        """
+        [OBSOLETO - Mantido para compatibilidade com código comentado]
+        Permite ao usuário escolher equipamento manualmente via dialog.
+        
+        Returns:
+            Nome do equipamento ou None se cancelado
+        """
+        try:
+            from services.equipment_registry import EquipmentRegistry
+            
+            registry = EquipmentRegistry()
+            registry.load()
+            equipamentos = [config.nome for config in registry.listar_todos()]
+            
+            if not equipamentos:
+                messagebox.showerror(
+                    "Erro",
+                    "Nenhum equipamento cadastrado no sistema.",
+                    parent=self.main_window
+                )
+                return None
+            
+            # Usar CTkSelectionDialog para escolha
+            escolha = CTkSelectionDialog(
+                self.main_window,
+                title="Seleção Manual",
+                text="Selecione o equipamento:",
+                values=equipamentos
+            ).get_selection()
+            
+            return escolha
+            
+        except Exception as e:
+            registrar_log("UI Main", f"Erro ao escolher equipamento manual: {e}", "ERROR")
+            messagebox.showerror(
+                "Erro",
+                f"Falha ao carregar lista de equipamentos:\n{str(e)}",
+                parent=self.main_window
+            )
+            return None

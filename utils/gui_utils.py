@@ -413,57 +413,53 @@ class TabelaComSelecaoSimulada(AfterManagerMixin, ctk.CTkToplevel):
 
 
     def _salvar_selecionados(self):
-
+        """
+        Salva TODAS as amostras no histórico (PostgreSQL) e pergunta se deseja
+        enviar apenas as SELECIONADAS para o GAL.
+        """
         # Reforça invariância: desmarca inválidas antes de salvar
-
         result_cols = [c for c in self.df.columns if str(c).startswith("Resultado_")]
-
         invalid_mask = self.df.apply(
-
             lambda r: any(
-
                 _norm_res_label(r.get(c, "")) == "invalido" for c in result_cols
-
             ),
-
             axis=1,
-
         )
-
         if invalid_mask.any():
-
             self.df.loc[invalid_mask, "Selecionado"] = False
 
-
-
-        # Linha comentada devido a alerta do ruff (E712): comparação direta com True.
-
-        # df_selecionados = self.df[self.df["Selecionado"] == True]
-
+        # Contar selecionadas para envio ao GAL
         df_selecionados = self.df[self.df["Selecionado"]]
-
         total_selecionados = len(df_selecionados)
-
-        if total_selecionados == 0:
-
-            messagebox.showinfo(
-
-                "Informação", "Nenhuma amostra selecionada para salvar.", parent=self
-
-            )
-
+        
+        # Detectar coluna de código (pode ser "Código" ou "Codigo")
+        col_codigo = "Código" if "Código" in self.df.columns else ("Codigo" if "Codigo" in self.df.columns else None)
+        if not col_codigo:
+            messagebox.showerror("Erro", "Coluna de código não encontrada no DataFrame.", parent=self)
             return
-
-
+        
+        total_amostras = len(self.df[self.df[col_codigo].notna() & (self.df[col_codigo] != "")])
 
         try:
             from services.history_report import gerar_historico_csv
 
-            # Prepara dataframe para garantir arquivo_corrida e resultados de RP
-            df_para_salvar = self._preparar_df_para_historico(df_selecionados)
+            # PASSO 1: Salvar TODAS as amostras no histórico (não apenas selecionadas)
+            df_todas_amostras = self.df[self.df[col_codigo].notna() & (self.df[col_codigo] != "")]
+            
+            if len(df_todas_amostras) == 0:
+                messagebox.showinfo(
+                    "Informação", 
+                    "Nenhuma amostra disponível para salvar.", 
+                    parent=self
+                )
+                return
+            
+            # Prepara todas as amostras para o histórico
+            df_para_historico = self._preparar_df_para_historico(df_todas_amostras)
 
+            # Salvar no histórico (PostgreSQL/CSV)
             gerar_historico_csv(
-                df_para_salvar,
+                df_para_historico,
                 exame=getattr(self, "exame", ""),
                 usuario=self.usuario_logado or "Desconhecido",
                 lote=getattr(self, "lote", ""),
@@ -471,50 +467,54 @@ class TabelaComSelecaoSimulada(AfterManagerMixin, ctk.CTkToplevel):
                 caminho_csv="logs/historico_analises.csv",
             )
 
-            detalhes = f"Placa: {self.num_placa}; {total_selecionados} amostras salvas."
-
+            detalhes = f"Placa: {self.num_placa}; {total_amostras} amostras salvas no histórico."
             salvar_historico_processamento(
-
-                self.usuario_logado, "Análise Manual", "Concluído", detalhes
-
-            )
-
-            messagebox.showinfo(
-
-                "Sucesso",
-
-                f"{total_selecionados} amostras selecionadas foram salvas no histórico.",
-
-                parent=self,
-
+                self.usuario_logado, "Análise Completa", "Concluído", detalhes
             )
 
             registrar_log(
-
                 "Salvar Histórico",
-
-                f"{total_selecionados} amostras salvas pelo utilizador {self.usuario_logado}.",
-
+                f"{total_amostras} amostras salvas no histórico pelo usuário {self.usuario_logado}.",
                 "INFO",
-
             )
+
+            # PASSO 2: Confirmar sucesso e perguntar sobre envio ao GAL
+            if total_selecionados == 0:
+                messagebox.showinfo(
+                    "Histórico Salvo",
+                    f"✅ {total_amostras} amostras foram salvas no histórico.\n\n"
+                    "⚠️ Nenhuma amostra foi selecionada para envio ao GAL.",
+                    parent=self,
+                )
+                return
+
+            # Perguntar se deseja enviar selecionadas ao GAL
+            resposta = messagebox.askyesno(
+                "Enviar para o GAL?",
+                f"✅ {total_amostras} amostras salvas no histórico com sucesso!\n\n"
+                f"📊 {total_selecionados} amostras estão selecionadas.\n\n"
+                "Deseja enviar as amostras SELECIONADAS para o GAL?",
+                parent=self,
+            )
+
+            if resposta:
+                # PASSO 3: Enviar apenas selecionadas para o GAL
+                self._enviar_selecionadas_gal(df_selecionados)
+            else:
+                messagebox.showinfo(
+                    "Concluído",
+                    "Amostras salvas no histórico. Envio ao GAL cancelado.",
+                    parent=self,
+                )
 
         except Exception as e:
-
             messagebox.showerror(
-
                 "Erro ao Salvar",
-
                 f"Não foi possível salvar o histórico.\n\nErro: {e}",
-
                 parent=self,
-
             )
-
             registrar_log(
-
                 "Salvar Histórico", f"Falha ao salvar histórico: {e}", "ERROR"
-
             )
 
     def _preparar_df_para_historico(self, df):
@@ -543,6 +543,69 @@ class TabelaComSelecaoSimulada(AfterManagerMixin, ctk.CTkToplevel):
                 df_out[res_col] = ""
 
         return df_out
+    
+    def _enviar_selecionadas_gal(self, df_selecionadas):
+        """
+        Gera CSV GAL e abre interface de envio para as amostras SELECIONADAS.
+        Este método é chamado APÓS o salvamento do histórico.
+        """
+        try:
+            import os
+            from datetime import datetime, timezone
+            from exportacao.gal_formatter import formatar_para_gal
+            from exportacao.envio_gal import abrir_janela_envio_gal
+            from utils.notifications import notificar_gal_saved
+            
+            total = len(df_selecionadas)
+            
+            # Preparar dados para GAL
+            df_para_gal = self._preparar_df_para_historico(df_selecionadas)
+            
+            # Obter configuração do exame
+            app_state = getattr(self.master, "app_state", None)
+            exam_cfg = getattr(app_state, "exam_cfg_for_gal", None) if app_state else None
+            exame = getattr(self, "exame", "")
+            
+            # GERAR CSV GAL (agora sim, após histórico salvo)
+            df_gal = formatar_para_gal(df_para_gal, exam_cfg=exam_cfg, exame=exame)
+            
+            # Salvar arquivos CSV
+            base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            reports_dir = os.path.join(base_dir, "reports")
+            os.makedirs(reports_dir, exist_ok=True)
+            
+            ts = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+            gal_path = os.path.join(reports_dir, f"gal_{ts}_exame.csv")
+            df_gal.to_csv(gal_path, index=False)
+            
+            gal_last = os.path.join(reports_dir, "gal_last_exame.csv")
+            df_gal.to_csv(gal_last, index=False)
+            
+            registrar_log(
+                "GAL Export",
+                f"CSV GAL gerado com {len(df_gal)} linhas em {gal_path}",
+                "INFO",
+            )
+            
+            # Salvar no app_state para módulo GAL
+            if app_state:
+                setattr(app_state, "resultados_gal", df_para_gal)
+            
+            # Notificar salvamento
+            notificar_gal_saved(gal_last, parent=self.master)
+            
+            # Abrir interface de envio GAL
+            abrir_janela_envio_gal(self.master)
+            
+        except Exception as e:
+            messagebox.showerror(
+                "Erro ao Gerar CSV GAL",
+                f"Não foi possível gerar o CSV para o GAL.\n\nErro: {e}",
+                parent=self,
+            )
+            registrar_log(
+                "GAL Export", f"Falha ao gerar CSV GAL: {e}", "ERROR"
+            )
 
     def _mostrar_relatorio(self):
 
@@ -710,7 +773,22 @@ class TabelaComSelecaoSimulada(AfterManagerMixin, ctk.CTkToplevel):
 
             bloco_tam = getattr(app_state, "bloco_tamanho", 2)
 
-            abrir_placa_ctk(df_to_use, meta_extra=meta, group_size=bloco_tam, parent=self)
+            
+            # Callback para atualizar dados após salvamento no mapa da placa
+            def on_plate_save(plate_model):
+                """Atualiza app_state com dados do plate_model após edições"""
+                try:
+                    # Converter PlateModel de volta para DataFrame
+                    df_updated = plate_model.to_dataframe()
+                    
+                    # Atualizar app_state com DataFrame modificado
+                    setattr(app_state, "resultados_analise", df_updated)
+                    
+                    registrar_log("Mapa Placa", "Alterações salvas e sincronizadas com resultados", "INFO")
+                except Exception as e:
+                    registrar_log("Mapa Placa", f"Erro ao sincronizar alterações: {e}", "ERROR")
+            
+            abrir_placa_ctk(df_to_use, meta_extra=meta, group_size=bloco_tam, parent=self, on_save_callback=on_plate_save)
 
             registrar_log("Mapa Placa", "Mapa exibido na janela CTk", "INFO")
 
