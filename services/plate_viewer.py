@@ -1326,8 +1326,26 @@ class PlateView(ctk.CTkFrame):
             return  # NÃO destruir se houve erro no processamento
         
         # Destruir janela APENAS se tudo deu certo (libera GUI imediatamente)
+        # Usar winfo_toplevel() ao invés de self.master para maior segurança:
+        # - Garante que destruímos apenas o Toplevel correto
+        # - Desacopla PlateView da estrutura exata de widgets
+        # - Previne destruir root acidentalmente
         try:
-            self.master.destroy()
+            toplevel = self.winfo_toplevel()
+            
+            # CRÍTICO: Usar padrão seguro de destruição para CustomTkinter
+            # Ocultar imediatamente + delay antes de destroy() previne "invalid command name"
+            toplevel.withdraw()
+            
+            def destruir_seguro():
+                try:
+                    if toplevel.winfo_exists():
+                        toplevel.destroy()
+                except Exception:
+                    pass
+            
+            toplevel.after(200, destruir_seguro)
+            
         except Exception as e:
             from utils.logger import registrar_log
             registrar_log("PlateView", f"Erro ao destruir janela: {e}", "ERROR")
@@ -1387,9 +1405,18 @@ class PlateWindow(ctk.CTkToplevel):
                 # Cancelar callbacks pendentes
                 self.dispose()
                 
-                # Destruir janela
-                if self.winfo_exists():
-                    self.destroy()
+                # Ocultar janela imediatamente
+                self.withdraw()
+                
+                # Destruir após delay para callbacks internos do CustomTkinter
+                def destruir_seguro():
+                    try:
+                        if self.winfo_exists():
+                            self.destroy()
+                    except Exception:
+                        pass
+                
+                self.after(200, destruir_seguro)
             except Exception:
                 pass
 
@@ -1404,8 +1431,19 @@ def abrir_placa_ctk(df_final: pd.DataFrame, meta_extra: Optional[Dict[str, Any]]
     Abre a janela CTk para visualização/edição da placa usando df_final em memória.
     meta_extra pode conter data, extracao/arquivo, exame, usuario.
     on_save_callback: função a ser chamada ao salvar alterações (recebe PlateModel).
+    
+    IMPORTANTE: parent deve sempre ser passado para evitar criação de segundo root CTk.
     """
     try:
+        # CRÍTICO: Validar parent para prevenir criação de segundo root CTk
+        # Criar ctk.CTk() quando já existe mainloop ativo causa travamentos
+        if parent is None:
+            raise RuntimeError(
+                "abrir_placa_ctk requer um parent CTk/CTkToplevel válido.\n"
+                "Passar parent=None criaria um segundo root, causando travamento da aplicação.\n"
+                "Solução: Sempre passe a janela principal como parent."
+            )
+        
         print(f"DEBUG abrir_placa_ctk: DataFrame shape={df_final.shape if df_final is not None else 'None'}")
         
         if df_final is None or df_final.empty:
@@ -1430,7 +1468,8 @@ def abrir_placa_ctk(df_final: pd.DataFrame, meta_extra: Optional[Dict[str, Any]]
         print(f"DEBUG abrir_placa_ctk: PlateModel criado, wells={len(plate_model.wells)}")
         
         print(f"DEBUG abrir_placa_ctk: Criando PlateWindow...")
-        win = PlateWindow(parent or ctk.CTk(), plate_model, meta, on_save_callback=on_save_callback)
+        # parent já foi validado acima, não pode ser None
+        win = PlateWindow(parent, plate_model, meta, on_save_callback=on_save_callback)
         win.focus_force()
         
         print(f"DEBUG abrir_placa_ctk: PlateWindow criada com sucesso")

@@ -17,6 +17,41 @@ from utils.after_mixin import AfterManagerMixin
 from utils.logger import registrar_log
 
 
+def safe_destroy_ctk_toplevel(window):
+    """
+    Destrói uma janela CTkToplevel de forma segura, evitando erros 'invalid command name'.
+    
+    CustomTkinter agenda callbacks internos (update, check_dpi_scaling, _click_animation)
+    que podem executar após destroy(). Esta função:
+    1. Oculta a janela imediatamente (withdraw)
+    2. Aguarda 50ms para callbacks pendentes completarem
+    3. Destrói a janela de forma segura
+    
+    Args:
+        window: Janela CTkToplevel a ser destruída
+    """
+    try:
+        # 1. Ocultar janela imediatamente
+        window.withdraw()
+        
+        # 2. Agendar destruição após callbacks pendentes
+        def _destroy_delayed():
+            try:
+                window.destroy()
+            except Exception as e:
+                registrar_log("SafeDestroy", f"Erro ao destruir janela: {e}", "WARNING")
+        
+        window.after(200, _destroy_delayed)
+        
+    except Exception as e:
+        registrar_log("SafeDestroy", f"Erro em safe_destroy: {e}", "ERROR")
+        # Fallback: tentar destruir diretamente
+        try:
+            window.destroy()
+        except Exception:
+            pass
+
+
 
 
 
@@ -94,6 +129,9 @@ class TabelaComSelecaoSimulada(AfterManagerMixin, ctk.CTkToplevel):
         
         # Armazenar referência ao parent para limpeza posterior
         self._parent = root
+        
+        # Rastrear callback de restaurar_grab para cancelar se necessário
+        self._restore_grab_callback_id = None
 
         self.df = dataframe.copy()
 
@@ -813,13 +851,17 @@ class TabelaComSelecaoSimulada(AfterManagerMixin, ctk.CTkToplevel):
             
             # CRÍTICO: Liberar grab antes de abrir janela filha para evitar conflito modal
             # Solução baseada na análise de problemas comuns do Tkinter com grab_set
-            self.grab_release()
+            try:
+                self.grab_release()
+            except Exception:
+                pass
             
             # Função segura para restaurar grab sem causar "invalid command name"
             def restaurar_grab_seguro():
                 try:
                     if self.winfo_exists():
                         self.grab_set()
+                        self._restore_grab_callback_id = None  # Limpar ID após execução
                 except Exception:
                     pass  # Janela foi destruída, ignorar silenciosamente
             
@@ -827,8 +869,13 @@ class TabelaComSelecaoSimulada(AfterManagerMixin, ctk.CTkToplevel):
                 abrir_placa_ctk(df_to_use, meta_extra=meta, group_size=bloco_tam, parent=self, on_save_callback=on_plate_save)
             finally:
                 # Restaurar grab após PlateWindow ser criada
-                # Usar after() para garantir que a janela filho foi completamente inicializada
-                self.after(100, restaurar_grab_seguro)
+                # Usar after_idle ao invés de after(100) para reduzir janela de vulnerabilidade
+                # Rastrear ID do callback para poder cancelar no _on_close se necessário
+                try:
+                    self._restore_grab_callback_id = self.after_idle(restaurar_grab_seguro)
+                except Exception:
+                    # Se after_idle falhar, restaurar imediatamente
+                    restaurar_grab_seguro()
 
             registrar_log("Mapa Placa", "Mapa exibido na janela CTk", "INFO")
 
@@ -847,6 +894,15 @@ class TabelaComSelecaoSimulada(AfterManagerMixin, ctk.CTkToplevel):
     def _on_close(self):
         # Cancelar callbacks pendentes do AfterManagerMixin
         self.dispose()
+        
+        # CRÍTICO: Cancelar callback de restaurar_grab se ainda pendente
+        # Isso previne "invalid command name" quando janela é fechada rapidamente
+        if self._restore_grab_callback_id is not None:
+            try:
+                self.after_cancel(self._restore_grab_callback_id)
+                self._restore_grab_callback_id = None
+            except Exception:
+                pass
         
         # Limpar referência e flag no MenuHandler se aplicável
         if hasattr(self._parent, 'menu_handler'):
