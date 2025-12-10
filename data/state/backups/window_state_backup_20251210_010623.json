@@ -1,0 +1,13 @@
+{
+  "main_window": {
+    "geometria": "800x600+100+100"
+  },
+  "dashboard": {
+    "componentes": {
+      "visualizador": {
+        "scroll_position": 100,
+        "filtro_ativo": "CT Alto"
+      }
+    }
+  }
+}

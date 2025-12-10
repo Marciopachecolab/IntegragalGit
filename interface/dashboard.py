@@ -16,6 +16,14 @@ import os
 from .estilos import CORES, FONTES, STATUS_CORES, GRAFICO_CORES
 from .componentes import criar_card_estatistica
 
+# Importar sistema de alertas
+try:
+    from .sistema_alertas import GerenciadorAlertas, CentroNotificacoes, gerar_alertas_exemplo
+except ImportError:
+    GerenciadorAlertas = None
+    CentroNotificacoes = None
+    gerar_alertas_exemplo = None
+
 
 class Dashboard(ctk.CTk):
     """
@@ -38,8 +46,23 @@ class Dashboard(ctk.CTk):
         self.df_historico = None
         self.cards = {}
         
+        # Inicializar gerenciador de alertas
+        if GerenciadorAlertas:
+            self.gerenciador_alertas = GerenciadorAlertas()
+            # Gerar alguns alertas de exemplo
+            if gerar_alertas_exemplo:
+                gerar_alertas_exemplo(self.gerenciador_alertas)
+            # Callback para atualizar badge será registrado após criar interface
+        else:
+            self.gerenciador_alertas = None
+        self.badge_alertas = None
+        
         # Criar interface
         self._criar_interface()
+        
+        # Registrar callback para atualizar badge (após interface criada)
+        if self.gerenciador_alertas:
+            self.gerenciador_alertas.registrar_callback(self._atualizar_badge_alertas)
         
         # Carregar dados
         self.carregar_dados()
@@ -113,6 +136,20 @@ class Dashboard(ctk.CTk):
         )
         btn_dashboard.pack(side="left", padx=5)
         
+        btn_graficos = ctk.CTkButton(
+            frame_nav,
+            text="📊 Gráficos",
+            fg_color="transparent",
+            text_color=CORES['branco'],
+            hover_color=CORES['primaria_escuro'],
+            border_width=2,
+            border_color=CORES['branco'],
+            corner_radius=5,
+            width=120,
+            command=self._abrir_graficos
+        )
+        btn_graficos.pack(side="left", padx=5)
+        
         btn_historico = ctk.CTkButton(
             frame_nav,
             text="Histórico",
@@ -122,9 +159,49 @@ class Dashboard(ctk.CTk):
             border_width=2,
             border_color=CORES['branco'],
             corner_radius=5,
-            width=120
+            width=120,
+            command=self._abrir_historico
         )
         btn_historico.pack(side="left", padx=5)
+        
+        # Botão Alertas com badge
+        frame_alertas = ctk.CTkFrame(frame_nav, fg_color="transparent")
+        frame_alertas.pack(side="left", padx=5)
+        
+        self.btn_alertas = ctk.CTkButton(
+            frame_alertas,
+            text="🔔 Alertas",
+            fg_color="transparent",
+            text_color=CORES['branco'],
+            hover_color=CORES['primaria_escuro'],
+            border_width=2,
+            border_color=CORES['branco'],
+            corner_radius=5,
+            width=120,
+            command=self._abrir_alertas
+        )
+        self.btn_alertas.pack()
+        
+        # Badge de notificações
+        if self.gerenciador_alertas:
+            stats = self.gerenciador_alertas.get_estatisticas()
+            nao_lidos = stats['nao_lidos']
+            if nao_lidos > 0:
+                self.badge_alertas = ctk.CTkLabel(
+                    frame_alertas,
+                    text=str(nao_lidos) if nao_lidos < 100 else "99+",
+                    fg_color=CORES['erro'],
+                    text_color=CORES['branco'],
+                    corner_radius=10,
+                    width=24,
+                    height=24,
+                    font=('Segoe UI', 10, 'bold')
+                )
+                self.badge_alertas.place(x=95, y=5)
+            else:
+                self.badge_alertas = None
+        else:
+            self.badge_alertas = None
         
         btn_configuracoes = ctk.CTkButton(
             frame_nav,
@@ -457,12 +534,105 @@ class Dashboard(ctk.CTk):
             )
     
     def _on_item_double_click(self, event):
-        """Handler para duplo clique na tabela"""
+        """Handler para duplo clique na tabela - abre visualizador"""
         item = self.tree.selection()
-        if item:
-            # Futuramente: abrir visualizador de detalhes
-            valores = self.tree.item(item[0])['values']
-            print(f"Duplo clique em: {valores}")
+        if not item:
+            return
+        
+        valores = self.tree.item(item[0])['values']
+        data_hora = valores[0]
+        exame = valores[1]
+        equipamento = valores[2]
+        status = valores[3]
+        
+        try:
+            # Importar visualizador
+            from .visualizador_exame import VisualizadorExame, criar_dados_exame_exemplo
+            
+            # TODO Fase 4: Buscar dados reais do banco/arquivos
+            # Por enquanto, usar dados de exemplo adaptados
+            dados_exame = criar_dados_exame_exemplo()
+            dados_exame['exame'] = exame
+            dados_exame['data_hora'] = data_hora
+            dados_exame['equipamento'] = equipamento
+            dados_exame['status'] = status.lower()
+            
+            # Abrir visualizador
+            VisualizadorExame(self, dados_exame)
+            
+        except Exception as e:
+            print(f"Erro ao abrir visualizador: {e}")
+    
+    def _abrir_graficos(self):
+        """Abre janela de gráficos de qualidade"""
+        try:
+            from .graficos_qualidade import GraficosQualidade
+            
+            # Abrir gráficos com dados do histórico
+            GraficosQualidade(self, self.df_analises)
+            
+        except Exception as e:
+            print(f"Erro ao abrir gráficos: {e}")
+    
+    def _abrir_historico(self):
+        """Abre janela de histórico de análises"""
+        try:
+            from .historico_analises import HistoricoAnalises
+            
+            # Abrir histórico com dados do histórico
+            HistoricoAnalises(self, self.df_analises)
+            
+        except Exception as e:
+            print(f"Erro ao abrir histórico: {e}")
+    
+    def _abrir_alertas(self):
+        """Abre centro de notificações"""
+        try:
+            if not self.gerenciador_alertas or not CentroNotificacoes:
+                print("Sistema de alertas não disponível")
+                return
+            
+            # Abrir centro de notificações
+            CentroNotificacoes(self, self.gerenciador_alertas)
+            
+        except Exception as e:
+            print(f"Erro ao abrir alertas: {e}")
+    
+    def _atualizar_badge_alertas(self):
+        """Atualiza badge de alertas não lidos"""
+        try:
+            if not self.gerenciador_alertas:
+                return
+            
+            stats = self.gerenciador_alertas.get_estatisticas()
+            nao_lidos = stats['nao_lidos']
+            
+            # Atualizar ou criar badge
+            if nao_lidos > 0:
+                texto = str(nao_lidos) if nao_lidos < 100 else "99+"
+                if self.badge_alertas:
+                    self.badge_alertas.configure(text=texto)
+                else:
+                    # Criar badge se não existe
+                    frame_alertas = self.btn_alertas.master
+                    self.badge_alertas = ctk.CTkLabel(
+                        frame_alertas,
+                        text=texto,
+                        fg_color=CORES['erro'],
+                        text_color=CORES['branco'],
+                        corner_radius=10,
+                        width=24,
+                        height=24,
+                        font=('Segoe UI', 10, 'bold')
+                    )
+                    self.badge_alertas.place(x=95, y=5)
+            else:
+                # Remover badge se não há alertas
+                if self.badge_alertas:
+                    self.badge_alertas.destroy()
+                    self.badge_alertas = None
+        except Exception as e:
+            print(f"Erro ao atualizar badge: {e}")
     
     def atualizar_dados(self):
         """Recarrega dados e atualiza interface"""
