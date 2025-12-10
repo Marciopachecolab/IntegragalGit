@@ -11,44 +11,46 @@ $env:GAL_TEST_PASS = 'sua_senha'
 
 NÃO coloque credenciais no script. Use variáveis de ambiente.
 """
-import os
-import sys
-import time
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append(BASE_DIR)
+import os
+
+from seleniumrequests import Firefox
 
 from exportacao.envio_gal import GalService
-from seleniumrequests import Firefox
+from services.system_paths import BASE_DIR
 
 
 def main():
-    usuario = os.environ.get('GAL_TEST_USER')
-    senha = os.environ.get('GAL_TEST_PASS')
+    usuario = os.environ.get("GAL_TEST_USER")
+    senha = os.environ.get("GAL_TEST_PASS")
     if not usuario or not senha:
         print("Variáveis de ambiente GAL_TEST_USER / GAL_TEST_PASS não definidas.")
         print("Defina-as antes de rodar. Exemplo (PowerShell):")
-        print("$env:GAL_TEST_USER='seu_usuario'; $env:GAL_TEST_PASS='sua_senha'; .\\venv\\Scripts\\python .\\exportacao\\debug_login_runner.py")
+        print(
+            "$env:GAL_TEST_USER='seu_usuario'; $env:GAL_TEST_PASS='sua_senha'; .\\venv\\Scripts\\python .\\exportacao\\debug_login_runner.py"
+        )
         return
 
-    def logger(msg, level='info'):
+    def logger(msg, level="info"):
         print(f"[{level.upper()}] {msg}")
 
     svc = GalService(logger)
     driver = None
     try:
-        print("Iniciando driver Firefox (seleniumrequests). Isso abrirá uma janela do browser visível).")
+        print(
+            "Iniciando driver Firefox (seleniumrequests). Isso abrirá uma janela do browser visível)."
+        )
         driver = Firefox()
         svc.realizar_login(driver, usuario, senha)
         print("Login executado sem exceção (verificar se ocorreu realmente).")
     except Exception as e:
         print("Exception durante login:", repr(e))
         # listar arquivos debug se foram gerados
-        ddir = os.path.join(BASE_DIR, 'debug')
+        ddir = os.path.join(BASE_DIR, "debug")
         if os.path.isdir(ddir):
             print("Arquivos em debug/:")
             for f in os.listdir(ddir):
-                print('-', f)
+                print("-", f)
     finally:
         if driver:
             try:
@@ -57,5 +59,5 @@ def main():
                 pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

@@ -1,0 +1,13 @@
+{
+  "teste_key": "teste_value",
+  "numero": 42,
+  "lista": [
+    1,
+    2,
+    3
+  ],
+  "_metadata": {
+    "timestamp": "2025-12-10T01:06:20.979373",
+    "version": "1.0.0"
+  }
+}

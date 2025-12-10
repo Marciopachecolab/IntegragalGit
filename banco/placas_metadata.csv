@@ -1,0 +1,4 @@
+tipo_placa,descricao,numero_pocos,relacao_extracao_analise,suporta_parte,observacoes
+"96","Placa de 96 pocos, mapeamento 1:1 extracao-analise","96","1:1","nao","Utilizada nos ensaios VR1/VR2 Biomanguinhos no equipamento 7500 Real-Time"
+"48","Placa de 48 pocos, mapeamento 1:2 extracao-analise (96->48)","48","1:2","sim","Usada em VR1e2 Biomanguinhos (pares, parte 1/2)"
+"36","Placa de 36 pocos, mapeamento 1:3 extracao-analise (96->36)","36","1:3","sim","Usada em exames como ZDC (trios, parte 1/2/3)"

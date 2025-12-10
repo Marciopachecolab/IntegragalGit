@@ -1,0 +1,37 @@
+{
+  "nome_exame": "VR1",
+  "slug": "vr1",
+  "equipamento": "7500 Real-Time",
+  "tipo_placa_analitica": "96",
+  "esquema_agrupamento": "96->96",
+  "kit_codigo": 123,
+  "alvos": [
+    "VR1"
+  ],
+  "mapa_alvos": {
+    "VR1": "VR1"
+  },
+  "faixas_ct": {
+    "detect_max": 38.0,
+    "inconc_min": 38.01,
+    "inconc_max": 40.0,
+    "rp_min": 15.0,
+    "rp_max": 35.0
+  },
+  "rps": [
+    "RP"
+  ],
+  "export_fields": [
+    "VR1"
+  ],
+  "panel_tests_id": "1",
+  "controles": {
+    "cn": [
+      "G11+G12"
+    ],
+    "cp": [
+      "H11+H12"
+    ]
+  },
+  "comentarios": "Exame VR1; placa 96; migrado de CSV"
+}

@@ -1,0 +1,52 @@
+{
+  "nome_exame": "ZDC Biomanguinhos 7500",
+  "slug": "zdc_biomanguinhos_7500",
+  "equipamento": "7500 Real-Time",
+  "tipo_placa_analitica": "36",
+  "esquema_agrupamento": "96->36",
+  "kit_codigo": 1832,
+  "alvos": [
+    "DEN1",
+    "DEN2",
+    "DEN3",
+    "DEN4",
+    "ZYK",
+    "CHIK"
+  ],
+  "mapa_alvos": {
+    "DEN1": "DEN1",
+    "DEN2": "DEN2",
+    "DEN3": "DEN3",
+    "DEN4": "DEN4",
+    "ZYK": "ZYK",
+    "CHIK": "CHIK"
+  },
+  "faixas_ct": {
+    "detect_max": 38.0,
+    "inconc_min": 38.01,
+    "inconc_max": 40.0,
+    "rp_min": 15.0,
+    "rp_max": 35.0
+  },
+  "rps": [
+    "RP"
+  ],
+  "export_fields": [
+    "Dengue1",
+    "Dengue2",
+    "Dengue3",
+    "Dengue4",
+    "Zika",
+    "Chikungunya"
+  ],
+  "panel_tests_id": "1",
+  "controles": {
+    "cn": [
+      "G7+G8"
+    ],
+    "cp": [
+      "H7+H8"
+    ]
+  },
+  "comentarios": "Exame ZDC Biomanguinhos 7500; placa 36; migrado de CSV"
+}

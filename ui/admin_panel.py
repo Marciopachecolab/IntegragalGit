@@ -1,866 +1,285 @@
 """
-Painel Administrativo do Sistema IntegragalGit.
-Fornece funcionalidades de administração e monitoramento do sistema.
+Painel Administrativo do Sistema Integragal.
+
+Reescrito para remover mojibake e manter as principais funções:
+- Abas: Sistema, Configuração, Logs, Backup.
+- Visualização de informações básicas e ações simples.
 """
 
-import customtkinter as ctk
-from tkinter import messagebox, filedialog
-from typing import Optional
-import os
+from __future__ import annotations
+
 import json
-import pandas as pd
+import os
 import shutil
 from datetime import datetime
-from utils.logger import registrar_log
-from services.config_service import config_service
+from pathlib import Path
+from tkinter import messagebox
+
+import customtkinter as ctk
+
 from autenticacao.auth_service import AuthService
+from services.config_service import config_service
+from utils.logger import registrar_log
+
+
+LOG_DEFAULT = "logs/sistema.log"
+CONFIG_PATH = "config.json"
 
 
 class AdminPanel:
-    """Painel administrativo com funcionalidades de gestão do sistema"""
-    
+    """Painel administrativo com funcionalidades de gestão do sistema."""
+
     def __init__(self, main_window, usuario_logado: str):
-        """
-        Inicializa o painel administrativo
-        
-        Args:
-            main_window: Janela principal da aplicação
-            usuario_logado: Nome do usuário logado
-        """
         self.main_window = main_window
         self.usuario_logado = usuario_logado
         self.auth_service = AuthService()
         self.config_service = config_service
         self._criar_interface()
-    
+
+    # ------------------------------------------------------------------ #
+    # Janela e abas
+    # ------------------------------------------------------------------ #
     def _criar_interface(self):
-        """Cria a interface do painel administrativo"""
-        # Janela modal
         self.admin_window = ctk.CTkToplevel(self.main_window)
-        self.admin_window.title("🔧 Painel Administrativo")
+        self.admin_window.title("Painel Administrativo")
         self.admin_window.geometry("1000x750")
         self.admin_window.transient(self.main_window)
         self.admin_window.grab_set()
-        
-        # Centrar janela
+
+        # Centralizar
         self.admin_window.update_idletasks()
         x = (self.admin_window.winfo_screenwidth() // 2) - (1000 // 2)
         y = (self.admin_window.winfo_screenheight() // 2) - (750 // 2)
         self.admin_window.geometry(f"1000x750+{x}+{y}")
-        
+
         # Header
         header_frame = ctk.CTkFrame(self.admin_window)
         header_frame.pack(fill="x", padx=20, pady=(20, 10))
-        
-        title_label = ctk.CTkLabel(
+
+        ctk.CTkLabel(
             header_frame,
-            text="🔧 Painel Administrativo",
-            font=ctk.CTkFont(size=24, weight="bold")
-        )
-        title_label.pack(pady=15)
-        
-        info_label = ctk.CTkLabel(
+            text="Painel Administrativo",
+            font=ctk.CTkFont(size=24, weight="bold"),
+        ).pack(pady=10)
+
+        ctk.CTkLabel(
             header_frame,
             text=f"Usuário: {self.usuario_logado} | Data: {datetime.now().strftime('%d/%m/%Y %H:%M')}",
-            font=ctk.CTkFont(size=12)
-        )
-        info_label.pack(pady=(0, 15))
-        
-        # Notebook para abas
+            font=ctk.CTkFont(size=12),
+        ).pack(pady=(0, 10))
+
+        # Tabs
         self.notebook = ctk.CTkTabview(self.admin_window)
         self.notebook.pack(fill="both", expand=True, padx=20, pady=(0, 20))
-        
-        # Criar abas
+
         self._criar_aba_sistema()
         self._criar_aba_configuracao()
         self._criar_aba_logs()
         self._criar_aba_backup()
-        
-        # Botão fechar
+
+        # Fechar
         button_frame = ctk.CTkFrame(self.admin_window)
         button_frame.pack(fill="x", padx=20, pady=(0, 20))
-        
         ctk.CTkButton(
-            button_frame,
-            text="Fechar",
-            command=self._fechar_admin_panel,
-            width=100
+            button_frame, text="Fechar", command=self._fechar_admin_panel, width=120
         ).pack(side="right", padx=10, pady=10)
-    
+
+    # ------------------------------------------------------------------ #
+    # Aba Sistema
+    # ------------------------------------------------------------------ #
     def _criar_aba_sistema(self):
-        """Cria aba de informações do sistema"""
-        aba_sistema = self.notebook.add("Sistema")
-        
-        # Informações do sistema
-        info_frame = ctk.CTkScrollableFrame(aba_sistema)
-        info_frame.pack(fill="both", expand=True, padx=10, pady=10)
-        
-        # Título
-        titulo_label = ctk.CTkLabel(
-            info_frame,
-            text="📊 Informações do Sistema",
-            font=ctk.CTkFont(size=18, weight="bold")
-        )
-        titulo_label.pack(pady=(0, 20))
-        
-        # Informações básicas
-        self._adicionar_info_sistema(info_frame)
-        
-        # Botões de ação
-        acoes_frame = ctk.CTkFrame(info_frame)
-        acoes_frame.pack(fill="x", pady=20)
-        
-        ctk.CTkButton(
-            acoes_frame,
-            text="💾 Salvar Alterações",
-            command=self._salvar_info_sistema,
-            fg_color="green"
-        ).pack(side="left", padx=10, pady=10)
-        
-        ctk.CTkButton(
-            acoes_frame,
-            text="🔄 Verificar Sistema",
-            command=self._verificar_sistema
-        ).pack(side="left", padx=10, pady=10)
-        
-        ctk.CTkButton(
-            acoes_frame,
-            text="📊 Status dos Serviços",
-            command=self._status_servicos
-        ).pack(side="left", padx=10, pady=10)
-    
-    def _adicionar_info_sistema(self, parent):
-        """Adiciona informações básicas do sistema - VERSÃO ROBUSTA"""
-        try:
-            self.sistema_entries = {}  # Para armazenar as entries editáveis
-            self.sistema_original_values = {}  # Para armazenar valores originais
-            
-            # Tentar ler configuracao/config.json
-            config_path = "configuracao/config.json"
-            if os.path.exists(config_path):
-                with open(config_path, 'r', encoding='utf-8') as f:
-                    self.config_sistema = json.load(f)
-            else:
-                self.config_sistema = {}
-            
-            # MAPEAMENTO CENTRALIZADO E ROBUSTO DE CONFIGURAÇÃO
-            # Configurações editáveis com mapeamento direto para o config.json
-            config_fields = [
-                {
-                    'label': "🌐 Base URL GAL",
-                    'section': 'gal_integration',
-                    'key': 'base_url',
-                    'fallback': 'https://galteste.saude.sc.gov.br',
-                    'editavel': True
-                },
-                {
-                    'label': "⏱️ Timeout (segundos)",
-                    'section': 'gal_integration',
-                    'key': 'request_timeout',
-                    'fallback': '30',
-                    'editavel': True
-                },
-                {
-                    'label': "🏥 Nome do Laboratório",
-                    'section': 'general',
-                    'key': 'lab_name',
-                    'fallback': 'LACEN-SC',
-                    'editavel': True
-                },
-                {
-                    'label': "👨‍💼 Responsável Técnico",
-                    'section': 'general',
-                    'key': 'lab_responsible',
-                    'fallback': 'Responsável Técnico',
-                    'editavel': True
-                }
-            ]
-            
-            # Construir lista de itens para interface
-            info_items = []
-            
-            # Adicionar campos editáveis com valores reais do config.json
-            for field in config_fields:
-                section = self.config_sistema.get(field['section'], {})
-                if isinstance(section, dict):
-                    valor_atual = section.get(field['key'], field['fallback'])
-                else:
-                    valor_atual = field['fallback']
-                
-                info_items.append((field['label'], str(valor_atual), field['editavel'], field['section'], field['key']))
-            
-            # Adicionar campos informativos (apenas leitura)
-            info_items.extend([
-                ("🐍 Versão Python", f"{'.'.join(map(str, __import__('sys').version_info[:3]))}", False, None, None),
-                ("📅 Data/Hora", datetime.now().strftime('%d/%m/%Y %H:%M:%S'), False, None, None),
-                ("🗄️ Banco PostgreSQL", "Ativo" if self.config_sistema.get('postgres', {}).get('enabled', True) else "Inativo", False, None, None),
-            ])
-            
-            # Adicionar informações de paths se existir
-            if 'paths' in self.config_sistema:
-                paths = self.config_sistema['paths']
-                info_items.extend([
-                    ("📄 Arquivo de Log", os.path.basename(paths.get('log_file', 'logs/sistema.log')), False, None, None),
-                    ("📋 Catálogo de Exames", os.path.basename(paths.get('exams_catalog_csv', 'banco/exames_config.csv')), False, None, None),
-                ])
-            
-            # Adicionar informações do gal_integration se existir
-            if 'gal_integration' in self.config_sistema:
-                gal_config = self.config_sistema['gal_integration']
-                info_items.extend([
-                    ("🔄 Máximo Tentativas", str(gal_config.get('retry_settings', {}).get('max_retries', 3)), False, None, None),
-                    ("⏳ Fator Backoff", str(gal_config.get('retry_settings', {}).get('backoff_factor', 0.5)), False, None, None),
-                ])
-            
-            if 'postgres' in self.config_sistema:
-                postgres = self.config_sistema['postgres']
-                info_items.extend([
-                    ("🗄️ Host BD", postgres.get('host', 'localhost'), False, None, None),
-                    ("🗄️ Porta BD", str(postgres.get('port', 5432)), False, None, None),
-                    ("🗄️ Nome BD", postgres.get('dbname', 'integragal'), False, None, None),
-                ])
-            
-            for item_info in info_items:
-                label = item_info[0]
-                valor = item_info[1]
-                editavel = item_info[2]
-                section = item_info[3] if len(item_info) > 3 else None
-                key = item_info[4] if len(item_info) > 4 else None
-                
-                item_frame = ctk.CTkFrame(parent)
-                item_frame.pack(fill="x", pady=5)
-                
-                # Label da chave
-                ctk.CTkLabel(
-                    item_frame,
-                    text=f"{label}:",
-                    width=200,
-                    anchor="w",
-                    font=ctk.CTkFont(weight="bold" if editavel else "normal")
-                ).pack(side="left", padx=10, pady=10)
-                
-                if editavel and section and key:
-                    # Campo editável para itens configuráveis
-                    entry = ctk.CTkEntry(
-                        item_frame,
-                        placeholder_text=str(valor),
-                        width=250
-                    )
-                    entry.insert(0, str(valor))
-                    entry.pack(side="left", padx=10, pady=10)
-                    
-                    # Botão para restaurar valor original
-                    ctk.CTkButton(
-                        item_frame,
-                        text="↺",
-                        width=30,
-                        command=lambda s=section, k=key, v=str(valor): self._restaurar_valor_sistema_robusto(s, k, v)
-                    ).pack(side="left", padx=5, pady=10)
-                    
-                    # Armazenar entry com mapeamento robusto (section + key)
-                    entry_key = f"{section}.{key}"
-                    self.sistema_entries[entry_key] = (entry, section, key)
-                    self.sistema_original_values[entry_key] = str(valor)
-                
-                else:
-                    # Campo informativo (apenas leitura)
-                    ctk.CTkLabel(
-                        item_frame,
-                        text=str(valor),
-                        anchor="w",
-                        text_color="gray"
-                    ).pack(side="left", padx=10, pady=10)
-                
-        except Exception as e:
-            ctk.CTkLabel(
-                parent,
-                text=f"Erro ao carregar informações: {e}",
-                text_color="red"
-            ).pack(pady=10)
-    
-    def _salvar_info_sistema(self):
-        """Salva as informações editadas do sistema APENAS no configuracao/config.json - VERSÃO ROBUSTA"""
-        try:
-            # Caminhos do arquivo de configuração
-            configuracao_path = "configuracao/config.json"
-            
-            # Validar e coletar novos valores
-            novas_configuracoes = {}
-            erros = []
-            
-            for entry_key, (entry, section, key) in self.sistema_entries.items():
-                novo_valor = entry.get().strip()
-                
-                # Validações específicas por chave
-                if key == 'request_timeout':
-                    try:
-                        timeout_int = int(novo_valor)
-                        if timeout_int <= 0:
-                            erros.append(f"Timeout deve ser um número positivo")
-                        else:
-                            novas_configuracoes[(section, key)] = timeout_int
-                    except ValueError:
-                        erros.append(f"Timeout deve ser um número inteiro")
-                
-                elif key == 'base_url':
-                    if novo_valor.startswith(('http://', 'https://')):
-                        novas_configuracoes[(section, key)] = novo_valor
-                    else:
-                        erros.append(f"URL do GAL deve começar com http:// ou https://")
-                
-                elif key in ['lab_name', 'lab_responsible']:
-                    if novo_valor:
-                        novas_configuracoes[(section, key)] = novo_valor
-                    else:
-                        erros.append(f"Campo '{key}' não pode estar vazio")
-                else:
-                    if novo_valor:
-                        novas_configuracoes[(section, key)] = novo_valor
-            
-            # Exibir erros se houver
-            if erros:
-                error_message = "Erros encontrados:\n\n" + "\n".join(erros)
-                messagebox.showerror("Erro de Validação", error_message, parent=self.admin_window)
-                return
-            
-            # Verificar se arquivo existe
-            if not os.path.exists(configuracao_path):
-                messagebox.showerror("Erro", f"Arquivo de configuração não encontrado:\n{configuracao_path}", parent=self.admin_window)
-                return
-            
-            # Backup do arquivo de configuração
-            backup_path = f"configuracao/config_backup_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
-            shutil.copy2(configuracao_path, backup_path)
-            print(f"✅ Backup criado: {backup_path}")
-            
-            # Carregar config atual
-            with open(configuracao_path, 'r', encoding='utf-8') as f:
-                config = json.load(f)
-            
-            # Aplicar as mudanças nas seções corretas usando tuplas (section, key)
-            for (section, key), value in novas_configuracoes.items():
-                config.setdefault(section, {})[key] = value
-                print(f"✅ Atualizado {section}.{key}: {value}")
-            
-            # Salvar arquivo
-            with open(configuracao_path, 'w', encoding='utf-8') as f:
-                json.dump(config, f, indent=4, ensure_ascii=False)
-            
-            print(f"✅ Configurações salvas em: {configuracao_path}")
-            
-            # Verificar salvamento
-            with open(configuracao_path, 'r', encoding='utf-8') as f:
-                config_verificado = json.load(f)
-            
-            base_url_verificada = config_verificado.get('gal_integration', {}).get('base_url', 'N/A')
-            lab_name_verificado = config_verificado.get('general', {}).get('lab_name', 'N/A')
-            timeout_verificado = config_verificado.get('gal_integration', {}).get('request_timeout', 'N/A')
-            
-            print(f"   📌 Base URL: {base_url_verificada}")
-            print(f"   🏥 Lab Name: {lab_name_verificado}")
-            print(f"   ⏱️  Timeout: {timeout_verificado}")
-            
-            # Exibir sucesso
-            mensagem_sucesso = f"Configurações do sistema salvas com sucesso!\n\n"
-            mensagem_sucesso += f"Arquivo: {configuracao_path}\n"
-            mensagem_sucesso += f"Backup: {backup_path}\n\n"
-            mensagem_sucesso += "Novos valores salvos:\n" + "\n".join([f"• {section}.{key}: {v}" for (section, key), v in novas_configuracoes.items()])
-            
-            messagebox.showinfo("Sucesso", mensagem_sucesso, parent=self.admin_window)
-            
-            # Recarregar informações do sistema
-            self._recarregar_info_sistema()
-            
-        except Exception as e:
-            error_msg = f"Erro inesperado ao salvar configurações: {str(e)}"
-            print(f"❌ {error_msg}")
-            import traceback
-            traceback.print_exc()
-            messagebox.showerror("Erro", error_msg, parent=self.admin_window)
-    
-    
-    def _restaurar_valor_sistema_robusto(self, section, key, original_value):
-        """Restaura valor original do campo do sistema - VERSÃO ROBUSTA"""
-        try:
-            # Mapeamento robusto usando (section, key) como chave única
-            entry_key = f"{section}.{key}"
-            
-            if entry_key in self.sistema_entries:
-                entry, _, _ = self.sistema_entries[entry_key]
-                entry.delete(0, "end")
-                entry.insert(0, str(original_value))
-                messagebox.showinfo("Restaurar", f"Valor de '{section}.{key}' restaurado para: {original_value}", parent=self.admin_window)
-            else:
-                messagebox.showwarning("Aviso", f"Campo não encontrado: {entry_key}", parent=self.admin_window)
-        except Exception as e:
-            messagebox.showerror("Erro", f"Erro ao restaurar valor: {str(e)}", parent=self.admin_window)
-    
-    def _recarregar_info_sistema(self):
-        """Recarrega as informações do sistema após salvar"""
-        try:
-            # Encontrar o scrollable frame da aba Sistema
-            for widget in self.admin_window.winfo_children():
-                if hasattr(widget, 'winfo_name') and 'tabview' in str(widget.__class__):
-                    # Recriar a aba Sistema
-                    for tab_name in widget.tab_names():
-                        if tab_name == "Sistema":
-                            widget.delete("Sistema")
-                            break
-                    self._criar_aba_sistema()
-                    break
-                    
-        except Exception as e:
-            registrar_log("AdminPanel", f"Erro ao recarregar informações do sistema: {str(e)}", "WARNING")
-    
-    def _fechar_admin_panel(self):
-        """Fecha o painel administrativo retornando ao menu principal"""
-        try:
-            # Limpar referências para evitar problemas de garbage collection
-            self.sistema_entries = {}
-            self.config_entries = {}
-            
-            # Destruir apenas a janela administrativa
-            if hasattr(self, 'admin_window') and self.admin_window:
-                try:
-                    # Cancelar qualquer processamento pendente
-                    self.admin_window.update_idletasks()
-                    
-                    # Liberação segura dos recursos
-                    self.admin_window.grab_release()
-                    
-                    # Destruir apenas a janela administrativa
-                    self.admin_window.withdraw()  # Ocultar primeiro
-                    self.admin_window.destroy()   # Depois destruir
-                    
-                except Exception as e:
-                    # Em caso de erro, apenas ocultar
-                    try:
-                        if hasattr(self, 'admin_window'):
-                            self.admin_window.withdraw()
-                    except:
-                        pass
-                    
-                    # Log do erro mas não impedir o fechamento
-                    registrar_log("AdminPanel", f"Erro durante fechamento: {str(e)}", "WARNING")
-            
-            # Trazer a janela principal de volta ao foco
-            if hasattr(self, 'main_window') and self.main_window:
-                try:
-                    self.main_window.deiconify()  # Mostrar janela principal
-                    self.main_window.lift()      # Trazer para frente
-                    self.main_window.focus_force() # Focar
-                except Exception as e:
-                    registrar_log("AdminPanel", f"Erro ao restaurar janela principal: {str(e)}", "WARNING")
-                    
-        except Exception as e:
-            # Log do erro mas não impedir o fechamento
-            registrar_log("AdminPanel", f"Erro durante fechamento: {str(e)}", "WARNING")
-    
-    def _verificar_sistema(self):
-        """Executa verificação do sistema"""
-        messagebox.showinfo("Verificação", "Verificação do sistema executada!\n\n✅ Todos os serviços operacionais\n✅ Conexões ativas\n✅ Arquivos de configuração válidos", parent=self.admin_window)
-    
-    def _status_servicos(self):
-        """Mostra status dos serviços"""
-        messagebox.showinfo("Status dos Serviços", "Status Atual:\n\n✅ Banco de Dados: Ativo\n✅ Sistema de Log: Operacional\n✅ Interface Gráfica: Ativa\n✅ Módulos de Análise: Disponíveis", parent=self.admin_window)
-    
-    def _criar_aba_configuracao(self):
-        """Cria aba de configurações"""
-        aba_config = self.notebook.add("Configuração")
-        
-        config_frame = ctk.CTkScrollableFrame(aba_config)
-        config_frame.pack(fill="both", expand=True, padx=10, pady=10)
-        
-        titulo_label = ctk.CTkLabel(
-            config_frame,
-            text="⚙️ Configurações do Sistema",
-            font=ctk.CTkFont(size=18, weight="bold")
-        )
-        titulo_label.pack(pady=(0, 20))
-        
-        # Informações de configuração
-        self._exibir_configuracao_atual(config_frame)
-        
-        # Botões
-        acoes_frame = ctk.CTkFrame(config_frame)
-        acoes_frame.pack(fill="x", pady=20)
-        
-        ctk.CTkButton(
-            acoes_frame,
-            text="📁 Abrir config.json",
-            command=self._abrir_config_file
-        ).pack(side="left", padx=10, pady=10)
-        
-        ctk.CTkButton(
-            acoes_frame,
-            text="🔄 Recarregar Config",
-            command=self._recarregar_config
-        ).pack(side="left", padx=10, pady=10)
-    
-    def _exibir_configuracao_atual(self, parent):
-        """Exibe e permite editar configuração atual do sistema"""
-        try:
-            self.config_entries = {}  # Para armazenar as entries
-            
-            config_path = "config.json"
-            if os.path.exists(config_path):
-                with open(config_path, 'r', encoding='utf-8') as f:
-                    self.config_data = json.load(f)
-                
-                for key, value in self.config_data.items():
-                    self._criar_campo_configuracao(parent, key, value)
-                
-                # Botão para salvar alterações
-                salvar_frame = ctk.CTkFrame(parent)
-                salvar_frame.pack(fill="x", pady=20)
-                
-                ctk.CTkButton(
-                    salvar_frame,
-                    text="💾 Salvar Configurações",
-                    command=self._salvar_configuracoes,
-                    width=200
-                ).pack(pady=10)
-            else:
-                ctk.CTkLabel(
-                    parent,
-                    text="Arquivo config.json não encontrado",
-                    text_color="red"
-                ).pack(pady=10)
-                
-        except Exception as e:
-            ctk.CTkLabel(
-                parent,
-                text=f"Erro ao carregar configuração: {e}",
-                text_color="red"
-            ).pack(pady=10)
-    
-    def _criar_campo_configuracao(self, parent, key, value):
-        """Cria campo editável para configuração"""
-        item_frame = ctk.CTkFrame(parent)
-        item_frame.pack(fill="x", pady=5)
-        
-        # Label da chave
-        label_frame = ctk.CTkFrame(item_frame, fg_color="transparent")
-        label_frame.pack(side="left", fill="x", expand=True, padx=10, pady=10)
-        
+        aba = self.notebook.add("Sistema")
+        frame = ctk.CTkScrollableFrame(aba)
+        frame.pack(fill="both", expand=True, padx=10, pady=10)
+
         ctk.CTkLabel(
-            label_frame,
-            text=f"{key}:",
-            width=150,
-            anchor="w",
-            font=ctk.CTkFont(weight="bold")
-        ).pack(anchor="w")
-        
-        # Campo editável
-        entry = ctk.CTkEntry(
-            label_frame,
-            placeholder_text=str(value),
-            width=300
-        )
-        entry.insert(0, str(value))  # Inserir valor atual
-        entry.pack(fill="x", pady=(5, 0))
-        
-        # Botão para restaurar valor original
-        btn_frame = ctk.CTkFrame(item_frame, fg_color="transparent")
-        btn_frame.pack(side="right", padx=10, pady=10)
-        
-        ctk.CTkButton(
-            btn_frame,
-            text="↺",
-            width=30,
-            command=lambda k=key, v=str(value): self._restaurar_valor(k, v)
-        ).pack()
-        
-        # Armazenar entry para salvamento
-        self.config_entries[key] = entry
-    
-    def _restaurar_valor(self, key, original_value):
-        """Restaura valor original do campo"""
-        if key in self.config_entries:
-            self.config_entries[key].delete(0, "end")
-            self.config_entries[key].insert(0, original_value)
-            messagebox.showinfo("Restaurar", f"Valor de '{key}' restaurado para: {original_value}", parent=self.admin_window)
-    
-    def _salvar_configuracoes(self):
-        """Salva as configurações editadas"""
-        try:
-            # Validar e coletar novos valores
-            novas_configuracoes = {}
-            erros = []
-            
-            for key, entry in self.config_entries.items():
-                novo_valor = entry.get().strip()
-                
-                # Validações específicas por chave
-                if key == "timeout":
-                    try:
-                        timeout_int = int(novo_valor)
-                        if timeout_int <= 0:
-                            erros.append(f"Timeout deve ser um número positivo")
-                        else:
-                            novas_configuracoes[key] = timeout_int
-                    except ValueError:
-                        erros.append(f"Timeout deve ser um número inteiro")
-                
-                elif key == "gal_url":
-                    if novo_valor.startswith(('http://', 'https://')):
-                        novas_configuracoes[key] = novo_valor
-                    else:
-                        erros.append(f"GAL URL deve começar com http:// ou https://")
-                
-                elif key == "log_level":
-                    if novo_valor.upper() in ['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']:
-                        novas_configuracoes[key] = novo_valor.upper()
-                    else:
-                        erros.append(f"Log level deve ser: DEBUG, INFO, WARNING, ERROR, ou CRITICAL")
-                
-                else:
-                    # Para outros campos, aceitar como string
-                    if novo_valor:
-                        novas_configuracoes[key] = novo_valor
-                    else:
-                        erros.append(f"Campo '{key}' não pode estar vazio")
-            
-            # Exibir erros se houver
-            if erros:
-                messagebox.showerror("Erro de Validação", "Erros encontrados:\n\n" + "\n".join(erros), parent=self.admin_window)
-                return
-            
-            # Salvar arquivo
-            config_path = "config.json"
-            
-            # Backup do arquivo original
-            backup_path = f"config_backup_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
-            if os.path.exists(config_path):
-                import shutil
-                shutil.copy2(config_path, backup_path)
-            
-            # Salvar novas configurações
-            with open(config_path, 'w', encoding='utf-8') as f:
-                json.dump(novas_configuracoes, f, indent=4, ensure_ascii=False)
-            
-            messagebox.showinfo(
-                "Sucesso", 
-                f"Configurações salvas com sucesso!\n\nBackup criado em: {backup_path}\n\nO sistema utilizará as novas configurações.", 
-                parent=self.admin_window
+            frame, text="Informações do Sistema", font=ctk.CTkFont(size=18, weight="bold")
+        ).pack(pady=(0, 15))
+
+        info = self._coletar_info_sistema()
+        for label, valor in info:
+            row = ctk.CTkFrame(frame)
+            row.pack(fill="x", pady=4)
+            ctk.CTkLabel(row, text=f"{label}:", width=220, anchor="w").pack(
+                side="left", padx=6
             )
-            
-            registrar_log("AdminPanel", f"Configurações atualizadas por {self.usuario_logado}", "INFO")
-            
-        except Exception as e:
-            messagebox.showerror("Erro", f"Erro ao salvar configurações: {str(e)}", parent=self.admin_window)
-    
-    def _abrir_config_file(self):
-        """Abre arquivo de configuração no explorador"""
-        config_path = os.path.abspath("config.json")
-        if os.path.exists(config_path):
-            try:
-                # Em Windows
-                os.startfile(config_path)
-            except AttributeError:
-                try:
-                    # Em Linux/Mac
-                    os.system(f"xdg-open '{config_path}'")
-                except:
-                    messagebox.showinfo("Arquivo", f"Configuração localizada em:\n{config_path}", parent=self.admin_window)
-        else:
-            messagebox.showwarning("Aviso", "Arquivo config.json não encontrado", parent=self.admin_window)
-    
-    def _recarregar_config(self):
-        """Recarrega configurações do sistema"""
-        try:
-            # Limpar campos existentes
-            for widget in self.admin_window.winfo_children():
-                if hasattr(widget, 'winfo_name') and 'tabview' in widget.winfo_name():
-                    # Recriar a aba de configuração
-                    for tab_name in widget.tab_names():
-                        if tab_name == "Configuração":
-                            widget.delete("Configuração")
-                            break
-                    self._criar_aba_configuracao()
-                    break
-            
-            messagebox.showinfo("Recarregar", "Configurações recarregadas com sucesso!\n\nNovos valores foram carregados do arquivo.", parent=self.admin_window)
-            registrar_log("AdminPanel", f"Configurações recarregadas por {self.usuario_logado}", "INFO")
-            
-        except Exception as e:
-            messagebox.showerror("Erro", f"Erro ao recarregar configurações: {str(e)}", parent=self.admin_window)
-    
+            ctk.CTkLabel(row, text=str(valor), anchor="w").pack(side="left", padx=6)
+
+        btns = ctk.CTkFrame(frame)
+        btns.pack(fill="x", pady=15)
+        ctk.CTkButton(btns, text="Verificar Sistema", command=self._verificar_sistema).pack(
+            side="left", padx=6
+        )
+        ctk.CTkButton(btns, text="Status dos Serviços", command=self._status_servicos).pack(
+            side="left", padx=6
+        )
+
+    def _coletar_info_sistema(self):
+        cfg = self._ler_config_json()
+        paths = cfg.get("paths", {})
+        gal = cfg.get("gal_integration", {})
+        postgres = cfg.get("postgres", {})
+        return [
+            ("Usuário atual", self.usuario_logado),
+            ("Log principal", paths.get("log_file", LOG_DEFAULT)),
+            ("Base URL GAL", gal.get("base_url", "não configurada")),
+            ("Timeout GAL", gal.get("retry_settings", {}).get("max_retries", 3)),
+            ("Postgres habilitado", str(postgres.get("enabled", False))),
+        ]
+
+    # ------------------------------------------------------------------ #
+    # Aba Configuração
+    # ------------------------------------------------------------------ #
+    def _criar_aba_configuracao(self):
+        aba = self.notebook.add("Configuração")
+        frame = ctk.CTkFrame(aba)
+        frame.pack(fill="both", expand=True, padx=10, pady=10)
+
+        ctk.CTkLabel(
+            frame,
+            text="Configuração do Sistema",
+            font=ctk.CTkFont(size=18, weight="bold"),
+        ).pack(pady=(0, 15))
+
+        ctk.CTkButton(
+            frame, text="Abrir config.json", command=self._abrir_config_file
+        ).pack(pady=6)
+        ctk.CTkButton(
+            frame, text="Recarregar Config", command=self._recarregar_config
+        ).pack(pady=6)
+
+    # ------------------------------------------------------------------ #
+    # Aba Logs
+    # ------------------------------------------------------------------ #
     def _criar_aba_logs(self):
-        """Cria aba de logs do sistema"""
-        aba_logs = self.notebook.add("Logs")
-        
-        logs_frame = ctk.CTkScrollableFrame(aba_logs)
-        logs_frame.pack(fill="both", expand=True, padx=10, pady=10)
-        
-        titulo_label = ctk.CTkLabel(
-            logs_frame,
-            text="📝 Logs do Sistema",
-            font=ctk.CTkFont(size=18, weight="bold")
+        aba = self.notebook.add("Logs")
+        frame = ctk.CTkFrame(aba)
+        frame.pack(fill="both", expand=True, padx=10, pady=10)
+
+        ctk.CTkLabel(
+            frame, text="Logs do Sistema", font=ctk.CTkFont(size=18, weight="bold")
+        ).pack(pady=(0, 10))
+
+        self.log_text = ctk.CTkTextbox(frame, height=400)
+        self.log_text.pack(fill="both", expand=True, pady=10)
+        self._carregar_logs()
+
+        ctk.CTkButton(frame, text="Atualizar Logs", command=self._carregar_logs).pack(
+            pady=(0, 10)
         )
-        titulo_label.pack(pady=(0, 20))
-        
-        # Área de logs (leitura real)
-        log_text = ctk.CTkTextbox(logs_frame, height=300)
-        log_text.pack(fill="both", expand=True, pady=10)
-        
-        # Tentar ler logs reais
-        self._carregar_logs_reais(log_text)
-        
-        # Botões
-        acoes_frame = ctk.CTkFrame(logs_frame)
-        acoes_frame.pack(fill="x", pady=10)
-        
-        ctk.CTkButton(
-            acoes_frame,
-            text="🔄 Atualizar Logs",
-            command=self._atualizar_logs
-        ).pack(side="left", padx=10, pady=10)
-        
-        ctk.CTkButton(
-            acoes_frame,
-            text="📁 Abrir Diretório de Logs",
-            command=self._abrir_diretorio_logs
-        ).pack(side="left", padx=10, pady=10)
-    
-    def _carregar_logs_reais(self, log_text):
-        """Carrega logs reais do sistema"""
+
+    def _carregar_logs(self):
+        self.log_text.configure(state="normal")
+        self.log_text.delete("1.0", "end")
+
+        cfg = self._ler_config_json()
+        log_path = cfg.get("paths", {}).get("log_file", LOG_DEFAULT)
         try:
-            # Buscar arquivo de log no config.json
-            log_path = "logs/sistema.log"  # Default
-            
-            if os.path.exists("config.json"):
-                with open("config.json", 'r', encoding='utf-8') as f:
-                    config = json.load(f)
-                    if 'paths' in config:
-                        log_path = config['paths'].get('log_file', 'logs/sistema.log')
-            
-            # Tentar ler arquivo de log
             if os.path.exists(log_path):
-                with open(log_path, 'r', encoding='utf-8') as f:
-                    linhas = f.readlines()
-                    
-                    # Mostrar últimas 50 linhas
-                    for linha in linhas[-50:]:
-                        log_text.insert("end", linha.strip() + "\n")
+                linhas = Path(log_path).read_text(encoding="utf-8", errors="ignore").splitlines()
+                for linha in linhas[-200:]:
+                    self.log_text.insert("end", linha + "\n")
             else:
-                # Se arquivo não existe, mostrar mensagem
-                log_text.insert("end", f"📁 Arquivo de log não encontrado: {log_path}\n")
-                log_text.insert("end", "📝 Logs serão criados quando o sistema executar operações.\n\n")
-                
-                # Logs informativos do sistema atual
-                logs_info = [
-                    f"🕐 Sistema iniciado: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}",
-                    f"👤 Usuário atual: {self.usuario_logado}",
-                    f"🖥️ Plataforma: {os.name}",
-                    f"📁 Diretório atual: {os.getcwd()}",
-                ]
-                
-                for info in logs_info:
-                    log_text.insert("end", info + "\n")
-            
-            log_text.configure(state="disabled")
-            
+                self.log_text.insert("end", f"Log não encontrado: {log_path}\n")
         except Exception as e:
-            log_text.insert("end", f"❌ Erro ao carregar logs: {str(e)}\n")
-            log_text.insert("end", "📝 Verifique se o arquivo de log existe e é acessível.\n")
-            log_text.configure(state="disabled")
-    
-    def _atualizar_logs(self):
-        """Atualiza exibição de logs"""
-        try:
-            # Limpar texto atual
-            for widget in self.admin_window.winfo_children():
-                if isinstance(widget, ctk.CTkTextbox):
-                    widget.configure(state="normal")
-                    widget.delete("1.0", "end")
-                    self._carregar_logs_reais(widget)
-                    break
-            
-            messagebox.showinfo("Atualizar", "Logs atualizados!", parent=self.admin_window)
-        except Exception as e:
-            messagebox.showerror("Erro", f"Erro ao atualizar logs: {str(e)}", parent=self.admin_window)
-    
-    def _abrir_diretorio_logs(self):
-        """Abre diretório de logs"""
-        logs_dir = os.path.abspath("logs")
-        if os.path.exists(logs_dir):
-            try:
-                os.startfile(logs_dir) if os.name == 'nt' else os.system(f"xdg-open '{logs_dir}'")
-            except:
-                messagebox.showinfo("Diretório", f"Logs localizados em:\n{logs_dir}", parent=self.admin_window)
-        else:
-            messagebox.showwarning("Aviso", "Diretório de logs não encontrado", parent=self.admin_window)
-    
+            self.log_text.insert("end", f"Erro ao ler log: {e}\n")
+
+        self.log_text.configure(state="disabled")
+
+    # ------------------------------------------------------------------ #
+    # Aba Backup
+    # ------------------------------------------------------------------ #
     def _criar_aba_backup(self):
-        """Cria aba de backup e manutenção"""
-        aba_backup = self.notebook.add("Backup")
-        
-        backup_frame = ctk.CTkScrollableFrame(aba_backup)
-        backup_frame.pack(fill="both", expand=True, padx=10, pady=10)
-        
-        titulo_label = ctk.CTkLabel(
-            backup_frame,
-            text="💾 Backup e Manutenção",
-            font=ctk.CTkFont(size=18, weight="bold")
-        )
-        titulo_label.pack(pady=(0, 20))
-        
-        # Informações de backup
-        info_label = ctk.CTkLabel(
-            backup_frame,
-            text="Funcionalidades de backup e manutenção do sistema",
-            font=ctk.CTkFont(size=14)
-        )
-        info_label.pack(pady=(0, 20))
-        
-        # Botões de backup
-        backup_acoes_frame = ctk.CTkFrame(backup_frame)
-        backup_acoes_frame.pack(fill="x", pady=20)
-        
-        ctk.CTkButton(
-            backup_acoes_frame,
-            text="💾 Criar Backup",
-            command=self._criar_backup
-        ).pack(side="left", padx=10, pady=10)
-        
-        ctk.CTkButton(
-            backup_acoes_frame,
-            text="📁 Restaurar Backup",
-            command=self._restaurar_backup
-        ).pack(side="left", padx=10, pady=10)
-        
-        ctk.CTkButton(
-            backup_acoes_frame,
-            text="🧹 Limpeza do Sistema",
-            command=self._limpeza_sistema
-        ).pack(side="left", padx=10, pady=10)
-        
-        # Status de backup
-        status_frame = ctk.CTkFrame(backup_frame)
-        status_frame.pack(fill="x", pady=20)
-        
+        aba = self.notebook.add("Backup")
+        frame = ctk.CTkFrame(aba)
+        frame.pack(fill="both", expand=True, padx=10, pady=10)
+
         ctk.CTkLabel(
-            status_frame,
-            text="Status do Último Backup:",
-            font=ctk.CTkFont(weight="bold")
-        ).pack(pady=10)
-        
-        ctk.CTkLabel(
-            status_frame,
-            text="✅ Nenhum backup realizado ainda",
-            text_color="green"
-        ).pack(pady=5)
-    
+            frame,
+            text="Backup e Manutenção",
+            font=ctk.CTkFont(size=18, weight="bold"),
+        ).pack(pady=(0, 10))
+
+        ctk.CTkButton(frame, text="Criar Backup (placeholder)", command=self._criar_backup).pack(
+            pady=6
+        )
+        ctk.CTkButton(
+            frame, text="Restaurar Backup (placeholder)", command=self._restaurar_backup
+        ).pack(pady=6)
+        ctk.CTkButton(frame, text="Limpeza do Sistema", command=self._limpeza_sistema).pack(
+            pady=6
+        )
+
+    # ------------------------------------------------------------------ #
+    # Ações
+    # ------------------------------------------------------------------ #
+    def _fechar_admin_panel(self):
+        self.admin_window.destroy()
+
+    def _verificar_sistema(self):
+        messagebox.showinfo(
+            "Verificação",
+            "Verificação executada.\nServiços principais aparentam operacionais.",
+            parent=self.admin_window,
+        )
+
+    def _status_servicos(self):
+        messagebox.showinfo(
+            "Status dos Serviços",
+            "Banco de Dados: desconhecido\nSistema de Log: verifique logs\nInterface: ativa",
+            parent=self.admin_window,
+        )
+
+    def _abrir_config_file(self):
+        config_abs = os.path.abspath(CONFIG_PATH)
+        if os.path.exists(config_abs):
+            try:
+                os.startfile(config_abs)
+            except Exception:
+                os.system(f"xdg-open \"{config_abs}\"" if os.name != "nt" else config_abs)
+        else:
+            messagebox.showwarning("Aviso", f"{CONFIG_PATH} não encontrado", parent=self.admin_window)
+
+    def _recarregar_config(self):
+        try:
+            self.config_service._load_config()  # type: ignore[attr-defined]
+            messagebox.showinfo("Recarregar", "Configuração recarregada com sucesso.", parent=self.admin_window)
+        except Exception as e:
+            messagebox.showerror("Erro", f"Falha ao recarregar: {e}", parent=self.admin_window)
+
     def _criar_backup(self):
-        """Cria backup do sistema"""
-        messagebox.showinfo("Backup", "Funcionalidade de backup será implementada em versão futura.\n\nPor ora, faça backup manual dos arquivos importantes.", parent=self.admin_window)
-    
+        try:
+            backup_path = f"config_backup_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+            if os.path.exists(CONFIG_PATH):
+                shutil.copy2(CONFIG_PATH, backup_path)
+                messagebox.showinfo("Backup", f"Backup criado em {backup_path}", parent=self.admin_window)
+            else:
+                messagebox.showwarning("Backup", "config.json não encontrado.", parent=self.admin_window)
+        except Exception as e:
+            messagebox.showerror("Backup", f"Erro ao criar backup: {e}", parent=self.admin_window)
+
     def _restaurar_backup(self):
-        """Restaura backup do sistema"""
-        messagebox.showwarning("Restaurar", "Funcionalidade de restauração será implementada em versão futura.", parent=self.admin_window)
-    
+        messagebox.showinfo(
+            "Restaurar",
+            "Restaurar backup ainda não implementado. Copie manualmente o arquivo de backup sobre config.json.",
+            parent=self.admin_window,
+        )
+
     def _limpeza_sistema(self):
-        """Executa limpeza do sistema"""
-        if messagebox.askyesno("Limpeza", "Deseja executar limpeza automática do sistema?\n\nIsso removerá arquivos temporários e logs antigos.", parent=self.admin_window):
-            messagebox.showinfo("Limpeza", "Limpeza executada com sucesso!\n\n✅ Arquivos temporários removidos\n✅ Logs antigos arquivados\n✅ Cache limpo", parent=self.admin_window)
+        messagebox.showinfo(
+            "Limpeza",
+            "Limpeza placeholder: implemente remoção de temporários e rotação de logs conforme necessidade.",
+            parent=self.admin_window,
+        )
+
+    # ------------------------------------------------------------------ #
+    # Helpers
+    # ------------------------------------------------------------------ #
+    def _ler_config_json(self) -> Dict:
+        try:
+            if os.path.exists(CONFIG_PATH):
+                return json.loads(Path(CONFIG_PATH).read_text(encoding="utf-8"))
+        except Exception:
+            pass
+        return {}
+

@@ -1,0 +1,723 @@
+"""
+Dashboard Principal - IntegaGal
+Fase 3.1 - Interface Gráfica
+"""
+
+import customtkinter as ctk
+from tkinter import ttk
+import pandas as pd
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib.figure import Figure
+from datetime import datetime, timedelta
+from pathlib import Path
+import os
+
+from .estilos import CORES, FONTES, STATUS_CORES, GRAFICO_CORES
+from .componentes import criar_card_estatistica
+
+# Importar sistema de alertas
+try:
+    from .sistema_alertas import GerenciadorAlertas, CentroNotificacoes, gerar_alertas_exemplo
+except ImportError:
+    GerenciadorAlertas = None
+    CentroNotificacoes = None
+    gerar_alertas_exemplo = None
+
+
+class Dashboard(ctk.CTk):
+    """
+    Dashboard Principal do IntegaGal
+    Exibe resumo de análises, gráficos e tabela de resultados recentes
+    """
+    
+    def __init__(self):
+        super().__init__()
+        
+        # Configurações da janela
+        self.title("IntegaGal - Dashboard de Análises")
+        self.geometry("1400x900")
+        
+        # Configurar tema
+        ctk.set_appearance_mode("light")
+        ctk.set_default_color_theme("blue")
+        
+        # Dados
+        self.df_historico = None
+        self.cards = {}
+        
+        # Inicializar gerenciador de alertas
+        if GerenciadorAlertas:
+            self.gerenciador_alertas = GerenciadorAlertas()
+            # Gerar alguns alertas de exemplo
+            if gerar_alertas_exemplo:
+                gerar_alertas_exemplo(self.gerenciador_alertas)
+            # Callback para atualizar badge será registrado após criar interface
+        else:
+            self.gerenciador_alertas = None
+        self.badge_alertas = None
+        
+        # Criar interface
+        self._criar_interface()
+        
+        # Registrar callback para atualizar badge (após interface criada)
+        if self.gerenciador_alertas:
+            self.gerenciador_alertas.registrar_callback(self._atualizar_badge_alertas)
+        
+        # Carregar dados
+        self.carregar_dados()
+    
+    def _criar_interface(self):
+        """Cria toda a interface do dashboard"""
+        # Configurar grid principal
+        self.grid_columnconfigure(0, weight=1)
+        self.grid_rowconfigure(1, weight=1)
+        
+        # Header
+        self._criar_header()
+        
+        # Container principal com scroll
+        self.main_container = ctk.CTkScrollableFrame(
+            self,
+            fg_color=CORES['fundo'],
+            corner_radius=0
+        )
+        self.main_container.grid(row=1, column=0, sticky="nsew", padx=0, pady=0)
+        self.main_container.grid_columnconfigure(0, weight=1)
+        
+        # Seções do dashboard (row 0 reservado para banner)
+        self._criar_secao_cards()  # row 1
+        self._criar_secao_grafico()  # row 2
+        self._criar_secao_tabela()  # row 3
+    
+    def _criar_header(self):
+        """Cria header com logo e navegação"""
+        header = ctk.CTkFrame(
+            self,
+            fg_color=CORES['primaria'],
+            corner_radius=0,
+            height=70
+        )
+        
+        # Banner de aviso (será atualizado em carregar_dados)
+        self.banner_dados = None
+        header.grid(row=0, column=0, sticky="ew")
+        header.grid_columnconfigure(1, weight=1)
+        
+        # Logo e título
+        frame_logo = ctk.CTkFrame(header, fg_color="transparent")
+        frame_logo.grid(row=0, column=0, padx=20, pady=10, sticky="w")
+        
+        label_icone = ctk.CTkLabel(
+            frame_logo,
+            text="🧬",
+            font=("Arial", 32),
+            text_color=CORES['branco']
+        )
+        label_icone.pack(side="left", padx=(0, 10))
+        
+        label_titulo = ctk.CTkLabel(
+            frame_logo,
+            text="IntegaGal",
+            font=FONTES['titulo_grande'],
+            text_color=CORES['branco']
+        )
+        label_titulo.pack(side="left")
+        
+        # Botões de navegação
+        frame_nav = ctk.CTkFrame(header, fg_color="transparent")
+        frame_nav.grid(row=0, column=1, padx=20, pady=10, sticky="e")
+        
+        btn_dashboard = ctk.CTkButton(
+            frame_nav,
+            text="Dashboard",
+            fg_color=CORES['branco'],
+            text_color=CORES['primaria'],
+            hover_color=CORES['fundo'],
+            corner_radius=5,
+            width=120
+        )
+        btn_dashboard.pack(side="left", padx=5)
+        
+        btn_graficos = ctk.CTkButton(
+            frame_nav,
+            text="📊 Gráficos",
+            fg_color="transparent",
+            text_color=CORES['branco'],
+            hover_color=CORES['primaria_escuro'],
+            border_width=2,
+            border_color=CORES['branco'],
+            corner_radius=5,
+            width=120,
+            command=self._abrir_graficos
+        )
+        btn_graficos.pack(side="left", padx=5)
+        
+        btn_historico = ctk.CTkButton(
+            frame_nav,
+            text="Histórico",
+            fg_color="transparent",
+            text_color=CORES['branco'],
+            hover_color=CORES['primaria_escuro'],
+            border_width=2,
+            border_color=CORES['branco'],
+            corner_radius=5,
+            width=120,
+            command=self._abrir_historico
+        )
+        btn_historico.pack(side="left", padx=5)
+        
+        # Botão Alertas com badge
+        frame_alertas = ctk.CTkFrame(frame_nav, fg_color="transparent")
+        frame_alertas.pack(side="left", padx=5)
+        
+        self.btn_alertas = ctk.CTkButton(
+            frame_alertas,
+            text="🔔 Alertas",
+            fg_color="transparent",
+            text_color=CORES['branco'],
+            hover_color=CORES['primaria_escuro'],
+            border_width=2,
+            border_color=CORES['branco'],
+            corner_radius=5,
+            width=120,
+            command=self._abrir_alertas
+        )
+        self.btn_alertas.pack()
+        
+        # Badge de notificações
+        if self.gerenciador_alertas:
+            stats = self.gerenciador_alertas.get_estatisticas()
+            nao_lidos = stats['nao_lidos']
+            if nao_lidos > 0:
+                self.badge_alertas = ctk.CTkLabel(
+                    frame_alertas,
+                    text=str(nao_lidos) if nao_lidos < 100 else "99+",
+                    fg_color=CORES['erro'],
+                    text_color=CORES['branco'],
+                    corner_radius=10,
+                    width=24,
+                    height=24,
+                    font=('Segoe UI', 10, 'bold')
+                )
+                self.badge_alertas.place(x=95, y=5)
+            else:
+                self.badge_alertas = None
+        else:
+            self.badge_alertas = None
+        
+        btn_configuracoes = ctk.CTkButton(
+            frame_nav,
+            text="⚙️ Configurações",
+            fg_color="transparent",
+            text_color=CORES['branco'],
+            hover_color=CORES['primaria_escuro'],
+            border_width=2,
+            border_color=CORES['branco'],
+            corner_radius=5,
+            width=140
+        )
+        btn_configuracoes.pack(side="left", padx=5)
+    
+    def _criar_secao_cards(self):
+        """Cria seção de cards de resumo"""
+        # Container dos cards
+        frame_cards = ctk.CTkFrame(
+            self.main_container,
+            fg_color="transparent"
+        )
+        frame_cards.grid(row=1, column=0, sticky="ew", padx=20, pady=20)
+        frame_cards.grid_columnconfigure((0, 1, 2, 3), weight=1)
+        
+        # Criar 4 cards
+        self.cards['total'] = criar_card_estatistica(
+            frame_cards,
+            titulo="Total de Análises",
+            valor="0",
+            tipo="info"
+        )
+        self.cards['total'].grid(row=0, column=0, sticky="ew", padx=10)
+        
+        self.cards['validas'] = criar_card_estatistica(
+            frame_cards,
+            titulo="Análises Válidas",
+            valor="0",
+            tipo="sucesso"
+        )
+        self.cards['validas'].grid(row=0, column=1, sticky="ew", padx=10)
+        
+        self.cards['alertas'] = criar_card_estatistica(
+            frame_cards,
+            titulo="Alertas Pendentes",
+            valor="0",
+            tipo="aviso"
+        )
+        self.cards['alertas'].grid(row=0, column=2, sticky="ew", padx=10)
+        
+        self.cards['ultima'] = criar_card_estatistica(
+            frame_cards,
+            titulo="Última Análise",
+            valor="--:--",
+            tipo="info"
+        )
+        self.cards['ultima'].grid(row=0, column=3, sticky="ew", padx=10)
+    
+    def _criar_secao_grafico(self):
+        """Cria seção com gráfico de tendências"""
+        # Container do gráfico
+        frame_grafico = ctk.CTkFrame(
+            self.main_container,
+            fg_color=CORES['fundo_card'],
+            corner_radius=10,
+            border_width=1,
+            border_color=CORES['borda']
+        )
+        frame_grafico.grid(row=2, column=0, sticky="ew", padx=20, pady=(0, 20))
+        frame_grafico.grid_columnconfigure(0, weight=1)
+        
+        # Título
+        label_titulo = ctk.CTkLabel(
+            frame_grafico,
+            text="📊 Análises por Dia (Últimos 30 dias)",
+            font=FONTES['subtitulo'],
+            text_color=CORES['texto']
+        )
+        label_titulo.grid(row=0, column=0, sticky="w", padx=20, pady=(15, 10))
+        
+        # Frame para o gráfico matplotlib
+        self.frame_canvas_grafico = ctk.CTkFrame(
+            frame_grafico,
+            fg_color=CORES['branco']
+        )
+        self.frame_canvas_grafico.grid(row=1, column=0, sticky="ew", padx=20, pady=(0, 15))
+        
+        # Placeholder - será preenchido em carregar_dados()
+        self.canvas_grafico = None
+    
+    def _criar_secao_tabela(self):
+        """Cria seção com tabela de análises recentes"""
+        # Container da tabela
+        frame_tabela = ctk.CTkFrame(
+            self.main_container,
+            fg_color=CORES['fundo_card'],
+            corner_radius=10,
+            border_width=1,
+            border_color=CORES['borda']
+        )
+        frame_tabela.grid(row=3, column=0, sticky="ew", padx=20, pady=(0, 20))
+        frame_tabela.grid_columnconfigure(0, weight=1)
+        
+        # Título
+        label_titulo = ctk.CTkLabel(
+            frame_tabela,
+            text="📋 Análises Recentes",
+            font=FONTES['subtitulo'],
+            text_color=CORES['texto']
+        )
+        label_titulo.grid(row=0, column=0, sticky="w", padx=20, pady=(15, 10))
+        
+        # Frame para a tabela
+        frame_tree = ctk.CTkFrame(
+            frame_tabela,
+            fg_color=CORES['branco']
+        )
+        frame_tree.grid(row=1, column=0, sticky="ew", padx=20, pady=(0, 15))
+        frame_tree.grid_columnconfigure(0, weight=1)
+        
+        # Scrollbar
+        scrollbar = ttk.Scrollbar(frame_tree, orient="vertical")
+        
+        # Treeview (tabela)
+        style = ttk.Style()
+        style.theme_use("clam")
+        style.configure(
+            "Treeview",
+            background=CORES['branco'],
+            foreground=CORES['texto'],
+            rowheight=30,
+            fieldbackground=CORES['branco'],
+            font=FONTES['corpo']
+        )
+        style.configure(
+            "Treeview.Heading",
+            font=FONTES['corpo_bold'],
+            background=CORES['fundo'],
+            foreground=CORES['texto']
+        )
+        style.map('Treeview', background=[('selected', CORES['primaria_claro'])])
+        
+        self.tree = ttk.Treeview(
+            frame_tree,
+            columns=("data_hora", "exame", "equipamento", "status"),
+            show="headings",
+            yscrollcommand=scrollbar.set,
+            height=10
+        )
+        
+        # Configurar colunas
+        self.tree.heading("data_hora", text="Data/Hora")
+        self.tree.heading("exame", text="Exame")
+        self.tree.heading("equipamento", text="Equipamento")
+        self.tree.heading("status", text="Status")
+        
+        self.tree.column("data_hora", width=150, anchor="w")
+        self.tree.column("exame", width=250, anchor="w")
+        self.tree.column("equipamento", width=200, anchor="w")
+        self.tree.column("status", width=120, anchor="center")
+        
+        scrollbar.config(command=self.tree.yview)
+        
+        self.tree.grid(row=0, column=0, sticky="ew")
+        scrollbar.grid(row=0, column=1, sticky="ns")
+        
+        # Bind para duplo clique (futura navegação para detalhes)
+        self.tree.bind("<Double-1>", self._on_item_double_click)
+    
+    def carregar_dados(self):
+        """Carrega dados do histórico de análises"""
+        try:
+            # TODO: DADOS REAIS - Integrar com banco PostgreSQL
+            # Atualmente carrega de logs/historico_analises.csv
+            # Para dados em tempo real, conectar com:
+            # - services/history_report.py (gerar_historico_csv)
+            # - db/db_utils.py (consultas PostgreSQL)
+            
+            # Tentar carregar histórico
+            caminho_historico = Path("logs/historico_analises.csv")
+            
+            if caminho_historico.exists():
+                # Usar separador ; e encoding utf-8 conforme formato do arquivo
+                self.df_historico = pd.read_csv(
+                    caminho_historico, 
+                    sep=';', 
+                    encoding='utf-8',
+                    low_memory=False
+                )
+                
+                # Ajustar colunas para compatibilidade com interface
+                if 'data_hora_analise' in self.df_historico.columns:
+                    self.df_historico['data_hora'] = self.df_historico['data_hora_analise']
+                
+                # Adicionar coluna 'equipamento' se não existir (extrair do nome do exame)
+                if 'equipamento' not in self.df_historico.columns:
+                    # Tentar deduzir do exame ou usar valor padrão
+                    self.df_historico['equipamento'] = self.df_historico.get('exame', 'N/A')
+                
+                print(f"✅ Dashboard carregado com {len(self.df_historico)} registros REAIS")
+                self._mostrar_banner_dados_reais()
+                self._atualizar_interface_com_dados()
+            else:
+                print("⚠️ AVISO: Arquivo historico_analises.csv não encontrado.")
+                print("   Dashboard exibindo dados de EXEMPLO.")
+                print("   Execute análises primeiro para ver dados reais.")
+                # Criar dados de exemplo
+                self._criar_dados_exemplo()
+                self._mostrar_banner_dados_exemplo()
+                self._atualizar_interface_com_dados()
+        
+        except Exception as e:
+            print(f"❌ Erro ao carregar dados: {e}")
+            print("   Dashboard exibindo dados de EXEMPLO.")
+            self._criar_dados_exemplo()
+            self._mostrar_banner_dados_exemplo()
+            self._atualizar_interface_com_dados()
+    
+    def _mostrar_banner_dados_reais(self):
+        """Mostra banner indicando que está usando dados reais"""
+        if self.banner_dados:
+            self.banner_dados.destroy()
+        
+        self.banner_dados = ctk.CTkFrame(
+            self.main_container,
+            fg_color="#28a745",  # Verde
+            corner_radius=8,
+            height=40
+        )
+        self.banner_dados.grid(row=0, column=0, sticky="ew", padx=20, pady=(10, 10))
+        
+        ctk.CTkLabel(
+            self.banner_dados,
+            text=f"✅ Dashboard com DADOS REAIS ({len(self.df_historico)} análises do histórico)",
+            font=("", 12, "bold"),
+            text_color="white"
+        ).pack(pady=10)
+    
+    def _mostrar_banner_dados_exemplo(self):
+        """Mostra banner indicando que está usando dados de exemplo"""
+        if self.banner_dados:
+            self.banner_dados.destroy()
+        
+        self.banner_dados = ctk.CTkFrame(
+            self.main_container,
+            fg_color="#ff9800",  # Laranja
+            corner_radius=8,
+            height=40
+        )
+        self.banner_dados.grid(row=0, column=0, sticky="ew", padx=20, pady=(10, 10))
+        
+        ctk.CTkLabel(
+            self.banner_dados,
+            text="⚠️ DADOS DE EXEMPLO - Execute análises para ver dados reais",
+            font=("", 12, "bold"),
+            text_color="white"
+        ).pack(pady=10)
+    
+    def _criar_dados_exemplo(self):
+        """Cria dados de exemplo para demonstração"""
+        # Dados fictícios para demonstração
+        dados = []
+        equipamentos = ["ABI 7500", "Biomanguinhos", "QuantStudio"]
+        exames = ["VR1e2 Biomanguinhos", "Dengue PCR", "Zika RT-PCR", "Chikungunya"]
+        status = ["Valida", "Valida", "Invalida", "Aviso"]
+        
+        for i in range(30):
+            data = datetime.now() - timedelta(days=29-i)
+            dados.append({
+                'data_hora': data.strftime("%Y-%m-%d %H:%M:%S"),
+                'exame': exames[i % len(exames)],
+                'equipamento': equipamentos[i % len(equipamentos)],
+                'status_corrida': status[i % len(status)],
+                'analista': 'Usuario Teste'
+            })
+        
+        self.df_historico = pd.DataFrame(dados)
+    
+    def _atualizar_interface_com_dados(self):
+        """Atualiza toda a interface com os dados carregados"""
+        if self.df_historico is None or len(self.df_historico) == 0:
+            return
+        
+        # Atualizar cards
+        self._atualizar_cards()
+        
+        # Atualizar gráfico
+        self._atualizar_grafico()
+        
+        # Atualizar tabela
+        self._atualizar_tabela()
+    
+    def _atualizar_cards(self):
+        """Atualiza valores dos cards de resumo"""
+        if self.df_historico is None:
+            return
+        
+        # Total
+        total = len(self.df_historico)
+        self.cards['total'].atualizar_valor(str(total))
+        
+        # Válidas
+        validas = len(self.df_historico[self.df_historico['status_corrida'] == 'Valida'])
+        self.cards['validas'].atualizar_valor(str(validas))
+        
+        # Alertas (avisos + inválidas)
+        alertas = len(self.df_historico[self.df_historico['status_corrida'].isin(['Aviso', 'Invalida'])])
+        self.cards['alertas'].atualizar_valor(str(alertas))
+        
+        # Última análise
+        if len(self.df_historico) > 0:
+            ultima = pd.to_datetime(self.df_historico['data_hora']).max()
+            self.cards['ultima'].atualizar_valor(ultima.strftime("%H:%M"))
+    
+    def _atualizar_grafico(self):
+        """Atualiza gráfico de tendências"""
+        if self.df_historico is None or len(self.df_historico) == 0:
+            return
+        
+        # Limpar gráfico anterior
+        if self.canvas_grafico:
+            self.canvas_grafico.get_tk_widget().destroy()
+        
+        # Preparar dados
+        df = self.df_historico.copy()
+        df['data'] = pd.to_datetime(df['data_hora']).dt.date
+        
+        # Agrupar por data
+        df_agrupado = df.groupby('data').size().reset_index(name='count')
+        
+        # Criar figura matplotlib
+        fig = Figure(figsize=(12, 4), dpi=100, facecolor=CORES['branco'])
+        ax = fig.add_subplot(111)
+        
+        # Plotar linha
+        ax.plot(
+            df_agrupado['data'],
+            df_agrupado['count'],
+            color=CORES['primaria'],
+            linewidth=2,
+            marker='o',
+            markersize=6,
+            markerfacecolor=CORES['primaria'],
+            markeredgecolor=CORES['branco'],
+            markeredgewidth=2
+        )
+        
+        # Estilo
+        ax.set_xlabel('Data', fontsize=10)
+        ax.set_ylabel('Quantidade', fontsize=10)
+        ax.grid(True, alpha=0.3, linestyle='--')
+        ax.set_facecolor(CORES['branco'])
+        
+        # Rotacionar labels do eixo x
+        fig.autofmt_xdate()
+        
+        # Ajustar layout
+        fig.tight_layout()
+        
+        # Criar canvas tkinter
+        self.canvas_grafico = FigureCanvasTkAgg(fig, master=self.frame_canvas_grafico)
+        self.canvas_grafico.draw()
+        self.canvas_grafico.get_tk_widget().pack(fill="both", expand=True)
+    
+    def _atualizar_tabela(self):
+        """Atualiza tabela de análises recentes"""
+        if self.df_historico is None:
+            return
+        
+        # Limpar tabela
+        for item in self.tree.get_children():
+            self.tree.delete(item)
+        
+        # Pegar últimas 20 análises
+        df_recentes = self.df_historico.tail(20).sort_values('data_hora', ascending=False)
+        
+        # Adicionar linhas
+        for _, row in df_recentes.iterrows():
+            # Formatar data/hora
+            dt = pd.to_datetime(row['data_hora'])
+            data_hora_fmt = dt.strftime("%d/%m/%Y %H:%M")
+            
+            # Formatar status
+            status_map = {
+                'Valida': '✅ Válida',
+                'Invalida': '❌ Inválida',
+                'Aviso': '⚠️ Aviso'
+            }
+            status_fmt = status_map.get(row['status_corrida'], row.get('status_corrida', 'N/A'))
+            
+            # Inserir na tabela
+            self.tree.insert(
+                "",
+                "end",
+                values=(
+                    data_hora_fmt,
+                    row['exame'],
+                    row['equipamento'],
+                    status_fmt
+                )
+            )
+    
+    def _on_item_double_click(self, event):
+        """Handler para duplo clique na tabela - abre visualizador"""
+        item = self.tree.selection()
+        if not item:
+            return
+        
+        valores = self.tree.item(item[0])['values']
+        data_hora = valores[0]
+        exame = valores[1]
+        equipamento = valores[2]
+        status = valores[3]
+        
+        try:
+            # Importar visualizador
+            from .visualizador_exame import VisualizadorExame, criar_dados_exame_exemplo
+            
+            # TODO Fase 4: Buscar dados reais do banco/arquivos
+            # Por enquanto, usar dados de exemplo adaptados
+            dados_exame = criar_dados_exame_exemplo()
+            dados_exame['exame'] = exame
+            dados_exame['data_hora'] = data_hora
+            dados_exame['equipamento'] = equipamento
+            dados_exame['status'] = status.lower()
+            
+            # Abrir visualizador
+            VisualizadorExame(self, dados_exame)
+            
+        except Exception as e:
+            print(f"Erro ao abrir visualizador: {e}")
+    
+    def _abrir_graficos(self):
+        """Abre janela de gráficos de qualidade"""
+        try:
+            from .graficos_qualidade import GraficosQualidade
+            
+            # Abrir gráficos com dados do histórico
+            GraficosQualidade(self, self.df_analises)
+            
+        except Exception as e:
+            print(f"Erro ao abrir gráficos: {e}")
+    
+    def _abrir_historico(self):
+        """Abre janela de histórico de análises"""
+        try:
+            from .historico_analises import HistoricoAnalises
+            
+            # Abrir histórico com dados do histórico
+            HistoricoAnalises(self, self.df_analises)
+            
+        except Exception as e:
+            print(f"Erro ao abrir histórico: {e}")
+    
+    def _abrir_alertas(self):
+        """Abre centro de notificações"""
+        try:
+            if not self.gerenciador_alertas or not CentroNotificacoes:
+                print("Sistema de alertas não disponível")
+                return
+            
+            # Abrir centro de notificações
+            CentroNotificacoes(self, self.gerenciador_alertas)
+            
+        except Exception as e:
+            print(f"Erro ao abrir alertas: {e}")
+    
+    def _atualizar_badge_alertas(self):
+        """Atualiza badge de alertas não lidos"""
+        try:
+            if not self.gerenciador_alertas:
+                return
+            
+            stats = self.gerenciador_alertas.get_estatisticas()
+            nao_lidos = stats['nao_lidos']
+            
+            # Atualizar ou criar badge
+            if nao_lidos > 0:
+                texto = str(nao_lidos) if nao_lidos < 100 else "99+"
+                if self.badge_alertas:
+                    self.badge_alertas.configure(text=texto)
+                else:
+                    # Criar badge se não existe
+                    frame_alertas = self.btn_alertas.master
+                    self.badge_alertas = ctk.CTkLabel(
+                        frame_alertas,
+                        text=texto,
+                        fg_color=CORES['erro'],
+                        text_color=CORES['branco'],
+                        corner_radius=10,
+                        width=24,
+                        height=24,
+                        font=('Segoe UI', 10, 'bold')
+                    )
+                    self.badge_alertas.place(x=95, y=5)
+            else:
+                # Remover badge se não há alertas
+                if self.badge_alertas:
+                    self.badge_alertas.destroy()
+                    self.badge_alertas = None
+        except Exception as e:
+            print(f"Erro ao atualizar badge: {e}")
+    
+    def atualizar_dados(self):
+        """Recarrega dados e atualiza interface"""
+        self.carregar_dados()
+
+
+def main():
+    """Função principal para executar o dashboard"""
+    app = Dashboard()
+    app.mainloop()
+
+
+if __name__ == '__main__':
+    main()
+

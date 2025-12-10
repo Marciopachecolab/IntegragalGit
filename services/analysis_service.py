@@ -1,129 +1,1207 @@
-# services/analysis_service.py
-import os
-import sys
+"""
+
+Ajustes no AnalysisService para suportar o motor universal.
+
+Este módulo define o serviço de análise de placas, centralizando:
+
+- Carregamento de arquivos de resultados e extração
+
+- Chamada do motor universal (services.universal_engine)
+
+- Interação com o AppState
+
+- Integração com cadastros (exames_config, regras, etc.)
+
+"""
+
+
+
+from __future__ import annotations
+
+
+
+import datetime
+
+from dataclasses import dataclass
+
+from pathlib import Path
+
+from typing import Any, Dict, List, Optional
+
+
+
 import pandas as pd
-from tkinter import messagebox
-from typing import Tuple, Optional
 
-# --- Bloco de Configuração Inicial ---
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-if BASE_DIR not in sys.path:
-    sys.path.append(BASE_DIR)
 
-# --- Importações de Módulos do Projeto ---
+
 from models import AppState
-from utils.import_utils import importar_funcao
+
+from services.config_loader import carregar_exames_metadata
+
+from services.universal_engine import UniversalEngine
+
+from services.system_paths import BASE_DIR
+
+from services.equipment_detector import detectar_equipamento
+
+from services.equipment_registry import EquipmentRegistry
+
+from utils.io_utils import read_data_with_auto_detection
+
 from utils.logger import registrar_log
 
-# Caminho para o ficheiro de configuração dos exames
-CAMINHO_EXAMES = os.path.join(BASE_DIR, "banco", "exames_config.csv")
+
+
+
+
+# ---------------------------------------------------------------------------
+
+# Dataclasses de apoio
+
+# ---------------------------------------------------------------------------
+
+
+
+
+
+@dataclass
+
+class AnaliseResultado:
+
+    """
+
+    Representa o resultado de uma análise de placa/protocolo.
+
+
+
+    A ideia é encapsular, em um só objeto, os principais artefatos produzidos
+
+    pela análise, mantendo compatibilidade com o que a UI espera.
+
+    """
+
+
+
+    df_processado: pd.DataFrame
+
+    resumo: Dict[str, Any]
+
+    metadados: Dict[str, Any]
+
+    caminho_entrada_resultados: Optional[Path] = None
+
+    caminho_entrada_extracao: Optional[Path] = None
+
+
+
+
+
+# ---------------------------------------------------------------------------
+
+# Classe principal AnalysisService
+
+# ---------------------------------------------------------------------------
+
+
+
+
 
 class AnalysisService:
-    """
-    Encapsula a lógica de negócio para orquestrar o processo de análise.
-    """
-    def __init__(self):
-        """Inicializa o serviço, carregando a configuração dos exames disponíveis."""
-        self.exames_disponiveis = self._carregar_config_exames()
 
-    def _carregar_config_exames(self) -> Optional[pd.DataFrame]:
+    """
+
+    Serviço de alto nível responsável por orquestrar a análise de placas.
+
+
+
+    Ele faz a ponte entre:
+
+    - AppState (estado global da aplicação)
+
+    - Configurações de exames (banco/exames_config.csv e outros)
+
+    - Motor universal de análise (UniversalEngine)
+
+    - Leitura dos arquivos de entrada (resultados e extração)
+
+    """
+
+
+
+    def __init__(self, app_state: AppState) -> None:
+
+        self.app_state = app_state
+
+
+
+        # Engine universal que centraliza a lógica de análise
+
+        self.engine = UniversalEngine(self.app_state)
+
+
+
+        # Cache de exames disponíveis (preenchido sob demanda)
+
+        # O MenuHandler verifica se é None; se for, dispara o carregamento.
+
+        self.exames_disponiveis: Optional[List[str]] = None
+
+
+
+        # Último resultado de análise realizado
+
+        self.ultimo_resultado: Optional[AnaliseResultado] = None
+
+
+
+    # ------------------------------------------------------------------
+
+    # API pública principal
+
+    # ------------------------------------------------------------------
+
+
+
+    def listar_exames_disponiveis(self) -> List[str]:
+
         """
-        Carrega a configuração dos exames a partir do arquivo CSV.
-        Retorna um DataFrame com as configurações ou None em caso de erro.
+
+        Retorna a lista de exames cadastrados no sistema (exames_config.csv).
+
+
+
+        A lista é adquirida via 'carregar_configuracoes_exames' e contém os
+
+        nomes de exames que podem ser selecionados na UI.
+
         """
+
         try:
-            if not os.path.exists(CAMINHO_EXAMES):
-                registrar_log("AnalysisService", f"Arquivo de configuração de exames não encontrado: {CAMINHO_EXAMES}", "ERROR")
-                return None
+
+            config_exames = carregar_exames_metadata()
+
+            exames = sorted(config_exames.keys())
+
+            registrar_log(
+
+                "info",
+
+                f"[AnalysisService] Exames disponíveis carregados: {', '.join(exames)}",
+
+            )
+
+            # Atualiza o cache interno
+
+            self.exames_disponiveis = exames
+
+            return exames
+
+        except Exception as exc:  # noqa: BLE001
+
+            registrar_log(
+
+                "erro",
+
+                f"[AnalysisService] Erro ao carregar exames disponíveis: {exc}",
+
+            )
+
+            # Em caso de falha, o chamador decide como tratar
+
+            raise
+
+
+
+    def analisar_corrida(
+
+        self,
+
+        exame: str,
+
+        arquivo_resultados: Path,
+
+        arquivo_extracao: Optional[Path] = None,
+
+        lote: Optional[str] = None,
+
+    ) -> AnaliseResultado:
+
+        """
+
+        Executa a análise completa de uma corrida para um determinado exame.
+
+
+
+        Parâmetros
+
+        ----------
+
+        exame : str
+
+            Nome do exame, conforme cadastro em exames_config.csv
+
+        arquivo_resultados : Path
+
+            Caminho para o arquivo de resultados do equipamento (CSV/XLSX/etc.)
+
+        arquivo_extracao : Path, opcional
+
+            Caminho para o arquivo de extração / mapeamento de amostras
+
+        lote : str, opcional
+
+            Identificação de lote, se fornecida pela UI
+
+        """
+
+        registrar_log(
+
+            "info",
+
+            f"[AnalysisService] Iniciando análise para exame='{exame}', "
+
+            f"arquivo_resultados='{arquivo_resultados}', arquivo_extracao='{arquivo_extracao}', "
+
+            f"lote='{lote}'",
+
+        )
+
+
+
+        # 1. Carregar dados brutos dos arquivos
+
+        # 1.1. Usar extrator específico se tipo de placa foi detectado (Fase 1.5)
+
+        df_resultados = self._carregar_arquivo_resultados_com_extrator(arquivo_resultados)
+
+        
+
+        df_extracao = (
+
+            self._carregar_arquivo_extracao(arquivo_extracao)
+
+            if arquivo_extracao is not None
+
+            else None
+
+        )
+
+        # Se houver gabarito/arquivo de extração, armazena-o no AppState para integração no motor universal
+
+        if df_extracao is not None:
+
+            self.app_state.df_gabarito_extracao = df_extracao
+
+
+
+        # 2. Chamar o motor universal
+
+        resultado_engine = self.engine.processar_exame(
+
+            exame=exame,
+
+            df_resultados=df_resultados,
+
+            df_extracao=df_extracao,
+
+            lote=lote,
+
+        )
+
+
+
+        # 3. Montar objeto AnaliseResultado com metadados de equipamento (Fase 1.5)
+
+        metadados_completos = resultado_engine.metadados.copy()
+
+        
+
+        # Injetar informações de equipamento detectado nos metadados
+
+        if self.app_state.tipo_de_placa_detectado:
+
+            metadados_completos['equipamento_detectado'] = self.app_state.tipo_de_placa_detectado
+
+            metadados_completos['equipamento_selecionado'] = self.app_state.tipo_de_placa_selecionado
+
             
-            df_exames = pd.read_csv(CAMINHO_EXAMES)
-            registrar_log("AnalysisService", "Configuração de exames carregada com sucesso.", "INFO")
-            return df_exames
-        except Exception as e:
-            registrar_log("AnalysisService", f"Erro crítico ao carregar o arquivo de configuração de exames: {e}", "CRITICAL")
+
+            if self.app_state.tipo_de_placa_config:
+
+                config = self.app_state.tipo_de_placa_config
+
+                metadados_completos['equipamento_modelo'] = config.modelo
+
+                metadados_completos['equipamento_fabricante'] = config.fabricante
+
+                metadados_completos['equipamento_tipo_placa'] = config.tipo_placa
+
+                metadados_completos['equipamento_extrator'] = config.extrator_nome
+
+        
+
+        analise_resultado = AnaliseResultado(
+
+            df_processado=resultado_engine.df_final,
+
+            resumo=resultado_engine.resumo,
+
+            metadados=metadados_completos,
+
+            caminho_entrada_resultados=arquivo_resultados,
+
+            caminho_entrada_extracao=arquivo_extracao,
+
+        )
+
+
+
+        # 4. Atualizar AppState com os dados resultantes
+
+        self._atualizar_app_state_com_resultado(analise_resultado)
+
+
+
+        # 5. Armazenar como último resultado
+
+        self.ultimo_resultado = analise_resultado
+
+
+
+        registrar_log(
+
+            "info",
+
+            "[AnalysisService] Análise concluída com sucesso. "
+
+            f"Total de linhas no df_processado: {len(analise_resultado.df_processado)}",
+
+        )
+
+
+
+        return analise_resultado
+
+
+
+
+
+    def executar_analise(
+
+        self,
+
+        app_state: AppState,
+
+        parent_window: Any,
+
+        exame: str,
+
+        lote: str,
+
+    ) -> Any:
+
+        """
+
+        Método de compatibilidade utilizado pelo MenuHandler (UI).
+
+
+
+        Mantém a assinatura antiga ``executar_analise(app_state, parent_window, exame, lote)``,
+
+        redirecionando para o novo fluxo baseado em ``analisar_corrida`` e no motor
+
+        universal.
+
+
+
+        Fluxo resumido:
+
+        1. Sincroniza o ``AppState`` recebido com o interno deste serviço.
+
+        2. Garante que o gabarito de extração (mapa da placa) esteja acessível ao motor,
+
+           reaproveitando ``app_state.dados_extracao`` quando disponível.
+
+        3. Abre um diálogo para seleção do arquivo de resultados do equipamento.
+
+        4. Chama ``analisar_corrida`` com o exame, o arquivo selecionado e o lote.
+
+        5. Devolve o ``DataFrame`` processado, que é o que o ``MenuHandler`` espera.
+
+        """
+
+        # 1. Sincronizar AppState (compatibilidade com versões anteriores)
+
+        if app_state is not None and app_state is not self.app_state:
+
+            self.app_state = app_state
+
+            try:
+
+                # Mantém engine alinhado com o novo AppState
+
+                self.engine.app_state = app_state
+
+            except Exception:
+
+                # Se por algum motivo a engine ainda não existir ou não tiver o atributo,
+
+                # simplesmente ignoramos – ela será recriada se necessário.
+
+                pass
+
+
+
+        # 2. Garantir que o gabarito de extração esteja acessível ao motor universal
+
+        #    Reutiliza o DataFrame carregado na etapa de mapeamento da placa.
+
+        if getattr(self.app_state, "dados_extracao", None) is not None:
+
+            try:
+
+                self.app_state.df_gabarito_extracao = self.app_state.dados_extracao
+
+            except Exception:
+
+                # Falha ao atribuir não deve impedir a análise; o motor apenas
+
+                # seguirá sem integração com o gabarito.
+
+                pass
+
+
+
+        from tkinter import filedialog
+
+
+
+        # 3. Selecionar arquivo de resultados do equipamento
+
+        caminho = filedialog.askopenfilename(
+
+            parent=parent_window,
+
+            title="Selecione o arquivo de resultados do equipamento",
+
+            filetypes=[
+
+                ("Arquivos de planilha", "*.csv;*.xlsx;*.xls"),
+
+                ("Todos os arquivos", "*.*"),
+
+            ],
+
+        )
+
+        if not caminho:
+
+            # Mantemos a semântica de erro para que a UI possa notificar o usuário.
+
+            raise RuntimeError("Seleção de arquivo de resultados cancelada pelo usuário.")
+
+
+
+        arquivo_resultados = Path(caminho)
+
+
+
+        # 3.1. Detectar tipo de placa PCR automaticamente
+
+        # DESABILITADO: Todos os exames usam o mesmo equipamento (7500)
+
+        # Para reabilitar, descomente o bloco abaixo
+
+        tipo_placa_selecionado = None
+
+        # tipo_placa_selecionado = self._detectar_e_confirmar_tipo_placa(
+
+        #     arquivo_resultados=arquivo_resultados,
+
+        #     parent_window=parent_window,
+
+        # )
+
+
+
+        if tipo_placa_selecionado:
+
+            registrar_log(
+
+                "info",
+
+                f"[AnalysisService] Prosseguindo com tipo de placa: {tipo_placa_selecionado}",
+
+            )
+
+        else:
+
+            registrar_log(
+
+                "info",
+
+                "[AnalysisService] Prosseguindo sem detecção de tipo de placa (fallback genérico)",
+
+            )
+
+
+
+        # 4. Delegar para o novo fluxo de análise
+
+        analise = self.analisar_corrida(
+
+            exame=exame,
+
+            arquivo_resultados=arquivo_resultados,
+
+            arquivo_extracao=None,
+
+            lote=lote,
+
+        )
+
+
+
+        # 5. Retorna apenas o DataFrame processado, que é o que o MenuHandler utiliza
+
+        return analise.df_processado
+
+    # ------------------------------------------------------------------
+
+    # Funções auxiliares internas
+
+    # ------------------------------------------------------------------
+
+
+
+    def _carregar_arquivo_resultados(self, caminho: Path) -> pd.DataFrame:
+
+        """
+
+        Carrega o arquivo de resultados (saída do equipamento).
+
+
+
+        Utiliza 'read_data_with_auto_detection', que já faz inferência de
+
+        separadores, codificação e tipo de planilha.
+
+        """
+
+        registrar_log(
+
+            "info",
+
+            f"[AnalysisService] Carregando arquivo de resultados: '{caminho}'",
+
+        )
+
+
+
+        if not caminho.exists():
+
+            msg = f"Arquivo de resultados não encontrado: {caminho}"
+
+            registrar_log("erro", f"[AnalysisService] {msg}")
+
+            raise FileNotFoundError(msg)
+
+
+
+        df = read_data_with_auto_detection(caminho)
+
+        registrar_log(
+
+            "debug",
+
+            f"[AnalysisService] Arquivo de resultados carregado com shape={df.shape}",
+
+        )
+
+        return df
+
+    
+
+    def _carregar_arquivo_resultados_com_extrator(self, caminho: Path) -> pd.DataFrame:
+
+        """
+
+        Carrega arquivo de resultados usando extrator específico quando disponível (Fase 1.5).
+
+        
+
+        Se app_state.tipo_de_placa_config existir, usa o extrator específico do equipamento
+
+        para normalizar dados para formato padrão ['bem', 'amostra', 'alvo', 'ct'].
+
+        
+
+        Caso contrário, faz fallback para leitura genérica com read_data_with_auto_detection.
+
+        
+
+        Args:
+
+            caminho: Path para arquivo de resultados
+
+            
+
+        Returns:
+
+            DataFrame normalizado (com extrator específico) ou DataFrame bruto (fallback)
+
+        """
+
+        registrar_log(
+
+            "info",
+
+            f"[AnalysisService] Carregando arquivo de resultados: '{caminho}'",
+
+        )
+
+
+
+        if not caminho.exists():
+
+            msg = f"Arquivo de resultados não encontrado: {caminho}"
+
+            registrar_log("erro", f"[AnalysisService] {msg}")
+
+            raise FileNotFoundError(msg)
+
+        
+
+        # Fase 1.5: Verificar se há tipo de placa detectado
+
+        if (
+
+            hasattr(self.app_state, 'tipo_de_placa_config') 
+
+            and self.app_state.tipo_de_placa_config is not None
+
+        ):
+
+            try:
+
+                from services.equipment_extractors import extrair_dados_equipamento
+
+                
+
+                config = self.app_state.tipo_de_placa_config
+
+                equipamento = self.app_state.tipo_de_placa_selecionado
+
+                
+
+                registrar_log(
+
+                    "info",
+
+                    f"[AnalysisService] Usando extrator específico para: {equipamento}",
+
+                )
+
+                
+
+                # Usar extrator específico
+
+                df_normalizado = extrair_dados_equipamento(str(caminho), config)
+
+                
+
+                registrar_log(
+
+                    "info",
+
+                    f"[AnalysisService] Extração específica concluída: {len(df_normalizado)} linhas, "
+
+                    f"colunas={list(df_normalizado.columns)}",
+
+                )
+
+                
+
+                return df_normalizado
+
+                
+
+            except Exception as exc:
+
+                registrar_log(
+
+                    "aviso",
+
+                    f"[AnalysisService] Falha no extrator específico: {exc}. "
+
+                    "Fazendo fallback para leitura genérica.",
+
+                )
+
+                # Continua para fallback
+
+        
+
+        # Fallback: leitura genérica
+
+        registrar_log(
+
+            "info",
+
+            "[AnalysisService] Usando leitura genérica (sem extrator específico)",
+
+        )
+
+        
+
+        df = read_data_with_auto_detection(caminho)
+
+        
+
+        registrar_log(
+
+            "debug",
+
+            f"[AnalysisService] Arquivo de resultados carregado com shape={df.shape}",
+
+        )
+
+        
+
+        return df
+
+
+
+    def _detectar_e_confirmar_tipo_placa(
+
+        self,
+
+        arquivo_resultados: Path,
+
+        parent_window: Any,
+
+    ) -> Optional[str]:
+
+        """
+
+        Detecta automaticamente o tipo de placa PCR e solicita confirmação do usuário.
+
+
+
+        Fluxo:
+
+        1. Chama detectar_equipamento() no arquivo
+
+        2. Exibe dialog com detecção + alternativas
+
+        3. Permite escolha manual se necessário
+
+        4. Salva no app_state: tipo_de_placa_detectado, tipo_de_placa_config, tipo_de_placa_selecionado
+
+
+
+        Returns:
+
+            Nome do equipamento selecionado ou None se cancelado/falhou
+
+        """
+
+        try:
+
+            registrar_log(
+
+                "info",
+
+                f"[AnalysisService] Detectando tipo de placa em: {arquivo_resultados.name}",
+
+            )
+
+
+
+            # 1. Executar detecção automática
+
+            resultado_deteccao = detectar_equipamento(str(arquivo_resultados))
+
+
+
+            if not resultado_deteccao or not resultado_deteccao.get('equipamento'):
+
+                registrar_log(
+
+                    "aviso",
+
+                    "[AnalysisService] Detecção de tipo de placa falhou ou não encontrou match",
+
+                )
+
+                return None
+
+
+
+            # 2. Carregar registry para obter lista de equipamentos disponíveis
+
+            registry = EquipmentRegistry()
+
+            registry.load()
+
+            equipamentos_disponiveis = registry.listar_equipamentos()
+
+
+
+            # 3. Exibir dialog de confirmação
+
+            from ui.equipment_detection_dialog import EquipmentDetectionDialog
+
+
+
+            dialog = EquipmentDetectionDialog(
+
+                master=parent_window,
+
+                deteccao_resultado=resultado_deteccao,
+
+                equipamentos_disponiveis=equipamentos_disponiveis,
+
+                arquivo_nome=arquivo_resultados.name,
+
+            )
+
+
+
+            equipamento_selecionado = dialog.get_selecao()
+
+
+
+            if not equipamento_selecionado:
+
+                registrar_log(
+
+                    "info",
+
+                    "[AnalysisService] Usuário cancelou seleção de tipo de placa",
+
+                )
+
+                return None
+
+
+
+            # 4. Carregar configuração do equipamento selecionado
+
+            equipment_config = registry.get(equipamento_selecionado)
+
+
+
+            if not equipment_config:
+
+                registrar_log(
+
+                    "erro",
+
+                    f"[AnalysisService] Configuração não encontrada para: {equipamento_selecionado}",
+
+                )
+
+                return None
+
+
+
+            # 5. Salvar no app_state
+
+            self.app_state.tipo_de_placa_detectado = resultado_deteccao.get('equipamento')
+
+            self.app_state.tipo_de_placa_config = equipment_config
+
+            self.app_state.tipo_de_placa_selecionado = equipamento_selecionado
+
+
+
+            registrar_log(
+
+                "info",
+
+                f"[AnalysisService] Tipo de placa confirmado: {equipamento_selecionado} "
+
+                f"(detectado: {resultado_deteccao.get('equipamento')}, "
+
+                f"confiança: {resultado_deteccao.get('confianca', 0)*100:.1f}%)",
+
+            )
+
+
+
+            return equipamento_selecionado
+
+
+
+        except Exception as exc:
+
+            registrar_log(
+
+                "erro",
+
+                f"[AnalysisService] Erro na detecção de tipo de placa: {exc}",
+
+            )
+
+            # Não propaga erro - continua sem detecção
+
             return None
 
-    def executar_analise(self, app_state: AppState, master_window, exame_selecionado: str, lote_kit: str) -> Tuple[Optional[pd.DataFrame], str, str]:
+
+
+    def _carregar_arquivo_extracao(self, caminho: Path) -> pd.DataFrame:
+
         """
-        Orquestra a execução de uma análise.
 
-        1. Encontra o módulo de análise correto com base na configuração.
-        2. Importa dinamicamente a sua função de ponto de entrada.
-        3. Executa a função, que irá gerir a sua própria UI e lógica.
-        4. Retorna os resultados para o fluxo principal.
+        Carrega o arquivo de extração / mapeamento de amostras.
+
+
+
+        Também usa 'read_data_with_auto_detection' para reduzir a
+
+        sensibilidade a variações de formato.
+
         """
-        if self.exames_disponiveis is None:
-            messagebox.showerror("Erro Crítico", "A configuração de exames não pôde ser carregada.", parent=master_window)
-            return None, exame_selecionado, lote_kit
 
-        # Validação: garantir mapeamento de extração com colunas essenciais
+        registrar_log(
+
+            "info",
+
+            f"[AnalysisService] Carregando arquivo de extração/mapeamento: '{caminho}'",
+
+        )
+
+
+
+        if not caminho.exists():
+
+            msg = f"Arquivo de extração/mapeamento não encontrado: {caminho}"
+
+            registrar_log("erro", f"[AnalysisService] {msg}")
+
+            raise FileNotFoundError(msg)
+
+
+
+        df = read_data_with_auto_detection(caminho)
+
+        registrar_log(
+
+            "debug",
+
+            f"[AnalysisService] Arquivo de extração/mapeamento carregado com shape={df.shape}",
+
+        )
+
+        return df
+
+
+
+    def _atualizar_app_state_com_resultado(self, resultado: AnaliseResultado) -> None:
+
+        """
+
+        Atualiza o AppState com os artefatos produzidos pela análise.
+
+
+
+        Isso permite que outras partes da UI (por exemplo, visualizadores de
+
+        placa, relatórios, exportação GAL) acessem os dados de forma coerente.
+
+        """
+
         try:
-            df_map = app_state.dados_extracao
-            if df_map is None or getattr(df_map, 'empty', True):
-                messagebox.showerror("Erro de Fluxo", "Mapeamento de extração não carregado.", parent=master_window)
-                return None, exame_selecionado, lote_kit
-            import unicodedata as _ud
-            def _norm(s: str) -> str:
-                return _ud.normalize('NFKD', str(s)).encode('ASCII','ignore').decode('ASCII').strip().lower()
-            cols = {_norm(c) for c in df_map.columns}
-            if not ("amostra" in cols and ("poco" in cols or "well" in cols)):
-                messagebox.showerror("Erro de Dados", "Colunas obrigatórias ausentes no mapeamento (Amostra e Poço).", parent=master_window)
-                return None, exame_selecionado, lote_kit
-        except Exception:
-            pass
 
-        try:
-            info_exame = self.exames_disponiveis[self.exames_disponiveis['exame'] == exame_selecionado]
-            if info_exame.empty:
-                raise ValueError(f"Nenhuma configuração encontrada para o exame '{exame_selecionado}'")
+            # Guarda o DataFrame processado no estado da aplicação
 
-            # Constrói o caminho para a função de ponto de entrada (ex: 'analise.vr1.iniciar_fluxo_analise')
-            # Extrai o nome do módulo (ex: 'analise.vr1e2_biomanguinhos_7500') da string completa da função
-            modulo_base = info_exame.iloc[0]['modulo_analise'].rsplit('.', 1)[0]
-            funcao_ui_string = f"{modulo_base}.iniciar_fluxo_analise"
-            
-            registrar_log("AnalysisService", f"A importar função de UI: '{funcao_ui_string}'", "INFO")
-            funcao_iniciar_fluxo = importar_funcao(funcao_ui_string)
-            
-            # Chama a função de UI do módulo específico, passando a janela principal, o estado e o lote
-            raw_ret = funcao_iniciar_fluxo(master_window, app_state, lote_kit)
+            self.app_state.df_processado = resultado.df_processado
 
-            # Normalizar o retorno: a função de UI pode devolver várias formas
-            # Possíveis formatos observados:
-            # - pd.DataFrame
-            # - (pd.DataFrame, exame_ret, lote_ret)
-            # - (pd.DataFrame, metadata)
-            resultados_df = None
-            exame_ret = exame_selecionado
-            lote_ret = lote_kit
 
-            if isinstance(raw_ret, (tuple, list)):
-                # tentar desempacotar formas comuns
-                if len(raw_ret) >= 1:
-                    candidate = raw_ret[0]
-                    if hasattr(candidate, 'empty') or isinstance(candidate, pd.DataFrame):
-                        resultados_df = candidate
-                if len(raw_ret) >= 2:
-                    # segundo elemento pode ser exame_ret ou metadata
-                    if isinstance(raw_ret[1], str):
-                        exame_ret = raw_ret[1]
-                if len(raw_ret) >= 3:
-                    if isinstance(raw_ret[2], str):
-                        lote_ret = raw_ret[2]
-                # Se ainda não temos DataFrame, procurar o primeiro elemento que pareça um DataFrame
-                if resultados_df is None:
-                    for item in raw_ret:
-                        if hasattr(item, 'empty') or isinstance(item, pd.DataFrame):
-                            resultados_df = item
-                            break
+
+            # Resumo e metadados
+
+            self.app_state.analise_resumo = resultado.resumo
+
+            self.app_state.analise_metadados = resultado.metadados
+
+
+
+            # Caminhos de origem
+
+            self.app_state.caminho_arquivo_resultados = (
+
+                str(resultado.caminho_entrada_resultados)
+
+                if resultado.caminho_entrada_resultados is not None
+
+                else None
+
+            )
+
+            # Nome base do arquivo de corrida (para hist?rico e mapa)
+            if resultado.caminho_entrada_resultados is not None:
+                try:
+                    from pathlib import Path as _Path
+
+                    self.app_state.caminho_arquivo_corrida = _Path(
+                        resultado.caminho_entrada_resultados
+                    ).name
+                except Exception:
+                    self.app_state.caminho_arquivo_corrida = str(
+                        resultado.caminho_entrada_resultados
+                    )
             else:
-                # retorno direto: pode ser um DataFrame ou None
-                if hasattr(raw_ret, 'empty') or isinstance(raw_ret, pd.DataFrame):
-                    resultados_df = raw_ret
+                self.app_state.caminho_arquivo_corrida = None
 
-            return resultados_df, exame_ret, lote_ret
+            self.app_state.caminho_arquivo_extracao = (
 
-        except Exception as e:
-            registrar_log("AnalysisService", f"Erro ao executar análise: {e}", "CRITICAL")
-            messagebox.showerror("Erro de Análise", f"Não foi possível iniciar o processo de análise.\n\nDetalhes: {e}", parent=master_window)
-            return None, exame_selecionado, lote_kit
+                str(resultado.caminho_entrada_extracao)
+
+                if resultado.caminho_entrada_extracao is not None
+
+                else None
+
+            )
+
+
+
+            # Marca data/hora da última análise
+
+            self.app_state.data_hora_ultima_analise = datetime.datetime.now()
+
+
+
+            registrar_log(
+
+                "info",
+
+                "[AnalysisService] AppState atualizado com resultado da análise.",
+
+            )
+
+        except Exception as exc:  # noqa: BLE001
+
+            registrar_log(
+
+                "erro",
+
+                f"[AnalysisService] Erro ao atualizar AppState com resultado da análise: {exc}",
+
+            )
+
+            # Em caso de falha, não interrompemos necessariamente a execução,
+
+            # mas a UI pode não refletir o último resultado corretamente.
+
+
+
+    # ------------------------------------------------------------------
+
+    # Utilitários adicionais (opcionais / de apoio)
+
+    # ------------------------------------------------------------------
+
+
+
+    def obter_ultimo_dataframe_processado(self) -> Optional[pd.DataFrame]:
+
+        """
+
+        Retorna o último DataFrame processado (se houver).
+
+        """
+
+        if self.ultimo_resultado is None:
+
+            return None
+
+        return self.ultimo_resultado.df_processado
+
+
+
+    def obter_resumo_ultima_analise(self) -> Optional[Dict[str, Any]]:
+
+        """
+
+        Retorna o resumo da última análise (se houver).
+
+        """
+
+        if self.ultimo_resultado is None:
+
+            return None
+
+        return self.ultimo_resultado.resumo
+
+
+
+    def obter_metadados_ultima_analise(self) -> Optional[Dict[str, Any]]:
+
+        """
+
+        Retorna os metadados da última análise (se houver).
+
+        """
+
+        if self.ultimo_resultado is None:
+
+            return None
+
+        return self.ultimo_resultado.metadados
+
+
+
+    def resolver_caminho_relativo(self, relative_path: str) -> Optional[Path]:
+
+        """
+
+        Resolve um caminho relativo em relação ao BASE_DIR do sistema.
+
+
+
+        Útil para componentes da UI que recebem apenas o nome de um arquivo
+
+        e precisam localizar o caminho completo dentro da estrutura do
+
+        Integragal.
+
+        """
+
+        try:
+
+            base = Path(BASE_DIR)
+
+            caminho = base / relative_path
+
+        except Exception as exc:  # noqa: BLE001
+
+            registrar_log(
+
+                "erro",
+
+                f"[AnalysisService] Erro ao resolver caminho relativo '{relative_path}': {exc}",
+
+            )
+
+            return None
+
+
+
+        if not caminho.exists():
+
+            registrar_log(
+
+                "warning",
+
+                f"[AnalysisService] Caminho relativo '{relative_path}' "
+
+                f"resolvido para '{caminho}', mas o arquivo não existe.",
+
+            )
+
+            return None
+
+        return caminho
+

@@ -1,9 +1,10 @@
-﻿# utils/after_mixin.py  (novo arquivo)
-import customtkinter as ctk
+# utils/after_mixin.py  (novo arquivo)
+
 
 class AfterManagerMixin:
     """Mixin que registra todos os after() agendados
     e cancela automaticamente no dispose()."""
+
     def __init__(self, *a, **kw):
         super().__init__(*a, **kw)
         self._after_ids: set[str] = set()
@@ -16,7 +17,7 @@ class AfterManagerMixin:
     def dispose(self):
         for aid in self._after_ids:
             try:
-                self.after_cancel(aid)        # evita callbacks Ã³rfÃ£os
+                self.after_cancel(aid)  # evita callbacks órfãos
             except Exception:
                 pass
         self._after_ids.clear()

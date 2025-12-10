@@ -1,0 +1,13 @@
+pandas
+openpyxl
+xlrd
+xlwt
+matplotlib
+selenium-requests
+dearpygui
+simplejson
+psycopg2-binary
+Pillow
+customtkinter
+bcrypt
+

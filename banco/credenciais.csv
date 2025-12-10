@@ -1,3 +1,2 @@
-usuario;senha;nivel_acesso
-marcio;$2b$12$VSPNnijDEc8DPiAXTyjvteFUCDrs8wUHWcBZ4hdezraw65ETu0rvi;ADMIN
-lacen;$2b$12$FVARPOeHmeiSSYRgOjwTz.Y/Qr8rS2Rxr5LHAKX.XSWHYR/Sk8NOC;ADMIN
+usuario;senha_hash
+marcio;$2b$12$aLHpMO0lH1Zp.p.VAgIi4uQ3agFXLrn2CThvHbmQ6EgNyPCAcxQeq
