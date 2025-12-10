@@ -203,18 +203,18 @@ class MenuHandler:
                     gal_path = os.path.join(reports_dir, f"gal_{ts}_exame.csv")
 
                     # Formatar dados para GAL
-                    from main import _formatar_para_gal
+                    from exportacao.gal_formatter import formatar_para_gal
                     exam_cfg = getattr(self.main_window.app_state, "exam_cfg", None)
-                    df_gal = _formatar_para_gal(resultados_df, exam_cfg=exam_cfg, exame=exame)
+                    df_gal = formatar_para_gal(resultados_df, exam_cfg=exam_cfg, exame=exame)
                     df_gal.to_csv(gal_path, index=False)
 
                     gal_last = os.path.join(reports_dir, "gal_last_exame.csv")
                     df_gal.to_csv(gal_last, index=False)
 
                     # Notificar salvamento
-                    from main import _notificar_gal_saved
+                    from utils.notifications import notificar_gal_saved
 
-                    _notificar_gal_saved(gal_last, parent=self.main_window)
+                    notificar_gal_saved(gal_last, parent=self.main_window)
 
                 except Exception as e:
                     registrar_log("Export GAL", f"Falha ao gerar CSV GAL: {e}", "ERROR")
