@@ -1,26 +1,26 @@
 """
-MÃ“DULO OFICIAL para formataÃ§Ã£o GAL - ÃšNICA FONTE DE VERDADE
+MÃ“DULO OFICIAL para formatação GAL - ÚNICA FONTE DE VERDADE
 ======================================================================
 
-âš ï¸ IMPORTANTE: Este Ã© o ÃšNICO mÃ³dulo responsÃ¡vel por formataÃ§Ã£o GAL.
-   NUNCA implemente lÃ³gica de formataÃ§Ã£o GAL em outros lugares.
+âš ï¸ IMPORTANTE: Este é o ÚNICO módulo responsável por formatação GAL.
+   NUNCA implemente lógica de formatação GAL em outros lugares.
 
 RESPONSABILIDADES:
 ------------------
-âœ… Formatar DataFrames de resultados para padrÃ£o GAL
+âœ… Formatar DataFrames de resultados para padrão GAL
 âœ… Aplicar metadados de exames (exam_cfg) para mapeamento
-âœ… Gerar painÃ©is CSV para envio GAL
-âœ… Validar formato de saÃ­da conforme especificaÃ§Ã£o GAL
+âœ… Gerar painéis CSV para envio GAL
+âœ… Validar formato de saída conforme especificação GAL
 
 ARQUITETURA (FASE 2 - R8):
 --------------------------
-- Fonte: Movido de main.py para centralizar lÃ³gica GAL
+- Fonte: Movido de main.py para centralizar lógica GAL
 - Usado por: ui/menu_handler.py, exportacao/envio_gal.py
 - Depende de: services/exam_registry.py (metadados)
 
-Este mÃ³dulo centraliza a formataÃ§Ã£o de DataFrames de resultados para o padrÃ£o GAL,
+Este módulo centraliza a formatação de DataFrames de resultados para o padrão GAL,
 utilizando metadados do exame (exam_cfg) para determinar mapeamento de colunas,
-painÃ©is, e alvos exportÃ¡veis.
+painéis, e alvos exportáveis.
 
 Ver: RELATORIO_REDUNDANCIA_CONFLITOS.md (FASE 2, Etapa 2.1)
 """
@@ -39,11 +39,11 @@ def formatar_para_gal(df, exam_cfg=None, exame: str | None = None):
     
     Args:
         df: DataFrame com resultados brutos
-        exam_cfg: ConfiguraÃ§Ã£o do exame (ExamConfig object) - opcional
-        exame: Nome do exame para buscar configuraÃ§Ã£o - opcional
+        exam_cfg: Configuração do exame (ExamConfig object) - opcional
+        exame: Nome do exame para buscar configuração - opcional
         
     Returns:
-        DataFrame formatado no padrÃ£o GAL com colunas:
+        DataFrame formatado no padrão GAL com colunas:
         - codigoAmostra, codigo, requisicao, paciente, exame, metodo
         - registroInterno, kit, reteste, loteKit, dataProcessamentoFim
         - valorReferencia, observacao, painel, resultado
@@ -86,7 +86,7 @@ def formatar_para_gal(df, exam_cfg=None, exame: str | None = None):
         if s in ("DET", "DETECTADO"):
             return "1"
         
-        # Aceita: "ND", "NÃ£o Detectado", "NAO DETECTADO"
+        # Aceita: "ND", "Não Detectado", "NAO DETECTADO"
         if s in ("ND", "NÃƒO DETECTADO", "NAO DETECTADO"):
             return "2"
         
@@ -136,11 +136,11 @@ def formatar_para_gal(df, exam_cfg=None, exame: str | None = None):
 
     def _find_result_col(target_norm: str):
         """
-        Procura coluna de resultado compatÃ­vel com o analito exportado,
+        Procura coluna de resultado compatível com o analito exportado,
         usando alias para mapear nomes de painel (influenzaa, adenovirus, etc.)
         para os alvos internos (INF A, ADV, ...).
         """
-        # aliases bÃ¡sicos painel -> alvo interno
+        # aliases básicos painel -> alvo interno
         aliases = {
             "INFLUENZAA": "INF A",
             "INFLUENZAB": "INF B",
@@ -152,7 +152,7 @@ def formatar_para_gal(df, exam_cfg=None, exame: str | None = None):
             "SARS-COV-2": "SC2",
             "SARSCOV2": "SC2",
             "CORONAVIRUSNCOV": "SC2",
-            # VÃ­rus Sincicial RespiratÃ³rio (VSR/RSV)
+            # Vírus Sincicial Respiratório (VSR/RSV)
             "VSINCICIALRESP": "RSV",
             "VSINCICIALRESPA": "RSV",
             "VSINCICIALRESPB": "RSV",
@@ -178,7 +178,7 @@ def formatar_para_gal(df, exam_cfg=None, exame: str | None = None):
         for k, v in colmap.items():
             if _clean(k) == _clean(tnorm):
                 return v
-        # tenta prefÃ¡cio Resultado_<alvo>
+        # tenta prefácio Resultado_<alvo>
         cand = f"Resultado_{tnorm}"
         for k, v in colmap.items():
             if _clean(k) == _clean(cand):
@@ -189,12 +189,12 @@ def formatar_para_gal(df, exam_cfg=None, exame: str | None = None):
         if not code:
             return False
         c = code.upper()
-        # Usa lista de controles definida no exam_cfg quando disponÃ­vel
+        # Usa lista de controles definida no exam_cfg quando disponível
         try:
             controles = cfg.controles or {"cn": [], "cp": []}
             cn_list = [str(x).upper() for x in (controles.get("cn") or [])]
             cp_list = [str(x).upper() for x in (controles.get("cp") or [])]
-            # comparar igualdade ou substring para cobrir variaÃ§Ãµes como 'CN', 'CONTROLE N'
+            # comparar igualdade ou substring para cobrir variaçÃµes como 'CN', 'CONTROLE N'
             for v in cn_list:
                 if v and v in c:
                     return False
@@ -205,7 +205,7 @@ def formatar_para_gal(df, exam_cfg=None, exame: str | None = None):
             # fallback para checagem simples
             if "CN" in c or "CP" in c:
                 return False
-        # somente cÃ³digos numÃ©ricos sÃ£o exportÃ¡veis
+        # somente códigos numéricos são exportáveis
         return c.isdigit()
 
     export_mask = cod_col.apply(_exportavel)
@@ -216,7 +216,7 @@ def formatar_para_gal(df, exam_cfg=None, exame: str | None = None):
         alvo_norm = cfg.normalize_target(analito)
         res_col = _find_result_col(alvo_norm)
         
-        # DEBUG: Log para diagnÃ³stico
+        # DEBUG: Log para diagnóstico
         from utils.logger import registrar_log
         registrar_log("GAL Debug", f"Procurando '{analito}' â†’ normalizado: '{alvo_norm}' â†’ coluna encontrada: '{res_col}'", "DEBUG")
         
@@ -226,9 +226,9 @@ def formatar_para_gal(df, exam_cfg=None, exame: str | None = None):
         else:
             serie_res = pd.Series([""] * len(df_in))
             if res_col:
-                registrar_log("GAL Debug", f"  â””â”€ AVISO: Coluna '{res_col}' nÃ£o existe no DataFrame! Colunas disponÃ­veis: {[c for c in df_in.columns if 'Resultado' in c]}", "WARNING")
+                registrar_log("GAL Debug", f"  â””â”€ AVISO: Coluna '{res_col}' não existe no DataFrame! Colunas disponíveis: {[c for c in df_in.columns if 'Resultado' in c]}", "WARNING")
             else:
-                registrar_log("GAL Debug", f"  â””â”€ AVISO: NÃ£o encontrou coluna para '{alvo_norm}'", "WARNING")
+                registrar_log("GAL Debug", f"  â””â”€ AVISO: Não encontrou coluna para '{alvo_norm}'", "WARNING")
         
         col_nome = _strip_accents(analito).replace(" ", "").replace("-", "").replace("_", "").lower()
         df_out[col_nome] = serie_res
@@ -241,14 +241,14 @@ def gerar_painel_csvs(df_resultados, exam_cfg=None, exame: str | None = None, ou
     Gera CSVs separados por painel (panel_tests_id) usando export_fields do exam_cfg.
     
     Cada painel recebe um CSV com:
-    - Colunas padrÃ£o (codigoAmostra, codigo, etc.)
+    - Colunas padrão (codigoAmostra, codigo, etc.)
     - Apenas alvos de export_fields correspondentes ao painel
     
     Args:
         df_resultados: DataFrame com resultados brutos
-        exam_cfg: ConfiguraÃ§Ã£o do exame (ExamConfig object) - opcional
-        exame: Nome do exame para buscar configuraÃ§Ã£o - opcional
-        output_dir: DiretÃ³rio de saÃ­da (padrÃ£o: reports/)
+        exam_cfg: Configuração do exame (ExamConfig object) - opcional
+        exame: Nome do exame para buscar configuração - opcional
+        output_dir: Diretório de saída (padrão: reports/)
         
     Returns:
         dict {panel_id: caminho_arquivo}
@@ -294,7 +294,7 @@ def gerar_painel_csvs(df_resultados, exam_cfg=None, exame: str | None = None, ou
         if s in ("DET", "DETECTADO"):
             return "1"
         
-        # Aceita: "ND", "NÃ£o Detectado", "NAO DETECTADO"
+        # Aceita: "ND", "Não Detectado", "NAO DETECTADO"
         if s in ("ND", "NÃƒO DETECTADO", "NAO DETECTADO"):
             return "2"
         
@@ -312,7 +312,7 @@ def gerar_painel_csvs(df_resultados, exam_cfg=None, exame: str | None = None, ou
         
         return ""
     
-    # Base de colunas padrÃ£o para todos os painÃ©is
+    # Base de colunas padrão para todos os painéis
     cod_col = _get(["codigo", "amostra"])
     base_df = pd.DataFrame()
     base_df["codigoAmostra"] = cod_col
@@ -330,7 +330,7 @@ def gerar_painel_csvs(df_resultados, exam_cfg=None, exame: str | None = None, ou
     base_df["observacao"] = ""
     base_df["resultado"] = ""
     
-    # Agrupa alvos por painel (atualmente assume um Ãºnico painel; pode expandir)
+    # Agrupa alvos por painel (atualmente assume um único painel; pode expandir)
     export_fields = cfg.export_fields or []
     if not export_fields:
         export_fields = ["Influenzaa", "influenzab", "coronavirusncov", "adenovirus", "vsincicialresp"]
@@ -338,7 +338,7 @@ def gerar_painel_csvs(df_resultados, exam_cfg=None, exame: str | None = None, ou
     panel_id = cfg.panel_tests_id or "1"
     
     def _find_result_col(target_norm: str):
-        """Procura coluna compatÃ­vel (idem formatar_para_gal)"""
+        """Procura coluna compatível (idem formatar_para_gal)"""
         aliases = {
             "INFLUENZAA": "INF A", "INFLUENZAB": "INF B", "ADENOVIRUS": "ADV",
             "METAPNEUMOVIRUS": "HMPV", "RINOVIRUS": "HRV", 

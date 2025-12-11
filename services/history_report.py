@@ -14,13 +14,13 @@ from services.exam_registry import get_exam_cfg
 
 def _map_result(val: any) -> str:
 
-    """Converte resultado textual em cÃ³digo padronizado "1" (Detectado), "2" (NÃ£o Detectado), "3" (Inconclusivo).
+    """Converte resultado textual em código padronizado "1" (Detectado), "2" (Não Detectado), "3" (Inconclusivo).
 
-    A lÃ³gica Ã© alinhada ao visualizador de placa:
+    A lógica é alinhada ao visualizador de placa:
 
         1 -> Detectado / positivo / reagente
 
-        2 -> NÃ£o detectado / negativo
+        2 -> Não detectado / negativo
 
         3 -> Inconclusivo
 
@@ -42,7 +42,7 @@ def _map_result(val: any) -> str:
 
     s = str(val).strip().lower()
 
-    # Se jÃ¡ vier em formato "ALVO - 1/2/3" ou apenas "1/2/3"
+    # Se já vier em formato "ALVO - 1/2/3" ou apenas "1/2/3"
 
     if " - " in s:
 
@@ -64,7 +64,7 @@ def _map_result(val: any) -> str:
 
         return "3"
 
-    if ("nao" in s or "nÃ£o" in s) and "detect" in s:
+    if ("nao" in s or "não" in s) and "detect" in s:
 
         return "2"
 
@@ -76,7 +76,7 @@ def _map_result(val: any) -> str:
 
         return "1"
 
-    # invÃ¡lido / falha nÃ£o recebe cÃ³digo numÃ©rico
+    # inválido / falha não recebe código numérico
 
     if "inv" in s:
 
@@ -134,7 +134,7 @@ def gerar_historico_csv(
 
     """
 
-    VersÃ£o evoluÃ­da que gera/atualiza o histÃ³rico de anÃ¡lises em CSV (append).
+    Versão evoluída que gera/atualiza o histórico de análises em CSV (append).
 
 
 
@@ -142,13 +142,13 @@ def gerar_historico_csv(
 
     - âœ… Suporta QUALQUER exame (VR1e2, ZDC, VR1, VR2, etc.)
 
-    - âœ… Gera UUID Ãºnico (id_registro) para cada linha
+    - âœ… Gera UUID único (id_registro) para cada linha
 
     - âœ… Inicializa campos de rastreamento GAL (data_hora_envio, usuario_envio, sucesso_envio, detalhes_envio)
 
-    - âœ… Status_gal muda para "nÃ£o enviado" ou "nÃ£o enviÃ¡vel"
+    - âœ… Status_gal muda para "não enviado" ou "não enviável"
 
-    - âœ… Suporta colunas dinÃ¢micas conforme alvos do exame
+    - âœ… Suporta colunas dinâmicas conforme alvos do exame
 
     """
 
@@ -158,7 +158,7 @@ def gerar_historico_csv(
 
     if cfg is None:
 
-        raise ValueError(f"Exame '{exame}' nÃ£o encontrado no registry")
+        raise ValueError(f"Exame '{exame}' não encontrado no registry")
 
     # Normaliza dataframe de entrada
     df_final = df_final.copy()
@@ -187,7 +187,7 @@ def gerar_historico_csv(
 
         """Encontra a coluna de CT correspondente a um alvo/base.
 
-        Usa nomes com e sem espaÃ§o, com sufixo/prefixo "CT" e variaÃ§Ãµes simples.
+        Usa nomes com e sem espaço, com sufixo/prefixo "CT" e variaçÃµes simples.
 
         """
 
@@ -279,21 +279,19 @@ def gerar_historico_csv(
 
     # RPs - Procurar por CT_RP_1, CT_RP_2, etc.
 
-    extra_ct = list(cfg.rps or [])
+    extra_ct = []
 
     from utils.logger import registrar_log
-    registrar_log("History Debug", f"RPs da config: {extra_ct}", "DEBUG")
+    registrar_log("History Debug", f"Procurando colunas RP no DataFrame...", "DEBUG")
     registrar_log("History Debug", f"Colunas do DataFrame: {df_final.columns.tolist()}", "DEBUG")
 
     for col in df_final.columns:
 
         up = str(col).upper()
         
-        registrar_log("History Debug", f"  Verificando coluna '{col}' â†’ upper='{up}' â†’ contÃ©m 'RP'={('_RP_' in up or up.startswith('CT_RP') or up.startswith('RESULTADO_RP'))}", "DEBUG")
-
         # Procura por CT_RP_1, CT_RP_2, Resultado_RP_1, Resultado_RP_2, etc.
-        if ("_RP_" in up or up.startswith("CT_RP") or up.startswith("RESULTADO_RP")) and col not in extra_ct:
-            registrar_log("History Debug", f"    âœ… RP ENCONTRADO! Adicionando '{col}' aos extra_ct", "INFO")
+        if "_RP_" in up or up.startswith("CT_RP") or up.startswith("RESULTADO_RP"):
+            registrar_log("History Debug", f"  RP ENCONTRADO: '{col}' (upper='{up}')", "INFO")
             extra_ct.append(col)
 
     linhas = []
@@ -310,17 +308,17 @@ def gerar_historico_csv(
 
         status_corrida = str(r.get("Status_Corrida", "")).strip()
 
-        # preserva arquivo_corrida vindo da linha se nÃ£o foi passado
+        # preserva arquivo_corrida vindo da linha se não foi passado
 
         arq_corrida = arquivo_corrida or str(r.get("arquivo_corrida", "")).strip()
 
-        # âœ… NOVO: Gera UUID Ãºnico para cada registro
+        # âœ… NOVO: Gera UUID único para cada registro
 
         id_registro = str(uuid.uuid4())
 
 
 
-        status_gal = "nÃ£o enviado"  # âœ… NOVO: Status padrÃ£o melhorado
+        status_gal = "não enviado"  # âœ… NOVO: Status padrão melhorado
 
         mensagem_gal = ""
 
@@ -328,21 +326,21 @@ def gerar_historico_csv(
 
         if (not codigo.isdigit()) or ("cn" in cod_lower) or ("cp" in cod_lower):
 
-            status_gal = "nÃ£o enviÃ¡vel"  # âœ… NOVO: Nome normalizado
+            status_gal = "não enviável"  # âœ… NOVO: Nome normalizado
 
-            mensagem_gal = "CÃ³digo nÃ£o numÃ©rico ou controle"  # âœ… NOVO: Mensagem melhorada
+            mensagem_gal = "Código não numérico ou controle"  # âœ… NOVO: Mensagem melhorada
 
         # âœ… NOVA ESTRUTURA: Com UUID e campos de rastreamento GAL
 
         linha = {
 
-            # IdentificaÃ§Ã£o (novo)
+            # Identificação (novo)
 
             "id_registro": id_registro,
 
 
 
-            # Rastreabilidade de anÃ¡lise
+            # Rastreabilidade de análise
 
             "data_hora_analise": timestamp,
 
@@ -374,11 +372,11 @@ def gerar_historico_csv(
 
             "mensagem_gal": mensagem_gal,
 
-            "data_hora_envio": None,      # âœ… NOVO: Preenchido apÃ³s envio
+            "data_hora_envio": None,      # âœ… NOVO: Preenchido após envio
 
-            "usuario_envio": None,         # âœ… NOVO: Preenchido apÃ³s envio
+            "usuario_envio": None,         # âœ… NOVO: Preenchido após envio
 
-            "sucesso_envio": None,         # âœ… NOVO: None=nÃ£o enviÃ¡vel, False/True=resultado
+            "sucesso_envio": None,         # âœ… NOVO: None=não enviável, False/True=resultado
 
             "detalhes_envio": "",          # âœ… NOVO: Resposta do servidor
 
@@ -421,18 +419,18 @@ def gerar_historico_csv(
         # Extras de CT (RPs)
 
         from utils.logger import registrar_log
-        registrar_log("History Debug", f"Extra_ct final: {extra_ct}", "DEBUG")
+        registrar_log("History Debug", f"Extra_ct final para gravar: {extra_ct}", "DEBUG")
 
         for ct_col in extra_ct:
 
             if ct_col in r:
                 ct_val = _fmt_ct(r.get(ct_col))
-                # Remove prefixo CT_ se jÃ¡ existir para evitar duplicaÃ§Ã£o
-                col_name = ct_col.replace("CT_", "") if ct_col.startswith("CT_") else ct_col
+                # Limpar nome: CT_RP_1 -> RP_1, Resultado_RP_1 -> RP_1
+                col_name = ct_col.replace("CT_", "").replace("Resultado_", "")
                 linha[f"{col_name} - CT"] = ct_val
-                registrar_log("History Debug", f"  Adicionando RP: '{col_name} - CT' = {ct_val}", "DEBUG")
+                registrar_log("History Debug", f"  Gravando: '{col_name} - CT' = {ct_val} (coluna original: {ct_col})", "DEBUG")
             else:
-                registrar_log("History Debug", f"  AVISO: Coluna RP '{ct_col}' nÃ£o existe na linha!", "WARNING")
+                registrar_log("History Debug", f"  AVISO: Coluna RP '{ct_col}' nao existe na linha!", "WARNING")
 
             # Resultado do RP (se existir)
             res_rp = r.get(f"Resultado_{ct_col}") or r.get(f"{ct_col} - R")
@@ -459,18 +457,18 @@ def gerar_historico_csv(
 
         df_existente = pd.read_csv(csv_path_obj, sep=";", encoding="utf-8")
 
-        # Colunas que devem estar sempre presentes (mantÃ©m ordem definida pelo df_hist)
+        # Colunas que devem estar sempre presentes (mantém ordem definida pelo df_hist)
         colunas_esperadas = list(df_hist.columns)
         colunas_existentes = set(df_existente.columns)
 
         # Se faltam colunas no CSV (ex: primeira vez com novo exame)
         if colunas_existentes != set(colunas_esperadas):
-            # Adiciona colunas faltantes no histÃ³rico anterior
+            # Adiciona colunas faltantes no histórico anterior
             for col in colunas_esperadas:
                 if col not in df_existente.columns:
                     df_existente[col] = None
 
-        # Reordena: primeiro as esperadas, depois eventuais extras jÃ¡ existentes
+        # Reordena: primeiro as esperadas, depois eventuais extras já existentes
         colunas_ordenadas = list(
             dict.fromkeys(colunas_esperadas + [c for c in df_existente.columns if c not in colunas_esperadas])
         )
@@ -509,13 +507,13 @@ def atualizar_status_gal(
 
     """
 
-    Atualiza status_gal de registros apÃ³s envio para o GAL.
+    Atualiza status_gal de registros após envio para o GAL.
 
 
 
     Args:
 
-        csv_path: Caminho do histÃ³rico CSV
+        csv_path: Caminho do histórico CSV
 
         id_registros: Lista de IDs (UUIDs) para atualizar
 
@@ -529,7 +527,7 @@ def atualizar_status_gal(
 
     Returns:
 
-        Dict com estatÃ­sticas: {
+        Dict com estatísticas: {
 
             'sucesso': bool,
 
@@ -555,13 +553,13 @@ def atualizar_status_gal(
 
     try:
 
-        # 1. LÃª o CSV completo
+        # 1. Lê o CSV completo
 
         csv_path_obj = Path(csv_path)
 
         if not csv_path_obj.exists():
 
-            raise FileNotFoundError(f"Arquivo nÃ£o encontrado: {csv_path}")
+            raise FileNotFoundError(f"Arquivo não encontrado: {csv_path}")
 
 
 
@@ -591,7 +589,7 @@ def atualizar_status_gal(
 
 
 
-            # 3. Atualiza campos de envio (com conversÃ£o de dtype)
+            # 3. Atualiza campos de envio (com conversão de dtype)
 
             novo_status = "enviado" if sucesso else "falha no envio"
 

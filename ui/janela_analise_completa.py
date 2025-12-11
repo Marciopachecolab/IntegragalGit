@@ -97,7 +97,7 @@ class JanelaAnaliseCompleta(AfterManagerMixin, ctk.CTkToplevel):
         self.protocol("WM_DELETE_WINDOW", self._on_close)
     
     def _criar_header(self):
-        """Cria header com informações da corrida."""
+        """Cria header com informaçÃµes da corrida."""
         header_frame = ctk.CTkFrame(self)
         header_frame.pack(fill="x", padx=10, pady=(10, 5))
         header_frame.grid_columnconfigure(3, weight=1)
@@ -132,11 +132,11 @@ class JanelaAnaliseCompleta(AfterManagerMixin, ctk.CTkToplevel):
         self.tabview.pack(fill="both", expand=True, padx=10, pady=(5, 10))
         
         # Aba 1: Análise
-        self.tab_analise = self.tabview.add("📊 Análise")
+        self.tab_analise = self.tabview.add("Analise")
         self._construir_aba_analise()
         
         # Aba 2: Mapa da Placa
-        self.tab_mapa = self.tabview.add("🧬 Mapa da Placa")
+        self.tab_mapa = self.tabview.add("Mapa da Placa")
         self._mapa_frame: Optional[PlateView] = None
         self._mapa_placeholder = None
         
@@ -155,32 +155,40 @@ class JanelaAnaliseCompleta(AfterManagerMixin, ctk.CTkToplevel):
         main_frame.grid_columnconfigure(0, weight=1)
         main_frame.grid_rowconfigure(1, weight=1)
         
-        # Barra de botões
+        # Barra de botÃµes
         btn_frame = ctk.CTkFrame(main_frame)
         btn_frame.grid(row=0, column=0, sticky="ew", pady=(0, 10))
-        btn_frame.grid_columnconfigure(5, weight=1)
+        btn_frame.grid_columnconfigure(6, weight=1)
+        
+        ctk.CTkButton(
+            btn_frame,
+            text="[X] Selecionar Todos",
+            command=self._selecionar_todos,
+            fg_color="#3498DB",
+            hover_color="#2980B9"
+        ).grid(row=0, column=0, padx=5)
         
         ctk.CTkButton(
             btn_frame,
             text="Relatório Estatístico",
             command=self._mostrar_relatorio
-        ).grid(row=0, column=0, padx=5)
+        ).grid(row=0, column=1, padx=5)
         
         ctk.CTkButton(
             btn_frame,
             text="Gráfico de Detecção",
             command=self._gerar_grafico
-        ).grid(row=0, column=1, padx=5)
+        ).grid(row=0, column=2, padx=5)
         
         # Botão 'Ir para Mapa' REMOVIDO - mapa já está na aba ao lado
         
         ctk.CTkButton(
             btn_frame,
-            text="💾 Salvar Selecionados",
+            text="[SALVAR] Selecionados",
             command=self._salvar_selecionados,
             fg_color="#27AE60",
             hover_color="#229954"
-        ).grid(row=0, column=2, padx=5)
+        ).grid(row=0, column=3, padx=5)
         
         # Frame da tabela
         self.table_frame = ctk.CTkFrame(main_frame)
@@ -261,7 +269,7 @@ class JanelaAnaliseCompleta(AfterManagerMixin, ctk.CTkToplevel):
         for index, row in self.df_analise.iterrows():
             row_values = list(row)
             if isinstance(row_values[0], bool):
-                row_values[0] = "✓" if row_values[0] else ""
+                row_values[0] = "[X]" if row_values[0] else ""
             self.tree.insert("", "end", values=row_values, iid=str(index))
     
     def _ordenar_coluna(self, col: str, reverse: bool):
@@ -309,6 +317,40 @@ class JanelaAnaliseCompleta(AfterManagerMixin, ctk.CTkToplevel):
         self.df_analise.loc[index, "Selecionado"] = not self.df_analise.loc[index, "Selecionado"]
         self._popular_tabela()
     
+    def _selecionar_todos(self):
+        """Seleciona todas as amostras válidas (não inválidas, não controles)."""
+        try:
+            # Detectar colunas
+            result_cols = [c for c in self.df_analise.columns if str(c).startswith("Resultado_")]
+            
+            selecionadas = 0
+            for index, row in self.df_analise.iterrows():
+                # Pular controles
+                amostra = str(row.get("Amostra", "")).upper()
+                if any(ctrl in amostra for ctrl in ["CN", "CP", "NEG", "POS"]):
+                    continue
+                
+                # Pular inválidos
+                if any(_norm_res_label(row.get(c, "")) == "invalido" for c in result_cols):
+                    continue
+                
+                # Selecionar
+                self.df_analise.loc[index, "Selecionado"] = True
+                selecionadas += 1
+            
+            # Atualizar tabela
+            self._popular_tabela()
+            
+            messagebox.showinfo(
+                "Selecao Completa",
+                f"OK! {selecionadas} amostras validas selecionadas!",
+                parent=self
+            )
+            
+        except Exception as e:
+            registrar_log("Selecionar Todos", f"Erro: {e}", "ERROR")
+            messagebox.showerror("Erro", f"Falha ao selecionar:\n{e}", parent=self)
+    
     def _carregar_mapa_inicial(self):
         """Carrega mapa automaticamente ao abrir janela (chamado via after)."""
         try:
@@ -318,12 +360,12 @@ class JanelaAnaliseCompleta(AfterManagerMixin, ctk.CTkToplevel):
             # Informar usuário sobre sincronização automática
             messagebox.showinfo(
                 "Mapa Carregado",
-                "✅ Mapa da placa carregado!\n\n"
-                "💡 IMPORTANTE:\n"
-                "• Ao clicar 'Aplicar' no mapa, as mudanças são\n"
+                "OK! Mapa da placa carregado!\n\n"
+                "IMPORTANTE:\n"
+                "- Ao clicar 'Aplicar' no mapa, as mudancas sao\n"
                 "  automaticamente recalculadas em toda a placa\n"
-                "• Clique '💾 Salvar e Voltar' para sincronizar\n"
-                "  com a aba de análise",
+                "- Clique 'Salvar e Voltar' para sincronizar\n"
+                "  com a aba de analise",
                 parent=self
             )
             
@@ -345,7 +387,7 @@ class JanelaAnaliseCompleta(AfterManagerMixin, ctk.CTkToplevel):
             self._mapa_placeholder.destroy()
             self._mapa_placeholder = None
         
-        # CRÍTICO: Garantir que DataFrame tem coluna 'Poco' (sem acento)
+        # CRÃTICO: Garantir que DataFrame tem coluna 'Poco' (sem acento)
         df_para_mapa = self.df_analise.copy()
         
         # Renomear 'Poço' para 'Poco' se necessário
@@ -433,7 +475,7 @@ class JanelaAnaliseCompleta(AfterManagerMixin, ctk.CTkToplevel):
                 chave_merge = "Poço"
             
             if chave_merge:
-                # ATUALIZAÇÃO DIRETA: Substituir self.df_analise mantendo apenas Selecionado
+                # ATUALIZAÇÃƒO DIRETA: Substituir self.df_analise mantendo apenas Selecionado
                 # Normalizar chaves para garantir match perfeito
                 df_updated[chave_merge] = df_updated[chave_merge].astype(str).str.strip()
                 self.df_analise[chave_merge] = self.df_analise[chave_merge].astype(str).str.strip()
@@ -458,7 +500,7 @@ class JanelaAnaliseCompleta(AfterManagerMixin, ctk.CTkToplevel):
                 else:
                     self.df_analise["Selecionado"] = self.df_analise["Selecionado"].fillna(False)
                 
-                # VALIDAÇÃO: Verificar integridade do merge
+                # VALIDAÇÃƒO: Verificar integridade do merge
                 colunas_resultado = [c for c in self.df_analise.columns if c.startswith("Resultado_")]
                 total_nan = 0
                 for col in colunas_resultado:
@@ -468,7 +510,7 @@ class JanelaAnaliseCompleta(AfterManagerMixin, ctk.CTkToplevel):
                         registrar_log("Sync", f"AVISO: {nan_count} NaN detectados em {col}", "WARNING")
                 
                 if total_nan > 0:
-                    registrar_log("Sync", f"ERRO CRÍTICO: {total_nan} valores NaN no total - MERGE CORROMPIDO", "ERROR")
+                    registrar_log("Sync", f"ERRO CRÃTICO: {total_nan} valores NaN no total - MERGE CORROMPIDO", "ERROR")
                 
                 # Log detalhado DEPOIS do merge
                 registrar_log("Sync", f"DEPOIS - Merge concluído: {len(self.df_analise)} linhas, {len(self.df_analise.columns)} colunas", "DEBUG")
@@ -493,12 +535,12 @@ class JanelaAnaliseCompleta(AfterManagerMixin, ctk.CTkToplevel):
             self._popular_tabela()
             
             # PASSO 5: Voltar para aba de análise
-            self.tabview.set("📊 Análise")
+            self.tabview.set("Analise")
             
             # PASSO 6: Feedback visual
             from datetime import datetime
             timestamp = datetime.now().strftime("%H:%M:%S")
-            self.title(f"RT-PCR - Análise Completa (✅ Sincronizado: {timestamp})")
+            self.title(f"RT-PCR - Analise Completa (OK - Sincronizado: {timestamp})")
             
             registrar_log("Sincronização", "Dados do mapa sincronizados com sucesso", "INFO")
             
@@ -522,7 +564,7 @@ class JanelaAnaliseCompleta(AfterManagerMixin, ctk.CTkToplevel):
             result_cols = [c for c in self.df_analise.columns if str(c).startswith("Resultado_")]
             
             total = len(self.df_analise)
-            stats_text = f"=== RELATÓRIO ESTATÍSTICO ===\n\n"
+            stats_text = f"=== RELATÃ“RIO ESTATÃSTICO ===\n\n"
             stats_text += f"Exame: {self.exame}\n"
             stats_text += f"Data: {self.data_placa_formatada}\n"
             stats_text += f"Total de Amostras: {total}\n\n"
@@ -626,8 +668,8 @@ class JanelaAnaliseCompleta(AfterManagerMixin, ctk.CTkToplevel):
             # PASSO 2: Verificar se há selecionadas para envio ao GAL
             if len(selecionados) == 0:
                 messagebox.showinfo(
-                    "Histórico Salvo",
-                    f"✅ {len(df_todas)} amostras salvas no histórico.\n\n⚠️ Nenhuma selecionada para envio ao GAL.",
+                    "Historico Salvo",
+                    f"OK! {len(df_todas)} amostras salvas no historico.\n\nAVISO: Nenhuma selecionada para envio ao GAL.",
                     parent=self
                 )
                 return
@@ -635,7 +677,7 @@ class JanelaAnaliseCompleta(AfterManagerMixin, ctk.CTkToplevel):
             # PASSO 3: Perguntar sobre envio ao GAL
             resposta = messagebox.askyesno(
                 "Enviar para GAL?",
-                f"✅ {len(df_todas)} amostras salvas no histórico!\n\n📊 {len(selecionados)} amostras selecionadas.\n\nDeseja enviar as selecionadas para o GAL?",
+                f"OK! {len(df_todas)} amostras salvas no historico!\n\n{len(selecionados)} amostras selecionadas.\n\nDeseja enviar as selecionadas para o GAL?",
                 parent=self
             )
             
@@ -674,9 +716,12 @@ class JanelaAnaliseCompleta(AfterManagerMixin, ctk.CTkToplevel):
             
             registrar_log("GAL Export", f"CSV GAL gerado: {gal_path}", "INFO")
             
-            # Notificar e abrir interface GAL
-            notificar_gal_saved(gal_last, parent=self.master)
-            abrir_janela_envio_gal(self.master, self.usuario_logado)
+            # Notificar usuário
+            messagebox.showinfo(
+                "CSV GAL Gerado",
+                f"OK! CSV do GAL salvo com sucesso!\n\nArquivo: {os.path.basename(gal_path)}\n{len(df_gal)} amostras",
+                parent=self
+            )
             
         except Exception as e:
             registrar_log("GAL", f"Erro ao enviar para GAL: {e}", "ERROR")
