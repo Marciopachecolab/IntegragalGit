@@ -1,7 +1,7 @@
 import os
 import tkinter as tk
 from tkinter import filedialog, messagebox
-from typing import Optional, Tuple
+from typing import Optional, Tuple, Dict, Any
 
 import customtkinter as ctk
 import pandas as pd
@@ -85,6 +85,62 @@ def _encontrar_inicio_matriz(df: pd.DataFrame) -> Tuple[int, int]:
     )
 
 
+def _extrair_numero_extracao(caminho_arquivo: str) -> Optional[str]:
+    """
+    Extrai o número da extração da célula C8 do arquivo de extração.
+    
+    FASE 4: Metadados para exibição no header da janela de análise.
+    
+    Args:
+        caminho_arquivo: Caminho completo do arquivo .xlsx de extração
+        
+    Returns:
+        String com o número da extração ou None se não encontrado
+        
+    Exemplos:
+        C8 = "49" → retorna "49"
+        C8 = "EXT 49" → retorna "EXT 49"
+        C8 vazio/erro → retorna None
+    """
+    try:
+        # Ler célula C8 (row=7, col=2 em índice 0-based)
+        df_c8 = pd.read_excel(
+            caminho_arquivo,
+            sheet_name="PLANILHA EXTRAÇÃO",
+            usecols="C",  # Coluna C
+            skiprows=7,   # Pular 7 linhas (chegar na linha 8)
+            nrows=1,      # Ler apenas 1 linha
+            header=None,
+            engine="openpyxl"
+        )
+        
+        # Extrair valor
+        if not df_c8.empty and not df_c8.iloc[0, 0] is pd.NA:
+            valor_c8 = str(df_c8.iloc[0, 0]).strip()
+            if valor_c8 and valor_c8.upper() not in ("NAN", "NONE", ""):
+                registrar_log(
+                    "BuscaExtração",
+                    f"Número extração encontrado em C8: {valor_c8}",
+                    "INFO"
+                )
+                return valor_c8
+        
+        registrar_log(
+            "BuscaExtração",
+            "Célula C8 vazia ou inválida - número extração não encontrado",
+            "WARNING"
+        )
+        return None
+        
+    except Exception as e:
+        registrar_log(
+            "BuscaExtração",
+            f"Erro ao extrair número extração de C8: {e}",
+            "WARNING"
+        )
+        return None
+
+
 class BuscaExtracaoApp(AfterManagerMixin, ctk.CTkToplevel):
     def __init__(self, parent):
         super().__init__(parent)
@@ -92,8 +148,10 @@ class BuscaExtracaoApp(AfterManagerMixin, ctk.CTkToplevel):
         self.title("Mapeamento da Placa de Extração")
         self.geometry("700x750")
 
-        self.resultado: Optional[Tuple[pd.DataFrame, int]] = None
+        self.resultado: Optional[Dict[str, Any]] = None  # FASE 4: Expandido para dict com metadados
         self.df_extracao_bruto: Optional[pd.DataFrame] = None
+        self.caminho_arquivo_extracao: Optional[str] = None  # FASE 4: Armazenar caminho
+        self.numero_extracao: Optional[str] = None  # FASE 4: Número da extração (C8)
 
         self.transient(parent)
         self.grab_set()
@@ -209,6 +267,12 @@ class BuscaExtracaoApp(AfterManagerMixin, ctk.CTkToplevel):
             return
 
         try:
+            # FASE 4: Armazenar caminho do arquivo
+            self.caminho_arquivo_extracao = path
+            
+            # FASE 4: Extrair número da extração (C8)
+            self.numero_extracao = _extrair_numero_extracao(path)
+            
             df_full = pd.read_excel(path, sheet_name="PLANILHA EXTRAÇÃO", header=None)
             # read full B10:M17 block (8 rows x 12 cols)
             df_block = pd.read_excel(
@@ -373,7 +437,7 @@ class BuscaExtracaoApp(AfterManagerMixin, ctk.CTkToplevel):
             preview_win = ctk.CTkToplevel(self)
             df_map["Codigo"] = df_map["Amostra"]
             preview_win.title("Confirme o Mapeamento")
-            preview_win.geometry("800x750")  # Aumentado para acomodar visualização gráfica
+            preview_win.geometry("1200x900")  # FASE 1.1: Aumentado em 50% (800x750 → 1200x900)
             try:
                 preview_win.attributes("-topmost", True)
                 preview_win.lift()
@@ -412,12 +476,12 @@ class BuscaExtracaoApp(AfterManagerMixin, ctk.CTkToplevel):
             grid_frame.pack(padx=5, pady=5)
             
             # Cabeçalho com números das colunas
-            ctk.CTkLabel(grid_frame, text="", width=30).grid(row=0, column=0, padx=1, pady=1)
+            ctk.CTkLabel(grid_frame, text="", width=45).grid(row=0, column=0, padx=1, pady=1)
             for col in range(1, 13):
                 ctk.CTkLabel(
                     grid_frame, 
                     text=str(col), 
-                    width=45, 
+                    width=68,  # FASE 1.1: 45 → 68 pixels (+50%)
                     font=("", 10, "bold")
                 ).grid(row=0, column=col, padx=1, pady=1)
             
@@ -428,7 +492,7 @@ class BuscaExtracaoApp(AfterManagerMixin, ctk.CTkToplevel):
                 ctk.CTkLabel(
                     grid_frame, 
                     text=row_label, 
-                    width=30, 
+                    width=45,  # FASE 1.1: 30 → 45 pixels (+50%)
                     font=("", 10, "bold")
                 ).grid(row=row_idx, column=0, padx=1, pady=1)
                 
@@ -449,8 +513,8 @@ class BuscaExtracaoApp(AfterManagerMixin, ctk.CTkToplevel):
                     celula = ctk.CTkLabel(
                         grid_frame,
                         text=amostra_val if amostra_val else poco,
-                        width=45,
-                        height=25,
+                        width=68,  # FASE 1.1: 45 → 68 pixels (+50%)
+                        height=38,  # FASE 1.1: 25 → 38 pixels (+52%)
                         fg_color=cor_celula,
                         text_color="black",  # Texto preto
                         corner_radius=4,
@@ -694,7 +758,13 @@ class BuscaExtracaoApp(AfterManagerMixin, ctk.CTkToplevel):
                     for c in ["Poco", "Poço", "Amostra", "Codigo", "Código"]
                     if c in df_map.columns
                 ]
-                self.resultado = (df_map[cols], int(parte))
+                # FASE 4: Retornar dict com DataFrame + metadados
+                self.resultado = {
+                    "mapeamento": df_map[cols],
+                    "parte": int(parte),
+                    "numero_extracao": self.numero_extracao,
+                    "caminho_arquivo": self.caminho_arquivo_extracao
+                }
                 preview_win.destroy()
                 # Fechar janela de mapeamento de forma segura para retornar ao menu
                 self._safe_destroy()
@@ -746,7 +816,16 @@ class BuscaExtracaoApp(AfterManagerMixin, ctk.CTkToplevel):
         self.after(100, self.destroy)
 
 
-def carregar_dados_extracao(parent) -> Optional[Tuple[pd.DataFrame, int]]:
+def carregar_dados_extracao(parent) -> Optional[Dict[str, Any]]:
+    """
+    Abre janela de mapeamento de extração e retorna dados.
+    
+    FASE 4: Retorna dict com mapeamento + metadados (número extração, caminho).
+    
+    Returns:
+        Dict com chaves: 'mapeamento', 'parte', 'numero_extracao', 'caminho_arquivo'
+        ou None se cancelado
+    """
     dialog = BuscaExtracaoApp(parent)
     parent.wait_window(dialog)
     

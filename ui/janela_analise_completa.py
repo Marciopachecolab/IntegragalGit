@@ -14,6 +14,8 @@ import math
 from services.plate_viewer import PlateModel, PlateView
 from utils.logger import registrar_log
 from utils.after_mixin import AfterManagerMixin
+from utils.ct_formatter import formatar_ct_display  # FASE 2: Formatação CT
+from config.ui_theme import obter_cor_resultado  # FASE 3: Cores resultados
 
 
 def _norm_res_label(val: str) -> str:
@@ -27,7 +29,73 @@ def _norm_res_label(val: str) -> str:
         return "inconclusivo"
     if "ND" in s or "NEG" in s:
         return "negativo"
-    return s.lower()
+    return s
+
+
+def _formatar_valor_celula(col_name: str, value: Any) -> str:
+    """
+    Formata valor de célula para exibição.
+    
+    FASE 2: Formata CTs usando ct_formatter para converter "Undetermined" → "Und"
+    
+    Args:
+        col_name: Nome da coluna
+        value: Valor a formatar
+        
+    Returns:
+        String formatada para exibição
+    """
+    # Colunas que contêm valores CT
+    colunas_ct = [
+        "SC2", "FLUA", "FLUB", "RSV", "ADENO", "METAP", "RINO", 
+        "PARAINFLUENZA", "PARECHOVIRUS", "ENTEROVIRUS", "BOCAVIRUS", 
+        "MYCOPLASMA", "RP", "RP_1", "RP_2"
+    ]
+    
+    # Se é coluna CT, aplicar formatação especializada
+    if col_name.upper() in colunas_ct:
+        return formatar_ct_display(value)
+    
+    # Outros valores: conversão padrão
+    return str(value)
+
+
+def _determinar_tag_resultado(row: pd.Series) -> str:
+    """
+    Determina tag de cor para uma linha baseada nos resultados.
+    
+    FASE 3: Prioridade Det > Inc > Inv como especificado.
+    
+    Args:
+        row: Linha do DataFrame com colunas de resultado
+        
+    Returns:
+        Nome da tag ("detectado", "inconclusivo", "invalido", ou "")
+    """
+    # Identificar colunas de resultado (prefixo "Resultado_")
+    colunas_resultado = [col for col in row.index if col.startswith("Resultado_")]
+    
+    # Verificar cada resultado na ordem de prioridade
+    # Prioridade 1: Detectado
+    for col in colunas_resultado:
+        val_str = str(row[col]).strip().upper()
+        if "DET" in val_str or "POS" in val_str:
+            return "detectado"
+    
+    # Prioridade 2: Inconclusivo
+    for col in colunas_resultado:
+        val_str = str(row[col]).strip().upper()
+        if "INC" in val_str:
+            return "inconclusivo"
+    
+    # Prioridade 3: Inválido
+    for col in colunas_resultado:
+        val_str = str(row[col]).strip().upper()
+        if "INVAL" in val_str or "INV" in val_str:
+            return "invalido"
+    
+    # Sem tag (Não Detectado, etc.)
+    return ""
 
 
 class JanelaAnaliseCompleta(AfterManagerMixin, ctk.CTkToplevel):
@@ -49,6 +117,7 @@ class JanelaAnaliseCompleta(AfterManagerMixin, ctk.CTkToplevel):
         lote: str = "",
         arquivo_corrida: str = "",
         bloco_tamanho: int = 2,
+        numero_extracao: str = "",  # FASE 4: Número da extração (C8)
     ):
         super().__init__(master=root)
         self.title("RT-PCR - Análise Completa")
@@ -67,6 +136,7 @@ class JanelaAnaliseCompleta(AfterManagerMixin, ctk.CTkToplevel):
         self.lote = lote
         self.arquivo_corrida = arquivo_corrida
         self.bloco_tamanho = bloco_tamanho
+        self.numero_extracao = numero_extracao  # FASE 4
         
         # Adicionar coluna de seleção se não existir
         if "Selecionado" not in self.df_analise.columns:
@@ -97,34 +167,46 @@ class JanelaAnaliseCompleta(AfterManagerMixin, ctk.CTkToplevel):
         self.protocol("WM_DELETE_WINDOW", self._on_close)
     
     def _criar_header(self):
-        """Cria header com informaçÃµes da corrida."""
+        """Cria header com informações da corrida."""
         header_frame = ctk.CTkFrame(self)
         header_frame.pack(fill="x", padx=10, pady=(10, 5))
-        header_frame.grid_columnconfigure(3, weight=1)
+        header_frame.grid_columnconfigure(4, weight=1)  # FASE 4: Expandido para 5 colunas
+        
+        # FASE 4: Extração (C8) - prioridade visual à esquerda
+        if self.numero_extracao:
+            ctk.CTkLabel(
+                header_frame,
+                text=f"Extração: {self.numero_extracao}",
+                font=("Segoe UI", 9, "bold"),
+                text_color="#e74c3c"  # Vermelho para destaque
+            ).grid(row=0, column=0, padx=10, sticky="w")
+            col_offset = 1  # Deslocar outras colunas
+        else:
+            col_offset = 0  # Sem extração, layout original
         
         ctk.CTkLabel(
             header_frame, 
             text=f"Placa: {self.num_placa}", 
-            font=("Segoe UI", 12, "bold")
-        ).grid(row=0, column=0, padx=10, sticky="w")
+            font=("Segoe UI", 9, "bold")  # FASE 1.2: 12pt → 9pt
+        ).grid(row=0, column=col_offset, padx=10, sticky="w")
         
         ctk.CTkLabel(
             header_frame,
             text=f"Data: {self.data_placa_formatada}",
-            font=("Segoe UI", 12, "bold")
-        ).grid(row=0, column=1, padx=10, sticky="w")
+            font=("Segoe UI", 9, "bold")  # FASE 1.2: 12pt → 9pt
+        ).grid(row=0, column=col_offset+1, padx=10, sticky="w")
         
         ctk.CTkLabel(
             header_frame,
             text=f"Status: {self.status_corrida}",
-            font=("Segoe UI", 12, "bold")
-        ).grid(row=0, column=2, padx=10, sticky="w")
+            font=("Segoe UI", 9, "bold")  # FASE 1.2: 12pt → 9pt
+        ).grid(row=0, column=col_offset+2, padx=10, sticky="w")
         
         ctk.CTkLabel(
             header_frame,
             text=f"Exame: {self.exame}",
-            font=("Segoe UI", 12, "bold")
-        ).grid(row=0, column=3, padx=10, sticky="e")
+            font=("Segoe UI", 9, "bold")  # FASE 1.2: 12pt → 9pt
+        ).grid(row=0, column=col_offset+3, padx=10, sticky="e")
     
     def _criar_tabview(self):
         """Cria TabView com abas de Análise e Mapa."""
@@ -240,6 +322,11 @@ class JanelaAnaliseCompleta(AfterManagerMixin, ctk.CTkToplevel):
         
         self.tree.grid(row=0, column=0, sticky="nsew")
         self.tree.bind("<Double-1>", self._on_double_click)
+        
+        # FASE 3: Configurar tags de cores para resultados
+        self.tree.tag_configure("detectado", background="#FFCCCB")  # Vermelho claro
+        self.tree.tag_configure("inconclusivo", background="#ADD8E6")  # Azul claro
+        self.tree.tag_configure("invalido", background="#FFE4B5")  # Amarelo claro
     
     def _popular_tabela(self):
         """Popula treeview com dados do DataFrame."""
@@ -268,9 +355,22 @@ class JanelaAnaliseCompleta(AfterManagerMixin, ctk.CTkToplevel):
         # Inserir linhas
         for index, row in self.df_analise.iterrows():
             row_values = list(row)
+            # Formatar primeira coluna (checkbox)
             if isinstance(row_values[0], bool):
                 row_values[0] = "[X]" if row_values[0] else ""
-            self.tree.insert("", "end", values=row_values, iid=str(index))
+            
+            # FASE 2: Formatar CTs e outros valores
+            colunas = self.df_analise.columns.tolist()
+            row_values_formatted = [
+                _formatar_valor_celula(col_name, val)
+                for col_name, val in zip(colunas, row_values)
+            ]
+            
+            # FASE 3: Determinar tag de cor baseada nos resultados
+            tag_cor = _determinar_tag_resultado(row)
+            tags = (tag_cor,) if tag_cor else ()
+            
+            self.tree.insert("", "end", values=row_values_formatted, iid=str(index), tags=tags)
     
     def _ordenar_coluna(self, col: str, reverse: bool):
         """Ordena tabela por coluna."""
@@ -375,7 +475,7 @@ class JanelaAnaliseCompleta(AfterManagerMixin, ctk.CTkToplevel):
             self._mapa_placeholder = ctk.CTkLabel(
                 self.tab_mapa,
                 text=f"Erro ao carregar mapa:\n{str(e)}",
-                font=("Segoe UI", 12),
+                font=("Segoe UI", 9),  # FASE 1.2: 12pt → 9pt
                 text_color="#e74c3c"
             )
             self._mapa_placeholder.pack(expand=True)
@@ -614,7 +714,7 @@ class JanelaAnaliseCompleta(AfterManagerMixin, ctk.CTkToplevel):
             
             # Gerar gráfico
             plt.figure(figsize=(10, 6))
-            plt.bar(contagem.keys(), contagem.values(), color="skyblue")
+            plt.bar(list(contagem.keys()), list(contagem.values()), color="skyblue")
             plt.title("Distribuição de Amostras Detectáveis")
             plt.xlabel("Alvos")
             plt.ylabel("Quantidade Detectada")

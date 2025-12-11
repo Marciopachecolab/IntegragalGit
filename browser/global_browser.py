@@ -115,8 +115,8 @@ async def launch_chrome_debug(use_chrome_channel: bool = False, headless: bool =
         # åˆ é™¤æµè§ˆå™¨å•ä¾‹é”æ–‡ä»¶ï¼ˆå¦‚æžœå­˜åœ¨ï¼‰ï¼Œé¿å…ä»ŽNASæ¢å¤çš„æ—§é”æ–‡ä»¶å¯¼è‡´å†²çª
 
 
-        # ä½¿ç”¨ lexists è€Œä¸æ˜¯ existsï¼Œå› ä¸ºè¿™äº›æ–‡ä»¶å¯èƒ½æ˜¯æŒ‡å,
-    '’': ä¸å­˜åœ¨ç›®æ ‡çš„ç¬¦å·é"¾æŽ¥
+        # ä½¿ç"¨ lexists è€Œä¸æ˜¯ existsï¼Œå› ä¸ºè¿™äº›æ–‡ä»¶å¯èƒ½æ˜¯æŒ‡å,
+        # Mensagem de erro: 'ä¸å­˜åœ¨ç›®æ ‡çš„ç¬¦å·é"¾æŽ¥' (não existe link simbólico do destino)
 
 
         singleton_files = ["SingletonLock", "SingletonSocket", "SingletonCookie"]
@@ -238,14 +238,7 @@ async def launch_chrome_debug(use_chrome_channel: bool = False, headless: bool =
 
         metrics_counter_inc("agent_browser_launch", {"status": "success"})
 
-
-
-
-
-        # ç›,
-    '’': å¬æ–°é¡µé¢äº‹ä»¶
-
-
+        # Mensagem: 'å¬æ–°é¡µé¢äº‹ä»¶' (Ouvir eventos de nova página)
         context.on("page", handle_new_page)
 
 

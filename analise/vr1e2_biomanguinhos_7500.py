@@ -15,13 +15,17 @@ from typing import Any, Optional, Tuple
 import pandas as pd
 
 from utils.logger import registrar_log
+from config.ct_thresholds import VR1E2_THRESHOLDS
+from utils.result_classifier import classificar_resultado
+from utils.result_normalizer import normalize_result_label
 
-# Constantes originais
-CT_RP_MIN = 10
-CT_RP_MAX = 35
-CT_DETECTAVEL_MAX = 38
-CT_INCONCLUSIVO_MIN = 38.01
-CT_INCONCLUSIVO_MAX = 40
+# Constantes migradas para config/ct_thresholds.py
+# Mantidas aqui apenas para compatibilidade com código legado
+CT_RP_MIN = VR1E2_THRESHOLDS.RP_MIN
+CT_RP_MAX = VR1E2_THRESHOLDS.RP_MAX
+CT_DETECTAVEL_MAX = VR1E2_THRESHOLDS.DETECT_MAX
+CT_INCONCLUSIVO_MIN = VR1E2_THRESHOLDS.INCONC_MIN
+CT_INCONCLUSIVO_MAX = VR1E2_THRESHOLDS.INCONC_MAX
 TARGET_LIST = ["SC2", "HMPV", "INF A", "INF B", "ADV", "RSV", "HRV"]
 ALL_TARGETS = [t.upper() for t in TARGET_LIST + ["RP"]]
 
@@ -215,15 +219,19 @@ def analisar_placa_vr1e2_7500(
         how="left",
     )
 
-    # 6) Resultados qualitativos simples por alvo
+    # 6) Resultados qualitativos usando classificador centralizado
     for t in TARGET_LIST:
         col_ct = t.upper()
         res_col = f"Resultado_{t.replace(' ', '')}"
         if col_ct in df_final.columns:
-            df_final[res_col] = df_final[col_ct].apply(
-                lambda x: "Detectado"
-                if pd.notna(x) and x <= CT_DETECTAVEL_MAX
-                else ("Inconclusivo" if pd.notna(x) and CT_INCONCLUSIVO_MIN <= x <= CT_INCONCLUSIVO_MAX else "Nao Detectado")
+            # Usa classificador centralizado que valida RP automaticamente
+            df_final[res_col] = df_final.apply(
+                lambda row: classificar_resultado(
+                    ct_alvo=row[col_ct] if pd.notna(row.get(col_ct)) else None,
+                    ct_rp=row.get("RP") if pd.notna(row.get("RP")) else None,
+                    thresholds=VR1E2_THRESHOLDS
+                ),
+                axis=1
             )
         else:
             df_final[res_col] = "Nao Detectado"

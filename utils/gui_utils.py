@@ -656,7 +656,7 @@ class TabelaComSelecaoSimulada(AfterManagerMixin, ctk.CTkToplevel):
             notificar_gal_saved(gal_last, parent=self.master)
             
             # Abrir interface de envio GAL
-            abrir_janela_envio_gal(self.master)
+            abrir_janela_envio_gal(self.master, self.usuario_logado)
             
         except Exception as e:
             messagebox.showerror(
@@ -768,7 +768,7 @@ class TabelaComSelecaoSimulada(AfterManagerMixin, ctk.CTkToplevel):
 
         plt.figure(figsize=(10, 6))
 
-        plt.bar(plot_data.keys(), plot_data.values(), color="skyblue")
+        plt.bar(list(plot_data.keys()), list(plot_data.values()), color="skyblue")
 
         plt.title("Distribuição de Agravos Detectáveis")
 

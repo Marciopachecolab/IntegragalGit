@@ -82,6 +82,8 @@ class WellData:
     group_id: Optional[str] = None
     group_size: int = 1
     group_position: int = 0
+    # ✅ Bug #15: Adicionar atributo dinâmico usado em linhas 378, 574-586
+    pair_group_id: Optional[str] = None  # ID do grupo de pares (legacy)
 
 
 class PlateModel:
@@ -473,7 +475,15 @@ class PlateModel:
     @staticmethod
     def _infer_group_size(df: pd.DataFrame) -> int:
         sizes = []
-        for v in df.get("Poco", df.get("POCO", [])).fillna(""):
+        # Buscar coluna Poco ou POCO corretamente
+        poco_col = df.get("Poco")
+        if poco_col is None:
+            poco_col = df.get("POCO")
+        
+        if poco_col is None:
+            return 1
+            
+        for v in poco_col.fillna(""):
             if v:
                 sizes.append(len(str(v).split("+")))
         if not sizes:
@@ -679,7 +689,8 @@ class PlateModel:
             self.exam_type = "96"
             return
         
-        most_common_size = max(group_sizes, key=group_sizes.get)
+        # Encontrar tamanho mais comum corretamente
+        most_common_size = max(group_sizes.items(), key=lambda x: x[1])[0]
         
         if most_common_size == 2:
             self.exam_type = "48"
@@ -1141,10 +1152,10 @@ class PlateView(ctk.CTkFrame):
         well = self.plate_model.get_well(well_id)
         if well and well.is_grouped:
             group_wells = self.plate_model.get_group_wells_including_self(well_id)
-            self.group_wells_highlight = set(group_wells)
+            self.group_wells_highlight = list(set(group_wells))  # Converter set para list
             self.group_size_highlight = well.group_size
         else:
-            self.group_wells_highlight = set()
+            self.group_wells_highlight = []  # Lista vazia em vez de set
             self.group_size_highlight = 0
         
         self.render_plate()

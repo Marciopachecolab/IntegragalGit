@@ -74,10 +74,13 @@ class MenuHandler:
         self.main_window.update_idletasks()
         
         if resultado:
-            (
-                self.main_window.app_state.dados_extracao,
-                self.main_window.app_state.parte_placa,
-            ) = resultado
+            # FASE 4: Resultado agora é dict com metadados
+            self.main_window.app_state.dados_extracao = resultado["mapeamento"]
+            self.main_window.app_state.parte_placa = resultado["parte"]
+            # FASE 4: Armazenar metadados adicionais no app_state
+            self.main_window.app_state.numero_extracao = resultado.get("numero_extracao")
+            self.main_window.app_state.caminho_arquivo_extracao = resultado.get("caminho_arquivo")
+            
             messagebox.showinfo(
                 "Sucesso", "Extração carregada com sucesso!", parent=self.main_window
             )
@@ -332,6 +335,7 @@ class MenuHandler:
                 lote=getattr(self.main_window.app_state, "lote", ""),
                 arquivo_corrida=getattr(self.main_window.app_state, "caminho_arquivo_corrida", ""),
                 bloco_tamanho=getattr(self.main_window.app_state, "bloco_tamanho", 2),
+                numero_extracao=getattr(self.main_window.app_state, "numero_extracao", ""),  # FASE 4
             )
         except Exception as e:
             registrar_log("UI Main", f"Erro ao exibir resultados: {e}", "ERROR")

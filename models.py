@@ -18,6 +18,9 @@ class AppState:
         self.resultados_analise: Optional[pd.DataFrame] = None
         self.lote_kit: Optional[str] = None
         self.exame_selecionado: Optional[str] = None
+        # FASE 4: Metadados da extração
+        self.numero_extracao: Optional[str] = None
+        self.caminho_arquivo_extracao: Optional[str] = None
         # Optional overrides for control wells (lists of well names)
         self.control_cn_wells: Optional[list[str]] = None
         self.control_cp_wells: Optional[list[str]] = None
@@ -39,6 +42,8 @@ class AppState:
         """Reseta o estado da extração e da análise."""
         self.dados_extracao = None
         self.parte_placa = None
+        self.numero_extracao = None  # FASE 4
+        self.caminho_arquivo_extracao = None  # FASE 4
         self.reset_analise_state()
         self.control_cn_wells = None
         self.control_cp_wells = None

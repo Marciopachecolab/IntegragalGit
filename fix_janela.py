@@ -8,18 +8,15 @@ filepath = 'ui/janela_analise_completa.py'
 with open(filepath, 'r', encoding='utf-8') as f:
     content = f.read()
 
-# Correções específicas
+# Correções específicas - Mapeamento de caracteres corrompidos
+# NOTA: Emojis quebrados removidos para evitar SyntaxError
+# Use apenas correções ASCII seguras
 fixes = [
-    ('âœ"', '✓'),
-    ('ðŸ'¾', '💾'),
-    ('ðŸ'¡', '💡'),
-    ('â€¢', '•'),
-    ('âœ…', '✅'),
-    ('ðŸ"Š', '📊'),
-    ('ðŸ§¬', '🧬'),
-    ('ðŸ"', '📁'),
-    ('âš ï¸', '⚠️'),
+    ('[X]', '[X]'),  # Manter formato ASCII entre colchetes
+    ('[SALVAR]', '[SALVAR]'),
     ('Ãµ', 'õ'),
+    ('â€¢', '•'),
+    # Emojis removidos - usar apenas se arquivo origem tiver mojibake real
 ]
 
 # Aplicar correções
