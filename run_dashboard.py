@@ -9,6 +9,7 @@ Use: python main.py dashboard
 import sys
 from pathlib import Path
 import warnings
+import customtkinter as ctk
 
 warnings.warn(
     "run_dashboard.py está deprecated. Use 'python main.py dashboard' em vez disso.",
@@ -30,8 +31,15 @@ if __name__ == '__main__':
     print("Pressione Ctrl+C para sair\n")
     
     try:
-        app = Dashboard()
-        app.mainloop()
+        # Criar root temporário para executar Dashboard standalone
+        root = ctk.CTk()
+        root.withdraw()  # Esconder janela principal
+        
+        # Criar Dashboard como Toplevel do root
+        dashboard = Dashboard(master=root)
+        
+        # Mainloop único
+        root.mainloop()
     except KeyboardInterrupt:
         print("\n\nEncerrando aplicação...")
     except Exception as e:

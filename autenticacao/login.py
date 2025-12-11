@@ -18,7 +18,7 @@ class LoginDialog(AfterManagerMixin, ctk.CTkToplevel):
         super().__init__(master)
         self.auth_service = AuthService()
         self.tentativas_restantes = MAX_TENTATIVAS
-        self.usuario_autenticado: Optional[str] = None
+        self.usuario_autenticado: Optional[dict] = None  # Agora armazena dict com dados completos
 
         self.title("Autenticação - IntegraGAL")
         # --- CORREÇÃO: Aumenta a altura da janela ---
@@ -55,11 +55,21 @@ class LoginDialog(AfterManagerMixin, ctk.CTkToplevel):
             )
             return
         if self.auth_service.verificar_senha(username, password):
-            registrar_log(
-                "Login", f"Utilizador '{username}' autenticado com sucesso.", "INFO"
-            )
-            self.usuario_autenticado = username
-            self._on_close()
+            # Obter dados completos do usuário
+            dados_usuario = self.auth_service.obter_usuario(username)
+            if dados_usuario:
+                registrar_log(
+                    "Login", f"Utilizador '{username}' autenticado com sucesso.", "INFO"
+                )
+                self.usuario_autenticado = dados_usuario
+                self._on_close()
+            else:
+                registrar_log(
+                    "Login", f"Erro ao obter dados do usuário '{username}'.", "ERROR"
+                )
+                messagebox.showerror(
+                    "Erro", "Erro ao carregar dados do usuário.", parent=self
+                )
         else:
             self.tentativas_restantes -= 1
             registrar_log(
@@ -90,7 +100,13 @@ class LoginDialog(AfterManagerMixin, ctk.CTkToplevel):
             sys.exit(1)
 
 
-def autenticar_usuario() -> Optional[str]:
+def autenticar_usuario() -> Optional[dict]:
+    """
+    Autentica o usuário através do diálogo de login.
+    
+    Returns:
+        dict com dados do usuário (usuario, nivel_acesso, status) ou None se falhou/cancelou
+    """
     temp_root = ctk.CTk()
     temp_root.withdraw()
     login_window = LoginDialog(master=temp_root)

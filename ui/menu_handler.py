@@ -23,7 +23,7 @@ class MenuHandler:
         Inicializa o gerenciador de menu
 
         Args:
-            main_window: InstÉ¬¢ncia da janela principal (App)
+            main_window: Instância da janela principal (App)
         """
         self.main_window = main_window
         # AnalysisService agora requer o AppState para operar corretamente.
@@ -39,6 +39,21 @@ class MenuHandler:
         self._criando_janela_gal = False
         
         self._criar_botoes_menu()
+    
+    def _verificar_acesso(self, niveis_permitidos: list) -> bool:
+        """
+        Verifica se o usuário logado tem permissão para acessar determinado módulo.
+        
+        Args:
+            niveis_permitidos: Lista de níveis de acesso permitidos (ex: ["ADMIN", "MASTER"])
+        
+        Returns:
+            True se tem permissão, False caso contrário
+        """
+        nivel_usuario = self.main_window.app_state.nivel_acesso
+        if not nivel_usuario:
+            return False
+        return nivel_usuario.upper() in [n.upper() for n in niveis_permitidos]
 
     def _criar_botoes_menu(self):
         """Cria todos os botões do menu principal"""
@@ -386,18 +401,66 @@ class MenuHandler:
 
     def abrir_administracao(self):
         """Abre o painel administrativo"""
+        # Verificar permissão: apenas ADMIN e MASTER
+        if not self._verificar_acesso(["ADMIN", "MASTER"]):
+            messagebox.showerror(
+                "Acesso Negado",
+                "Você não tem permissão para acessar o módulo de Administração.\n\n"
+                "Apenas usuários ADMIN e MASTER podem acessar este módulo.",
+                parent=self.main_window
+            )
+            registrar_log(
+                "MenuHandler",
+                f"Acesso negado à Administração para usuário {self.main_window.app_state.usuario_logado} "
+                f"(nível: {self.main_window.app_state.nivel_acesso})",
+                "WARNING"
+            )
+            return
+        
         from ui.admin_panel import AdminPanel
 
         AdminPanel(self.main_window, self.main_window.app_state.usuario_logado)
 
     def gerenciar_usuarios(self):
         """Abre o painel de gerenciamento de usuários"""
+        # Verificar permissão: apenas ADMIN e MASTER
+        if not self._verificar_acesso(["ADMIN", "MASTER"]):
+            messagebox.showerror(
+                "Acesso Negado",
+                "Você não tem permissão para gerenciar usuários.\n\n"
+                "Apenas usuários ADMIN e MASTER podem acessar este módulo.",
+                parent=self.main_window
+            )
+            registrar_log(
+                "MenuHandler",
+                f"Acesso negado ao Gerenciamento de Usuários para {self.main_window.app_state.usuario_logado} "
+                f"(nível: {self.main_window.app_state.nivel_acesso})",
+                "WARNING"
+            )
+            return
+        
         from ui.user_management import UserManagementPanel
 
         UserManagementPanel(self.main_window, self.main_window.app_state.usuario_logado)
 
     def incluir_novo_exame(self):
         """Abre o módulo de inclusão de novo exame"""
+        # Verificar permissão: apenas ADMIN e MASTER
+        if not self._verificar_acesso(["ADMIN", "MASTER"]):
+            messagebox.showerror(
+                "Acesso Negado",
+                "Você não tem permissão para cadastrar exames.\n\n"
+                "Apenas usuários ADMIN e MASTER podem acessar este módulo.",
+                parent=self.main_window
+            )
+            registrar_log(
+                "MenuHandler",
+                f"Acesso negado ao Cadastro de Exames para {self.main_window.app_state.usuario_logado} "
+                f"(nível: {self.main_window.app_state.nivel_acesso})",
+                "WARNING"
+            )
+            return
+        
         from inclusao_testes.adicionar_teste import AdicionarTesteApp
 
         AdicionarTesteApp(self.main_window)
@@ -418,14 +481,29 @@ class MenuHandler:
     
     def abrir_dashboard(self):
         """Abre o Dashboard de Análises"""
+        # Verificar permissão: apenas ADMIN e MASTER
+        if not self._verificar_acesso(["ADMIN", "MASTER"]):
+            messagebox.showerror(
+                "Acesso Negado",
+                "Você não tem permissão para acessar os Dashboards.\n\n"
+                "Apenas usuários ADMIN e MASTER podem acessar este módulo.",
+                parent=self.main_window
+            )
+            registrar_log(
+                "MenuHandler",
+                f"Acesso negado aos Dashboards para {self.main_window.app_state.usuario_logado} "
+                f"(nível: {self.main_window.app_state.nivel_acesso})",
+                "WARNING"
+            )
+            return
+        
         try:
             from interface.dashboard import Dashboard
             
             registrar_log("UI Main", "Abrindo Dashboard...", "INFO")
             
-            # Abrir dashboard em janela separada
-            dashboard = Dashboard()
-            dashboard.mainloop()
+            # Abrir dashboard como janela filha (CTkToplevel)
+            Dashboard(self.main_window)
             
         except Exception as e:
             registrar_log("UI Main", f"Erro ao abrir Dashboard: {e}", "ERROR")

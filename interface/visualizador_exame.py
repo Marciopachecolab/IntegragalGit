@@ -1,5 +1,5 @@
 """
-"""Visualizador Detalhado de Exame - IntegaGal
+Visualizador Detalhado de Exame - IntegaGal
 Fase 3.2 - Interface Gráfica
 """
 

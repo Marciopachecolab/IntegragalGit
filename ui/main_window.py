@@ -574,7 +574,9 @@ def criar_aplicacao_principal():
 
             estado = AppState()
 
-            estado.usuario_logado = usuario_autenticado
+            estado.usuario_logado = usuario_autenticado["usuario"]
+
+            estado.nivel_acesso = usuario_autenticado.get("nivel_acesso", "DIAGNOSTICO")
 
 
 

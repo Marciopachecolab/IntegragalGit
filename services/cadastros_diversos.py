@@ -2826,15 +2826,11 @@ class ExamFormDialog:
 
 
 
+    # ============================================================================
 
+    # EXAMES (REGISTRY) - Integração com RegistryExamEditor
 
-# ============================================================================
-
-# CLASSE: RegistryExamEditor
-
-# ============================================================================
-
-    # ------------------- EXAMES (REGISTRY) -------------------
+    # ============================================================================
 
     def _build_tab_exames_registry(self) -> None:
 
@@ -3542,7 +3538,10 @@ class RegistryExamEditor:
 
 
             registrar_log("save_exam", f"Exame salvo: {json_path}", level="INFO")
-
+            
+            # NOVO: Sincronizar com arquivos CSV de base
+            self._sync_exam_to_csv(cfg)
+            
             return True, f"Exame '{cfg.nome_exame}' salvo em {json_path}"
 
 
@@ -3554,6 +3553,87 @@ class RegistryExamEditor:
             registrar_log("save_exam", error_msg, level="ERROR")
 
             return False, error_msg
+    
+    def _sync_exam_to_csv(self, cfg) -> None:
+        """
+        Sincroniza um ExamConfig com os arquivos CSV de base.
+        
+        Garante que o exame exista em exames_config.csv e exames_metadata.csv.
+        Se já existir (mesmo nome de exame), atualiza linha.
+        Se não existir, insere nova linha.
+        
+        Campos sincronizados:
+            exame        <- cfg.nome_exame
+            tipo_placa   <- cfg.tipo_placa_analitica
+            numero_kit   <- cfg.kit_codigo
+            equipamento  <- cfg.equipamento
+            modulo_analise <- padrão: analise.<slug>.analisar_placa
+        
+        Args:
+            cfg: ExamConfig a sincronizar
+        """
+        import pandas as pd
+        from pathlib import Path
+        
+        try:
+            base_dir = Path(BASE_DIR) / "banco"
+            config_path = base_dir / "exames_config.csv"
+            meta_path = base_dir / "exames_metadata.csv"
+            
+            # Definir um módulo de análise padrão (pode ser ajustado manualmente depois)
+            modulo_default = f"analise.{cfg.slug}.analisar_placa"
+            
+            # Dados da linha a inserir/atualizar
+            dados_linha = {
+                "exame": cfg.nome_exame,
+                "modulo_analise": modulo_default,
+                "tipo_placa": str(cfg.tipo_placa_analitica),
+                "numero_kit": str(cfg.kit_codigo),
+                "equipamento": cfg.equipamento,
+            }
+            
+            # Processar cada arquivo CSV
+            for path in [config_path, meta_path]:
+                if path.exists():
+                    df = pd.read_csv(path)
+                else:
+                    # Criar novo DataFrame com colunas esperadas
+                    df = pd.DataFrame(columns=list(dados_linha.keys()))
+                
+                # Verificar se exame já existe (busca por nome)
+                mask = df["exame"].astype(str).str.strip() == cfg.nome_exame.strip()
+                
+                if mask.any():
+                    # Atualiza linha existente
+                    for col, val in dados_linha.items():
+                        df.loc[mask, col] = val
+                    registrar_log(
+                        "_sync_exam_to_csv",
+                        f"Exame '{cfg.nome_exame}' atualizado em {path.name}",
+                        "INFO"
+                    )
+                else:
+                    # Adiciona nova linha
+                    df = pd.concat([df, pd.DataFrame([dados_linha])], ignore_index=True)
+                    registrar_log(
+                        "_sync_exam_to_csv",
+                        f"Exame '{cfg.nome_exame}' adicionado em {path.name}",
+                        "INFO"
+                    )
+                
+                # Salvar CSV atualizado
+                df.to_csv(path, index=False)
+            
+            registrar_log(
+                "_sync_exam_to_csv",
+                f"Sincronização CSV concluída para exame '{cfg.nome_exame}'",
+                "INFO"
+            )
+            
+        except Exception as e:
+            error_msg = f"Erro ao sincronizar exame com CSV: {str(e)}"
+            registrar_log("_sync_exam_to_csv", error_msg, "ERROR")
+            # Não levanta exceção - sincronização CSV é opcional/best-effort
 
 
 

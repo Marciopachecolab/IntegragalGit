@@ -13,6 +13,7 @@ class AppState:
 
     def __init__(self):
         self.usuario_logado: Optional[str] = None
+        self.nivel_acesso: Optional[str] = None  # NOVO: Nível de acesso do usuário
         self.dados_extracao: Optional[pd.DataFrame] = None
         self.parte_placa: Optional[int] = None
         self.resultados_analise: Optional[pd.DataFrame] = None

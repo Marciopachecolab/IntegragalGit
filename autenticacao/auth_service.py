@@ -43,6 +43,9 @@ import os
 import sys
 
 
+from typing import Optional
+
+
 
 
 
@@ -368,7 +371,38 @@ class AuthService:
         return hashed_bytes.decode("utf-8")
 
 
-
+    def obter_usuario(self, username: str) -> Optional[dict]:
+        """
+        Obtém os dados completos do usuário a partir do arquivo de usuários.
+        
+        Returns:
+            dict com dados do usuário (usuario, nivel_acesso, status, etc.) ou None se não encontrado
+        """
+        try:
+            df = read_data_with_auto_detection(CAMINHO_CREDENCIAIS)
+            
+            if df is None:
+                df = pd.read_csv(CAMINHO_CREDENCIAIS, sep=";", encoding="utf-8-sig")
+            
+            if df is None or df.empty:
+                return None
+            
+            # Buscar usuário (case-insensitive)
+            usuario_row = df[df["usuario"].str.strip().str.lower() == username.strip().lower()]
+            
+            if usuario_row.empty:
+                return None
+            
+            # Retornar dados do usuário como dicionário
+            return {
+                "usuario": usuario_row.iloc[0]["usuario"],
+                "nivel_acesso": usuario_row.iloc[0].get("nivel_acesso", "DIAGNOSTICO"),
+                "status": usuario_row.iloc[0].get("status", "ATIVO"),
+                "senha_hash": usuario_row.iloc[0]["senha_hash"],
+            }
+        except Exception as e:
+            registrar_log("AuthService", f"Erro ao obter dados do usuário: {e}", "ERROR")
+            return None
 
 
     def verificar_senha(self, usuario: str, senha_fornecida: str) -> bool:

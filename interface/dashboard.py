@@ -25,18 +25,25 @@ except ImportError:
     gerar_alertas_exemplo = None
 
 
-class Dashboard(ctk.CTk):
+class Dashboard(ctk.CTkToplevel):
     """
     Dashboard Principal do IntegaGal
     Exibe resumo de análises, gráficos e tabela de resultados recentes
+    Implementado como janela filha (Toplevel) para integração com aplicação principal.
     """
     
-    def __init__(self):
-        super().__init__()
+    def __init__(self, master=None):
+        super().__init__(master=master)
         
         # Configurações da janela
         self.title("IntegaGal - Dashboard de Análises")
         self.geometry("1400x900")
+        
+        # Opcional: janela modal (bloqueia interação com parent)
+        if master is not None:
+            self.transient(master)
+            # Remover grab_set() para permitir interação com janela principal
+            # self.grab_set()
         
         # Configurar tema
         ctk.set_appearance_mode("light")
