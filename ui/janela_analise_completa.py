@@ -151,6 +151,9 @@ class JanelaAnaliseCompleta(AfterManagerMixin, ctk.CTkToplevel):
         self.transient(root)
         self.grab_set()
         
+        # FASE 1.2: Permitir redimensionamento (botões minimizar/maximizar/fechar)
+        self.resizable(True, True)
+        
         # Definir tamanho (85% da tela)
         screen_width = root.winfo_screenwidth()
         screen_height = root.winfo_screenheight()
@@ -305,12 +308,25 @@ class JanelaAnaliseCompleta(AfterManagerMixin, ctk.CTkToplevel):
             except:
                 pass
         
+        # FASE 1.2: Configurar estilo com fontes menores para aba de análise
+        style = ttk.Style(self)
+        style.configure(
+            "Analise.Treeview",
+            font=("Segoe UI", 9),          # corpo menor (default ~11)
+            rowheight=20                    # altura de linha reduzida
+        )
+        style.configure(
+            "Analise.Treeview.Heading",
+            font=("Segoe UI", 9, "bold")   # cabeçalho menor e negrito
+        )
+        
         # Criar novo TreeView com colunas atuais
         colunas_atuais = list(self.df_analise.columns)
         self.tree = ttk.Treeview(
             self.table_frame,
             columns=colunas_atuais,
-            show="headings"
+            show="headings",
+            style="Analise.Treeview"       # FASE 1.2: Aplicar estilo customizado
         )
         
         # Criar scrollbars

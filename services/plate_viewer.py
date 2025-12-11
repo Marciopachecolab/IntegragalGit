@@ -35,8 +35,8 @@ EMPTY = "EMPTY"
 
 STATUS_COLORS = {
     NEGATIVE: "#d4f4d4",  # verde claro
-    POSITIVE: "#ffb3b3",  # vermelho claro
-    INCONCLUSIVE: "#ffcc99",  # laranja claro
+    POSITIVE: "#ffb3b3",  # vermelho claro (Det)
+    INCONCLUSIVE: "#b3d9ff",  # FASE 3: azul claro (Inc) - antes #ffcc99
     INVALID: "#f0f0f0",  # cinza
     CONTROL_CN: "#b3d9ff",  # azul claro
     CONTROL_CP: "#b3d9ff",  # azul claro (mesma cor CN)

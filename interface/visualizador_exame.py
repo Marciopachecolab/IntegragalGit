@@ -1,5 +1,5 @@
 """
-Visualizador Detalhado de Exame - IntegaGal
+"""Visualizador Detalhado de Exame - IntegaGal
 Fase 3.2 - Interface Gráfica
 """
 
@@ -13,6 +13,7 @@ from datetime import datetime
 from typing import Dict, Any, Optional
 
 from .estilos import CORES, FONTES, STATUS_CORES
+from utils.ct_formatter import formatar_ct_display  # FASE 2: Formatação CT
 
 
 class VisualizadorExame(ctk.CTkToplevel):
@@ -229,8 +230,8 @@ class VisualizadorExame(ctk.CTkToplevel):
         # Adicionar dados
         for nome_alvo, dados in alvos.items():
             ct = dados.get('ct', 'N/D')
-            if isinstance(ct, (int, float)):
-                ct = f"{ct:.2f}"
+            # FASE 2: Formatar CT (Undetermined → Und)
+            ct = formatar_ct_display(ct)
             
             resultado = dados.get('resultado', 'N/D')
             
@@ -302,8 +303,8 @@ class VisualizadorExame(ctk.CTkToplevel):
         for nome_controle, dados in controles.items():
             tipo = dados.get('tipo', 'N/A')
             ct = dados.get('ct', 'N/D')
-            if isinstance(ct, (int, float)):
-                ct = f"{ct:.2f}"
+            # FASE 2: Formatar CT (Undetermined → Und)
+            ct = formatar_ct_display(ct)
             
             status = dados.get('status', 'desconhecido')
             if status == 'OK':
